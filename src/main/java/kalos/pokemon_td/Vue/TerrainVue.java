@@ -24,7 +24,7 @@ public class TerrainVue {
         Image tileSet;
         ImageView carre;
         try {
-            tileSet = new Image(Objects.requireNonNull(getClass().getResource("tileset_pokemon.png")).openStream());
+            tileSet = new Image(Objects.requireNonNull(getClass().getResource("tileset_32-32.jpg")).openStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -35,10 +35,10 @@ public class TerrainVue {
 
                 switch (a){
                     case 2254:
-                        carre.setViewport(new Rectangle2D(224,256,16,16));
+                        carre.setViewport(new Rectangle2D(0,0,32,32));
                         break;
                     case 2257:
-                        carre.setViewport(new Rectangle2D(272,256,16,16));
+                        carre.setViewport(new Rectangle2D(160,0,32,32));
 
                         break;
                 }

@@ -6,7 +6,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import kalos.pokemon_td.Vue.EnnemiSprite;
 import kalos.pokemon_td.Vue.TerrainVue;
 import kalos.pokemon_td.modele.Terrain;
 
@@ -18,8 +20,7 @@ import java.util.ResourceBundle;
 public class ControlleurMap implements Initializable {
 
     @FXML
-    private AnchorPane pane;
-    private TilePane mapContener;
+    private Pane pane;
 
     private TerrainVue terrainVue;
     private Terrain terrain;
@@ -31,9 +32,18 @@ public class ControlleurMap implements Initializable {
         terrain = new Terrain();
         terrainVue = new TerrainVue();
 
-        mapContener = terrainVue.genereMap(terrain.getMap_test());
+        pane.getChildren().add(terrainVue.genereMap(terrain.getMap_test()));
 
-        pane.getChildren().add(mapContener);
+
+        try {
+            EnnemiSprite a = new EnnemiSprite();
+            pane.getChildren().add(a.getHitBox());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
 
     }
 
