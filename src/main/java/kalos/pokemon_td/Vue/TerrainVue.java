@@ -16,7 +16,21 @@ public class TerrainVue {
         mapVue = new TilePane();
     }
 
-    public TilePane genereMap(int[][] map){
+    public Rectangle2D carreDeDecoupe(int idTuile) {
+        int tailleTuile, largeurTiledSet;
+        largeurTiledSet = 1056;
+        tailleTuile = 32;
+
+
+        int nbTuiles = largeurTiledSet / tailleTuile;
+        int x = tailleTuile * (idTuile % nbTuiles);
+        int y = tailleTuile * (idTuile / nbTuiles);
+
+
+        return new Rectangle2D(x, y, tailleTuile, tailleTuile);
+    }
+
+        public TilePane genereMap(int[][] map){
 
         mapVue.setPrefColumns(map[0].length);
         mapVue.setPrefRows(map.length);
@@ -24,7 +38,7 @@ public class TerrainVue {
         Image tileSet;
         ImageView carre;
         try {
-            tileSet = new Image(Objects.requireNonNull(getClass().getResource("tileset_32-32.jpg")).openStream());
+            tileSet = new Image(Objects.requireNonNull(getClass().getResource("the_tileset.png")).openStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -33,15 +47,7 @@ public class TerrainVue {
             for(int a : ligne){
                 carre = new ImageView(tileSet);
 
-                switch (a){
-                    case 2254:
-                        carre.setViewport(new Rectangle2D(0,0,32,32));
-                        break;
-                    case 2257:
-                        carre.setViewport(new Rectangle2D(160,0,32,32));
-
-                        break;
-                }
+                carre.setViewport(carreDeDecoupe(a));
 
                 mapVue.getChildren().add(carre);
             }

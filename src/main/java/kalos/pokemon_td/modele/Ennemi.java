@@ -56,11 +56,11 @@ public abstract class Ennemi {
         System.out.println("case suivante = " + caseSuiv);
         System.out.println();
 
-        if (caseSuiv == 2254) {
+        if (caseSuiv == 0) {
 
             int[][] model = new int[][] { {1,0}, {0,1} , {0,-1} };
             int n = -1;
-            while (caseSuiv != 2257) {
+            while (caseSuiv != 51) {
                 n++;
                 vecteurAcc[0] = model[n][0];
                 vecteurAcc[1] = model[n][1];
