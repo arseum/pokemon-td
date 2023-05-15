@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="affichage de la map de test en suivant le mcd">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/EnnemiSprite.java" afterDir="false" />
+    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="ajour du sprite ennemie">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Ennemi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Game.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Togepi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Controlleur/ControlleurMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/TerrainVue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/TerrainVue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/test_map.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/test_map.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/EnnemiSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/EnnemiSprite.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,11 +27,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -60,11 +61,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "F:/4_COURS/S2/dev/LoupMoutonIHM",
+    "last_opened_file_path": "F:/4_COURS/S2/dev/exempleGameLoop",
     "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.57701147",
-    "settings.editor.selected.configurable": "project.kotlinCompiler"
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.34071222",
+    "settings.editor.selected.configurable": "preferences.JavaFX"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -191,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684142720168</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ajour du sprite ennemie">
+      <created>1684145818539</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1684145818539</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -210,7 +218,8 @@
     <MESSAGE value="ajout du tileSet + reorganisation du code" />
     <MESSAGE value="bordel" />
     <MESSAGE value="affichage de la map de test en suivant le mcd" />
-    <option name="LAST_COMMIT_MESSAGE" value="affichage de la map de test en suivant le mcd" />
+    <MESSAGE value="ajour du sprite ennemie" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajour du sprite ennemie" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
