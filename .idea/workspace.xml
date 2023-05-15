@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="premiere map de test s'affiche">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Game.java" afterDir="false" />
+    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="ajout du tileSet + reorganisation du code">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/TerrainVue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Terrain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Controlleur/ControlleurMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/test_map.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/test_map.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Controlleur/ControlleurMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Controlleur/tileset_pokemon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Vue/tileset_pokemon.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,19 +56,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/projet/pokemon td&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "F:/4_COURS/S2/dev/LoupMoutonIHM",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.57701147",
+    "settings.editor.selected.configurable": "project.kotlinCompiler"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\manbr\programation\Projet\pokemon td\src\main\resources\kalos\pokemon_td" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\projet\pokemon td\src\main\resources\kalos\pokemon_td\Vue" />
       <recent name="F:\projet\pokemon td\src\main\resources\kalos\pokemon_td\Controlleur" />
       <recent name="C:\Users\manbr\programation\Projet\pokemon td\src\main\resources\kalos\pokemon_td" />
       <recent name="C:\Users\manbr\programation\Projet\pokemon td\src\main\resources\kalos\pokemon_td\Controlleur" />
@@ -165,11 +171,34 @@
       <option name="project" value="LOCAL" />
       <updated>1684135974990</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ajout du tileSet + reorganisation du code">
+      <created>1684137828444</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1684137828444</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="premiere map de test s'affiche" />
-    <option name="LAST_COMMIT_MESSAGE" value="premiere map de test s'affiche" />
+    <MESSAGE value="ajout du tileSet + reorganisation du code" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout du tileSet + reorganisation du code" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
