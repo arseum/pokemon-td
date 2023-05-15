@@ -1,4 +1,4 @@
-package kalos.pokemon_td;
+package kalos.pokemon_td.Controlleur;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -6,6 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import kalos.pokemon_td.modele.Game;
 
 import java.io.*;
 import java.net.URL;
@@ -13,12 +14,17 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
+
+    private Game game;
+
     @FXML
     private TilePane mapContener;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        game = new Game();
 
         int[][] map = {{2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254},
                 {2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254},
@@ -37,6 +43,7 @@ public class ControlleurMap implements Initializable {
                 {2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2257,2254,2254},
                 {2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2254,2257,2254,2254}};
 
+        game.initMap(map.length,map[0].length);
 
         Image tileSet;
         ImageView carre;
@@ -57,11 +64,14 @@ public class ControlleurMap implements Initializable {
                         break;
                     case 2257:
                         carre.setViewport(new Rectangle2D(272,256,16,16));
+                        game.insert(i,j,'#');
                         break;
                 }
 
                 mapContener.getChildren().add(carre);
             }
+
+        game.afficheMapConsole();
     }
 
 

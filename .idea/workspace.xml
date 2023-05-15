@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="premiere map de test s'affiche">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Controlleur/ControlleurMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/test_map.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/test_map.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +25,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="f16e3121-907b-4984-886d-f01ddfa6e018" />
+        <option name="url" value="https://github.com/arseum/pokemon-td" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -51,10 +68,12 @@
       <recent name="C:\Users\manbr\programation\Projet\pokemon td\src\main\resources\kalos\pokemon_td" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\projet\pokemon td\src\main\resources\kalos\pokemon_td\Controlleur" />
       <recent name="C:\Users\manbr\programation\Projet\pokemon td\src\main\resources\kalos\pokemon_td" />
       <recent name="C:\Users\manbr\programation\Projet\pokemon td\src\main\resources\kalos\pokemon_td\Controlleur" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="kalos.pokemon_td.Controlleur" />
       <recent name="kalos.pokemon_td" />
     </key>
   </component>
@@ -64,7 +83,7 @@
       <module name="pokemon_td" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="kalos.pokemon_td.*" />
+          <option name="PATTERN" value="kalos.pokemon_td.Controlleur.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -139,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684074649850</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="premiere map de test s'affiche">
+      <created>1684135974989</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1684135974990</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
