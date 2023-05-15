@@ -18,8 +18,8 @@ public class TerrainVue {
 
     public TilePane genereMap(int[][] map){
 
-        mapVue.setPrefColumns(map.length);
-        mapVue.setPrefRows(map[0].length);
+        mapVue.setPrefColumns(map[0].length);
+        mapVue.setPrefRows(map.length);
 
         Image tileSet;
         ImageView carre;
