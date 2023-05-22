@@ -11,7 +11,7 @@ public class Game {
     private ArrayList<Ennemi> listEnnemi;
     private IntegerProperty pokedollar;
 
-    public Game(){
+    public Game() {
         terrain = new Terrain();
         listEnnemi = new ArrayList<>();
         pokedollar = new SimpleIntegerProperty(300);
@@ -29,11 +29,11 @@ public class Game {
         return pokedollar.get();
     }
 
-    public void ajoutePokedollar(int value){
+    public void ajoutePokedollar(int value) {
         pokedollar.setValue(pokedollar.get() + value);
     }
 
-    public void ajouteEnnemi(Ennemi e){
+    public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
         e.setGame(this);
     }
@@ -42,9 +42,9 @@ public class Game {
         return listEnnemi;
     }
 
-    public void uneFrame(){
+    public void uneFrame() {
 
-        for (Ennemi e : listEnnemi){
+        for (Ennemi e : listEnnemi) {
             e.seDeplace();
         }
 

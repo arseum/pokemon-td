@@ -3,7 +3,6 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-import java.io.IOException;
 
 public abstract class Ennemi {
 
@@ -23,7 +22,7 @@ public abstract class Ennemi {
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        this.vecteurAcc = new int[] {1,0};
+        this.vecteurAcc = new int[]{1, 0};
         this.recompense = recompense;
         this.nom = pokemon;
     }
@@ -35,54 +34,61 @@ public abstract class Ennemi {
     public int getVitesse() {
         return vitesse;
     }
+
     public int getHp() {
         return hp;
     }
+
     public String getType() {
         return type;
     }
+
     public int getX() {
         return x.get();
     }
+
     public IntegerProperty xProperty() {
         return x;
     }
+
     public int getY() {
         return y.get();
     }
+
     public IntegerProperty yProperty() {
         return y;
     }
+
     public void setGame(Game game) {
         this.game = game;
     }
 
-    public void seDeplace(){
+    public void seDeplace() {
 
-        int caseSuiv = game.getTerrain().getMap_test()[getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
+        int caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
 
         if (caseSuiv == 0) {
 
-            int[][] model = new int[][] { {1,0}, {0,1} , {0,-1} };
+            int[][] model = new int[][]{{1, 0}, {0, 1}, {0, -1}};
             int n = -1;
             while (caseSuiv != 51) {
                 n++;
                 vecteurAcc[0] = model[n][0];
                 vecteurAcc[1] = model[n][1];
-                caseSuiv= game.getTerrain().getMap_test()[getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
+                caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
             }
         }
-        this.xProperty().set(this.getX() + this.getVitesse()* vecteurAcc[0] );  // 2 lignes du déplacement
-        this.yProperty().set(this.getY() + this.getVitesse()* vecteurAcc[1] );
+        this.xProperty().set(this.getX() + this.getVitesse() * vecteurAcc[0]);  // 2 lignes du déplacement
+        this.yProperty().set(this.getY() + this.getVitesse() * vecteurAcc[1]);
     }
 
-    public void diminueHP(int value){
+    public void diminueHP(int value) {
         hp -= value;
         if (hp <= 0)
             this.meurt();
     }
 
-    public void meurt(){
+    public void meurt() {
         game.getListEnnemi().remove(this);
         //donne de l'argent au joueur
         game.ajoutePokedollar(recompense);

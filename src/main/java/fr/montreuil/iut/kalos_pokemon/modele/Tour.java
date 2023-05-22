@@ -23,24 +23,29 @@ public abstract class Tour {
     public int getPortee() {
         return portee;
     }
+
     public int getDPS() {
         return DPS;
     }
+
     public int getX() {
         return x.get();
     }
+
     public IntegerProperty xProperty() {
         return x;
     }
+
     public int getY() {
         return y.get();
     }
+
     public IntegerProperty yProperty() {
         return y;
     }
 
 
-    public void attaquer(Ennemi ennemi){
+    public void attaquer(Ennemi ennemi) {
         ennemi.diminueHP(getDPS());
     }
 }

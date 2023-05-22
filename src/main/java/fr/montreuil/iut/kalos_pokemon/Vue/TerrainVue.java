@@ -12,7 +12,7 @@ public class TerrainVue {
 
     private TilePane mapVue;
 
-    public TerrainVue(){
+    public TerrainVue() {
         mapVue = new TilePane();
     }
 
@@ -30,7 +30,7 @@ public class TerrainVue {
         return new Rectangle2D(x, y, tailleTuile, tailleTuile);
     }
 
-        public TilePane genereMap(int[][] map){
+    public TilePane genereMap(int[][] map) {
 
         mapVue.setPrefColumns(map[0].length);
         mapVue.setPrefRows(map.length);
@@ -43,8 +43,8 @@ public class TerrainVue {
             throw new RuntimeException(e);
         }
 
-        for(int[] ligne : map)
-            for(int a : ligne){
+        for (int[] ligne : map)
+            for (int a : ligne) {
                 carre = new ImageView(tileSet);
 
                 carre.setViewport(carreDeDecoupe(a));

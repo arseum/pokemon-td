@@ -9,6 +9,10 @@ import java.io.IOException;
 
 
 public class main extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("test_map.fxml"));
@@ -16,10 +20,6 @@ public class main extends Application {
         stage.setTitle("Pokemon TD !");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }
