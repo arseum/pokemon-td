@@ -4,27 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="ajout images">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="refactor nom des packages selon la norme">
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Poussifeu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Tour.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/EnnemiSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EnnemiSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/Vue/TerrainVue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/TerrainVue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Ennemi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Terrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Terrain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kalos/pokemon_td/modele/Togepi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Togepi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Vue/the_tileset.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/the_tileset.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Vue/tileset_32-32.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/tileset_32-32.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Vue/tileset_pokemon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/tileset_pokemon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Vue/togepi (2).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/togepi (2).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Vue/togepi.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/togepi.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/Vue/togepi.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/togepi.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/map_test_2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/map_test_2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kalos/pokemon_td/test_map.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/test_map.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EnnemiSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EntiteSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/togepi (2).png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +26,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -186,7 +178,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1683897441324</updated>
-      <workItem from="1684740378032" duration="610000" />
+      <workItem from="1684740378032" duration="8147000" />
     </task>
     <task id="LOCAL-00001" summary="premiere map de test s'affiche">
       <created>1684074649850</created>
@@ -244,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684163465420</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="refactor nom des packages selon la norme">
+      <created>1684741085768</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684741085768</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +268,8 @@
     <MESSAGE value="ajour du sprite ennemie" />
     <MESSAGE value="deplacement du togepi" />
     <MESSAGE value="ajout images" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout images" />
+    <MESSAGE value="refactor nom des packages selon la norme" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor nom des packages selon la norme" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

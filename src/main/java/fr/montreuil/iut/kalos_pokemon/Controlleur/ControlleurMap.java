@@ -1,13 +1,14 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
+import fr.montreuil.iut.kalos_pokemon.modele.Poussifeu;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
+import fr.montreuil.iut.kalos_pokemon.Vue.EntiteSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Togepi;
 
@@ -19,9 +20,7 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Pane pane;
-
     private Timeline gameLoop;
-
     private int temps;
     private TerrainVue terrainVue;
     private Game game;
@@ -35,15 +34,26 @@ public class ControlleurMap implements Initializable {
         game = new Game();
         terrainVue = new TerrainVue();
 
-        pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getMap_test()));
+        pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getMap_test())); //affiche terrain
 
         Togepi togepi = new Togepi(0,5*32);
+        Poussifeu poussifeu = new Poussifeu(5*32,5*32);
 
         try {
-            EnnemiSprite a = new EnnemiSprite();
+            EntiteSprite a;
+            a = EntiteSprite.creerEntite("togepi");
             a.getHitBox().xProperty().bind(togepi.xProperty());
             a.getHitBox().yProperty().bind(togepi.yProperty());
             pane.getChildren().add(a.getHitBox());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            EntiteSprite b;
+            b = EntiteSprite.creerEntite("poussifeu");
+            b.getHitBox().xProperty().bind(poussifeu.xProperty());
+            b.getHitBox().yProperty().bind(poussifeu.yProperty());
+            pane.getChildren().add(b.getHitBox());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,6 +63,7 @@ public class ControlleurMap implements Initializable {
         gameLoop.play();
 
     }
+
 
     private void initAnimation() {
         gameLoop = new Timeline();

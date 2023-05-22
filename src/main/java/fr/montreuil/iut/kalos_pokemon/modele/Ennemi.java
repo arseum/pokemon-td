@@ -7,10 +7,10 @@ public abstract class Ennemi {
 
     private int vitesse;
     private int hp;
-    private String type;
+    private String type; //TODO  type enumerate
     private IntegerProperty x;
     private IntegerProperty y;
-    private int[] vecteurAcc;
+    private int[] vecteurAcc; //TODO CLASSE VECTEUR
 
     private  Game game;
 
@@ -48,6 +48,10 @@ public abstract class Ennemi {
         this.game = game;
     }
 
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
     public void seDeplace(){
 
         int caseSuiv= game.getTerrain().getMap_test()[getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
@@ -71,6 +75,8 @@ public abstract class Ennemi {
         this.yProperty().set(this.getY() + this.getVitesse()* vecteurAcc[1] );
     }
 
-
+public void subirDmg(int degats){
+        setHp(getHp()-degats);
+}
 
 }
