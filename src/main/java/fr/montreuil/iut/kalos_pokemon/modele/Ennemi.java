@@ -11,16 +11,18 @@ public abstract class Ennemi {
     private IntegerProperty x;
     private IntegerProperty y;
     private int[] vecteurAcc;
+    private int recompense;
 
     private  Game game;
 
-    public Ennemi(int vitesse, int hp, String type, int x, int y) {
+    public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense) {
         this.vitesse = vitesse;
         this.hp = hp;
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.vecteurAcc = new int[] {1,0};
+        this.recompense = recompense;
     }
 
     public int getVitesse() {
@@ -50,7 +52,7 @@ public abstract class Ennemi {
 
     public void seDeplace(){
 
-        int caseSuiv= game.getTerrain().getMap_test()[getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
+        int caseSuiv= game.getTerrain().getMap_test()[ getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
 
         if (caseSuiv == 0) {
 
