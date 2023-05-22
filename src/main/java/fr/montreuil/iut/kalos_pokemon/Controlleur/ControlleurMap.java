@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Vue.EntiteSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -38,13 +39,12 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getMap_test()));
 
         Togepi togepi = new Togepi(0,5*32);
-
-        EntiteSprite a = new EntiteSprite();
-        a.getHitBox().xProperty().bind(togepi.xProperty());
-        a.getHitBox().yProperty().bind(togepi.yProperty());
-        pane.getChildren().add(a.getHitBox());
-
         game.ajouteEnnemi(togepi);
+        try {
+            creerSrite(togepi);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         gameLoop.play();
 
@@ -74,4 +74,13 @@ public class ControlleurMap implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+    /**
+     * creer une entite sprite pour un ennemi + fait les bind pour les deplacement
+     */
+    private void creerSrite(Ennemi ennemi) throws IOException{
+        EntiteSprite togepiSrite = new EntiteSprite(ennemi.getNom());
+        togepiSrite.getHitBox().xProperty().bind(ennemi.xProperty());
+        togepiSrite.getHitBox().yProperty().bind(ennemi.yProperty());
+        pane.getChildren().add(togepiSrite.getHitBox());
+    }
 }

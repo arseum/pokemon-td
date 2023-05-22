@@ -1,7 +1,10 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Vue.EntiteSprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+
+import java.io.IOException;
 
 public abstract class Ennemi {
 
@@ -12,10 +15,10 @@ public abstract class Ennemi {
     private IntegerProperty y;
     private int[] vecteurAcc;
     private int recompense;
+    private String nom;
+    private Game game;
 
-    private  Game game;
-
-    public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense) {
+    public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon) {
         this.vitesse = vitesse;
         this.hp = hp;
         this.type = type;
@@ -23,6 +26,11 @@ public abstract class Ennemi {
         this.y = new SimpleIntegerProperty(y);
         this.vecteurAcc = new int[] {1,0};
         this.recompense = recompense;
+        this.nom = pokemon;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public int getVitesse() {
