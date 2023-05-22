@@ -5,4 +5,4 @@ défensives. »(Wikipédia).
 
 Nous avons comme projet de fin de premiere année en devellopement, la consigne de créer nous même un jeu de TD, en utilisant javaFX et tiled pour l'affichage.
 
-Nous avons choisi l'Univers de pokemon pour son univers garni de monsrtes en tout genre, parfait comme outil a modeler a notre guise. 
+Nous avons choisi l'Univers de pokemon pour son univers garni de monstres en tout genre, parfait comme outil a modeler a notre guise. 
