@@ -13,7 +13,7 @@ public abstract class Ennemi {
     private int[] vecteurAcc;
     private int recompense;
 
-    private Game game;
+    private  Game game;
 
     public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense) {
         this.vitesse = vitesse;
@@ -52,7 +52,11 @@ public abstract class Ennemi {
 
     public void seDeplace(){
 
-        int caseSuiv= game.getTerrain().getMap_test()[ getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
+        int caseSuiv= game.getTerrain().getMap_test()[getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
+
+        System.out.println("x = " + (getX()/32+vecteurAcc[0]) + " - y = " + (getY()/32 + vecteurAcc[1]));
+        System.out.println("case suivante = " + caseSuiv);
+        System.out.println();
 
         if (caseSuiv == 0) {
 
