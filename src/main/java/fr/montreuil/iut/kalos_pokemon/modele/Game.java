@@ -34,9 +34,12 @@ public class Game {
     }
 
     public void ajouteEnnemi(Ennemi e){
-
         this.listEnnemi.add(e);
         e.setGame(this);
+    }
+
+    public ArrayList<Ennemi> getListEnnemi() {
+        return listEnnemi;
     }
 
     public void uneFrame(){

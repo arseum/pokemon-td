@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="ajout des pokedollar">
+    <list default="true" id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="ajout d'un attribut recompense pour les ennemis">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -234,7 +237,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684747921259</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="supression des sout + le jouer commence avec 300 $">
+      <created>1684748348726</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684748348726</updated>
+    </task>
+    <task id="LOCAL-00011" summary="ajout d'un attribut recompense pour les ennemis">
+      <created>1684748570685</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684748570685</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -269,7 +286,9 @@
     <MESSAGE value="deplacement du togepi" />
     <MESSAGE value="ajout images" />
     <MESSAGE value="ajout des pokedollar" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout des pokedollar" />
+    <MESSAGE value="supression des sout + le jouer commence avec 300 $" />
+    <MESSAGE value="ajout d'un attribut recompense pour les ennemis" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout d'un attribut recompense pour les ennemis" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

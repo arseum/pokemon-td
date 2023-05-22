@@ -38,7 +38,7 @@ public class ControlleurMap implements Initializable {
         terrainVue = new TerrainVue();
 
         // creation du label pour les pokedollar
-        Label label = new Label("- $");
+        Label label = new Label("300 $");
         label.setLayoutX(920);
         label.setLayoutY(10);
         label.setPrefWidth(50);
@@ -83,6 +83,9 @@ public class ControlleurMap implements Initializable {
                     }
                     else if (frame%2==0){
                         game.uneFrame();
+                    }
+                    if (frame == 1000){
+                        game.getListEnnemi().get(0).meurt();
                     }
                     frame++;
                 })

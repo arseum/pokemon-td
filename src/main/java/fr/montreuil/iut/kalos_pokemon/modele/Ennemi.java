@@ -13,7 +13,7 @@ public abstract class Ennemi {
     private int[] vecteurAcc;
     private int recompense;
 
-    private  Game game;
+    private Game game;
 
     public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense) {
         this.vitesse = vitesse;
@@ -69,6 +69,18 @@ public abstract class Ennemi {
         this.yProperty().set(this.getY() + this.getVitesse()* vecteurAcc[1] );
     }
 
+    public void diminueHP(int value){
+        hp -= value;
+        if (hp <= 0)
+            this.meurt();
+    }
 
+    public void meurt(){
+        game.getListEnnemi().remove(this);
+        //donne de l'argent au joueur
+        game.ajoutePokedollar(recompense);
+
+        //supprime le sprite du pokemon
+    }
 
 }
