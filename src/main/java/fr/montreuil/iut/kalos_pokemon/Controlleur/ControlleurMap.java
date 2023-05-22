@@ -5,6 +5,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
@@ -22,7 +24,7 @@ public class ControlleurMap implements Initializable {
 
     private Timeline gameLoop;
 
-    private int temps;
+    private int frame;
     private TerrainVue terrainVue;
     private Game game;
 
@@ -35,10 +37,20 @@ public class ControlleurMap implements Initializable {
         game = new Game();
         terrainVue = new TerrainVue();
 
-        pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getMap_test()));
+        // creation du label pour les pokedollar
+        Label label = new Label("0 $");
+        label.setLayoutX(920);
+        label.setLayoutY(10);
+        label.setPrefWidth(50);
+        label.setPrefHeight(15);
+        label.setAlignment(Pos.CENTER);
+        label.getStyleClass().add("labelDollar");
+        game.PokedollarProperty().addListener((observableValue, number, t1) -> label.setText(t1 + " $"));
 
+        pane.getChildren().addAll(terrainVue.genereMap(game.getTerrain().getMap_test()),label);
+
+        //test
         Togepi togepi = new Togepi(0,5*32);
-
         try {
             EnnemiSprite a = new EnnemiSprite();
             a.getHitBox().xProperty().bind(togepi.xProperty());
@@ -47,16 +59,16 @@ public class ControlleurMap implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         game.ajouteEnnemi(togepi);
 
+        //lancement de la game loop
         gameLoop.play();
 
     }
 
     private void initAnimation() {
         gameLoop = new Timeline();
-        temps=0;
+        frame=0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
@@ -65,14 +77,17 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    if(temps==5000){
+                    if(frame==5000){
                         System.out.println("fini");
                         gameLoop.stop();
                     }
-                    else if (temps%2==0){
+                    else if (frame%2==0){
                         game.uneFrame();
                     }
-                    temps++;
+                    if (frame%60==0){ //toute les secondes a priori
+                        game.ajoutePokedollar(10);
+                    }
+                    frame++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
