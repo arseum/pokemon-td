@@ -1,4 +1,4 @@
-package kalos.pokemon_td.Vue;
+package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

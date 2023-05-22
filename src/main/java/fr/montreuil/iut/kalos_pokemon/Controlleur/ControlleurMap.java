@@ -1,26 +1,18 @@
-package kalos.pokemon_td.Controlleur;
+package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
+import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import kalos.pokemon_td.Vue.EnnemiSprite;
-import kalos.pokemon_td.Vue.TerrainVue;
-import kalos.pokemon_td.modele.Game;
-import kalos.pokemon_td.modele.Terrain;
-import kalos.pokemon_td.modele.Togepi;
+import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Togepi;
 
 import java.io.*;
 import java.net.URL;
-import java.time.chrono.ThaiBuddhistChronology;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {

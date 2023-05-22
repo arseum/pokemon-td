@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>kalos.pokemon_td/kalos.pokemon_td.main</mainClass>
+                            <mainClass>kalos.pokemon_td/fr.montreuil.iut.kalos_pokemon.main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

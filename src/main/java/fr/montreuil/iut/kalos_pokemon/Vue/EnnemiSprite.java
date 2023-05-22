@@ -1,4 +1,4 @@
-package kalos.pokemon_td.Vue;
+package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

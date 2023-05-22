@@ -3,8 +3,8 @@ module kalos.pokemon_td {
     requires javafx.fxml;
 
 
-    opens kalos.pokemon_td to javafx.fxml;
-    exports kalos.pokemon_td;
-    exports kalos.pokemon_td.Controlleur;
-    opens kalos.pokemon_td.Controlleur to javafx.fxml;
+    opens fr.montreuil.iut.kalos_pokemon to javafx.fxml;
+    exports fr.montreuil.iut.kalos_pokemon;
+    exports fr.montreuil.iut.kalos_pokemon.Controlleur;
+    opens fr.montreuil.iut.kalos_pokemon.Controlleur to javafx.fxml;
 }

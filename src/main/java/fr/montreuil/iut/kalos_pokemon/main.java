@@ -1,4 +1,4 @@
-package kalos.pokemon_td;
+package fr.montreuil.iut.kalos_pokemon;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
