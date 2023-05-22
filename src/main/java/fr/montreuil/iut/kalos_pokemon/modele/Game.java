@@ -14,7 +14,7 @@ public class Game {
     public Game(){
         terrain = new Terrain();
         listEnnemi = new ArrayList<>();
-        pokedollar = new SimpleIntegerProperty(0);
+        pokedollar = new SimpleIntegerProperty(300);
     }
 
     public Terrain getTerrain() {
