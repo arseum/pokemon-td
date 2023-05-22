@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="refactor nom des packages selon la norme">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/poussifeu.png" afterDir="false" />
+    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="ajout d'une fonction creerSprite">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EntiteSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EntiteSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EntiteSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EnnemiSprite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Togepi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Togepi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Tour.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

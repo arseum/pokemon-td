@@ -3,7 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Tour {
+public abstract class Tour {
     private int portee;
     private int DPS;
     private String type;

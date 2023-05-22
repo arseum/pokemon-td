@@ -1,6 +1,5 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.Vue.EntiteSprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -60,11 +59,7 @@ public abstract class Ennemi {
 
     public void seDeplace(){
 
-        int caseSuiv= game.getTerrain().getMap_test()[getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
-
-        System.out.println("x = " + (getX()/32+vecteurAcc[0]) + " - y = " + (getY()/32 + vecteurAcc[1]));
-        System.out.println("case suivante = " + caseSuiv);
-        System.out.println();
+        int caseSuiv = game.getTerrain().getMap_test()[getY()/32 + vecteurAcc[1] ][getX()/32+vecteurAcc[0]];
 
         if (caseSuiv == 0) {
 

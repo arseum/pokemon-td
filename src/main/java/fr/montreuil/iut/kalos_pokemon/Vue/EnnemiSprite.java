@@ -6,12 +6,12 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.Objects;
 
-public class EntiteSprite {
+public class EnnemiSprite {
 
     private ImageView hitBox;
 
-    public EntiteSprite(String pokemon)throws IOException {
-        hitBox = new ImageView(new Image(Objects.requireNonNull(EntiteSprite.class.getResource(pokemon+".png")).openStream()));
+    public EnnemiSprite(String pokemon)throws IOException {
+        hitBox = new ImageView(new Image(Objects.requireNonNull(EnnemiSprite.class.getResource(pokemon+".png")).openStream()));
     }
 
     public ImageView getHitBox() {

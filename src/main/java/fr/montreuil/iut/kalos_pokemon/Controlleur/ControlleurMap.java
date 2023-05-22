@@ -1,12 +1,15 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
-import fr.montreuil.iut.kalos_pokemon.Vue.EntiteSprite;
+import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Poussifeu;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -31,17 +34,25 @@ public class ControlleurMap implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        initAnimation();
-
+        //inevitable debut de initialize
         game = new Game();
         terrainVue = new TerrainVue();
-
         pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getMap_test()));
 
+        //init game loop + label utile
+        initAnimation();
+        initLabel();
+
+        //ajout d'un togepi et d'un poussifeu
         Togepi togepi = new Togepi(0,5*32);
+        Poussifeu poussifeu = new Poussifeu(5*32,5*32);
         game.ajouteEnnemi(togepi);
         try {
             creerSrite(togepi);
+            EnnemiSprite poussifeuSprite = new EnnemiSprite("poussifeu");
+            poussifeuSprite.getHitBox().xProperty().bind(poussifeu.xProperty());
+            poussifeuSprite.getHitBox().yProperty().bind(poussifeu.yProperty());
+            pane.getChildren().add(poussifeuSprite.getHitBox());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -74,13 +85,27 @@ public class ControlleurMap implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+    private void initLabel(){
+        // creation du label pour les pokedollar
+        Label labelDollar = new Label("300 $");
+        labelDollar.setLayoutX(920);
+        labelDollar.setLayoutY(10);
+        labelDollar.setPrefWidth(50);
+        labelDollar.setPrefHeight(15);
+        labelDollar.setAlignment(Pos.CENTER);
+        labelDollar.getStyleClass().add("labelDollar");
+        game.PokedollarProperty().addListener((observableValue, number, t1) -> labelDollar.setText(t1 + " $"));
+        pane.getChildren().add(labelDollar);
+    }
+
     /**
      * creer une entite sprite pour un ennemi + fait les bind pour les deplacement
      */
     private void creerSrite(Ennemi ennemi) throws IOException{
-        EntiteSprite togepiSrite = new EntiteSprite(ennemi.getNom());
+        EnnemiSprite togepiSrite = new EnnemiSprite(ennemi.getNom());
         togepiSrite.getHitBox().xProperty().bind(ennemi.xProperty());
         togepiSrite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(togepiSrite.getHitBox());
     }
+
 }
