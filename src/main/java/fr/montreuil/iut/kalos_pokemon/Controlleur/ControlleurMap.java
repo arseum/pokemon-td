@@ -2,10 +2,8 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Poussifeu;
-import fr.montreuil.iut.kalos_pokemon.modele.Togepi;
+import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
+import fr.montreuil.iut.kalos_pokemon.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -48,11 +46,8 @@ public class ControlleurMap implements Initializable {
         Poussifeu poussifeu = new Poussifeu(5 * 32, 5 * 32);
         game.ajouteEnnemi(togepi);
         try {
-            creerSrite(togepi);
-            EnnemiSprite poussifeuSprite = new EnnemiSprite("poussifeu");
-            poussifeuSprite.getHitBox().xProperty().bind(poussifeu.xProperty());
-            poussifeuSprite.getHitBox().yProperty().bind(poussifeu.yProperty());
-            pane.getChildren().add(poussifeuSprite.getHitBox());
+            creerEnnemiSprite(togepi);
+            creerTourSprite(poussifeu);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -100,11 +95,29 @@ public class ControlleurMap implements Initializable {
     /**
      * creer une entite sprite pour un ennemi + fait les bind pour les deplacement
      */
-    private void creerSrite(Ennemi ennemi) throws IOException {
-        EnnemiSprite togepiSrite = new EnnemiSprite(ennemi.getNom());
-        togepiSrite.getHitBox().xProperty().bind(ennemi.xProperty());
-        togepiSrite.getHitBox().yProperty().bind(ennemi.yProperty());
-        pane.getChildren().add(togepiSrite.getHitBox());
+    private void creerEnnemiSprite(Ennemi ennemi) throws IOException {
+        EnnemiSprite Sprite = new EnnemiSprite(ennemi.getNom());
+        Sprite.getHitBox().xProperty().bind(ennemi.xProperty());
+        Sprite.getHitBox().yProperty().bind(ennemi.yProperty());
+        pane.getChildren().add(Sprite.getHitBox());
+    }
+
+    private void creerTourSprite(Tour tour) throws IOException {
+        TourSprite Sprite = new TourSprite(tour);
+        Sprite.getSprite().xProperty().bind(tour.xProperty());
+        Sprite.getSprite().yProperty().bind(tour.yProperty());
+        pane.getChildren().add(Sprite.getSprite());
+
+        Sprite.getSprite().setOnMouseClicked(event -> {
+            if (Sprite.isClickActif()) {
+                pane.getChildren().remove(Sprite.getRange());
+            } else {
+                pane.getChildren().add(Sprite.getRange());
+            }
+            Sprite.clickChange();
+            System.out.println("Tour cliquée !");
+        });
+
     }
 
 }

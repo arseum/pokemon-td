@@ -4,3 +4,7 @@
     -fx-font-size: 15pt;
     -fx-opacity: 0.6;
 }
+
+.rangeTour {
+    -fx-opacity: 0.4;
+}
