@@ -2,18 +2,20 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
 public class Game {
 
     private Terrain terrain;
-    private ArrayList<Ennemi> listEnnemi;
+    private ObservableList<Ennemi> listEnnemi;
     private IntegerProperty pokedollar;
 
     public Game() {
         terrain = new Terrain();
-        listEnnemi = new ArrayList<>();
+        listEnnemi = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
 
@@ -38,16 +40,43 @@ public class Game {
         e.setGame(this);
     }
 
-    public ArrayList<Ennemi> getListEnnemi() {
+    public ObservableList<Ennemi> getListEnnemi() {
         return listEnnemi;
     }
 
+    /**
+     * methode appeler a chaque frame
+     * utilisé notament pour les deplacements
+     */
     public void uneFrame() {
 
         for (Ennemi e : listEnnemi) {
             e.seDeplace();
         }
 
+    }
+
+    /**
+     * methode appeler toutes les 30 frames (soit 1/2s )
+     * utilisé pour faire des tests sur la mort des pokemons
+     */
+    public void demiSeconde() {
+
+        for (Ennemi e : listEnnemi) {
+            e.diminueHP(5);
+        }
+
+        for (int i = listEnnemi.size() -1 ; i >= 0 ; i-- ){
+            if (listEnnemi.get(i).getHp() <= 0){
+                //donne de l'argent au joueur
+                this.ajoutePokedollar(listEnnemi.get(i).getRecompense());
+
+                //supprime le sprite du pokemon
+
+                //puis on le supprime
+                listEnnemi.remove(i);
+            }
+        }
     }
 
 }

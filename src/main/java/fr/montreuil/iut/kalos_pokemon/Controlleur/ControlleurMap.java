@@ -6,6 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -49,6 +50,26 @@ public class ControlleurMap implements Initializable {
             throw new RuntimeException(e);
         }
 
+        //creation du listener qui va ecouter la list des ennemi de game
+        ListChangeListener<Ennemi> listen =(c ->{
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (Ennemi a : c.getAddedSubList()) {
+                        try {
+                            creerEnnemiSprite(a);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (Ennemi a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                    }
+            }
+        });
+        game.getListEnnemi().addListener(listen);
+
+        //lancement de la game loop
         gameLoop.play();
 
     }
@@ -67,18 +88,18 @@ public class ControlleurMap implements Initializable {
                     if (frame == 5000) {
                         System.out.println("fini");
                         gameLoop.stop();
-                    } else if (frame % 2 == 0) {
+                    }
+                    if (frame % 2 == 0) {
                         game.uneFrame();
                     }
+                    if (frame % 30 == 0) {
+                        game.demiSeconde();
+                    }
 
+                    //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60*5) == 0){
                         Togepi togepi = new Togepi(0, 5 * 32);
                         game.ajouteEnnemi(togepi);
-                        try {
-                            creerEnnemiSprite(togepi);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
                     }
                     frame++;
                 })
@@ -103,7 +124,7 @@ public class ControlleurMap implements Initializable {
      * creer une entite sprite pour un ennemi + fait les bind pour les deplacement
      */
     private void creerEnnemiSprite(Ennemi ennemi) throws IOException {
-        EnnemiSprite Sprite = new EnnemiSprite(ennemi.getNom());
+        EnnemiSprite Sprite = new EnnemiSprite(ennemi);
         Sprite.getHitBox().xProperty().bind(ennemi.xProperty());
         Sprite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(Sprite.getHitBox());

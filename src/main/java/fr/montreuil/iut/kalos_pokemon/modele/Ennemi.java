@@ -15,8 +15,12 @@ public abstract class Ennemi {
     private int recompense;
     private String nom;
     private Game game;
+    private static int compteurID = 1;
+    private String id;
 
     public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon) {
+        this.id = "n°" + compteurID;
+        compteurID++;
         this.vitesse = vitesse;
         this.hp = hp;
         this.type = type;
@@ -25,6 +29,14 @@ public abstract class Ennemi {
         this.vecteurAcc = new int[]{1, 0};
         this.recompense = recompense;
         this.nom = pokemon;
+    }
+
+    public int getRecompense() {
+        return recompense;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getNom() {
@@ -84,16 +96,7 @@ public abstract class Ennemi {
 
     public void diminueHP(int value) {
         hp -= value;
-        if (hp <= 0)
-            this.meurt();
     }
 
-    public void meurt() {
-        game.getListEnnemi().remove(this);
-        //donne de l'argent au joueur
-        game.ajoutePokedollar(recompense);
-
-        //supprime le sprite du pokemon
-    }
 
 }

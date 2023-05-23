@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -10,8 +11,9 @@ public class EnnemiSprite {
 
     private ImageView hitBox;
 
-    public EnnemiSprite(String pokemon) throws IOException {
-        hitBox = new ImageView(new Image(Objects.requireNonNull(EnnemiSprite.class.getResource(pokemon + ".png")).openStream()));
+    public EnnemiSprite(Ennemi ennemi) throws IOException {
+        hitBox = new ImageView(new Image(Objects.requireNonNull(EnnemiSprite.class.getResource(ennemi.getNom() + ".png")).openStream()));
+        hitBox.setId(ennemi.getId());
     }
 
     public ImageView getHitBox() {
