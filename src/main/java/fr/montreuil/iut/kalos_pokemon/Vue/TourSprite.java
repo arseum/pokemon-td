@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
@@ -22,8 +23,8 @@ public class TourSprite {
     }
 
     private void creationCercleRange() {
-        range.centerXProperty().bind(sprite.xProperty());
-        range.centerYProperty().bind(sprite.yProperty());
+        range.centerXProperty().bind(sprite.xProperty().add(sprite.getImage().getWidth()/2));
+        range.centerYProperty().bind(sprite.yProperty().add(sprite.getImage().getHeight()/2));
         range.getStyleClass().add("rangeTour");
     }
 

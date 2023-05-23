@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="debut de la creation du fonctionnement qui permet de voir la range d'une tour">
+    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="jspa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/TourSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/TourSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684765110380</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="jspa">
+      <created>1684831512982</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1684831512982</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +307,8 @@
     <MESSAGE value="fusion des 2 branches terminer" />
     <MESSAGE value="creation branche dev" />
     <MESSAGE value="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
-    <option name="LAST_COMMIT_MESSAGE" value="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
+    <MESSAGE value="jspa" />
+    <option name="LAST_COMMIT_MESSAGE" value="jspa" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
