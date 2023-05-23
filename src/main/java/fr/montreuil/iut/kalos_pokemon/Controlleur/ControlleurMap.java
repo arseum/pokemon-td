@@ -10,8 +10,11 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -39,9 +42,8 @@ public class ControlleurMap implements Initializable {
         game = new Game();
         terrainVue = new TerrainVue();
         terrainDecor = new TerrainVue();
-
-
-        pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getArrierePlan()));
+        TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
+        pane.getChildren().add(map);
         //Todo : le decor n'est plus charge
         if(game.getTerrain().getDecor() != null){
             pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
@@ -77,6 +79,18 @@ public class ControlleurMap implements Initializable {
             }
         });
         game.getListEnnemi().addListener(listen);
+
+        //ajout d'un lambda sur la map lors d'un click
+        pane.setOnMouseClicked(event -> {
+            //System.out.println(event.toString());
+            for (Node node : pane.getChildren()){
+                if (node instanceof Circle && event.getTarget() instanceof TilePane){
+                    if (node.isVisible()) {
+                        node.setVisible(false);
+                    }
+                }
+            }
+        });
 
         //lancement de la game loop
         gameLoop.play();
@@ -144,15 +158,10 @@ public class ControlleurMap implements Initializable {
         Sprite.getSprite().xProperty().bind(tour.xProperty());
         Sprite.getSprite().yProperty().bind(tour.yProperty());
         pane.getChildren().add(Sprite.getSprite());
+        pane.getChildren().add(Sprite.getRange());
 
         Sprite.getSprite().setOnMouseClicked(event -> {
-            if (Sprite.isClickActif()) {
-                pane.getChildren().remove(Sprite.getRange());
-            } else {
-                pane.getChildren().add(Sprite.getRange());
-            }
-            Sprite.clickChange();
-            System.out.println("Tour cliquée !");
+            Sprite.getRange().setVisible(true);
         });
 
     }

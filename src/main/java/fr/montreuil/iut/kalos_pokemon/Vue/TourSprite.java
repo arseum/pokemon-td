@@ -13,11 +13,9 @@ public class TourSprite {
 
     private ImageView sprite;
     private Circle range;
-    private boolean clickActif;
 
     public TourSprite(Tour pokemon) throws IOException {
         sprite = new ImageView(new Image(Objects.requireNonNull(EnnemiSprite.class.getResource(pokemon.getNom() + ".png")).openStream()));
-        clickActif = false;
         range = new Circle(pokemon.getPortee());
         creationCercleRange();
     }
@@ -26,6 +24,7 @@ public class TourSprite {
         range.centerXProperty().bind(sprite.xProperty().add(sprite.getImage().getWidth()/2));
         range.centerYProperty().bind(sprite.yProperty().add(sprite.getImage().getHeight()/2));
         range.getStyleClass().add("rangeTour");
+        range.setVisible(false);
     }
 
     public ImageView getSprite() {
@@ -35,10 +34,4 @@ public class TourSprite {
     public Circle getRange() {
         return range;
     }
-
-    public boolean isClickActif() {
-        return clickActif;
-    }
-
-    public void clickChange(){clickActif = !clickActif;}
 }
