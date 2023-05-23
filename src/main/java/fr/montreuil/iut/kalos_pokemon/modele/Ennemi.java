@@ -65,17 +65,21 @@ public abstract class Ennemi {
 
     public void seDeplace() {
 
-        int caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
+        //int caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
+        boolean caseSuiv = game.getTerrain().estChemin(getY()/32 + vecteurAcc[1], getX()/32+vecteurAcc[0]);
 
-        if (caseSuiv == 0) {
+        //if (caseSuiv == 0) {
+        if (!caseSuiv) {
 
             int[][] model = new int[][]{{1, 0}, {0, 1}, {0, -1}};
             int n = -1;
-            while (caseSuiv != 51) {
+            //while (caseSuiv != 51) {
+            while (!caseSuiv) {
                 n++;
                 vecteurAcc[0] = model[n][0];
                 vecteurAcc[1] = model[n][1];
-                caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
+                //caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
+                caseSuiv = game.getTerrain().estChemin(getY()/32 + vecteurAcc[1], getX()/32+vecteurAcc[0]);
             }
         }
         this.xProperty().set(this.getX() + this.getVitesse() * vecteurAcc[0]);  // 2 lignes du déplacement

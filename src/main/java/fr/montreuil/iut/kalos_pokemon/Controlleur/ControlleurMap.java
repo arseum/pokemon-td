@@ -28,6 +28,8 @@ public class ControlleurMap implements Initializable {
 
     private int temps;
     private TerrainVue terrainVue;
+
+    private TerrainVue terrainDecor;
     private Game game;
 
 
@@ -37,7 +39,14 @@ public class ControlleurMap implements Initializable {
         //inevitable debut de initialize
         game = new Game();
         terrainVue = new TerrainVue();
-        pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getMap_test()));
+        terrainDecor = new TerrainVue();
+
+
+        pane.getChildren().add(terrainVue.genereMap(game.getTerrain().getArrierePlan()));
+        //Todo : le decor n'est plus charge
+        if(game.getTerrain().getDecor() != null){
+            pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
+        }
 
         //init game loop + label utile
         initAnimation();
