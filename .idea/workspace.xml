@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="creation branche dev">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/TourSprite.java" afterDir="false" />
+    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="debut de la creation du fonctionnement qui permet de voir la range d'une tour">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Poussifeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Poussifeu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Tour.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/TourSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/TourSprite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/montreuil/iut/kalos_pokemon/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +170,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="" />
+      <changelist id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
       <created>1683897441324</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -256,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684762219572</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="debut de la creation du fonctionnement qui permet de voir la range d'une tour">
+      <created>1684765110380</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684765110380</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,7 +301,8 @@
     <MESSAGE value="refactor nom des packages selon la norme" />
     <MESSAGE value="fusion des 2 branches terminer" />
     <MESSAGE value="creation branche dev" />
-    <option name="LAST_COMMIT_MESSAGE" value="creation branche dev" />
+    <MESSAGE value="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
+    <option name="LAST_COMMIT_MESSAGE" value="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

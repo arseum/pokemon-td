@@ -24,7 +24,7 @@ public class ControlleurMap implements Initializable {
 
     private Timeline gameLoop;
 
-    private int temps;
+    private int frame;
     private TerrainVue terrainVue;
     private Game game;
 
@@ -41,12 +41,9 @@ public class ControlleurMap implements Initializable {
         initAnimation();
         initLabel();
 
-        //ajout d'un togepi et d'un poussifeu
-        Togepi togepi = new Togepi(0, 5 * 32);
+        //ajout d'un poussifeu
         Poussifeu poussifeu = new Poussifeu(5 * 32, 5 * 32);
-        game.ajouteEnnemi(togepi);
         try {
-            creerEnnemiSprite(togepi);
             creerTourSprite(poussifeu);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -58,7 +55,7 @@ public class ControlleurMap implements Initializable {
 
     private void initAnimation() {
         gameLoop = new Timeline();
-        temps = 0;
+        frame = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
@@ -67,13 +64,23 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
-                    if (temps == 5000) {
+                    if (frame == 5000) {
                         System.out.println("fini");
                         gameLoop.stop();
-                    } else if (temps % 2 == 0) {
+                    } else if (frame % 2 == 0) {
                         game.uneFrame();
                     }
-                    temps++;
+
+                    if (frame % (60*5) == 0){
+                        Togepi togepi = new Togepi(0, 5 * 32);
+                        game.ajouteEnnemi(togepi);
+                        try {
+                            creerEnnemiSprite(togepi);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    frame++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
