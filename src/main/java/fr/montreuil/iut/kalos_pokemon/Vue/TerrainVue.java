@@ -1,25 +1,27 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class TerrainVue {
 
     private TilePane mapVue;
 
-    public TerrainVue() {
+    public TerrainVue(){
         mapVue = new TilePane();
     }
 
     public Rectangle2D carreDeDecoupe(int idTuile) {
         int tailleTuile, largeurTiledSet;
-        largeurTiledSet = 1056;
-        tailleTuile = 32;
+        largeurTiledSet = Parametres.largeurTileset;
+        tailleTuile = Parametres.tailleTuile;
 
 
         int nbTuiles = largeurTiledSet / tailleTuile;
@@ -30,27 +32,45 @@ public class TerrainVue {
         return new Rectangle2D(x, y, tailleTuile, tailleTuile);
     }
 
-    public TilePane genereMap(int[][] map) {
+    //public TilePane genereMap(ArrayList<ArrayList<Integer>> map){
+    public TilePane genereMap(ArrayList<ArrayList<Integer>> map){
 
-        mapVue.setPrefColumns(map[0].length);
-        mapVue.setPrefRows(map.length);
+        //mapVue.setPrefColumns(map[0].length);
+        //mapVue.setPrefRows(map.length);
+
+        mapVue.setPrefColumns(map.get(0).size());
+        mapVue.setPrefRows(map.size());
 
         Image tileSet;
         ImageView carre;
         try {
+            //todo: Faire en sorte que le fichier lu soit celui dans Terrain
             tileSet = new Image(Objects.requireNonNull(getClass().getResource("the_tileset.png")).openStream());
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        for (int[] ligne : map)
+
+        //for(int[] ligne : map)
+        for(ArrayList<Integer> ligne : map) {
             for (int a : ligne) {
-                carre = new ImageView(tileSet);
+                if(a == -1){
+                    carre = new ImageView(tileSet);
 
-                carre.setViewport(carreDeDecoupe(a));
+                    carre.setViewport(carreDeDecoupe(Parametres.idTuileTransparente));
 
-                mapVue.getChildren().add(carre);
+                    mapVue.getChildren().add(carre);
+                }
+                else {
+                    carre = new ImageView(tileSet);
+
+                    carre.setViewport(carreDeDecoupe(a));
+
+                    mapVue.getChildren().add(carre);
+                }
             }
+        }
 
         return mapVue;
     }
