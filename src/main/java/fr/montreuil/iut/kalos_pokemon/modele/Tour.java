@@ -3,6 +3,9 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Tour {
     private int portee;
     private int DPS;
@@ -59,11 +62,21 @@ public abstract class Tour {
         return y;
     }
 
-    public void attaquer(Ennemi ennemi) {
-        ennemi.diminueHP(getDPS());
-    }
-
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public void attaque() {
+
+        Ennemi cible;
+        int index = 0;
+        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+
+        while (cible == null && index < listEnnemi.size()){
+            //todo coder la boucle qui choisi l'ennemi en range et le plus proche
+        }
+
+        //todo attaquer la cible si elle n'est pas null
+
     }
 }
