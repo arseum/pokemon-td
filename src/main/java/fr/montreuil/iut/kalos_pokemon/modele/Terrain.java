@@ -68,33 +68,5 @@ public class Terrain {
         return terrainCharge;
     }
 
-    public static void main(String[] args) {
-        Terrain t = new Terrain();
-        System.out.println(t.getArrierePlan());
-        System.out.println(t.getArrierePlan().get(1).get(0));
-        /*
-        try (BufferedReader br = Files.newBufferedReader("/home/zen/Documents/Cours/BUT_Informatique/Semestre_2/SAE/Dev/pokemon-td/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/testLecture_1Calque.csv")) {
-
-            // CSV file delimiter
-            String DELIMITER = ",";
-
-            // read the file line by line
-            String line;
-            while ((line = br.readLine()) != null) {
-
-                // convert line into columns
-                String[] columns = line.split(DELIMITER);
-
-                // print all columns
-                System.out.println("User["+ String.join(", ", columns) +"]");
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        */
-    }
 
 }

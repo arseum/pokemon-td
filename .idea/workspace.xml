@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="ajout d'une fonction creerSprite">
+    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="il est desormait possible d'activer/desactiver le detail (pour l'instant seulement la range) du poussifeu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EntiteSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Vue/EnnemiSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Ennemi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Tour.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Terrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Terrain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="pokedollar" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -67,7 +64,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;F:/4_COURS/S2/dev/exempleGameLoop&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.34071222&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
@@ -171,7 +168,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9de4402c-370d-4324-8366-ea8b5f5b77a5" name="Changes" comment="" />
+      <changelist id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
       <created>1683897441324</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -241,7 +238,49 @@
       <option name="project" value="LOCAL" />
       <updated>1684741085768</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fusion des 2 branches terminer">
+      <created>1684761740588</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684761740588</updated>
+    </task>
+    <task id="LOCAL-00011" summary="creation branche dev">
+      <created>1684762219572</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684762219572</updated>
+    </task>
+    <task id="LOCAL-00012" summary="debut de la creation du fonctionnement qui permet de voir la range d'une tour">
+      <created>1684765110380</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684765110380</updated>
+    </task>
+    <task id="LOCAL-00013" summary="jspa">
+      <created>1684831512982</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1684831512982</updated>
+    </task>
+    <task id="LOCAL-00014" summary="la range de la tour est desormait centrer a la tour">
+      <created>1684832833019</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1684832833019</updated>
+    </task>
+    <task id="LOCAL-00015" summary="il est desormait possible d'activer/desactiver le detail (pour l'instant seulement la range) du poussifeu">
+      <created>1684836508041</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1684836508041</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,7 +291,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -267,7 +318,13 @@
     <MESSAGE value="deplacement du togepi" />
     <MESSAGE value="ajout images" />
     <MESSAGE value="refactor nom des packages selon la norme" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor nom des packages selon la norme" />
+    <MESSAGE value="fusion des 2 branches terminer" />
+    <MESSAGE value="creation branche dev" />
+    <MESSAGE value="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
+    <MESSAGE value="jspa" />
+    <MESSAGE value="la range de la tour est desormait centrer a la tour" />
+    <MESSAGE value="il est desormait possible d'activer/desactiver le detail (pour l'instant seulement la range) du poussifeu" />
+    <option name="LAST_COMMIT_MESSAGE" value="il est desormait possible d'activer/desactiver le detail (pour l'instant seulement la range) du poussifeu" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
