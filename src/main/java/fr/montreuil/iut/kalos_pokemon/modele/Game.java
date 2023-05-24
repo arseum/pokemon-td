@@ -5,17 +5,22 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-
 public class Game {
 
     private Terrain terrain;
+    /**
+     * il faut que cette liste contiene tout les ennemie en fonction du - loin au + loin
+     * pour l'instant tout els togepi on la meme vitesse donc ce n'est pas compliqué mais par a suite il faudra envisager
+     * le fait que les ennemi peuvent se depacer les uns des autres
+     */
     private ObservableList<Ennemi> listEnnemi;
+    private ObservableList<Tour> listTour;
     private IntegerProperty pokedollar;
 
     public Game() {
         terrain = new Terrain();
         listEnnemi = FXCollections.observableArrayList();
+        listTour = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
 
@@ -36,19 +41,25 @@ public class Game {
     }
 
     public void ajouteEnnemi(Ennemi e) {
-        this.listEnnemi.add(e);
+        listEnnemi.add(e);
         e.setGame(this);
+    }
+
+    public void ajouteTour(Tour t){
+        listTour.add(t);
+        t.setGame(this);
     }
 
     public ObservableList<Ennemi> getListEnnemi() {
         return listEnnemi;
     }
+    public ObservableList<Tour> getListTour() { return listTour; }
 
     /**
      * methode appeler a chaque frame
      * utilisé notament pour les deplacements
      */
-    public void uneFrame() {
+    public void deplacment() {
 
         for (Ennemi e : listEnnemi) {
             e.seDeplace();

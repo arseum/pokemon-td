@@ -5,5 +5,4 @@ public class Togepi extends Ennemi {
         super(1, 100, "normal", x, y, 50, "togepi");
     }
 
-
 }

@@ -11,8 +11,13 @@ public abstract class Tour {
     private int prix;
     private IntegerProperty x;
     private IntegerProperty y;
+    private Game game;
+    private static int compteurID = 1;
+    private String id;
 
     public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon) {
+        this.id = "Tour_n°" + compteurID;
+        compteurID++;
         this.portee = portee;
         this.DPS = DPS;
         this.type = type;
@@ -26,7 +31,9 @@ public abstract class Tour {
         return nom;
     }
 
-
+    public String getId() {
+        return id;
+    }
 
     public int getPortee() {
         return portee;
@@ -54,5 +61,9 @@ public abstract class Tour {
 
     public void attaquer(Ennemi ennemi) {
         ennemi.diminueHP(getDPS());
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

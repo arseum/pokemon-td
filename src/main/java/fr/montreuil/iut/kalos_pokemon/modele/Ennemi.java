@@ -19,7 +19,7 @@ public abstract class Ennemi {
     private String id;
 
     public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon) {
-        this.id = "n°" + compteurID;
+        this.id = "Ennemi_n°" + compteurID;
         compteurID++;
         this.vitesse = vitesse;
         this.hp = hp;

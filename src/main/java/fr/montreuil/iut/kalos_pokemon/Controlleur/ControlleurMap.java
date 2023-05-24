@@ -53,16 +53,8 @@ public class ControlleurMap implements Initializable {
         initAnimation();
         initLabel();
 
-        //ajout d'un poussifeu
-        Poussifeu poussifeu = new Poussifeu(5 * 32, 5 * 32);
-        try {
-            creerTourSprite(poussifeu);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         //creation du listener qui va ecouter la list des ennemi de game
-        ListChangeListener<Ennemi> listen =(c ->{
+        ListChangeListener<Ennemi> listenEnnemi =(c ->{
             while (c.next()) {
                 if (c.wasAdded())
                     for (Ennemi a : c.getAddedSubList()) {
@@ -78,7 +70,26 @@ public class ControlleurMap implements Initializable {
                     }
             }
         });
-        game.getListEnnemi().addListener(listen);
+        game.getListEnnemi().addListener(listenEnnemi);
+
+        //de meme pour les tours
+        ListChangeListener<Tour> listenTour =(c ->{
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (Tour a : c.getAddedSubList()) {
+                        try {
+                            creerTourSprite(a);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (Tour a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                    }
+            }
+        });
+        game.getListTour().addListener(listenTour);
 
         //ajout d'un lambda sur la map lors d'un click
         pane.setOnMouseClicked(event -> {
@@ -91,6 +102,9 @@ public class ControlleurMap implements Initializable {
                 }
             }
         });
+
+        //ajout d'un poussifeu
+        game.ajouteTour(new Poussifeu(5 * 32, 5 * 32));
 
         //lancement de la game loop
         gameLoop.play();
@@ -113,7 +127,7 @@ public class ControlleurMap implements Initializable {
                         gameLoop.stop();
                     }
                     if (frame % 2 == 0) {
-                        game.uneFrame();
+                        game.deplacment();
                     }
                     if (frame % 30 == 0) {
                         game.demiSeconde();
@@ -121,8 +135,7 @@ public class ControlleurMap implements Initializable {
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60*5) == 0){
-                        Togepi togepi = new Togepi(0, 6 * 32);
-                        game.ajouteEnnemi(togepi);
+                        game.ajouteEnnemi(new Togepi(0,6 * 32));
                     }
                     frame++;
                 })
