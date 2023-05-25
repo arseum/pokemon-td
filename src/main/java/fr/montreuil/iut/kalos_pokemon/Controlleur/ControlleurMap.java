@@ -164,18 +164,29 @@ public class ControlleurMap implements Initializable {
         Sprite.getHitBox().xProperty().bind(ennemi.xProperty());
         Sprite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(Sprite.getHitBox());
+
+        Circle c = new Circle(3);
+        c.centerXProperty().bind(ennemi.xProperty());
+        c.centerYProperty().bind(ennemi.yProperty());
+        pane.getChildren().add(c);
     }
 
     private void creerTourSprite(Tour tour) throws IOException {
         TourSprite Sprite = new TourSprite(tour);
-        Sprite.getSprite().xProperty().bind(tour.xProperty());
-        Sprite.getSprite().yProperty().bind(tour.yProperty());
+        Sprite.getSprite().xProperty().bind(tour.xProperty().add(-(Sprite.getSprite().getImage().getWidth()/2)));
+        Sprite.getSprite().yProperty().bind(tour.yProperty().add(-(Sprite.getSprite().getImage().getWidth()/2)));
         pane.getChildren().add(Sprite.getSprite());
         pane.getChildren().add(Sprite.getRange());
 
         Sprite.getSprite().setOnMouseClicked(event -> {
             Sprite.getRange().setVisible(true);
         });
+
+        //test
+        Circle c = new Circle(3);
+        c.setCenterX(tour.getX());
+        c.setCenterY(tour.getY());
+        pane.getChildren().add(c);
 
     }
 

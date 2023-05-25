@@ -73,8 +73,8 @@ public class Game {
      */
     public void demiSeconde() {
 
-        for (Ennemi e : listEnnemi) {
-            e.diminueHP(5);
+        for (Tour t : listTour) {
+            t.attaque();
         }
 
         for (int i = listEnnemi.size() -1 ; i >= 0 ; i-- ){

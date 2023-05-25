@@ -68,15 +68,34 @@ public abstract class Tour {
 
     public void attaque() {
 
-        Ennemi cible;
+        Ennemi cible = null;
         int index = 0;
+        int super_x;
+        int super_y;
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
 
-        while (cible == null && index < listEnnemi.size()){
-            //todo coder la boucle qui choisi l'ennemi en range et le plus proche
+        if (listEnnemi.size() != 0) {
+            super_x = Math.abs(getX() - listEnnemi.get(0).getX());
+            super_y = Math.abs(getY() - listEnnemi.get(0).getY());
+            System.out.println("DEBUG ! distance entre poussifeu et le premier ennemie = " + (super_x + super_y) );
         }
 
-        //todo attaquer la cible si elle n'est pas null
+        while (cible == null && index < listEnnemi.size()){
+
+            super_x = Math.abs(getX() - listEnnemi.get(index).getX());
+            super_y = Math.abs(getY() - listEnnemi.get(index).getY());
+
+            if ( (super_y + super_x) <= portee )
+                cible = listEnnemi.get(index);
+            else
+                index++;
+        }
+
+        if (cible != null){
+            cible.diminueHP(this.DPS);
+            System.out.println(cible.getId() + " vient de subir " + this.DPS + " degats !!!");
+        }
+
 
     }
 }

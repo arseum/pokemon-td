@@ -18,12 +18,12 @@ public class TourSprite {
         sprite = new ImageView(new Image(Objects.requireNonNull(EnnemiSprite.class.getResource(pokemon.getNom() + ".png")).openStream()));
         sprite.setId(pokemon.getId());
         range = new Circle(pokemon.getPortee());
-        creationCercleRange();
+        creationCercleRange(pokemon);
     }
 
-    private void creationCercleRange() {
-        range.centerXProperty().bind(sprite.xProperty().add(sprite.getImage().getWidth()/2));
-        range.centerYProperty().bind(sprite.yProperty().add(sprite.getImage().getHeight()/2));
+    private void creationCercleRange(Tour pokemon) {
+        range.centerXProperty().bind(pokemon.xProperty());
+        range.centerYProperty().bind(pokemon.yProperty());
         range.getStyleClass().add("rangeTour");
         range.setVisible(false);
     }

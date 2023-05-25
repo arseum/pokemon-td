@@ -14,6 +14,10 @@ public class EnnemiSprite {
     public EnnemiSprite(Ennemi ennemi) throws IOException {
         hitBox = new ImageView(new Image(Objects.requireNonNull(EnnemiSprite.class.getResource(ennemi.getNom() + ".png")).openStream()));
         hitBox.setId(ennemi.getId());
+
+        ennemi.setMaxHeightHitbox((int) hitBox.getImage().getHeight());
+        ennemi.setMaxWidhtHitbox((int) hitBox.getImage().getWidth());
+
     }
 
     public ImageView getHitBox() {

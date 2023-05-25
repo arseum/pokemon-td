@@ -11,6 +11,8 @@ public abstract class Ennemi {
     private String type;
     private IntegerProperty x;
     private IntegerProperty y;
+    private int maxHeightHitbox;
+    private int maxWidhtHitbox;
     private int[] vecteurAcc;
     private int recompense;
     private String nom;
@@ -33,6 +35,22 @@ public abstract class Ennemi {
 
     public int getRecompense() {
         return recompense;
+    }
+
+    public void setMaxHeightHitbox(int maxHeightHitbox) {
+        this.maxHeightHitbox = maxHeightHitbox;
+    }
+
+    public void setMaxWidhtHitbox(int maxWidhtHitbox) {
+        this.maxWidhtHitbox = maxWidhtHitbox;
+    }
+
+    public int getMaxHeightHitbox() {
+        return maxHeightHitbox;
+    }
+
+    public int getMaxWidhtHitbox() {
+        return maxWidhtHitbox;
     }
 
     public String getId() {
