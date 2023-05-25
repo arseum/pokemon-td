@@ -1,7 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public abstract class Ennemi {
@@ -18,6 +22,9 @@ public abstract class Ennemi {
     private static int compteurID = 1;
     private String id;
 
+    private Terrain t;
+    private Map<Integer, Integer> arbreCouvrant;
+
     public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon) {
         this.id = "n°" + compteurID;
         compteurID++;
@@ -29,6 +36,10 @@ public abstract class Ennemi {
         this.vecteurAcc = new int[]{1, 0};
         this.recompense = recompense;
         this.nom = pokemon;
+
+        this.t = new Terrain("bfs");
+        this.arbreCouvrant = t.algoBFS();
+        System.out.println(arbreCouvrant);
     }
 
     public int getRecompense() {
@@ -96,6 +107,32 @@ public abstract class Ennemi {
         }
         this.xProperty().set(this.getX() + this.getVitesse() * vecteurAcc[0]);  // 2 lignes du déplacement
         this.yProperty().set(this.getY() + this.getVitesse() * vecteurAcc[1]);
+    }
+
+    public void seDeplaceBFS(){
+        int[] caseActuelle, caseSuivante, vecteurVitesse; //(ligne, colonne)
+        int idCaseActuelle, idCaseSuivante;
+
+        caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
+        idCaseActuelle = t.coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
+        idCaseSuivante = arbreCouvrant.get(idCaseActuelle);
+        caseSuivante = t.coordonneesCaseEnXY(idCaseSuivante);
+
+        vecteurVitesse = new int[] {(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0])};
+
+        this.xProperty().set(this.getX() + this.getVitesse() * vecteurVitesse[0]);  // 2 lignes du déplacement
+        this.yProperty().set(this.getY() + this.getVitesse() * vecteurVitesse[1]);
+
+
+        System.out.println(caseActuelle[0] + ", "+ caseActuelle[1] + " id: " + idCaseActuelle);
+        System.out.println(this.x.get() + ", " + this.y.get());
+        System.out.println(" vitesse: " + vecteurVitesse[0] + ", "+ vecteurVitesse[1] );
+        System.out.println("Suivant : " + arbreCouvrant.get(idCaseActuelle));
+        System.out.println("***");
+
+        //this.xProperty().set(this.getX() + this.getVitesse() * vecteurAcc[0]);  // 2 lignes du déplacement
+        //this.yProperty().set(this.getY() + this.getVitesse() * vecteurAcc[1]);
+
     }
 
     public void diminueHP(int value) {

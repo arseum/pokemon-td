@@ -45,16 +45,20 @@ public class ControlleurMap implements Initializable {
         TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         pane.getChildren().add(map);
         //Todo : le decor n'est plus charge
+        /*
         if(game.getTerrain().getDecor() != null){
             pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
         }
-
+*/
         //init game loop + label utile
         initAnimation();
         initLabel();
 
+
+
         //ajout d'un poussifeu
         Poussifeu poussifeu = new Poussifeu(5 * 32, 5 * 32);
+        //Poussifeu poussifeu = new Poussifeu( * 32, 5 * 32);
         try {
             creerTourSprite(poussifeu);
         } catch (IOException e) {
@@ -119,11 +123,16 @@ public class ControlleurMap implements Initializable {
                         game.demiSeconde();
                     }
 
+                    //todo: zen a retablir
+
                     //simulation d'une wave ou des togepi spon toutes les 5s
+                    //if (frame % (60*5) == 0){
                     if (frame % (60*5) == 0){
-                        Togepi togepi = new Togepi(0, 6 * 32);
+                        //Togepi togepi = new Togepi(0, 6 * 32);
+                        Togepi togepi = new Togepi(0, 1 * 32);
                         game.ajouteEnnemi(togepi);
                     }
+
                     frame++;
                 })
         );

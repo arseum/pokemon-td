@@ -14,7 +14,7 @@ public class Game {
     private IntegerProperty pokedollar;
 
     public Game() {
-        terrain = new Terrain();
+        terrain = new Terrain("bfs");
         listEnnemi = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
@@ -51,7 +51,8 @@ public class Game {
     public void uneFrame() {
 
         for (Ennemi e : listEnnemi) {
-            e.seDeplace();
+            //e.seDeplace();
+            e.seDeplaceBFS();
         }
 
     }
