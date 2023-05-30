@@ -135,7 +135,7 @@ public class ControlleurMap implements Initializable {
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60 * 5) == 0) {
-                        game.ajouteEnnemi(new Togepi(0, 6 * 32));
+                        game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
                     }
                     frame++;
                 })
