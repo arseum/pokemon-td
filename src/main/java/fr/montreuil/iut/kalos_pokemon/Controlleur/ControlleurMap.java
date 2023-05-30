@@ -39,7 +39,7 @@ public class ControlleurMap implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        game = new Game();
+        game = new Game("bfs");
         terrainVue = new TerrainVue();
         terrainDecor = new TerrainVue();
         TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
@@ -128,9 +128,9 @@ public class ControlleurMap implements Initializable {
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     //if (frame % (60*5) == 0){
                     if (frame % (60*5) == 0){
-                        Togepi togepi = new Togepi(0, 6 * 32, game);
+                        //Togepi togepi = new Togepi(0, 6 * 32, game);
                         //todo terrain_BFS 1
-                        //Togepi togepi = new Togepi(0, 1 * 32);
+                        Togepi togepi = new Togepi(0, 1 * 32, game);
                         game.ajouteEnnemi(togepi);
                     }
 
