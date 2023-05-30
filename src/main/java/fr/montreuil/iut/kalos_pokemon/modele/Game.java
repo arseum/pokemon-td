@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 public class Game {
 
     private Terrain terrain;
@@ -24,6 +26,16 @@ public class Game {
         pokedollar = new SimpleIntegerProperty(300);
     }
 
+    public Game(String nomTerrain) {
+        //todo terrain_BFS 2
+        terrain = new Terrain(nomTerrain);
+        listEnnemi = FXCollections.observableArrayList();
+        listTour = FXCollections.observableArrayList();
+        pokedollar = new SimpleIntegerProperty(300);
+    }
+
+    //todo 1
+
     public Terrain getTerrain() {
         return terrain;
     }
@@ -41,8 +53,8 @@ public class Game {
     }
 
     public void ajouteEnnemi(Ennemi e) {
-        listEnnemi.add(e);
-        e.setGame(this);
+        this.listEnnemi.add(e);
+        //e.setGame(this);
     }
 
     public void ajouteTour(Tour t) {
@@ -65,7 +77,8 @@ public class Game {
     public void deplacment() {
 
         for (Ennemi e : listEnnemi) {
-            e.seDeplace();
+            //e.seDeplace();
+            e.seDeplaceBFS();
         }
 
     }

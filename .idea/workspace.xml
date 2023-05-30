@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="reformat">
+    <list default="true" id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="ajout d'une fonction creerSprite">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/Controlleur/ControlleurMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Togepi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/montreuil/iut/kalos_pokemon/modele/Togepi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="pokedollar" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,13 +45,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2Ph7Q0ftg2ncBem4LJJphV1aR52" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -63,7 +58,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;F:/4_COURS/S2/dev/exempleGameLoop&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.34071222&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
@@ -86,6 +81,64 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.fr.montreuil.iut.kalos_pokemon.main">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="pokemon td" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="pokemon td" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.montreuil.iut.kalos_pokemon.modele.Game" />
+      <module name="pokemon_td" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.montreuil.iut.kalos_pokemon.modele.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Terrain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.montreuil.iut.kalos_pokemon.modele.Terrain" />
+      <module name="pokemon_td" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.montreuil.iut.kalos_pokemon.modele.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="fr.montreuil.iut.kalos_pokemon.main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.montreuil.iut.kalos_pokemon.main" />
       <module name="pokemon_td" />
@@ -125,41 +178,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="pokemon td" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="pokemon td" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.fr.montreuil.iut.kalos_pokemon.main" />
+        <item itemvalue="Application.Game" />
+        <item itemvalue="Application.Terrain" />
         <item itemvalue="Application.main" />
       </list>
     </recent_temporary>
@@ -167,7 +190,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
+      <changelist id="ce9c047a-3ec2-4c8b-89a3-772c72176f55" name="Changes" comment="ajout d'une fonction creerSprite" />
       <created>1683897441324</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -237,98 +260,7 @@
       <option name="project" value="LOCAL" />
       <updated>1684741085768</updated>
     </task>
-    <task id="LOCAL-00010" summary="fusion des 2 branches terminer">
-      <created>1684761740588</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1684761740588</updated>
-    </task>
-    <task id="LOCAL-00011" summary="creation branche dev">
-      <created>1684762219572</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1684762219572</updated>
-    </task>
-    <task id="LOCAL-00012" summary="debut de la creation du fonctionnement qui permet de voir la range d'une tour">
-      <created>1684765110380</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1684765110380</updated>
-    </task>
-    <task id="LOCAL-00013" summary="jspa">
-      <created>1684831512982</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1684831512982</updated>
-    </task>
-    <task id="LOCAL-00014" summary="la range de la tour est desormait centrer a la tour">
-      <created>1684832833019</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1684832833019</updated>
-    </task>
-    <task id="LOCAL-00015" summary="il est desormait possible d'activer/desactiver le detail (pour l'instant seulement la range) du poussifeu">
-      <created>1684836508041</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1684836508041</updated>
-    </task>
-    <task id="LOCAL-00016" summary="ajout de la fonctionnaliter qui permet de cliquer sur une tour pour voir sa range">
-      <created>1684918918933</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1684918918933</updated>
-    </task>
-    <task id="LOCAL-00017" summary="le togepi spawn au bonne endroit mtn">
-      <created>1684919684544</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1684919684544</updated>
-    </task>
-    <task id="LOCAL-00018" summary="ajout d'un listListener pour les tours">
-      <created>1684922716645</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1684922716645</updated>
-    </task>
-    <task id="LOCAL-00019" summary="debut de la fonction attaque de la tour">
-      <created>1684923192788</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1684923192788</updated>
-    </task>
-    <task id="LOCAL-00020" summary="ajout de la mathode attaque qui est buger pour l'instant">
-      <created>1685008897436</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1685008897436</updated>
-    </task>
-    <task id="LOCAL-00021" summary="la methode attaquer fonctionne mais attaque seulement lorsque le point d'encrage des togepi est a la bonne distance de le la tour">
-      <created>1685435145434</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1685435145434</updated>
-    </task>
-    <task id="LOCAL-00022" summary="reformat">
-      <created>1685435634440</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1685435634441</updated>
-    </task>
-    <option name="localTasksCounter" value="23" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,19 +271,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/dev" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -366,20 +286,7 @@
     <MESSAGE value="deplacement du togepi" />
     <MESSAGE value="ajout images" />
     <MESSAGE value="refactor nom des packages selon la norme" />
-    <MESSAGE value="fusion des 2 branches terminer" />
-    <MESSAGE value="creation branche dev" />
-    <MESSAGE value="debut de la creation du fonctionnement qui permet de voir la range d'une tour" />
-    <MESSAGE value="jspa" />
-    <MESSAGE value="la range de la tour est desormait centrer a la tour" />
-    <MESSAGE value="il est desormait possible d'activer/desactiver le detail (pour l'instant seulement la range) du poussifeu" />
-    <MESSAGE value="ajout de la fonctionnaliter qui permet de cliquer sur une tour pour voir sa range" />
-    <MESSAGE value="le togepi spawn au bonne endroit mtn" />
-    <MESSAGE value="ajout d'un listListener pour les tours" />
-    <MESSAGE value="debut de la fonction attaque de la tour" />
-    <MESSAGE value="ajout de la mathode attaque qui est buger pour l'instant" />
-    <MESSAGE value="la methode attaquer fonctionne mais attaque seulement lorsque le point d'encrage des togepi est a la bonne distance de le la tour" />
-    <MESSAGE value="reformat" />
-    <option name="LAST_COMMIT_MESSAGE" value="reformat" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor nom des packages selon la norme" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
