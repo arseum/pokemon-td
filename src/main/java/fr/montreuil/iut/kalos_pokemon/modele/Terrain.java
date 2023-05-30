@@ -89,10 +89,6 @@ public class Terrain {
         return new int[] {idCase / largeur,idCase % largeur};
     }
 
-    // todo: temporaire
-    private int caseDepart(){
-        return 10;
-    }
 
     private int caseArrivee(){
         for (int ligne = 0; ligne < this.arrierePlan.size(); ligne ++){
@@ -103,6 +99,18 @@ public class Terrain {
             }
         }
         return -1;
+    }
+
+    public int[] caseDepart(){
+        for (int ligne = 0; ligne < this.arrierePlan.size(); ligne ++){
+            for (int colonne = 0 ; colonne < this.arrierePlan.get(0).size(); colonne++){
+                if(this.arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur == Parametres.colonneZoneDepartTileSet){
+                    //return this.arrierePlan.get(0).size() * ligne + colonne;
+                    return new int[] {colonne, ligne};
+                }
+            }
+        }
+        return null;
     }
 
     //todo: faire un jUnit
@@ -172,6 +180,11 @@ public class Terrain {
             }
         }
         return arbreCouvrant;
+    }
+
+    public static void main(String[] args) {
+        Terrain t = new Terrain();
+        System.out.println(t.caseDepart());
     }
 
 }
