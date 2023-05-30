@@ -69,6 +69,7 @@ public class Terrain {
                     terrainCharge.add(ligneTerrain(ligne));
                 }
             }
+            else return null;
         }
         catch (FileNotFoundException e){
             System.out.println("Une erreur lecture fichier");
@@ -184,7 +185,8 @@ public class Terrain {
 
     public static void main(String[] args) {
         Terrain t = new Terrain();
-        System.out.println(t.caseDepart());
+        System.out.println(t.getDecor());
+        System.out.println(t.getArrierePlan());
     }
 
 }
