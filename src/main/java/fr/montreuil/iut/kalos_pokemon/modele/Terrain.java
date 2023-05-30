@@ -10,22 +10,15 @@ public class Terrain {
 
     private ArrayList<ArrayList<Integer>> arrierePlan;
     private ArrayList<ArrayList<Integer>> decor;
-    //private Map<Integer, Integer> arbreCouvrant;
 
     public Terrain(){
         arrierePlan = chargerCSV("default");
         decor = chargerCSV("default_decor");
-
-        //arbreCouvrant = new HashMap<>();
-        //algoBFS();
     }
 
     public Terrain(String nomTerrain){
         arrierePlan = chargerCSV(nomTerrain);
         decor = chargerCSV(nomTerrain + "_decor");
-
-        //arbreCouvrant = new HashMap<>();
-        //algoBFS();
     }
 
     public ArrayList<ArrayList<Integer>> getArrierePlan() {
@@ -46,8 +39,6 @@ public class Terrain {
     public boolean estChemin(int ligne, int colonne){
         return (arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur) * Parametres.tailleTuile >= Parametres.debutZoneCheminTileSet;
     }
-
-    //Todo: Ajouter section pour tuile arrive et depart + methodes + parametre pour identifier
 
     /**
      * Pour la création du terrain, retourne premiere ligne du fichier csv
@@ -87,20 +78,6 @@ public class Terrain {
 
     /*** BFS ***/
 
-    //todo : convention 000 - 000 ou bien 63 et blabla
-    /*
-    private static int coordonneesXYenCase(int ligne, int colonne){
-        int largeur = 32;//this.arrierePlan.get(0).size();
-        //int largeur = this.arrierePlan.get(0).size();
-        return ligne * largeur + colonne;
-    }
-
-    private static int[] coordonneesCaseEnXY(int idCase){
-        int largeur = 32;//this.arrierePlan.get(0).size();
-        //int[] xy = {idCase / largeur,idCase % largeur};
-        return new int[] {idCase / largeur,idCase % largeur};
-    }
-    */
     public int coordonneesXYenCase(int ligne, int colonne){
         int largeur = this.arrierePlan.get(0).size();
         return ligne * largeur + colonne;
@@ -112,6 +89,7 @@ public class Terrain {
         return new int[] {idCase / largeur,idCase % largeur};
     }
 
+    // todo: temporaire
     private int caseDepart(){
         return 10;
     }
@@ -142,7 +120,6 @@ public class Terrain {
 
        int ligneCase = idCase / largeur;
        int colonneCase = idCase % largeur;
-       //System.out.println(ligneCase + "," + colonneCase);
 
         //todo condition estChemin
         if(estChemin(ligneCase,colonneCase)){
@@ -156,22 +133,14 @@ public class Terrain {
                 boolean colonneDsBords = (0 <= nouvelleColonne) && (nouvelleColonne <= largeur - 1);
 
                 if(ligneDsBords && colonneDsBords && estChemin(nouvelleLigne,nouvelleColonne)){
-                    //System.out.println("Ajouts d'adjacents " + nouvelleLigne + ", " + nouvelleColonne);
-                    //adjacents.add(coordonneesXYenCase(nouvelleLigne,nouvelleColonne));
-
-                    //ligne * largeur + colonne;
                     adjacents.add(this.arrierePlan.get(0).size() * nouvelleLigne + nouvelleColonne);
                 }
             }
         }
 
-       System.out.print("adjacents: ");
-       System.out.println(adjacents);
         return adjacents;
     }
 
-
-    //private void algoBFS(){
 
     /**
      * Retourne une des map-liste possibles de chemin
@@ -190,8 +159,6 @@ public class Terrain {
 
         while (!fifo.isEmpty()){
             Integer caseActuelle = fifo.pollFirst();
-            //System.out.println(adjacents());
-            //System.out.println("algoBFS caseActuelle: " + caseActuelle);
 
             ArrayList<Integer> casesAdjacentes = this.adjacents(caseActuelle);
             Collections.shuffle(casesAdjacentes);
@@ -205,37 +172,6 @@ public class Terrain {
             }
         }
         return arbreCouvrant;
-    }
-
-
-    public static void main(String[] args) {
-        Terrain t = new Terrain("bfs");
-        System.out.println(t.caseArrivee());
-
-        //System.out.println(t.adjacents(99));
-
-        //System.out.println(t.arbreCouvrant);
-        //System.out.println(t.arrierePlan);
-        /*
-        System.out.println(coordonneesXYenCase(1,31));
-
-        ArrayList<ArrayList<Integer>> graphe = t.getArrierePlan();
-        int largeur = graphe.get(0).size();
-        int hauteur = graphe.size();
-        System.out.println(graphe);
-        System.out.println(largeur);
-        System.out.println(hauteur);
-        System.out.println(graphe.get(1).get(31));
-        */
-/*
-        System.out.println(t.adjacents(0,0));
-        System.out.println(t.adjacents(1,1));
-        System.out.println(t.adjacents(0,31));
-        System.out.println(t.adjacents(1,30));
-        System.out.println(t.adjacents(6,4));
-*/
-
-        //for(int i = 0 ;)
     }
 
 }

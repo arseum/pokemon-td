@@ -17,11 +17,9 @@ public abstract class Ennemi {
     private IntegerProperty y;
     private int maxHeightHitbox;
     private int maxWidhtHitbox;
-    private int[] vecteurAcc;
     private int recompense;
     private String nom;
     private Game game;
-    //private static int compteurID = 1;
     private String id;
     private Map<Integer, Integer> cheminVersArrive;
 
@@ -33,7 +31,6 @@ public abstract class Ennemi {
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        //this.vecteurAcc = new int[]{1, 0};
         this.recompense = recompense;
         this.nom = pokemon;
 
@@ -140,15 +137,15 @@ public abstract class Ennemi {
         int idCaseActuelle, idCaseSuivante;
 
         caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        //idCaseActuelle = t.coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
         idCaseActuelle = this.game.getTerrain().coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
-        System.out.println("***SE DEPLACE BFS");
-        System.out.println(cheminVersArrive);
-        System.out.println(idCaseActuelle);
+
+        //System.out.println("***SE DEPLACE BFS");
+        //System.out.println(cheminVersArrive);
+        //System.out.println(idCaseActuelle);
+
         idCaseSuivante = cheminVersArrive.get(idCaseActuelle);
-        //caseSuivante = t.coordonneesCaseEnXY(idCaseSuivante);
         caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        System.out.println("SE DEPLACE BFS***");
+        //System.out.println("SE DEPLACE BFS***");
 
         vecteurVitesse = new int[] {(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0])};
 
