@@ -13,11 +13,29 @@ public class Game {
     private ObservableList<Ennemi> listEnnemi;
     private IntegerProperty pokedollar;
 
+    public static void main(String[] args) {
+        Game g = new Game();
+        Togepi togepi = new Togepi(0, 6 * 32, g);
+
+        System.out.println(g.getTerrain().algoBFS());
+        togepi.seDeplaceBFS();
+    }
+
     public Game() {
-        terrain = new Terrain("bfs");
+        //todo terrain_BFS 2
+        terrain = new Terrain();
         listEnnemi = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
+
+    public Game(String nomTerrain) {
+        //todo terrain_BFS 2
+        terrain = new Terrain(nomTerrain);
+        listEnnemi = FXCollections.observableArrayList();
+        pokedollar = new SimpleIntegerProperty(300);
+    }
+
+    //todo 1
 
     public Terrain getTerrain() {
         return terrain;
@@ -37,7 +55,7 @@ public class Game {
 
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
-        e.setGame(this);
+        //e.setGame(this);
     }
 
     public ObservableList<Ennemi> getListEnnemi() {

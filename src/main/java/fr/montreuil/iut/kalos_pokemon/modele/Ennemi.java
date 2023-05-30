@@ -4,7 +4,6 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -15,17 +14,17 @@ public abstract class Ennemi {
     private String type;
     private IntegerProperty x;
     private IntegerProperty y;
-    private int[] vecteurAcc;
+    //private int[] vecteurAcc;
     private int recompense;
     private String nom;
     private Game game;
     private static int compteurID = 1;
     private String id;
 
-    private Terrain t;
-    private Map<Integer, Integer> arbreCouvrant;
+    //private Terrain t;
+    private Map<Integer, Integer> cheminVersArrive;
 
-    public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon) {
+    public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
         this.id = "n°" + compteurID;
         compteurID++;
         this.vitesse = vitesse;
@@ -33,13 +32,19 @@ public abstract class Ennemi {
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        this.vecteurAcc = new int[]{1, 0};
+        //this.vecteurAcc = new int[]{1, 0};
         this.recompense = recompense;
         this.nom = pokemon;
 
-        this.t = new Terrain("bfs");
-        this.arbreCouvrant = t.algoBFS();
-        System.out.println(arbreCouvrant);
+        //todo Terrain_BFS 3
+        /*
+        this.t = new Terrain();
+        this.cheminVersArrive = t.algoBFS();
+        System.out.println(cheminVersArrive);
+
+         */
+        this.game = game;
+        this.cheminVersArrive = this.game.getTerrain().algoBFS();
     }
 
     public int getRecompense() {
@@ -86,6 +91,8 @@ public abstract class Ennemi {
         this.game = game;
     }
 
+    /*
+    //À garder car BFS est inspiré de celui-ci
     public void seDeplace() {
 
         //int caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
@@ -109,14 +116,22 @@ public abstract class Ennemi {
         this.yProperty().set(this.getY() + this.getVitesse() * vecteurAcc[1]);
     }
 
+     */
+
     public void seDeplaceBFS(){
         int[] caseActuelle, caseSuivante, vecteurVitesse; //(ligne, colonne)
         int idCaseActuelle, idCaseSuivante;
 
         caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        idCaseActuelle = t.coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
-        idCaseSuivante = arbreCouvrant.get(idCaseActuelle);
-        caseSuivante = t.coordonneesCaseEnXY(idCaseSuivante);
+        //idCaseActuelle = t.coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
+        idCaseActuelle = this.game.getTerrain().coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
+        System.out.println("***SE DEPLACE BFS");
+        System.out.println(cheminVersArrive);
+        System.out.println(idCaseActuelle);
+        idCaseSuivante = cheminVersArrive.get(idCaseActuelle);
+        //caseSuivante = t.coordonneesCaseEnXY(idCaseSuivante);
+        caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
+        System.out.println("SE DEPLACE BFS***");
 
         vecteurVitesse = new int[] {(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0])};
 
@@ -127,7 +142,7 @@ public abstract class Ennemi {
         System.out.println(caseActuelle[0] + ", "+ caseActuelle[1] + " id: " + idCaseActuelle);
         System.out.println(this.x.get() + ", " + this.y.get());
         System.out.println(" vitesse: " + vecteurVitesse[0] + ", "+ vecteurVitesse[1] );
-        System.out.println("Suivant : " + arbreCouvrant.get(idCaseActuelle));
+        System.out.println("Suivant : " + cheminVersArrive.get(idCaseActuelle));
         System.out.println("***");
 
         //this.xProperty().set(this.getX() + this.getVitesse() * vecteurAcc[0]);  // 2 lignes du déplacement

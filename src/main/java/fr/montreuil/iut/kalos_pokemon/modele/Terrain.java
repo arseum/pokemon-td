@@ -36,13 +36,24 @@ public class Terrain {
         return decor;
     }
 
-    //Todo: Vérifier si correct (modulo)
+
+    /**
+     * Vérifie si une case est un chemin
+     * @param ligne
+     * @param colonne
+     * @return
+     */
     public boolean estChemin(int ligne, int colonne){
         return (arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur) * Parametres.tailleTuile >= Parametres.debutZoneCheminTileSet;
     }
 
     //Todo: Ajouter section pour tuile arrive et depart + methodes + parametre pour identifier
 
+    /**
+     * Pour la création du terrain, retourne premiere ligne du fichier csv
+     * @param ligneLue
+     * @return
+     */
     private ArrayList<Integer> ligneTerrain(String[] ligneLue){
         ArrayList<Integer> ligne = new ArrayList<>();
         for(int i = 0; i < ligneLue.length; i++){
@@ -50,6 +61,12 @@ public class Terrain {
         }
         return ligne;
     }
+
+    /**
+     * Lit le fichier CSV et retourne sous forme de liste
+     * @param nomCSV
+     * @return
+     */
     private ArrayList<ArrayList<Integer>> chargerCSV(String nomCSV){
         ArrayList<ArrayList<Integer>> terrainCharge = new ArrayList<>();
         try{
@@ -111,7 +128,12 @@ public class Terrain {
     }
 
     //todo: faire un jUnit
-    //public ArrayList<Integer> adjacents(int ligneCase, int colonneCase){
+
+    /**
+     * Retourne les voisins d'une case; renvoi null si aucun voisins ou bien pas case non chemin
+     * @param idCase
+     * @return
+     */
    public ArrayList<Integer> adjacents(int idCase){
         ArrayList<Integer> adjacents = new ArrayList<>();
 
@@ -150,6 +172,11 @@ public class Terrain {
 
 
     //private void algoBFS(){
+
+    /**
+     * Retourne une des map-liste possibles de chemin
+     * @return
+     */
     public Map<Integer, Integer>  algoBFS() {
         Map<Integer, Integer> arbreCouvrant = new HashMap<>();
 
@@ -169,11 +196,11 @@ public class Terrain {
             ArrayList<Integer> casesAdjacentes = this.adjacents(caseActuelle);
             Collections.shuffle(casesAdjacentes);
 
-            for(Integer sommetAdjacent: casesAdjacentes){
-                if(!parcours.contains(sommetAdjacent)){
-                    fifo.addLast(sommetAdjacent);
-                    arbreCouvrant.put(sommetAdjacent, caseActuelle);
-                    parcours.add(sommetAdjacent);
+            for(Integer caseAdjacente: casesAdjacentes){
+                if(!parcours.contains(caseAdjacente)){
+                    fifo.addLast(caseAdjacente);
+                    arbreCouvrant.put(caseAdjacente, caseActuelle);
+                    parcours.add(caseAdjacente);
                 }
             }
         }
