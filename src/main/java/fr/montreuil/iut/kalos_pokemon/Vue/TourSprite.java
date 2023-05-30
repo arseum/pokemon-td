@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;

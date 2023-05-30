@@ -45,7 +45,7 @@ public class Game {
         e.setGame(this);
     }
 
-    public void ajouteTour(Tour t){
+    public void ajouteTour(Tour t) {
         listTour.add(t);
         t.setGame(this);
     }
@@ -53,7 +53,10 @@ public class Game {
     public ObservableList<Ennemi> getListEnnemi() {
         return listEnnemi;
     }
-    public ObservableList<Tour> getListTour() { return listTour; }
+
+    public ObservableList<Tour> getListTour() {
+        return listTour;
+    }
 
     /**
      * methode appeler a chaque frame
@@ -77,8 +80,8 @@ public class Game {
             t.attaque();
         }
 
-        for (int i = listEnnemi.size() -1 ; i >= 0 ; i-- ){
-            if (listEnnemi.get(i).getHp() <= 0){
+        for (int i = listEnnemi.size() - 1; i >= 0; i--) {
+            if (listEnnemi.get(i).getHp() <= 0) {
                 //donne de l'argent au joueur
                 this.ajoutePokedollar(listEnnemi.get(i).getRecompense());
 

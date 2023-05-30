@@ -12,12 +12,12 @@ public class Terrain {
     private ArrayList<ArrayList<Integer>> arrierePlan;
     private ArrayList<ArrayList<Integer>> decor;
 
-    public Terrain(){
+    public Terrain() {
         arrierePlan = chargerCSV("default");
         decor = chargerCSV("default_decor");
     }
 
-    public Terrain(String nomTerrain){
+    public Terrain(String nomTerrain) {
         arrierePlan = chargerCSV(nomTerrain);
         decor = chargerCSV(nomTerrain + "_decor");
     }
@@ -37,32 +37,32 @@ public class Terrain {
     }
 
     //Todo: Vérifier si correct (modulo)
-    public boolean estChemin(int ligne, int colonne){
+    public boolean estChemin(int ligne, int colonne) {
         return (arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur) * Parametres.tailleTuile >= Parametres.debutZoneCheminTileSet;
     }
 
     //Todo: Ajouter section pour tuile arrive et depart + methodes + parametre pour identifier
 
-    private ArrayList<Integer> ligneTerrain(String[] ligneLue){
+    private ArrayList<Integer> ligneTerrain(String[] ligneLue) {
         ArrayList<Integer> ligne = new ArrayList<>();
-        for(int i = 0; i < ligneLue.length; i++){
+        for (int i = 0; i < ligneLue.length; i++) {
             ligne.add(Integer.parseInt(ligneLue[i]));
         }
         return ligne;
     }
-    private ArrayList<ArrayList<Integer>> chargerCSV(String nomCSV){
+
+    private ArrayList<ArrayList<Integer>> chargerCSV(String nomCSV) {
         ArrayList<ArrayList<Integer>> terrainCharge = new ArrayList<>();
-        try{
+        try {
             File fichierCSV = new File(Parametres.cheminTerrains + nomCSV + ".csv");
-            if(fichierCSV.exists()){
+            if (fichierCSV.exists()) {
                 Scanner scanner = new Scanner(fichierCSV);
-                while (scanner.hasNextLine()){
+                while (scanner.hasNextLine()) {
                     String[] ligne = scanner.nextLine().split(",");
                     terrainCharge.add(ligneTerrain(ligne));
                 }
             }
-        }
-        catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Une erreur lecture fichier");
         }
         return terrainCharge;

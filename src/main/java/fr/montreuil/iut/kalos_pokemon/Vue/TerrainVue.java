@@ -14,7 +14,7 @@ public class TerrainVue {
 
     private TilePane mapVue;
 
-    public TerrainVue(){
+    public TerrainVue() {
         mapVue = new TilePane();
     }
 
@@ -33,7 +33,7 @@ public class TerrainVue {
     }
 
     //public TilePane genereMap(ArrayList<ArrayList<Integer>> map){
-    public TilePane genereMap(ArrayList<ArrayList<Integer>> map){
+    public TilePane genereMap(ArrayList<ArrayList<Integer>> map) {
 
         //mapVue.setPrefColumns(map[0].length);
         //mapVue.setPrefRows(map.length);
@@ -53,16 +53,15 @@ public class TerrainVue {
 
 
         //for(int[] ligne : map)
-        for(ArrayList<Integer> ligne : map) {
+        for (ArrayList<Integer> ligne : map) {
             for (int a : ligne) {
-                if(a == -1){
+                if (a == -1) {
                     carre = new ImageView(tileSet);
 
                     carre.setViewport(carreDeDecoupe(Parametres.idTuileTransparente));
 
                     mapVue.getChildren().add(carre);
-                }
-                else {
+                } else {
                     carre = new ImageView(tileSet);
 
                     carre.setViewport(carreDeDecoupe(a));

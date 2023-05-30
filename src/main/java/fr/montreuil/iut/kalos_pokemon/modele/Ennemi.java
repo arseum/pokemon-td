@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Ennemi {
 
+    private static int compteurID = 1;
     private int vitesse;
     private int hp;
     private String type;
@@ -17,7 +18,6 @@ public abstract class Ennemi {
     private int recompense;
     private String nom;
     private Game game;
-    private static int compteurID = 1;
     private String id;
 
     public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon) {
@@ -37,20 +37,20 @@ public abstract class Ennemi {
         return recompense;
     }
 
-    public void setMaxHeightHitbox(int maxHeightHitbox) {
-        this.maxHeightHitbox = maxHeightHitbox;
-    }
-
-    public void setMaxWidhtHitbox(int maxWidhtHitbox) {
-        this.maxWidhtHitbox = maxWidhtHitbox;
-    }
-
     public int getMaxHeightHitbox() {
         return maxHeightHitbox;
     }
 
+    public void setMaxHeightHitbox(int maxHeightHitbox) {
+        this.maxHeightHitbox = maxHeightHitbox;
+    }
+
     public int getMaxWidhtHitbox() {
         return maxWidhtHitbox;
+    }
+
+    public void setMaxWidhtHitbox(int maxWidhtHitbox) {
+        this.maxWidhtHitbox = maxWidhtHitbox;
     }
 
     public String getId() {
@@ -96,7 +96,7 @@ public abstract class Ennemi {
     public void seDeplace() {
 
         //int caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
-        boolean caseSuiv = game.getTerrain().estChemin(getY()/32 + vecteurAcc[1], getX()/32+vecteurAcc[0]);
+        boolean caseSuiv = game.getTerrain().estChemin(getY() / 32 + vecteurAcc[1], getX() / 32 + vecteurAcc[0]);
 
         //if (caseSuiv == 0) {
         if (!caseSuiv) {
@@ -109,7 +109,7 @@ public abstract class Ennemi {
                 vecteurAcc[0] = model[n][0];
                 vecteurAcc[1] = model[n][1];
                 //caseSuiv = game.getTerrain().getMap_test()[getY() / 32 + vecteurAcc[1]][getX() / 32 + vecteurAcc[0]];
-                caseSuiv = game.getTerrain().estChemin(getY()/32 + vecteurAcc[1], getX()/32+vecteurAcc[0]);
+                caseSuiv = game.getTerrain().estChemin(getY() / 32 + vecteurAcc[1], getX() / 32 + vecteurAcc[0]);
             }
         }
         this.xProperty().set(this.getX() + this.getVitesse() * vecteurAcc[0]);  // 2 lignes du déplacement

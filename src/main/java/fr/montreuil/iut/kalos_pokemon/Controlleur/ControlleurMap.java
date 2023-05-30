@@ -45,7 +45,7 @@ public class ControlleurMap implements Initializable {
         TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         pane.getChildren().add(map);
         //Todo : le decor n'est plus charge
-        if(game.getTerrain().getDecor() != null){
+        if (game.getTerrain().getDecor() != null) {
             pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
         }
 
@@ -54,7 +54,7 @@ public class ControlleurMap implements Initializable {
         initLabel();
 
         //creation du listener qui va ecouter la list des ennemi de game
-        ListChangeListener<Ennemi> listenEnnemi =(c ->{
+        ListChangeListener<Ennemi> listenEnnemi = (c -> {
             while (c.next()) {
                 if (c.wasAdded())
                     for (Ennemi a : c.getAddedSubList()) {
@@ -73,7 +73,7 @@ public class ControlleurMap implements Initializable {
         game.getListEnnemi().addListener(listenEnnemi);
 
         //de meme pour les tours
-        ListChangeListener<Tour> listenTour =(c ->{
+        ListChangeListener<Tour> listenTour = (c -> {
             while (c.next()) {
                 if (c.wasAdded())
                     for (Tour a : c.getAddedSubList()) {
@@ -94,8 +94,8 @@ public class ControlleurMap implements Initializable {
         //ajout d'un lambda sur la map lors d'un click
         pane.setOnMouseClicked(event -> {
             //System.out.println(event.toString());
-            for (Node node : pane.getChildren()){
-                if (node instanceof Circle && event.getTarget() instanceof TilePane){
+            for (Node node : pane.getChildren()) {
+                if (node instanceof Circle && event.getTarget() instanceof TilePane) {
                     if (node.isVisible()) {
                         node.setVisible(false);
                     }
@@ -134,8 +134,8 @@ public class ControlleurMap implements Initializable {
                     }
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
-                    if (frame % (60*5) == 0){
-                        game.ajouteEnnemi(new Togepi(0,6 * 32));
+                    if (frame % (60 * 5) == 0) {
+                        game.ajouteEnnemi(new Togepi(0, 6 * 32));
                     }
                     frame++;
                 })
@@ -173,8 +173,8 @@ public class ControlleurMap implements Initializable {
 
     private void creerTourSprite(Tour tour) throws IOException {
         TourSprite Sprite = new TourSprite(tour);
-        Sprite.getSprite().xProperty().bind(tour.xProperty().add(-(Sprite.getSprite().getImage().getWidth()/2)));
-        Sprite.getSprite().yProperty().bind(tour.yProperty().add(-(Sprite.getSprite().getImage().getWidth()/2)));
+        Sprite.getSprite().xProperty().bind(tour.xProperty().add(-(Sprite.getSprite().getImage().getWidth() / 2)));
+        Sprite.getSprite().yProperty().bind(tour.yProperty().add(-(Sprite.getSprite().getImage().getWidth() / 2)));
         pane.getChildren().add(Sprite.getSprite());
         pane.getChildren().add(Sprite.getRange());
 
