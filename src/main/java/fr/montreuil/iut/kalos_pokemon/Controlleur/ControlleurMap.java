@@ -41,11 +41,15 @@ public class ControlleurMap implements Initializable {
 
         //inevitable debut de initialize
         //game = new Game();
-        game = new Game("debugBFS");
+        game = new Game();
         terrainVue = new TerrainVue();
-        terrainDecor = new TerrainVue();
-        TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
+
+        System.out.println(game.getTerrain().getDecor());
+        //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
+        TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
+        //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
         pane.getChildren().add(map);
+        //pane.getChildren().add(mapDecor);
         //Todo : le decor n'est plus charge
         /*
         if (game.getTerrain().getDecor() != null) {
@@ -143,7 +147,7 @@ public class ControlleurMap implements Initializable {
                         //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
                         //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
                         int[] caseDepart = game.getTerrain().caseDepart();
-                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile,caseDepart[1]*Parametres.tailleTuile, game));
+                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
                     frame++;
                 })

@@ -36,12 +36,6 @@ public abstract class Ennemi {
         this.recompense = recompense;
         this.nom = pokemon;
 
-        //todo Terrain_BFS 3
-        /*
-        this.t = new Terrain();
-        this.cheminVersArrive = t.algoBFS();
-        System.out.println(cheminVersArrive);
-         */
         this.game = game;
         this.cheminVersArrive = this.game.getTerrain().algoBFS();
         setInfoDeplacement();
@@ -51,7 +45,6 @@ public abstract class Ennemi {
         int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
         int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0],caseActuelle[1]));
         int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        //todo avoir si bon ordre
         this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
 
