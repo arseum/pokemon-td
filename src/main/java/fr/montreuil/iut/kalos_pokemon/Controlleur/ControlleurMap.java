@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
+import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import javafx.animation.KeyFrame;
@@ -164,11 +165,6 @@ public class ControlleurMap implements Initializable {
         Sprite.getHitBox().xProperty().bind(ennemi.xProperty());
         Sprite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(Sprite.getHitBox());
-
-        Circle c = new Circle(3);
-        c.centerXProperty().bind(ennemi.xProperty());
-        c.centerYProperty().bind(ennemi.yProperty());
-        pane.getChildren().add(c);
     }
 
     private void creerTourSprite(Tour tour) throws IOException {
@@ -178,15 +174,20 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(Sprite.getSprite());
         pane.getChildren().add(Sprite.getRange());
 
-        Sprite.getSprite().setOnMouseClicked(event -> {
-            Sprite.getRange().setVisible(true);
-        });
+        Sprite.getSprite().setOnMouseClicked(event ->
+            Sprite.getRange().setVisible(true)
+        );
+    }
 
-        //test
-        Circle c = new Circle(3);
-        c.setCenterX(tour.getX());
-        c.setCenterY(tour.getY());
-        pane.getChildren().add(c);
+    private void creerTirSprite(Tour tour) throws IOException {
+        TirSprite sprite = new TirSprite(tour);
+
+        //position
+        sprite.getHitBox().setX(tour.getX());
+        sprite.getHitBox().setY(tour.getY());
+
+        //rotation
+
 
     }
 
