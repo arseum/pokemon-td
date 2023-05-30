@@ -77,8 +77,8 @@ public class Game {
     public void deplacment() {
 
         for (Ennemi e : listEnnemi) {
-            //e.seDeplace();
-            e.seDeplaceBFS();
+            e.seDeplace();
+            //e.seDeplaceBFS();
         }
 
     }

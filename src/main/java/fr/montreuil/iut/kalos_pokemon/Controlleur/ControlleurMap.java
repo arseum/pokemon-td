@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
@@ -39,7 +40,8 @@ public class ControlleurMap implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        game = new Game("bfs");
+        //game = new Game();
+        game = new Game("debugBFS");
         terrainVue = new TerrainVue();
         terrainDecor = new TerrainVue();
         TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
@@ -138,7 +140,10 @@ public class ControlleurMap implements Initializable {
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60 * 5) == 0) {
                         //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
-                        game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
+                        //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
+                        //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
+                        int[] caseDepart = game.getTerrain().caseDepart();
+                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile,caseDepart[1]*Parametres.tailleTuile, game));
                     }
                     frame++;
                 })

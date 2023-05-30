@@ -1,0 +1,10 @@
+.labelDollar {
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+    -fx-opacity: 0.6;
+}
+
+.rangeTour {
+    -fx-opacity: 0.2;
+}
