@@ -4,6 +4,10 @@ import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -132,10 +136,16 @@ public class ControlleurMap implements Initializable {
                     if (frame % 30 == 0) {
                         game.demiSeconde();
                     }
+                    if (frame % (60 * 10) == 0) {
+                        game.ajouteEnnemi(new Camerupt(0, 6 * 32));
+                    }
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60 * 5) == 0) {
                         game.ajouteEnnemi(new Togepi(0, 6 * 32));
+                    }
+                    if ((frame+2) % (60 * 5) == 0) {
+                        game.ajouteEnnemi(new Tiplouf(0, 6 * 32));
                     }
                     frame++;
                 })
@@ -165,10 +175,7 @@ public class ControlleurMap implements Initializable {
         Sprite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(Sprite.getHitBox());
 
-        Circle c = new Circle(3);
-        c.centerXProperty().bind(ennemi.xProperty());
-        c.centerYProperty().bind(ennemi.yProperty());
-        pane.getChildren().add(c);
+
     }
 
     private void creerTourSprite(Tour tour) throws IOException {
@@ -182,11 +189,7 @@ public class ControlleurMap implements Initializable {
             Sprite.getRange().setVisible(true);
         });
 
-        //test
-        Circle c = new Circle(3);
-        c.setCenterX(tour.getX());
-        c.setCenterY(tour.getY());
-        pane.getChildren().add(c);
+
 
     }
 

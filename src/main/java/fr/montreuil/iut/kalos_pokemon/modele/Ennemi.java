@@ -3,6 +3,10 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 
 public abstract class Ennemi {
 
@@ -114,6 +118,28 @@ public abstract class Ennemi {
         }
         this.xProperty().set(this.getX() + this.getVitesse() * vecteurAcc[0]);  // 2 lignes du déplacement
         this.yProperty().set(this.getY() + this.getVitesse() * vecteurAcc[1]);
+
+        //////////////////////////////////////////////////////////// Nouvelle version
+        /*ArrayList<Integer> parcours = new ArrayList<>();
+        LinkedList<Integer> fifo = new LinkedList<>();
+        HashMap<Integer, Integer> predescesseurs = new HashMap<>();
+        int s;
+
+        fifo.addFirst( getArrivee);
+        while (!fifo.isEmpty()){
+            s = fifo.pollLast();
+        }
+         */
+
+
+    }
+
+    public ArrayList<Integer> adjacents(int sourceRecherche){
+        ArrayList <Integer> adjacents = new ArrayList<>();
+
+        if (sourceRecherche%33 != 0 ){adjacents.add(sourceRecherche+1);}
+        else if (sourceRecherche % 33 != 1) { }
+        return adjacents;
     }
 
     public void diminueHP(int value) {

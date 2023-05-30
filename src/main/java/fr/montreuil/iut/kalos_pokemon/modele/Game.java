@@ -27,11 +27,9 @@ public class Game {
     public Terrain getTerrain() {
         return terrain;
     }
-
     public IntegerProperty PokedollarProperty() {
         return pokedollar;
     }
-
     public int getPokedollar() {
         return pokedollar.get();
     }
@@ -59,7 +57,7 @@ public class Game {
     }
 
     /**
-     * methode appeler a chaque frame
+     * methode appelée a chaque frame
      * utilisé notament pour les deplacements
      */
     public void deplacment() {
@@ -71,7 +69,7 @@ public class Game {
     }
 
     /**
-     * methode appeler toutes les 30 frames (soit 1/2s )
+     * methode appelée toutes les 30 frames (soit 1/2s )
      * utilisé pour faire des tests sur la mort des pokemons
      */
     public void demiSeconde() {
@@ -84,8 +82,6 @@ public class Game {
             if (listEnnemi.get(i).getHp() <= 0) {
                 //donne de l'argent au joueur
                 this.ajoutePokedollar(listEnnemi.get(i).getRecompense());
-
-                //supprime le sprite du pokemon
 
                 //puis on le supprime
                 listEnnemi.remove(i);

@@ -22,11 +22,7 @@ public class Terrain {
         decor = chargerCSV(nomTerrain + "_decor");
     }
 
-    /*
-    public int[][] getMap_test() {
-        return map_test;
-    }
-    */
+
 
     public ArrayList<ArrayList<Integer>> getArrierePlan() {
         return arrierePlan;
