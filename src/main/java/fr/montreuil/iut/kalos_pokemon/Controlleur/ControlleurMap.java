@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
@@ -40,16 +41,23 @@ public class ControlleurMap implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        game = new Game();
+        //game = new Game();
+        game = new Game("savane");
         terrainVue = new TerrainVue();
-        terrainDecor = new TerrainVue();
-        TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
+
+        System.out.println(game.getTerrain().getDecor());
+        //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
+        TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
+        //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
         pane.getChildren().add(map);
+        //pane.getChildren().add(mapDecor);
         //Todo : le decor n'est plus charge
+        /*
         if (game.getTerrain().getDecor() != null) {
             pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
         }
 
+         */
         //init game loop + label utile
         initAnimation();
         initLabel();
@@ -136,7 +144,11 @@ public class ControlleurMap implements Initializable {
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60 * 5) == 0) {
-                        game.ajouteEnnemi(new Togepi(0, 6 * 32));
+                        //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
+                        //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
+                        //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
+                        int[] caseDepart = game.getTerrain().caseDepart();
+                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
                     frame++;
                 })
