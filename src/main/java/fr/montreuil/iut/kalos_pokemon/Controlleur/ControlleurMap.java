@@ -41,7 +41,7 @@ public class ControlleurMap implements Initializable {
 
         //inevitable debut de initialize
         //game = new Game();
-        game = new Game();
+        game = new Game("savane");
         terrainVue = new TerrainVue();
 
         System.out.println(game.getTerrain().getDecor());
