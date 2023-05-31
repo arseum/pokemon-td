@@ -79,7 +79,7 @@ public abstract class Tour {
             super_x = Math.abs(getX() - listEnnemi.get(0).getX());
             super_y = Math.abs(getY() - listEnnemi.get(0).getY());
             distance = (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
-            System.out.println("DEBUG ! distance formule entre poussifeu et le premier ennemie = " + distance);
+            //System.out.println("DEBUG ! distance formule entre poussifeu et le premier ennemie = " + distance);
         }
 
         //cherche une cible
@@ -98,7 +98,7 @@ public abstract class Tour {
         //attaque la cible
         if (cible != null) {
             cible.diminueHP(this.DPS);
-            System.out.println(cible.getId() + " vient de subir " + this.DPS + " degats !!!");
+            //System.out.println(cible.getId() + " vient de subir " + this.DPS + " degats !!!");
         }
 
 

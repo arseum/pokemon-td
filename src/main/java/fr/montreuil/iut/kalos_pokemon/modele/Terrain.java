@@ -114,8 +114,6 @@ public class Terrain {
         return null;
     }
 
-    //todo: faire un jUnit
-
     /**
      * Retourne les voisins d'une case; renvoi null si aucun voisins ou bien pas case non chemin
      * @param idCase
@@ -130,7 +128,6 @@ public class Terrain {
        int ligneCase = idCase / largeur;
        int colonneCase = idCase % largeur;
 
-        //todo condition estChemin
         if(estChemin(ligneCase,colonneCase)){
             int[][] direction = {{-1,0},{0,-1},{1,0},{0,1}};
 
@@ -181,12 +178,6 @@ public class Terrain {
             }
         }
         return arbreCouvrant;
-    }
-
-    public static void main(String[] args) {
-        Terrain t = new Terrain();
-        System.out.println(t.getDecor());
-        System.out.println(t.getArrierePlan());
     }
 
 }

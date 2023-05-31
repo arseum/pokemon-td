@@ -116,25 +116,15 @@ public abstract class Ennemi {
         caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
         idCaseActuelle = this.game.getTerrain().coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
 
-        //System.out.println("***SE DEPLACE BFS");
-        //System.out.println(cheminVersArrive);
-        //System.out.println(idCaseActuelle);
 
         idCaseSuivante = cheminVersArrive.get(idCaseActuelle);
         caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        //System.out.println("SE DEPLACE BFS***");
 
         vecteurVitesse = new int[] {(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0])};
 
         this.xProperty().set(this.getX() + this.getVitesse() * vecteurVitesse[0]);  // 2 lignes du déplacement
         this.yProperty().set(this.getY() + this.getVitesse() * vecteurVitesse[1]);
 
-
-        System.out.println(caseActuelle[0] + ", "+ caseActuelle[1] + " id: " + idCaseActuelle);
-        System.out.println(this.x.get() + ", " + this.y.get());
-        System.out.println(" vitesse: " + vecteurVitesse[0] + ", "+ vecteurVitesse[1] );
-        System.out.println("Suivant : " + cheminVersArrive.get(idCaseActuelle));
-        System.out.println("***");
 
     }
     public void seDeplace(){
@@ -161,9 +151,6 @@ public abstract class Ennemi {
         hp -= value;
     }
 
-    public static void main(String[] args) {
-        System.out.println(1%32);
-    }
 
     //Copie
 

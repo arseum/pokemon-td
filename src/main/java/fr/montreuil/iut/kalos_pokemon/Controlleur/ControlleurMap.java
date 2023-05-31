@@ -7,19 +7,35 @@ import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import javafx.scene.input.DragEvent;
+
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -35,6 +51,12 @@ public class ControlleurMap implements Initializable {
     private TerrainVue terrainDecor;
     private Game game;
 
+    //todo ZONE TEST ATTRIBUT
+    @FXML
+    private Label testDrag;
+    @FXML
+    private VBox testDrop;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,19 +66,9 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
 
-        System.out.println(game.getTerrain().getDecor());
-        //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
-        //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
-        pane.getChildren().add(map);
-        //pane.getChildren().add(mapDecor);
-        //Todo : le decor n'est plus charge
-        /*
-        if (game.getTerrain().getDecor() != null) {
-            pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
-        }
 
-         */
+        pane.getChildren().add(map);
         //init game loop + label utile
         initAnimation();
         initLabel();
@@ -101,7 +113,6 @@ public class ControlleurMap implements Initializable {
 
         //ajout d'un lambda sur la map lors d'un click
         pane.setOnMouseClicked(event -> {
-            //System.out.println(event.toString());
             for (Node node : pane.getChildren()) {
                 if (node instanceof Circle && event.getTarget() instanceof TilePane) {
                     if (node.isVisible()) {
@@ -117,6 +128,58 @@ public class ControlleurMap implements Initializable {
         //lancement de la game loop
         gameLoop.play();
 
+        //todo: ZONE DE TEST
+        
+        boolean poussifeuSelect = false;
+        BooleanProperty p = new SimpleBooleanProperty(false);
+        //ObservableBooleanValue p2 = new SimpleBooleanProperty(p.getValue());
+        //p.bind(p2);
+
+        testDrag.setOnMouseClicked( e -> {
+            System.out.println("Poussifeu Select");
+            if(p.getValue() == false) p.setValue(true);
+            else p.setValue(false);
+        });
+
+        pane.setOnMouseEntered( e -> {
+                    if(p.getValue()){
+                        Image i;
+                        try {
+                            i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "poussifeu.png")).openStream());
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        //Image i = new Image("/home/zen/Documents/Cours/BUT_Informatique/Semestre_2/SAE/Dev/pokemon-td/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/poussifeu.png");
+                        //pane.setCursor(Cursor.HAND);
+
+                        //pane.setCursor(new ImageCursor(i));
+                        //System.out.println(e.getX());
+
+                        if(e.getX() < 500){
+                            pane.setCursor(new ImageCursor(i));
+                        }else {
+                            pane.setCursor(Cursor.HAND);
+                        }
+                    }
+                }
+        );
+
+        pane.setOnMouseClicked( e -> {
+            //System.out.println("click");
+            //System.out.println(e.getX() + "," + e.getY());
+            if(p.getValue()){
+                int x = (int) e.getX();
+                int y = (int) e.getY();
+                int heightPane = (int)pane.getHeight();
+                int widthPane = (int)pane.getWidth();
+                if( 0 <= x && x <= widthPane && 0 <= y && y <= heightPane){
+                    game.ajouteTour(new Poussifeu(x, y));
+                }
+                p.setValue(false);
+                pane.setCursor(Cursor.DEFAULT);
+            }
+        });
+
     }
 
     private void initAnimation() {
@@ -131,7 +194,6 @@ public class ControlleurMap implements Initializable {
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
                     if (frame == 5000) {
-                        System.out.println("fini");
                         gameLoop.stop();
                     }
                     if (frame % 2 == 0) {
@@ -142,12 +204,13 @@ public class ControlleurMap implements Initializable {
                     }
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
-                    if (frame % (60 * 5) == 0) {
+                    //if (frame % (60 * 5 ) == 0) {
+                    if (frame % (60 * 5 ) == 0) {
                         //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
                         //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
                         //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
                         int[] caseDepart = game.getTerrain().caseDepart();
-                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+                        //game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
                     frame++;
                 })
