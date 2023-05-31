@@ -13,12 +13,16 @@ public class TirSprite {
     private static int compteur = 1;
     private ImageView cibleSprite;
     private boolean actif;
+    private int idImage;
+    private String pokemonName;
 
     public TirSprite(Tour tour) throws IOException {
-        hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(tour.getNom() + "_attaque_default.png")).openStream()));
+        pokemonName = tour.getNom();
+        hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemonName + "_attaque_default_0.png")).openStream()));
         hitBox.setId("Tir_n°" + compteur);
         compteur++;
         actif = true;
+        idImage = 0;
     }
 
     public ImageView getHitBox() {
@@ -35,12 +39,18 @@ public class TirSprite {
         return actif;
     }
 
-    public void bouge(){
+    public void bouge() throws IOException{
         if (hitBox.getX() > cibleSprite.getX() + 15 || hitBox.getY() > cibleSprite.getY() + 15 || hitBox.getX() < cibleSprite.getX() - 15 || hitBox.getY() < cibleSprite.getY() - 15 ){
 
             for (int i = 0 ; i < 6 ; i++){
                 hitBox.setY( hitBox.getY() < cibleSprite.getY() ? hitBox.getY() + 1 : hitBox.getY() - 1 );
                 hitBox.setX( hitBox.getX() < cibleSprite.getX() ? hitBox.getX() + 1 : hitBox.getX() - 1 );
+
+                idImage++;
+                if (idImage > 6)
+                    idImage = 0;
+
+                hitBox.setImage(new Image(Objects.requireNonNull(getClass().getResource(pokemonName + "_attaque_default_"+ idImage + ".png")).openStream()));
             }
 
 

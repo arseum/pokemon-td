@@ -65,7 +65,11 @@ public class ControlleurMap implements Initializable {
 
          */
         //init game loop + label utile
-        initAnimation();
+        try {
+            initAnimation();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         initLabel();
 
         //creation du listener qui va ecouter la list des ennemi de game
@@ -117,7 +121,7 @@ public class ControlleurMap implements Initializable {
 
     }
 
-    private void initAnimation() {
+    private void initAnimation() throws IOException{
         gameLoop = new Timeline();
         frame = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -150,7 +154,11 @@ public class ControlleurMap implements Initializable {
 
                     //a faire pour chaque frame:
                     for (int i = ensembleTirVue.size() - 1  ; i >= 0 ; i-- ){
-                        ensembleTirVue.get(i).bouge();
+                        try {
+                            ensembleTirVue.get(i).bouge();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         if ( ! ensembleTirVue.get(i).isActif()) {
                             pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
                             ensembleTirVue.remove(i);
@@ -197,7 +205,7 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(Sprite.getRange());
 
 
-        //ajout d'un onMouseClicked qui permet de afficher la range de la tour
+        //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
         Sprite.getSprite().setOnMouseClicked(e -> {
             Sprite.getSprite().toFront();
             Sprite.getRange().setVisible(!Sprite.getRange().isVisible());
@@ -219,7 +227,6 @@ public class ControlleurMap implements Initializable {
         TirSprite sprite = new TirSprite(tour);
         sprite.setCibleSprite((ImageView) pane.lookup("#" + idCible));
 
-        //position
         sprite.getHitBox().setX(tour.getX());
         sprite.getHitBox().setY(tour.getY());
 
