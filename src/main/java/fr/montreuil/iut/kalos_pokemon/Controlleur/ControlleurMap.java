@@ -9,18 +9,23 @@ import fr.montreuil.iut.kalos_pokemon.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import javax.crypto.CipherInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -35,6 +40,7 @@ public class ControlleurMap implements Initializable {
 
     private TerrainVue terrainDecor;
     private Game game;
+    private ArrayList<TirSprite> ensembleTirVue;
 
 
     @Override
@@ -44,14 +50,14 @@ public class ControlleurMap implements Initializable {
         //game = new Game();
         game = new Game("savane");
         terrainVue = new TerrainVue();
+        ensembleTirVue = new ArrayList<>();
 
-        System.out.println(game.getTerrain().getDecor());
+        //System.out.println(game.getTerrain().getDecor());
         //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
         pane.getChildren().add(map);
         //pane.getChildren().add(mapDecor);
-        //Todo : le decor n'est plus charge
         /*
         if (game.getTerrain().getDecor() != null) {
             pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
@@ -100,17 +106,7 @@ public class ControlleurMap implements Initializable {
         });
         game.getListTour().addListener(listenTour);
 
-        //ajout d'un lambda sur la map lors d'un click
-        pane.setOnMouseClicked(event -> {
-            //System.out.println(event.toString());
-            for (Node node : pane.getChildren()) {
-                if (node instanceof Circle && event.getTarget() instanceof TilePane) {
-                    if (node.isVisible()) {
-                        node.setVisible(false);
-                    }
-                }
-            }
-        });
+
 
         //ajout d'un poussifeu
         game.ajouteTour(new Poussifeu(5 * 32, 5 * 32));
@@ -150,6 +146,16 @@ public class ControlleurMap implements Initializable {
                         int[] caseDepart = game.getTerrain().caseDepart();
                         game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
+
+                    //a faire pour chaque frame:
+                    for (int i = ensembleTirVue.size() - 1  ; i >= 0 ; i-- ){
+                        ensembleTirVue.get(i).bouge();
+                        if ( ! ensembleTirVue.get(i).isActif()) {
+                            pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
+                            ensembleTirVue.remove(i);
+                        }
+                    }
+
                     frame++;
                 })
         );
@@ -165,7 +171,10 @@ public class ControlleurMap implements Initializable {
         labelDollar.setPrefHeight(15);
         labelDollar.setAlignment(Pos.CENTER);
         labelDollar.getStyleClass().add("labelDollar");
-        game.PokedollarProperty().addListener((observableValue, number, t1) -> labelDollar.setText(t1 + " $"));
+        game.PokedollarProperty().addListener((observableValue, number, t1) -> {
+            labelDollar.setText(t1 + " $");
+            labelDollar.setPrefWidth(t1.toString().length() * 10 + 40 );
+        });
         pane.getChildren().add(labelDollar);
     }
 
@@ -186,21 +195,52 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(Sprite.getSprite());
         pane.getChildren().add(Sprite.getRange());
 
-        Sprite.getSprite().setOnMouseClicked(event ->
-            Sprite.getRange().setVisible(true)
-        );
+        //creation de la methode qui permet de desactiver le viduel de porter des tours
+        EventHandler<MouseEvent> desactivationRangeTour = new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                //System.out.println(mouseEvent.toString());
+                if ( ! (mouseEvent.getTarget() instanceof Circle) ) {
+                    for (Node node : pane.getChildren()) {
+                        if (node instanceof Circle && node.isVisible()) {
+                            node.setVisible(false);
+                        }
+                    }
+                    pane.removeEventHandler(MouseEvent.MOUSE_CLICKED,this );
+
+                }
+            }
+        };
+
+        //ajout d'un onMouseClicked qui permet de afficher la range de la tour
+        Sprite.getSprite().setOnMouseClicked(e -> {
+            Sprite.getRange().setVisible(true);
+            pane.addEventHandler(MouseEvent.MOUSE_CLICKED,desactivationRangeTour);
+            System.out.println(pane.getOnMouseClicked().toString());
+        });
+
+        //ajout d'un listener pour creer des sprites lorsque la tour attaque
+        tour.idCibleProperty().addListener( ((observableValue, aBoolean, nouv) -> {
+            if (nouv != null) {
+                try {
+                    creerTirSprite(tour,nouv);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }) );
     }
 
-    private void creerTirSprite(Tour tour) throws IOException {
+    private void creerTirSprite(Tour tour,String idCible) throws IOException {
         TirSprite sprite = new TirSprite(tour);
+        sprite.setCibleSprite((ImageView) pane.lookup("#" + idCible));
 
         //position
         sprite.getHitBox().setX(tour.getX());
         sprite.getHitBox().setY(tour.getY());
 
-        //rotation
-
-
+        pane.getChildren().add(sprite.getHitBox());
+        ensembleTirVue.add(sprite);
     }
 
 }
