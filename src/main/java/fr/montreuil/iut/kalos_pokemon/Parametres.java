@@ -9,10 +9,13 @@ public class Parametres {
     public static int nbTuilesLargueur = largeurTileset / tailleTuile;
     public static int nbTuilesHauteur = hauteurTileset / tailleTuile;
 
-    public static int idTuileTransparente = 5; //À modifier
+    public static int idTuileTransparente = 15; //À modifier
     public static int debutZoneCheminTileSet = ((largeurTileset / tailleTuile / 2) + 1) * tailleTuile;
 
+    public static int colonneZoneDepartTileSet = (largeurTileset / tailleTuile) - 3;
     public static int colonneZoneArriveeTileSet = (largeurTileset / tailleTuile) - 1;
+
+    public static int vitesseMaximale = 10;
 
     public static int coordonneesXYenCase(int ligne, int colonne, int largeur){
         //int largeur = 32;//this.arrierePlan.get(0).size();
