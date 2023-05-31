@@ -110,6 +110,7 @@ public class ControlleurMap implements Initializable {
 
         //ajout d'un poussifeu
         game.ajouteTour(new Poussifeu(5 * 32, 5 * 32));
+        game.ajouteTour(new Poussifeu(4 * 32, 5 * 32));
 
         //lancement de la game loop
         gameLoop.play();
@@ -195,28 +196,11 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(Sprite.getSprite());
         pane.getChildren().add(Sprite.getRange());
 
-        //creation de la methode qui permet de desactiver le viduel de porter des tours
-        EventHandler<MouseEvent> desactivationRangeTour = new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                //System.out.println(mouseEvent.toString());
-                if ( ! (mouseEvent.getTarget() instanceof Circle) ) {
-                    for (Node node : pane.getChildren()) {
-                        if (node instanceof Circle && node.isVisible()) {
-                            node.setVisible(false);
-                        }
-                    }
-                    pane.removeEventHandler(MouseEvent.MOUSE_CLICKED,this );
-
-                }
-            }
-        };
 
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour
         Sprite.getSprite().setOnMouseClicked(e -> {
-            Sprite.getRange().setVisible(true);
-            pane.addEventHandler(MouseEvent.MOUSE_CLICKED,desactivationRangeTour);
-            System.out.println(pane.getOnMouseClicked().toString());
+            Sprite.getSprite().toFront();
+            Sprite.getRange().setVisible(!Sprite.getRange().isVisible());
         });
 
         //ajout d'un listener pour creer des sprites lorsque la tour attaque

@@ -78,7 +78,7 @@ public class TerrainVue {
     public TilePane genererMapAvecDecor(Terrain t){
         ArrayList<ArrayList<Integer>> map = t.getArrierePlan();
         ArrayList<ArrayList<Integer>> mapDecor = t.getDecor();
-        System.out.println(mapDecor);
+        //System.out.println(mapDecor);
 
         mapVue.setPrefColumns(map.get(0).size());
         mapVue.setPrefRows(map.size());
@@ -96,17 +96,17 @@ public class TerrainVue {
 
         for (int i = 0; i < map.size(); i ++){
             for (int j = 0; j < map.get(0).size(); j++){
-                System.out.println(map.size());
-                System.out.println(map.get(0).size());
+                //System.out.println(map.size());
+                //System.out.println(map.get(0).size());
                 ImageView carre;
-                System.out.print(map.get(i).get(j));
+                //System.out.print(map.get(i).get(j));
 
                 StackPane carreFinal;
                 carre = new ImageView(tileSet);
                 carre.setViewport(carreDeDecoupe(map.get(i).get(j)));
 
                 if (mapDecor != null){
-                    System.out.println("DECOR EXISTANT");
+                    //System.out.println("DECOR EXISTANT");
                     ImageView carreDecor;
 
                     carreDecor = new ImageView(tileSet);
@@ -123,7 +123,7 @@ public class TerrainVue {
                 }
                 mapVue.getChildren().add(carreFinal);
             }
-            System.out.println();
+            //System.out.println();
         }
 
         return mapVue;
