@@ -10,8 +10,8 @@ import java.util.Objects;
 
 public class TourSprite {
 
-    private ImageView sprite;
-    private Circle range;
+    private final ImageView sprite;
+    private final Circle range;
 
     public TourSprite(Tour pokemon) throws IOException {
         sprite = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemon.getNom() + ".png")).openStream()));

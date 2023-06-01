@@ -5,19 +5,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-
 public class Game {
 
-    private Terrain terrain;
+    private final Terrain terrain;
     /**
      * il faut que cette liste contiene tout les ennemie en fonction du - loin au + loin
      * pour l'instant tout els togepi on la meme vitesse donc ce n'est pas compliqué mais par a suite il faudra envisager
      * le fait que les ennemi peuvent se depacer les uns des autres
      */
-    private ObservableList<Ennemi> listEnnemi;
-    private ObservableList<Tour> listTour;
-    private IntegerProperty pokedollar;
+    private final ObservableList<Ennemi> listEnnemi;
+    private final ObservableList<Tour> listTour;
+    private final IntegerProperty pokedollar;
 
     public Game() {
         terrain = new Terrain();
@@ -39,9 +37,11 @@ public class Game {
     public Terrain getTerrain() {
         return terrain;
     }
+
     public IntegerProperty PokedollarProperty() {
         return pokedollar;
     }
+
     public int getPokedollar() {
         return pokedollar.get();
     }
