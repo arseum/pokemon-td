@@ -45,6 +45,12 @@ public class ControlleurMap implements Initializable {
     private Game game;
     private ArrayList<TirSprite> ensembleTirVue;
 
+    //todo ZONE TEST ATTRIBUT
+    @FXML
+    private Label testDrag;
+    @FXML
+    private VBox testDrop;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,13 +65,7 @@ public class ControlleurMap implements Initializable {
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
         pane.getChildren().add(map);
-        //pane.getChildren().add(mapDecor);
-        /*
-        if (game.getTerrain().getDecor() != null) {
-            pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
-        }
 
-         */
         //init game loop + label utile
         try {
             initAnimation();
@@ -123,6 +123,82 @@ public class ControlleurMap implements Initializable {
         //lancement de la game loop
         gameLoop.play();
 
+        //todo: ZONE DE TEST
+
+        //ControleurAjoutTour t = new ControleurAjoutTour(4);
+        //pane.addEventHandler(MouseEvent.MOUSE_CLICKED, t);
+
+        ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(pane);
+        ObservateurMouvementSourisAjoutTour mv = new ObservateurMouvementSourisAjoutTour(o, pane, game);
+        testDrag.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
+        pane.addEventHandler(MouseEvent.MOUSE_MOVED, mv);
+
+
+/*
+        boolean poussifeuSelect = false;
+        BooleanProperty p = new SimpleBooleanProperty(false);
+        //ObservableBooleanValue p2 = new SimpleBooleanProperty(p.getValue());
+        //p.bind(p2);
+
+        testDrag.setOnMouseClicked( e -> {
+            System.out.println("Poussifeu Select");
+            if(p.getValue() == false) p.setValue(true);
+            else p.setValue(false);
+        });
+
+        pane.setOnMouseMoved( e -> {
+            if(p.getValue()){
+                Image i;
+                try {
+                    i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "poussifeu.png")).openStream());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+        });
+
+        pane.setOnMouseEntered( e -> {
+                    if(p.getValue()){
+                        Image i;
+                        try {
+                            i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "poussifeu.png")).openStream());
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        //Image i = new Image("/home/zen/Documents/Cours/BUT_Informatique/Semestre_2/SAE/Dev/pokemon-td/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/poussifeu.png");
+                        //pane.setCursor(Cursor.HAND);
+
+                        //pane.setCursor(new ImageCursor(i));
+                        //System.out.println(e.getX());
+
+                        if(e.getX() < 500){
+                            pane.setCursor(new ImageCursor(i));
+                        }else {
+                            pane.setCursor(Cursor.HAND);
+                        }
+                    }
+                }
+        );
+
+
+
+        pane.setOnMouseClicked( e -> {
+            //System.out.println("click");
+            //System.out.println(e.getX() + "," + e.getY());
+            if(p.getValue()){
+                int x = (int) e.getX();
+                int y = (int) e.getY();
+                int heightPane = (int)pane.getHeight();
+                int widthPane = (int)pane.getWidth();
+                if( 0 <= x && x <= widthPane && 0 <= y && y <= heightPane){
+                    game.ajouteTour(new Poussifeu(x, y));
+                }
+                p.setValue(false);
+                pane.setCursor(Cursor.DEFAULT);
+            }
+        });
+*/
     }
 
     private void initAnimation() throws IOException {
@@ -137,6 +213,10 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
+                    if (frame == 5000) {
+                        System.out.println("fini");
+                        gameLoop.stop();
+                    }
                     if (frame % 2 == 0) {
                         game.deplacment();
                     }
