@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"  prefHeight="725.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
+   <center>
+      <Pane fx:id="pane" prefHeight="671.0" prefWidth="1030.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+      </Pane>
+   </center>
+   <bottom>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="258.0" fitWidth="999.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
+               <image>
+                  <Image url="@Vue/fond_menu_dalles.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="151.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Vue/pixel-art-wood.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="916.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="101.0" prefWidth="85.0">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="43.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Vue/poussifeu.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="20.0" text="50$" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="51.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Vue/granivol.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="24.0" prefWidth="20.0" text="60$" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="58.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Vue/magneti.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="19.0" prefWidth="20.0" text="70$" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Vue/grenousse.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="20.0" text="75$" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="56.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Vue/venalgue.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="16.0" prefWidth="20.0" text="80$" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="49.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Vue/salameche.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="26.0" text="100$" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="49.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Vue/electrode.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="37.0" text="50$" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </bottom>
+</BorderPane>

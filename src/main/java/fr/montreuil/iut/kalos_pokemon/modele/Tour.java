@@ -17,7 +17,7 @@ public abstract class Tour {
     private Game game;
     private String id;
 
-    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon) {
+    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, Game game) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = portee;
@@ -27,6 +27,7 @@ public abstract class Tour {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.nom = pokemon;
+        this.game = game;
     }
 
     public String getNom() {

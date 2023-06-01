@@ -8,7 +8,11 @@ import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Granivol;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -116,7 +120,11 @@ public class ControlleurMap implements Initializable {
         });
 
         //ajout d'un poussifeu
-        game.ajouteTour(new Poussifeu(5 * 32, 5 * 32));
+       game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
+        game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
+        game.ajouteTour(new Grenousse(10 * 32, 5 * 32, game));
+       // game.ajouteTour(new Venalgue(13 * 32, 7 * 32, game));
+
 
         //lancement de la game loop
         gameLoop.play();
@@ -127,6 +135,7 @@ public class ControlleurMap implements Initializable {
         gameLoop = new Timeline();
         frame = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
+        int[] caseDepart = game.getTerrain().caseDepart();
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
@@ -134,6 +143,7 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
+
                     if (frame == 5000) {
                         System.out.println("fini");
                         gameLoop.stop();
@@ -145,7 +155,7 @@ public class ControlleurMap implements Initializable {
                         game.demiSeconde();
                     }
                     if (frame % (60 * 10) == 0) {
-                        game.ajouteEnnemi(new Camerupt(0, 6 * 32));
+                        game.ajouteEnnemi(new Camerupt(caseDepart[0] *32, caseDepart[1] * 32, game));
                     }
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
@@ -153,11 +163,11 @@ public class ControlleurMap implements Initializable {
                         //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
                         //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
                         //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
-                        int[] caseDepart = game.getTerrain().caseDepart();
-                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
+                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile,game));
                     }
                     if ((frame+2) % (60 * 5) == 0) {
-                        game.ajouteEnnemi(new Tiplouf(0, 6 * 32));
+                        game.ajouteEnnemi(new Tiplouf(caseDepart[0] *32, caseDepart[1] * 32,game));
                     }
                     frame++;
                 })
