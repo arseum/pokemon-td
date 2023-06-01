@@ -1,10 +1,10 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
-
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 public class Togepi extends Ennemi {
-    public Togepi(int x, int y) {
-        super(2, 75, "normal", x, y, 50, "togepi");
+    public Togepi(int x, int y,Game game) {
+        super(2, 75, "normal", x, y, 50, "togepi", game);
     }
 
 }

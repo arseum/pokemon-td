@@ -15,7 +15,7 @@ public class main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("test_map.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("test_map2.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Pokemon TD !");
         stage.setScene(scene);

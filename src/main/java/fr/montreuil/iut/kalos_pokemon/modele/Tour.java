@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
 import java.util.List;
 
@@ -16,8 +15,10 @@ public abstract class Tour {
     private IntegerProperty y;
     private Game game;
     private String id;
+    private StringProperty idCible;
+    private int nbImageAdefault;
 
-    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon) {
+    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon,int nbImageAdefault, Game game) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = portee;
@@ -27,6 +28,12 @@ public abstract class Tour {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.nom = pokemon;
+        idCible = new SimpleStringProperty(null);
+        this.nbImageAdefault = nbImageAdefault;
+    }
+
+    public int getNbImageAdefault() {
+        return nbImageAdefault;
     }
 
     public String getNom() {
@@ -60,6 +67,7 @@ public abstract class Tour {
     public IntegerProperty yProperty() {
         return y;
     }
+    public StringProperty idCibleProperty() { return idCible; }
 
     public void setGame(Game game) {
         this.game = game;
@@ -73,14 +81,7 @@ public abstract class Tour {
         int super_y;
         int distance;
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
-
-        //debug
-        if (listEnnemi.size() != 0) {
-            super_x = Math.abs(getX() - listEnnemi.get(0).getX());
-            super_y = Math.abs(getY() - listEnnemi.get(0).getY());
-            distance = (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
-            System.out.println("DEBUG ! distance formule entre poussifeu et le premier ennemie = " + distance);
-        }
+        idCible.setValue(null);
 
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
@@ -97,8 +98,8 @@ public abstract class Tour {
 
         //attaque la cible
         if (cible != null) {
+            idCible.setValue(cible.getId());
             cible.diminueHP(this.DPS);
-            System.out.println(cible.getId() + " vient de subir " + this.DPS + " degats !!!");
         }
 
 

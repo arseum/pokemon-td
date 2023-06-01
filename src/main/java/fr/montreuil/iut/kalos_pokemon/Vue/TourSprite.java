@@ -14,7 +14,7 @@ public class TourSprite {
     private Circle range;
 
     public TourSprite(Tour pokemon) throws IOException {
-        sprite = new ImageView(new Image(Objects.requireNonNull(EnnemiSprite.class.getResource(pokemon.getNom() + ".png")).openStream()));
+        sprite = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemon.getNom() + ".png")).openStream()));
         sprite.setId(pokemon.getId());
         range = new Circle(pokemon.getPortee());
         creationCercleRange(pokemon);
