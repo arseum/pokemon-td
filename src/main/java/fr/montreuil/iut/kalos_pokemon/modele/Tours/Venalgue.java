@@ -7,6 +7,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 public class Venalgue extends Tour {
 
     public Venalgue(int x, int y, Game game) {
-        super(128, 20, "neutre", 80, x, y, "venalgue", game);
+        super(128, 20, "neutre", 80, x, y, "venalgue",0, game);
     }
 }

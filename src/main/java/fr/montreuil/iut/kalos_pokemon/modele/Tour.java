@@ -34,7 +34,6 @@ public abstract class Tour {
 
     public int getNbImageAdefault() {
         return nbImageAdefault;
-        this.game = game;
     }
 
     public String getNom() {

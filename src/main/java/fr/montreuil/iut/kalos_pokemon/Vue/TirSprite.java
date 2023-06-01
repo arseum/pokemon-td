@@ -49,10 +49,10 @@ public class TirSprite {
                 hitBox.setX( hitBox.getX() < cibleSprite.getX() ? hitBox.getX() + 1 : hitBox.getX() - 1 );
 
                 idImage++;
-                if (idImage > 3)
+                if (idImage > nbImageMax)
                     idImage = 0;
 
-                hitBox.setImage(new Image(Objects.requireNonNull(getClass().getResource("granivol" + "_attaque_default_"+ idImage + ".png")).openStream()));
+                hitBox.setImage(new Image(Objects.requireNonNull(getClass().getResource(pokemonName + "_attaque_default_"+ idImage + ".png")).openStream()));
             }
 
 
