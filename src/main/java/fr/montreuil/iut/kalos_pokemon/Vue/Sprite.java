@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface Sprite {
 
-    void bouge() throws IOException ;
+    void bouge() throws IOException;
 
     boolean isActif();
 

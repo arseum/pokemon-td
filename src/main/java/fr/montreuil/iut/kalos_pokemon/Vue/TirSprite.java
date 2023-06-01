@@ -7,15 +7,15 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.Objects;
 
-public class TirSprite implements Sprite{
+public class TirSprite implements Sprite {
 
     private static int compteur = 1;
     private final ImageView hitBox;
+    private final String pokemonName;
+    private final int nbImageMax;
     private ImageView cibleSprite;
     private boolean actif;
     private int idImage;
-    private final String pokemonName;
-    private final int nbImageMax;
 
     public TirSprite(Tour tour) throws IOException {
         pokemonName = tour.getNom();

@@ -109,11 +109,11 @@ public class ControlleurMap implements Initializable {
 
 
         //ajout de tours pour test
-        //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
-        //game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
-        //game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
-        game.ajouteTour(new Magneti(3 * 32 , 5 * 32, game));
-        //game.ajouteTour(new Venalgue(7 * 32, 8 * 32 , game));
+        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
+        game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
+        game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
+        game.ajouteTour(new Magneti(3 * 32, 5 * 32, game));
+        game.ajouteTour(new Venalgue(7 * 32, 8 * 32, game));
 
 
         //lancement de la game loop
@@ -146,10 +146,6 @@ public class ControlleurMap implements Initializable {
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60 * 5) == 0) {
-                        //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
-
                         game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
                     if ((frame + 2) % (60 * 5) == 0) {
@@ -166,7 +162,7 @@ public class ControlleurMap implements Initializable {
                             }
                         } //pas de else car il se peux que le "sprite tir" ne devienne plus actif en bougeant.
                         if (!ensembleTirVue.get(i).isActif()) {
-                            if (! (ensembleTirVue.get(i) instanceof ZoneSprite) ) {
+                            if (!(ensembleTirVue.get(i) instanceof ZoneSprite)) {
                                 pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
                                 ensembleTirVue.remove(i);
                             }
@@ -223,9 +219,9 @@ public class ControlleurMap implements Initializable {
         });
 
 
-        if (tour instanceof Magneti t){
+        if (tour instanceof Magneti t) {
             creerZoneSprite(t);
-        }else {
+        } else {
             //ajout d'un listener pour creer des sprites lorsque la tour attaque
             tour.idCibleProperty().addListener(((observableValue, aBoolean, nouv) -> {
                 if (nouv != null) {

@@ -11,19 +11,18 @@ public abstract class Ennemi {
 
     private static int compteurID = 1;
     private final int vitesseMax;
-    private int vitesseActuel;
-    private int hp;
     private final String type;
     private final IntegerProperty x;
     private final IntegerProperty y;
-    private int maxHeightHitbox;
-    private int maxWidhtHitbox;
     private final int recompense;
     private final String nom;
-    private Game game;
     private final String id;
     private final Map<Integer, Integer> cheminVersArrive;
-
+    private int vitesseActuel;
+    private int hp;
+    private int maxHeightHitbox;
+    private int maxWidhtHitbox;
+    private Game game;
     private int[] infoDeplacement;
 
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
@@ -102,7 +101,9 @@ public abstract class Ennemi {
         this.game = game;
     }
 
-    public void resetVitesse(){ vitesseActuel = vitesseMax;}
+    public void resetVitesse() {
+        vitesseActuel = vitesseMax;
+    }
 
     private void setInfoDeplacement() {
         int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};

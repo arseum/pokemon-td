@@ -1,6 +1,5 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.TourZone;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,13 +9,13 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.Objects;
 
-public class ZoneSprite implements Sprite{
+public class ZoneSprite implements Sprite {
     private static int compteur = 1;
     private final ImageView hitBox;
-    private BooleanProperty actif;
-    private int idImage;
     private final String pokemonName;
     private final int nbImageMax;
+    private final BooleanProperty actif;
+    private int idImage;
 
     public ZoneSprite(TourZone tour) throws IOException {
         pokemonName = tour.getNom();
@@ -36,7 +35,7 @@ public class ZoneSprite implements Sprite{
 
     @Override
     public void bouge() throws IOException {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 3; i++) {
 
             idImage++;
             if (idImage > nbImageMax)

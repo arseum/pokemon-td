@@ -16,11 +16,10 @@ public abstract class Tour {
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
-
-    protected Game game;
     private final String id;
     private final StringProperty idCible;
     private final int nbImageAdefault;
+    protected Game game;
 
     public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, Game game) {
         this.id = "Tour_n°" + compteurID;
@@ -80,7 +79,7 @@ public abstract class Tour {
         this.game = game;
     }
 
-    protected int distance(Ennemi e){
+    protected int distance(Ennemi e) {
         int super_x;
         int super_y;
 

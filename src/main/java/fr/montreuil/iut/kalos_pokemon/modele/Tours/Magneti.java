@@ -13,11 +13,11 @@ import java.util.List;
 
 public class Magneti extends Tour implements TourZone {
 
-    private ObservableList<Ennemi> ennemisCible;
-    private BooleanProperty actif;
+    private final ObservableList<Ennemi> ennemisCible;
+    private final BooleanProperty actif;
 
     public Magneti(int x, int y, Game game) {
-        super(64, 0, "neutre", 70, x, y, "magneti", 4, game);
+        super(70, 0, "neutre", 70, x, y, "magneti", 4, game);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
     }
@@ -25,6 +25,7 @@ public class Magneti extends Tour implements TourZone {
     public ObservableList<Ennemi> getEnnemisCible() {
         return ennemisCible;
     }
+
     public BooleanProperty actifProperty() {
         return actif;
     }
@@ -37,26 +38,26 @@ public class Magneti extends Tour implements TourZone {
 
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
 
-        //reset les vitesses des ennemis qui ont été slow avant
-        for (int i = ennemisCible.size() - 1 ; i >= 0 ; i--) {
-            if (distance(ennemisCible.get(i)) > portee){
+        //reset les vitesses des ennemis qui ont été slow avant et supprime les ennemie mort
+        for (int i = ennemisCible.size() - 1; i >= 0; i--) {
+            if (ennemisCible.get(i).getHp() <= 0 || distance(ennemisCible.get(i)) > portee) {
                 ennemisCible.get(i).resetVitesse();
                 ennemisCible.remove(i);
             }
         }
 
         //cherche les ennemis en portée
-        for (Ennemi e : listEnnemi){
+        for (Ennemi e : listEnnemi) {
             if (this.distance(e) <= portee)
                 ennemisCible.add(e);
         }
 
         //slow les ennemis en range
-        for (Ennemi e : ennemisCible){
+        for (Ennemi e : ennemisCible) {
             e.reduitVitese(1);
         }
 
-        actif.setValue( ennemisCible.size() > 0 );
+        actif.setValue(ennemisCible.size() > 0);
 
     }
 }

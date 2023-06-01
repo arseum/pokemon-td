@@ -7,8 +7,11 @@ import javafx.collections.ObservableList;
 public interface TourZone {
 
     IntegerProperty xProperty();
+
     IntegerProperty yProperty();
+
     ObservableList<Ennemi> getEnnemisCible();
+
     BooleanProperty actifProperty();
 
     String getNom();
