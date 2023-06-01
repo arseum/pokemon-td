@@ -112,9 +112,9 @@ public class ControlleurMap implements Initializable {
 
 
         //ajout d'un poussifeu
-        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
-        game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
-        game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
+        //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
+        //game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
+        //game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
         game.ajouteTour(new Magneti(3 * 32 , 5 * 32, game));
 
 
@@ -141,6 +141,7 @@ public class ControlleurMap implements Initializable {
                     if (frame % 30 == 0) {
                         game.demiSeconde();
                     }
+
                     if (frame % (60 * 10) == 0) {
                         game.ajouteEnnemi(new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32, game));
                     }

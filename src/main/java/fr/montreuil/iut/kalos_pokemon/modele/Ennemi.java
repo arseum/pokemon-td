@@ -10,7 +10,8 @@ import java.util.Map;
 public abstract class Ennemi {
 
     private static int compteurID = 1;
-    private final int vitesse;
+    private final int vitesseMax;
+    private int vitesseActuel;
     private int hp;
     private final String type;
     private final IntegerProperty x;
@@ -25,27 +26,20 @@ public abstract class Ennemi {
 
     private int[] infoDeplacement;
 
-    public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
+    public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
-        this.vitesse = vitesse;
+        this.vitesseMax = vitesseMax;
+        this.vitesseActuel = vitesseMax;
         this.hp = hp;
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.recompense = recompense;
         this.nom = pokemon;
-
         this.game = game;
         this.cheminVersArrive = this.game.getTerrain().algoBFS();
         setInfoDeplacement();
-    }
-
-    private void setInfoDeplacement() {
-        int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
-        int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
 
     public int getRecompense() {
@@ -76,8 +70,8 @@ public abstract class Ennemi {
         return nom;
     }
 
-    public int getVitesse() {
-        return vitesse;
+    public void reduitVitese(int v) {
+        vitesseActuel -= v;
     }
 
     public int getHp() {
@@ -108,45 +102,24 @@ public abstract class Ennemi {
         this.game = game;
     }
 
-    /*Deprecie*/
-    public void seDeplaceBFS() {
-        int[] caseActuelle, caseSuivante, vecteurVitesse; //(ligne, colonne)
-        int idCaseActuelle, idCaseSuivante;
+    public void resetVitesse(){ vitesseActuel = vitesseMax;}
 
-        caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        idCaseActuelle = this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]);
-
-        //System.out.println("***SE DEPLACE BFS");
-        //System.out.println(cheminVersArrive);
-        //System.out.println(idCaseActuelle);
-
-        idCaseSuivante = cheminVersArrive.get(idCaseActuelle);
-        caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        //System.out.println("SE DEPLACE BFS***");
-
-        vecteurVitesse = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0])};
-
-        this.xProperty().set(this.getX() + this.getVitesse() * vecteurVitesse[0]);  // 2 lignes du déplacement
-        this.yProperty().set(this.getY() + this.getVitesse() * vecteurVitesse[1]);
-
-
-        System.out.println(caseActuelle[0] + ", " + caseActuelle[1] + " id: " + idCaseActuelle);
-        System.out.println(this.x.get() + ", " + this.y.get());
-        System.out.println(" vitesse: " + vecteurVitesse[0] + ", " + vecteurVitesse[1]);
-        System.out.println("Suivant : " + cheminVersArrive.get(idCaseActuelle));
-        System.out.println("***");
-
+    private void setInfoDeplacement() {
+        int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
+        int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
+        int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
+        this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
 
     public void seDeplace() {
         int nouveauX, nouveauY;
 
-        nouveauX = this.getX() + this.getVitesse() * infoDeplacement[0];
-        nouveauY = this.getY() + this.getVitesse() * infoDeplacement[1];
+        nouveauX = this.getX() + vitesseActuel * infoDeplacement[0];
+        nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
 
 
-        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesse - 1));
-        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesse - 1));
+        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseMax - 1));
+        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseMax - 1));
 
         this.xProperty().set(nouveauX);
         this.yProperty().set(nouveauY);
@@ -161,55 +134,5 @@ public abstract class Ennemi {
     public void diminueHP(int value) {
         hp -= value;
     }
-
-    //Copie
-
-    /*
-    public void seDeplace(){
-        int nouveauX, nouveauY;
-
-        //System.out.println("x: " + this.getX()+ ", y :" + this.getY());
-
-        nouveauX = this.getX() + this.getVitesse() * infoDeplacement[0];
-        nouveauY = this.getY() + this.getVitesse() * infoDeplacement[1];
-
-        //System.out.println("x: " + nouveauX + ", y :" + nouveauY);
-
-        //boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + Parametres.vitesseMaximale));
-        //boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + Parametres.vitesseMaximale));
-
-        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesse - 1));
-        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesse - 1));
-
-        this.xProperty().set(nouveauX);
-        this.yProperty().set(nouveauY);
-
-        System.out.println(infoDeplacement[2] + ", " + infoDeplacement[3]);
-        if( arriveX && arriveY){
-            System.out.println("NOUVELLE CASE");
-            setInfoDeplacement();
-            //this.xProperty().set(infoDeplacement[2]);
-            //this.yProperty().set(infoDeplacement[3]);
-
-        }
-
-        /*
-        boolean estDansX = (nouveauX / 32) == (this.getX() / 32);
-        boolean estDansY = (nouveauY / 32) == (this.getY() / 32);
-
-        if (estDansX && estDansY){
-            this.xProperty().set(nouveauX);
-            this.yProperty().set(nouveauY);
-        }
-        else {
-            setInfoDeplacement();
-            this.xProperty().set(infoDeplacement[2]);
-            this.yProperty().set(infoDeplacement[3]);
-        }
-
-
-}
-     */
-
 
 }

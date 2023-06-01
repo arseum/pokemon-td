@@ -16,15 +16,22 @@ public class Magneti extends Tour {
         ennemisCible = new ArrayList<>();
     }
 
+    /**
+     * il faudrait appeler cette methode le + souvent possible (toute les 4/5 frame de dirais)
+     */
     @Override
     public void attaque() {
 
-        ennemisCible.clear();
-        int index = 0;
         int super_x;
         int super_y;
         int distance;
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+
+        //reset les vitesse des ennemis qui ont été slow avant
+        for (Ennemi e : ennemisCible)
+            e.resetVitesse();
+
+        ennemisCible.clear();
 
         //cherche les ennemis en portée
         for (Ennemi e : listEnnemi){
@@ -35,15 +42,13 @@ public class Magneti extends Tour {
 
             if (distance <= portee)
                 ennemisCible.add(e);
-
         }
 
         //slow les ennemis en range
-        if (ennemisCible.size() != 0) {
-            for (Ennemi e : ennemisCible){
-                //todo il faut rajouter la mechanique de slow
-            }
+        for (Ennemi e : ennemisCible){
+            e.reduitVitese(1);
         }
+
 
     }
 }
