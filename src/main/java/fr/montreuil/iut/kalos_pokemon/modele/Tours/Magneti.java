@@ -48,7 +48,5 @@ public class Magneti extends Tour {
         for (Ennemi e : ennemisCible){
             e.reduitVitese(1);
         }
-
-
     }
 }

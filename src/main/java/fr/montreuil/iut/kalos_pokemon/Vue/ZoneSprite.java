@@ -7,8 +7,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.Objects;
 
-public class TirSprite {
-
+public class ZoneSprite {
     private static int compteur = 1;
     private final ImageView hitBox;
     private ImageView cibleSprite;
@@ -17,11 +16,11 @@ public class TirSprite {
     private final String pokemonName;
     private final int nbImageMax;
 
-    public TirSprite(Tour tour) throws IOException {
+    public ZoneSprite(Tour tour) throws IOException {
         pokemonName = tour.getNom();
         nbImageMax = tour.getNbImageAdefault();
         hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemonName + "_attaque_default_0.png")).openStream()));
-        hitBox.setId("Tir_n°" + compteur);
+        hitBox.setId("Zone_n°" + compteur);
         compteur++;
         actif = true;
         idImage = 0;
@@ -58,5 +57,4 @@ public class TirSprite {
             actif = false;
         }
     }
-
 }

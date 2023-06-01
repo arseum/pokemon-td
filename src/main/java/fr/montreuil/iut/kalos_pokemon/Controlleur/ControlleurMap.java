@@ -115,7 +115,8 @@ public class ControlleurMap implements Initializable {
         //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
         //game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
         //game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
-        game.ajouteTour(new Magneti(3 * 32 , 5 * 32, game));
+        //game.ajouteTour(new Magneti(3 * 32 , 5 * 32, game));
+        game.ajouteTour(new Venalgue(7 * 32, 8 * 32 , game));
 
 
         //lancement de la game loop
