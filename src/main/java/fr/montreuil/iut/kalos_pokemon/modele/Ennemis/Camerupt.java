@@ -5,6 +5,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Camerupt extends Ennemi {
     public Camerupt(int x, int y, Game game) {
-        super(1, 250, "feu", x, y, 75, "camerupt", game);
+        super(2, 250, "feu", x, y, 75, "camerupt", game);
     }
 }

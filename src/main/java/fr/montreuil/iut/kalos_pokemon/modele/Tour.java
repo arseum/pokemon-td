@@ -9,14 +9,15 @@ import java.util.List;
 
 public abstract class Tour {
     private static int compteurID = 1;
-    private final int portee;
+    protected final int portee;
     private final int DPS;
     private final String type;
     private final String nom;
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
-    private Game game;
+
+    protected Game game;
     private final String id;
     private final StringProperty idCible;
     private final int nbImageAdefault;

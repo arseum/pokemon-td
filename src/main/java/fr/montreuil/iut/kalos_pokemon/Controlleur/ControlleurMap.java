@@ -11,9 +11,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Granivol;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -117,7 +115,7 @@ public class ControlleurMap implements Initializable {
         game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
         game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
         game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
-        //game.ajouteTour(new Magneti(6 * 32 , 5 * 32, game));
+        game.ajouteTour(new Magneti(3 * 32 , 5 * 32, game));
 
 
         //lancement de la game loop
@@ -137,9 +135,9 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
-                    if (frame % 2 == 0) {
-                        game.deplacment();
-                    }
+
+                    game.deplacment();
+
                     if (frame % 30 == 0) {
                         game.demiSeconde();
                     }
