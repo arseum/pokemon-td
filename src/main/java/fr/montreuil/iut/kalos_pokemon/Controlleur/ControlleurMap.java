@@ -22,8 +22,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -128,76 +130,11 @@ public class ControlleurMap implements Initializable {
         //ControleurAjoutTour t = new ControleurAjoutTour(4);
         //pane.addEventHandler(MouseEvent.MOUSE_CLICKED, t);
 
+        /*
         ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(pane);
         ObservateurMouvementSourisAjoutTour mv = new ObservateurMouvementSourisAjoutTour(o, pane, game);
         testDrag.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
         pane.addEventHandler(MouseEvent.MOUSE_MOVED, mv);
-
-
-/*
-        boolean poussifeuSelect = false;
-        BooleanProperty p = new SimpleBooleanProperty(false);
-        //ObservableBooleanValue p2 = new SimpleBooleanProperty(p.getValue());
-        //p.bind(p2);
-
-        testDrag.setOnMouseClicked( e -> {
-            System.out.println("Poussifeu Select");
-            if(p.getValue() == false) p.setValue(true);
-            else p.setValue(false);
-        });
-
-        pane.setOnMouseMoved( e -> {
-            if(p.getValue()){
-                Image i;
-                try {
-                    i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "poussifeu.png")).openStream());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-
-        });
-
-        pane.setOnMouseEntered( e -> {
-                    if(p.getValue()){
-                        Image i;
-                        try {
-                            i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "poussifeu.png")).openStream());
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        //Image i = new Image("/home/zen/Documents/Cours/BUT_Informatique/Semestre_2/SAE/Dev/pokemon-td/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/poussifeu.png");
-                        //pane.setCursor(Cursor.HAND);
-
-                        //pane.setCursor(new ImageCursor(i));
-                        //System.out.println(e.getX());
-
-                        if(e.getX() < 500){
-                            pane.setCursor(new ImageCursor(i));
-                        }else {
-                            pane.setCursor(Cursor.HAND);
-                        }
-                    }
-                }
-        );
-
-
-
-        pane.setOnMouseClicked( e -> {
-            //System.out.println("click");
-            //System.out.println(e.getX() + "," + e.getY());
-            if(p.getValue()){
-                int x = (int) e.getX();
-                int y = (int) e.getY();
-                int heightPane = (int)pane.getHeight();
-                int widthPane = (int)pane.getWidth();
-                if( 0 <= x && x <= widthPane && 0 <= y && y <= heightPane){
-                    game.ajouteTour(new Poussifeu(x, y));
-                }
-                p.setValue(false);
-                pane.setCursor(Cursor.DEFAULT);
-            }
-        });
 */
     }
 
