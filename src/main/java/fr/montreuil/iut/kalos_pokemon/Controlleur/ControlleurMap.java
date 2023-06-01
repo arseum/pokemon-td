@@ -52,13 +52,11 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
 
-        System.out.println(game.getTerrain().getDecor());
         //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
         pane.getChildren().add(map);
         //pane.getChildren().add(mapDecor);
-        //Todo : le decor n'est plus charge
         /*
         if (game.getTerrain().getDecor() != null) {
             pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
