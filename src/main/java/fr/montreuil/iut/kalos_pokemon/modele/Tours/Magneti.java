@@ -3,17 +3,30 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.TourZone;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Magneti extends Tour {
+public class Magneti extends Tour implements TourZone {
 
-    private ArrayList<Ennemi> ennemisCible;
+    private ObservableList<Ennemi> ennemisCible;
+    private BooleanProperty actif;
 
     public Magneti(int x, int y, Game game) {
         super(64, 0, "neutre", 70, x, y, "magneti", 4, game);
-        ennemisCible = new ArrayList<>();
+        ennemisCible = FXCollections.observableArrayList();
+        actif = new SimpleBooleanProperty(false);
+    }
+
+    public ObservableList<Ennemi> getEnnemisCible() {
+        return ennemisCible;
+    }
+    public BooleanProperty actifProperty() {
+        return actif;
     }
 
     /**
@@ -22,25 +35,19 @@ public class Magneti extends Tour {
     @Override
     public void attaque() {
 
-        int super_x;
-        int super_y;
-        int distance;
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
 
-        //reset les vitesse des ennemis qui ont été slow avant
-        for (Ennemi e : ennemisCible)
-            e.resetVitesse();
-
-        ennemisCible.clear();
+        //reset les vitesses des ennemis qui ont été slow avant
+        for (int i = ennemisCible.size() - 1 ; i >= 0 ; i--) {
+            if (distance(ennemisCible.get(i)) > portee){
+                ennemisCible.get(i).resetVitesse();
+                ennemisCible.remove(i);
+            }
+        }
 
         //cherche les ennemis en portée
         for (Ennemi e : listEnnemi){
-
-            super_x = Math.abs(getX() - e.getX());
-            super_y = Math.abs(getY() - e.getY());
-            distance = (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
-
-            if (distance <= portee)
+            if (this.distance(e) <= portee)
                 ennemisCible.add(e);
         }
 
@@ -48,5 +55,8 @@ public class Magneti extends Tour {
         for (Ennemi e : ennemisCible){
             e.reduitVitese(1);
         }
+
+        actif.setValue( ennemisCible.size() > 0 );
+
     }
 }
