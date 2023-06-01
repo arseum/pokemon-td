@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ListChangeListener;
@@ -21,16 +22,14 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import javafx.scene.input.DragEvent;
 
 
 import java.io.IOException;
@@ -129,7 +128,17 @@ public class ControlleurMap implements Initializable {
         gameLoop.play();
 
         //todo: ZONE DE TEST
-        
+
+        //ControleurAjoutTour t = new ControleurAjoutTour(4);
+        //pane.addEventHandler(MouseEvent.MOUSE_CLICKED, t);
+
+        ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(pane);
+        ObservateurMouvementSourisAjoutTour mv = new ObservateurMouvementSourisAjoutTour(o, pane, game);
+        testDrag.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
+        pane.addEventHandler(MouseEvent.MOUSE_MOVED, mv);
+
+
+/*
         boolean poussifeuSelect = false;
         BooleanProperty p = new SimpleBooleanProperty(false);
         //ObservableBooleanValue p2 = new SimpleBooleanProperty(p.getValue());
@@ -139,6 +148,18 @@ public class ControlleurMap implements Initializable {
             System.out.println("Poussifeu Select");
             if(p.getValue() == false) p.setValue(true);
             else p.setValue(false);
+        });
+
+        pane.setOnMouseMoved( e -> {
+            if(p.getValue()){
+                Image i;
+                try {
+                    i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "poussifeu.png")).openStream());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
         });
 
         pane.setOnMouseEntered( e -> {
@@ -164,6 +185,8 @@ public class ControlleurMap implements Initializable {
                 }
         );
 
+
+
         pane.setOnMouseClicked( e -> {
             //System.out.println("click");
             //System.out.println(e.getX() + "," + e.getY());
@@ -179,7 +202,7 @@ public class ControlleurMap implements Initializable {
                 pane.setCursor(Cursor.DEFAULT);
             }
         });
-
+*/
     }
 
     private void initAnimation() {

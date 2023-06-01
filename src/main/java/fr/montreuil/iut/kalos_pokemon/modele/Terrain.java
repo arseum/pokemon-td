@@ -40,6 +40,10 @@ public class Terrain {
         return (arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur) * Parametres.tailleTuile >= Parametres.debutZoneCheminTileSet;
     }
 
+    public boolean estDecor(int ligne, int colonne){
+        return decor.get(ligne).get(colonne) != -1;
+    }
+
     /**
      * Pour la création du terrain, retourne premiere ligne du fichier csv
      * @param ligneLue
