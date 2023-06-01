@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
+import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
@@ -16,18 +17,23 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import javax.crypto.CipherInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -42,6 +48,7 @@ public class ControlleurMap implements Initializable {
 
     private TerrainVue terrainDecor;
     private Game game;
+    private ArrayList<TirSprite> ensembleTirVue;
 
 
     @Override
@@ -51,6 +58,7 @@ public class ControlleurMap implements Initializable {
         //game = new Game();
         game = new Game("savane");
         terrainVue = new TerrainVue();
+        ensembleTirVue = new ArrayList<>();
 
         //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -64,7 +72,11 @@ public class ControlleurMap implements Initializable {
 
          */
         //init game loop + label utile
-        initAnimation();
+        try {
+            initAnimation();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         initLabel();
 
         //creation du listener qui va ecouter la list des ennemi de game
@@ -105,17 +117,7 @@ public class ControlleurMap implements Initializable {
         });
         game.getListTour().addListener(listenTour);
 
-        //ajout d'un lambda sur la map lors d'un click
-        pane.setOnMouseClicked(event -> {
-            //System.out.println(event.toString());
-            for (Node node : pane.getChildren()) {
-                if (node instanceof Circle && event.getTarget() instanceof TilePane) {
-                    if (node.isVisible()) {
-                        node.setVisible(false);
-                    }
-                }
-            }
-        });
+
 
         //ajout d'un poussifeu
        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
@@ -129,7 +131,7 @@ public class ControlleurMap implements Initializable {
 
     }
 
-    private void initAnimation() {
+    private void initAnimation() throws IOException{
         gameLoop = new Timeline();
         frame = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -141,7 +143,6 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
-
                     if (frame == 5000) {
                         System.out.println("fini");
                         gameLoop.stop();
@@ -167,6 +168,20 @@ public class ControlleurMap implements Initializable {
                     if ((frame+2) % (60 * 5) == 0) {
                         game.ajouteEnnemi(new Tiplouf(caseDepart[0] *32, caseDepart[1] * 32,game));
                     }
+
+                    //a faire pour chaque frame:
+                    for (int i = ensembleTirVue.size() - 1  ; i >= 0 ; i-- ){
+                        try {
+                            ensembleTirVue.get(i).bouge();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        if ( ! ensembleTirVue.get(i).isActif()) {
+                            pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
+                            ensembleTirVue.remove(i);
+                        }
+                    }
+
                     frame++;
                 })
         );
@@ -182,7 +197,10 @@ public class ControlleurMap implements Initializable {
         labelDollar.setPrefHeight(15);
         labelDollar.setAlignment(Pos.CENTER);
         labelDollar.getStyleClass().add("labelDollar");
-        game.PokedollarProperty().addListener((observableValue, number, t1) -> labelDollar.setText(t1 + " $"));
+        game.PokedollarProperty().addListener((observableValue, number, t1) -> {
+            labelDollar.setText(t1 + " $");
+            labelDollar.setPrefWidth(t1.toString().length() * 10 + 40 );
+        });
         pane.getChildren().add(labelDollar);
     }
 
@@ -205,12 +223,35 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(Sprite.getSprite());
         pane.getChildren().add(Sprite.getRange());
 
-        Sprite.getSprite().setOnMouseClicked(event -> {
-            Sprite.getRange().setVisible(true);
+
+        //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
+        Sprite.getSprite().setOnMouseClicked(e -> {
+            Sprite.getSprite().toFront();
+            Sprite.getRange().setVisible(!Sprite.getRange().isVisible());
         });
 
 
+        //ajout d'un listener pour creer des sprites lorsque la tour attaque
+        tour.idCibleProperty().addListener( ((observableValue, aBoolean, nouv) -> {
+            if (nouv != null) {
+                try {
+                    creerTirSprite(tour,nouv);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }) );
+    }
 
+    private void creerTirSprite(Tour tour,String idCible) throws IOException {
+        TirSprite sprite = new TirSprite(tour);
+        sprite.setCibleSprite((ImageView) pane.lookup("#" + idCible));
+
+        sprite.getHitBox().setX(tour.getX());
+        sprite.getHitBox().setY(tour.getY());
+
+        pane.getChildren().add(sprite.getHitBox());
+        ensembleTirVue.add(sprite);
     }
 
 }
