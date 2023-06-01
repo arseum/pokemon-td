@@ -16,8 +16,9 @@ public abstract class Tour {
     private Game game;
     private String id;
     private StringProperty idCible;
+    private int nbImageAdefault;
 
-    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon) {
+    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon,int nbImageAdefault) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = portee;
@@ -28,6 +29,11 @@ public abstract class Tour {
         this.y = new SimpleIntegerProperty(y);
         this.nom = pokemon;
         idCible = new SimpleStringProperty(null);
+        this.nbImageAdefault = nbImageAdefault;
+    }
+
+    public int getNbImageAdefault() {
+        return nbImageAdefault;
     }
 
     public String getNom() {
