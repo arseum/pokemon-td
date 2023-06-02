@@ -17,6 +17,7 @@ public class TirSprite {
         nomTireur = a.getTireur().getNom();
         hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(nomTireur + "_attaque_default_0.png")).openStream()));
         hitBox.setId(a.getId());
+        hitBox.toBack();
     }
 
     public ImageView getHitBox() {

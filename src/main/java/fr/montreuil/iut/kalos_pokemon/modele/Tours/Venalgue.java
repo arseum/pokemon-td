@@ -37,7 +37,7 @@ public class Venalgue extends Tour {
 
         if (cible != null) {
             game.ajouteProjectile(new Projectile(this,cible,game));
-            tempProchaineAttaque = game.getNbFrame() + tempProchaineAttaque;
+            tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
         }
 
     }

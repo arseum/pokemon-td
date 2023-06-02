@@ -9,7 +9,7 @@ public abstract class Tour {
     private static int compteurID = 1;
     protected final int portee;
     private final int degats;
-    private int attaqueSpeed;
+    protected int attaqueSpeed;
     protected int tempProchaineAttaque;
     private final String type;
     private final String nom;
@@ -109,7 +109,7 @@ public abstract class Tour {
         //attaque la cible
         if (cible != null) {
             game.ajouteProjectile(new Projectile(this, cible, game));
-            tempProchaineAttaque = game.getNbFrame() + tempProchaineAttaque;
+            tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
         }
 
 

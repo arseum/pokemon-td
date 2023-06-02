@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
@@ -124,11 +125,11 @@ public class ControlleurMap implements Initializable {
 
 
         //ajout de tours pour test
-        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
+        //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
         game.ajouteTour(new Granivol(4 * 32, 9 * 32));
         game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
-        game.ajouteTour(new Magneti(3 * 32, 5 * 32));
-        game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
+        //game.ajouteTour(new Magneti(3 * 32, 5 * 32));
+        //game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
 
 
         //lancement de la game loop
@@ -149,6 +150,9 @@ public class ControlleurMap implements Initializable {
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
                     game.uneFrame();
+
+                    if (frame.get() % 120 == 0 && frame.get() > 119)
+                        game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
 
                     frame.set(frame.get()+1);
                 })
