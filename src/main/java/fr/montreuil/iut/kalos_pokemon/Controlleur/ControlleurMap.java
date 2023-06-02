@@ -88,7 +88,6 @@ public class ControlleurMap implements Initializable {
                 else if (c.wasRemoved())
                     for (Ennemi a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
-                        pane.getChildren().remove(pane.lookup("#" + "Bar_" + a.getId()));
                     }
             }
         });
@@ -193,11 +192,10 @@ public class ControlleurMap implements Initializable {
      * creer une entite sprite pour un ennemi + fait les bind pour les deplacement
      */
     private void creerEnnemiSprite(Ennemi ennemi) throws IOException {
-        EnnemiSprite sprite = new EnnemiSprite(ennemi);
-        sprite.getHitBox().xProperty().bind(ennemi.xProperty());
-        sprite.getHitBox().yProperty().bind(ennemi.yProperty());
-        pane.getChildren().add(sprite.getHitBox());
-        pane.getChildren().add(sprite.getBarVie());
+        EnnemiSprite nouveauEnnemiSprite = new EnnemiSprite(ennemi);
+        nouveauEnnemiSprite.getHitBox().xProperty().bind(ennemi.xProperty());
+        nouveauEnnemiSprite.getHitBox().yProperty().bind(ennemi.yProperty());
+        pane.getChildren().add(nouveauEnnemiSprite.getSprite());
     }
 
     private void creerTourSprite(Tour tour) throws IOException {
@@ -229,7 +227,8 @@ public class ControlleurMap implements Initializable {
 
     private void creerTirSprite(Tour tour, String idCible) throws IOException {
         TirSprite sprite = new TirSprite(tour);
-        sprite.setCibleSprite((ImageView) pane.lookup("#" + idCible));
+        Pane p = (Pane) pane.lookup("#" + idCible);
+        sprite.setCibleSprite(((ImageView)p.lookup("#hitbox_" + idCible)));
 
         sprite.getHitBox().setX(tour.getX());
         sprite.getHitBox().setY(tour.getY());

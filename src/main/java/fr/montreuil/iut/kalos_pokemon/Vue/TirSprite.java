@@ -31,9 +31,6 @@ public class TirSprite {
         return hitBox;
     }
 
-    public ImageView getCibleSprite() {
-        return cibleSprite;
-    }
 
     public void setCibleSprite(ImageView ennemiSprite) {
         cibleSprite = ennemiSprite;

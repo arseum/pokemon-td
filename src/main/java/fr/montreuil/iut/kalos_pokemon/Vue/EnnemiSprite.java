@@ -4,6 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -12,21 +13,21 @@ public class EnnemiSprite {
 
     private final ImageView hitBox;
     private ProgressBar barVie;
+    private Pane sprite;
 
     public EnnemiSprite(Ennemi ennemi) throws IOException {
         hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(ennemi.getNom() + ".png")).openStream()));
-        hitBox.setId(ennemi.getId());
-
-        ennemi.setMaxHeightHitbox((int) hitBox.getImage().getHeight());
-        ennemi.setMaxWidhtHitbox((int) hitBox.getImage().getWidth());
+        hitBox.setId("hitbox_" + ennemi.getId());
 
         barVie = new ProgressBar();
         barVie.layoutXProperty().bind(hitBox.xProperty());
         barVie.layoutYProperty().bind(hitBox.yProperty().add(-8));
-        barVie.setPrefWidth( ((double)ennemi.getHpMax() - 100) / 900 * (50 - 25) + 25 );
+        barVie.setPrefWidth( (ennemi.getHpMax() - 100) / 900 * (50 - 25) + 25 );
         barVie.setPrefHeight(10);
         barVie.progressProperty().bind(ennemi.hpProperty().divide(ennemi.getHpMax()));
-        barVie.setId("Bar_" + ennemi.getId());
+
+        sprite = new Pane(hitBox,barVie);
+        sprite.setId(ennemi.getId());
     }
 
     public ImageView getHitBox() {
@@ -35,5 +36,9 @@ public class EnnemiSprite {
 
     public ProgressBar getBarVie() {
         return barVie;
+    }
+
+    public Pane getSprite() {
+        return sprite;
     }
 }
