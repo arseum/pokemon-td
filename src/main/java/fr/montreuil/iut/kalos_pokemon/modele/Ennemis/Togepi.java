@@ -5,7 +5,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Togepi extends Ennemi {
     public Togepi(int x, int y, Game game) {
-        super(2, 75, "normal", x, y, 50, "togepi", game);
+        super(3, 75, "normal", x, y, 50, "togepi", game);
     }
 
 }

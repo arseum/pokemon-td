@@ -12,7 +12,7 @@ import java.util.Map;
 public abstract class Ennemi {
 
     private static int compteurID = 1;
-    private final int vitesse;
+    private final int vitesseMax;
     private DoubleProperty hp;
     private final double hpMax;
     private final String type;
@@ -23,31 +23,24 @@ public abstract class Ennemi {
     private Game game;
     private final String id;
     private final Map<Integer, Integer> cheminVersArrive;
-
+    private int vitesseActuel;
     private int[] infoDeplacement;
 
-    public Ennemi(int vitesse, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
+    public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
-        this.vitesse = vitesse;
         this.hp = new SimpleDoubleProperty(hp);
         this.hpMax = hp;
+        this.vitesseMax = vitesseMax;
+        this.vitesseActuel = vitesseMax;
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.recompense = recompense;
         this.nom = pokemon;
-
         this.game = game;
         this.cheminVersArrive = this.game.getTerrain().algoBFS();
         setInfoDeplacement();
-    }
-
-    private void setInfoDeplacement() {
-        int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
-        int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
 
     public int getRecompense() {
@@ -62,8 +55,8 @@ public abstract class Ennemi {
         return nom;
     }
 
-    public int getVitesse() {
-        return vitesse;
+    public void reduitVitese(int v) {
+        vitesseActuel = vitesseMax - v;
     }
 
     public double getHp() {
@@ -102,16 +95,26 @@ public abstract class Ennemi {
         this.game = game;
     }
 
+    public void resetVitesse() {
+        vitesseActuel = vitesseMax;
+    }
+
+    private void setInfoDeplacement() {
+        int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
+        int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
+        int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
+        this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
+    }
 
     public void seDeplace() {
         int nouveauX, nouveauY;
 
-        nouveauX = this.getX() + this.getVitesse() * infoDeplacement[0];
-        nouveauY = this.getY() + this.getVitesse() * infoDeplacement[1];
+        nouveauX = this.getX() + vitesseActuel * infoDeplacement[0];
+        nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
 
 
-        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesse - 1));
-        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesse - 1));
+        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseActuel - 1));
+        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseActuel - 1));
 
         this.xProperty().set(nouveauX);
         this.yProperty().set(nouveauY);
