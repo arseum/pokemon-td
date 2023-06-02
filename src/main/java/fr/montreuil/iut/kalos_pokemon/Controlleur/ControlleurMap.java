@@ -88,6 +88,7 @@ public class ControlleurMap implements Initializable {
                 else if (c.wasRemoved())
                     for (Ennemi a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        pane.getChildren().remove(pane.lookup("#" + "Bar_" + a.getId()));
                     }
             }
         });
@@ -149,15 +150,9 @@ public class ControlleurMap implements Initializable {
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60 * 5) == 0) {
-                        //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
-
                         game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
-                    if ((frame + 2) % (60 * 5) == 0) {
-                        game.ajouteEnnemi(new Tiplouf(caseDepart[0] * 32, caseDepart[1] * 32, game));
-                    }
+
 
                     //a faire pour chaque frame:
                     for (int i = ensembleTirVue.size() - 1; i >= 0; i--) {
@@ -198,26 +193,25 @@ public class ControlleurMap implements Initializable {
      * creer une entite sprite pour un ennemi + fait les bind pour les deplacement
      */
     private void creerEnnemiSprite(Ennemi ennemi) throws IOException {
-        EnnemiSprite Sprite = new EnnemiSprite(ennemi);
-        Sprite.getHitBox().xProperty().bind(ennemi.xProperty());
-        Sprite.getHitBox().yProperty().bind(ennemi.yProperty());
-        pane.getChildren().add(Sprite.getHitBox());
-
-
+        EnnemiSprite sprite = new EnnemiSprite(ennemi);
+        sprite.getHitBox().xProperty().bind(ennemi.xProperty());
+        sprite.getHitBox().yProperty().bind(ennemi.yProperty());
+        pane.getChildren().add(sprite.getHitBox());
+        pane.getChildren().add(sprite.getBarVie());
     }
 
     private void creerTourSprite(Tour tour) throws IOException {
-        TourSprite Sprite = new TourSprite(tour);
-        Sprite.getSprite().xProperty().bind(tour.xProperty().add(-(Sprite.getSprite().getImage().getWidth() / 2)));
-        Sprite.getSprite().yProperty().bind(tour.yProperty().add(-(Sprite.getSprite().getImage().getWidth() / 2)));
-        pane.getChildren().add(Sprite.getSprite());
-        pane.getChildren().add(Sprite.getRange());
+        TourSprite sprite = new TourSprite(tour);
+        sprite.getSprite().xProperty().bind(tour.xProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
+        sprite.getSprite().yProperty().bind(tour.yProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
+        pane.getChildren().add(sprite.getSprite());
+        pane.getChildren().add(sprite.getRange());
 
 
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
-        Sprite.getSprite().setOnMouseClicked(e -> {
-            Sprite.getSprite().toFront();
-            Sprite.getRange().setVisible(!Sprite.getRange().isVisible());
+        sprite.getSprite().setOnMouseClicked(e -> {
+            sprite.getSprite().toFront();
+            sprite.getRange().setVisible(!sprite.getRange().isVisible());
         });
 
 

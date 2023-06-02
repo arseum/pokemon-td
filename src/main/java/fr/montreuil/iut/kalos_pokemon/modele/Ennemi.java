@@ -1,7 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.Map;
@@ -11,7 +13,8 @@ public abstract class Ennemi {
 
     private static int compteurID = 1;
     private final int vitesse;
-    private int hp;
+    private DoubleProperty hp;
+    private final int hpMax;
     private final String type;
     private final IntegerProperty x;
     private final IntegerProperty y;
@@ -29,7 +32,8 @@ public abstract class Ennemi {
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
         this.vitesse = vitesse;
-        this.hp = hp;
+        this.hp = new SimpleDoubleProperty(hp);
+        this.hpMax = hp;
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
@@ -80,8 +84,16 @@ public abstract class Ennemi {
         return vitesse;
     }
 
-    public int getHp() {
+    public double getHp() {
+        return hp.get();
+    }
+
+    public DoubleProperty hpProperty() {
         return hp;
+    }
+
+    public int getHpMax() {
+        return hpMax;
     }
 
     public String getType() {
@@ -159,7 +171,7 @@ public abstract class Ennemi {
     }
 
     public void diminueHP(int value) {
-        hp -= value;
+        hp.set(hp.get() - value);
     }
 
     //Copie
