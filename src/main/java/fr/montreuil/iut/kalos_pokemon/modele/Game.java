@@ -1,9 +1,18 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class Game {
 
@@ -16,6 +25,8 @@ public class Game {
     private final ObservableList<Ennemi> listEnnemi;
     private final ObservableList<Tour> listTour;
     private final IntegerProperty pokedollar;
+    private IntegerProperty frame = new SimpleIntegerProperty();
+    private IntegerProperty cptWave = new SimpleIntegerProperty(0);
 
     public Game() {
         terrain = new Terrain();
@@ -23,7 +34,6 @@ public class Game {
         listTour = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
-
     public Game(String nomTerrain) {
         //todo terrain_BFS 2
         terrain = new Terrain(nomTerrain);
@@ -31,39 +41,41 @@ public class Game {
         listTour = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
-
     //todo 1
+
+    public final int getFrame(){return frame.getValue();}
+    public final void setFrame(int i){frame.setValue(i);}
+    public final IntegerProperty frameProperty(){return frame;}
+
+
+
+    public final int getWave(){return cptWave.getValue();}
+    public final void setWave(int i){cptWave.setValue(i);}
+    public final IntegerProperty cptWaveProperty(){return cptWave;}
 
     public Terrain getTerrain() {
         return terrain;
     }
-
     public IntegerProperty PokedollarProperty() {
         return pokedollar;
     }
-
     public int getPokedollar() {
         return pokedollar.get();
     }
-
     public void ajoutePokedollar(int value) {
         pokedollar.setValue(pokedollar.get() + value);
     }
-
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
         //e.setGame(this);
     }
-
     public void ajouteTour(Tour t) {
         listTour.add(t);
         t.setGame(this);
     }
-
     public ObservableList<Ennemi> getListEnnemi() {
         return listEnnemi;
     }
-
     public ObservableList<Tour> getListTour() {
         return listTour;
     }
@@ -101,5 +113,36 @@ public class Game {
             }
         }
     }
+
+
+public void wave() throws InterruptedException {
+        int[] caseDepart = terrain.caseDepart();
+        /*
+        switch (sec){
+            case 2,4,6,8,10,12,14,16,18,20:
+        }*/
+
+        if (getFrame()<=600 && getFrame()%90==0){
+            if (getFrame()==600) setWave(getWave()+1);
+            listEnnemi.add(new Togepi(caseDepart[0]*32, caseDepart[1]*32, this));  //WAVE 1
+
+        }
+        else if (getFrame()>900 && getFrame()<=1500 && getFrame()%60==0) {
+            if (getFrame()==1200) setWave(getWave()+1);
+            listEnnemi.add(new Togepi(caseDepart[0]*32, caseDepart[1]*32, this)); // WAVE 2 attente de 5s
+        }
+        else if (getFrame()>1800 && getFrame()<=2400 && getFrame()%90==0) {
+            if (getFrame()==1200) setWave(getWave()+1);
+            listEnnemi.add(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, this)); // WAVE 3 attente de 5s
+        }
+        else if (getFrame()>2700 && getFrame()<=3300 && getFrame()%90==0) {
+            if (getFrame()==1200) setWave(getWave()+1);
+            listEnnemi.add(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32, this)); // WAVE 3 attente de 5s
+        }
+
+
+
+}
+
 
 }

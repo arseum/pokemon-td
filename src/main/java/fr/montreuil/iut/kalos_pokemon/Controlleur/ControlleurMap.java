@@ -12,6 +12,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.TourZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,16 +33,16 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Pane pane;
-
     private Timeline gameLoop;
-
-    private int frame;
+    private IntegerProperty frame =new SimpleIntegerProperty();
     private TerrainVue terrainVue;
-
     private TerrainVue terrainDecor;
     private Game game;
     private ArrayList<Sprite> ensembleTirVue;
 
+    public final int getFrame(){return frame.getValue();}
+    public final void setFrame(int i){frame.setValue(i);}
+    public final IntegerProperty frameProperty(){return frame;}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,6 +51,8 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
         ensembleTirVue = new ArrayList<>();
+
+        game.frameProperty().bind(frame);
 
         //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -116,6 +120,7 @@ public class ControlleurMap implements Initializable {
         game.ajouteTour(new Venalgue(7 * 32, 8 * 32, game));
 
 
+
         //lancement de la game loop
         gameLoop.play();
 
@@ -123,7 +128,7 @@ public class ControlleurMap implements Initializable {
 
     private void initAnimation() throws IOException {
         gameLoop = new Timeline();
-        frame = 0;
+        setFrame(0);
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         int[] caseDepart = game.getTerrain().caseDepart();
 
@@ -134,25 +139,22 @@ public class ControlleurMap implements Initializable {
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
 
-                    game.deplacment();
+                    if (frame.getValue() == 5*60){
 
-                    if (frame % 30 == 0) {
+                    }
+                    // pour attaquer
+                    if (frame.getValue() % 30 == 0) {
                         game.demiSeconde();
                     }
 
-                    if (frame % (60 * 10) == 0) {
-                        game.ajouteEnnemi(new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32, game));
-                    }
-
-                    //simulation d'une wave ou des togepi spon toutes les 5s
-                    if (frame % (60 * 5) == 0) {
-                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-                    }
-                    if ((frame + 2) % (60 * 5) == 0) {
-                        game.ajouteEnnemi(new Tiplouf(caseDepart[0] * 32, caseDepart[1] * 32, game));
-                    }
-
                     //a faire pour chaque frame:
+
+                    try {
+                        game.wave();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    game.deplacment();
                     for (int i = ensembleTirVue.size() - 1; i >= 0; i--) {
                         if (ensembleTirVue.get(i).isActif()) {
                             try {
@@ -170,7 +172,7 @@ public class ControlleurMap implements Initializable {
                         }
                     }
 
-                    frame++;
+                    setFrame(getFrame()+1);
                 })
         );
         gameLoop.getKeyFrames().add(kf);

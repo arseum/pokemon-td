@@ -5,6 +5,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Fantominus extends Ennemi {
     public Fantominus(int x, int y, Game game) {
-        super(2, 110, "neutre", x, y, 50, "fantominus", game);
+        super(2, 300, "neutre", x, y, 50, "fantominus", game);
     }
 }
