@@ -1,10 +1,13 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.Vue.*;
+import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
+import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
+import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
+import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Nenupiot;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.animation.KeyFrame;
@@ -14,14 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -123,11 +124,11 @@ public class ControlleurMap implements Initializable {
 
 
         //ajout de tours pour test
-        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
-        game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
-        game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
-        game.ajouteTour(new Magneti(3 * 32, 5 * 32, game));
-        game.ajouteTour(new Venalgue(7 * 32, 8 * 32, game));
+        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
+        game.ajouteTour(new Granivol(4 * 32, 9 * 32));
+        game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
+        game.ajouteTour(new Magneti(3 * 32, 5 * 32));
+        game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
 
 
         //lancement de la game loop
@@ -154,38 +155,19 @@ public class ControlleurMap implements Initializable {
                         game.demiSeconde();
                     }
 
-                    if (frame % (60 * 10) == 0) {
-                        game.ajouteEnnemi(new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32, game));
-                    }
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
-                    if (frame % (60 * 5) == 0) {
+                    if (frame % (60 * 5) == 0 && frame > 120) {
                         game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
 
-
-                    //a faire pour chaque frame:
-                    /*
-                    for (int i = ensembleTirVue.size() - 1; i >= 0; i--) {
-                        if (ensembleTirVue.get(i).isActif()) {
-                            try {
-                                ensembleTirVue.get(i).bouge();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        } //pas de else car il se peux que le "sprite tir" ne devienne plus actif en bougeant.
-                        if (!ensembleTirVue.get(i).isActif()) {
-                            if (ensembleTirVue.get(i) instanceof TirSprite) {
-                                if (game.chercheEnnemi(((TirSprite) ensembleTirVue.get(i)).getIdCible()) != null)
-                                    game.chercheEnnemi(((TirSprite) ensembleTirVue.get(i)).getIdCible()).diminueHP(((TirSprite) ensembleTirVue.get(i)).getDegatTir());
-                                pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
-                                ensembleTirVue.remove(i);
-                            }
-
-                        }
+                    if (frame % (60 * 6) == 0 && frame > 120) {
+                        game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
 
-                     */
+                    if (frame % (60 * 7) == 0 && frame > 120) {
+                        game.ajouteEnnemi(new Nenupiot(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+                    }
 
                     frame++;
                 })
@@ -236,18 +218,21 @@ public class ControlleurMap implements Initializable {
 
     private void creerTirSprite(Attaque a) throws IOException {
         TirSprite sprite = new TirSprite(a);
-        if (a instanceof Zone)
+        if (a instanceof Zone) {
             sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
-
-        sprite.getHitBox().xProperty().bind(a.xProperty());
-        sprite.getHitBox().yProperty().bind(a.yProperty());
-        a.idImageProperty().addListener( ((observableValue, number, t1) -> {
+            sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+            sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+        } else {
+            sprite.getHitBox().xProperty().bind(a.xProperty());
+            sprite.getHitBox().yProperty().bind(a.yProperty());
+        }
+        a.idImageProperty().addListener(((observableValue, number, t1) -> {
             try {
                 sprite.updateImage(t1.intValue());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }) );
+        }));
         pane.getChildren().add(sprite.getHitBox());
     }
 

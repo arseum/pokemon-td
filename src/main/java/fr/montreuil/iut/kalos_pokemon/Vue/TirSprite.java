@@ -1,9 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Attaque;
-import fr.montreuil.iut.kalos_pokemon.modele.Projectile;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,8 +9,8 @@ import java.util.Objects;
 
 public class TirSprite {
 
-    private ImageView hitBox;
-    private String nomTireur;
+    private final ImageView hitBox;
+    private final String nomTireur;
 
 
     public TirSprite(Attaque a) throws IOException {

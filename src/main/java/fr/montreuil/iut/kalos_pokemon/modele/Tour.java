@@ -21,7 +21,7 @@ public abstract class Tour {
     private final int nbImagedefault;
     protected Game game;
 
-    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, Game game) {
+    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = portee;
@@ -109,7 +109,7 @@ public abstract class Tour {
 
         //attaque la cible
         if (cible != null) {
-            game.ajouteProjectile(new Projectile(this,cible,game));
+            game.ajouteProjectile(new Projectile(this, cible, game));
         }
 
 

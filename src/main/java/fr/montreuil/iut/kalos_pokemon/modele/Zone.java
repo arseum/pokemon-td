@@ -4,9 +4,10 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-public class Zone extends Attaque{
+public class Zone extends Attaque {
 
-    private BooleanProperty actif;
+    private final BooleanProperty actif;
+
     public Zone(Magneti tour, Game game) {
         super(tour, game);
         actif = new SimpleBooleanProperty(false);

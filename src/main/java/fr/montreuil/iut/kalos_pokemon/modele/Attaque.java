@@ -7,15 +7,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class Attaque {
 
     private static int compteur = 1;
+    protected final int nbImageMax;
     protected Tour tireur;
-    private String id;
     protected IntegerProperty x;
     protected IntegerProperty y;
-    protected final int nbImageMax;
     protected IntegerProperty idImage;
     protected Game game;
+    private final String id;
 
-    public Attaque(Tour tour,Game game){
+    public Attaque(Tour tour, Game game) {
         nbImageMax = tour.getNbImagedefault();
         idImage = new SimpleIntegerProperty(0);
         tireur = tour;

@@ -80,8 +80,12 @@ public class Game {
         return listProjectile;
     }
 
-    public void remove(Projectile p){
+    public void remove(Projectile p) {
         listProjectile.remove(p);
+    }
+
+    public void remove(Ennemi e) {
+        listEnnemi.remove(e);
     }
 
     /**
@@ -94,7 +98,7 @@ public class Game {
             e.seDeplace();
         }
 
-        for (int i = listProjectile.size() - 1 ; i >= 0 ; i--){
+        for (int i = listProjectile.size() - 1; i >= 0; i--) {
             if (listProjectile.get(i) instanceof Zone && ((Zone) listProjectile.get(i)).isActif())
                 listProjectile.get(i).bouge();
             else
@@ -112,23 +116,14 @@ public class Game {
         for (Tour t : listTour) {
             t.attaque();
         }
-
-        for (int i = listEnnemi.size() - 1; i >= 0; i--) {
-            if (listEnnemi.get(i).getHp() <= 0) {
-                //donne de l'argent au joueur
-                this.ajoutePokedollar(listEnnemi.get(i).getRecompense());
-
-                //puis on le supprime
-                listEnnemi.remove(i);
-            }
-        }
     }
-    public Ennemi chercheEnnemi(String id){
+
+    public Ennemi chercheEnnemi(String id) {
 
         Ennemi e = null;
         int index = 0;
 
-        while (e == null && index < listEnnemi.size()){
+        while (e == null && index < listEnnemi.size()) {
             if (Objects.equals(listEnnemi.get(index).getId(), id))
                 e = listEnnemi.get(index);
             else

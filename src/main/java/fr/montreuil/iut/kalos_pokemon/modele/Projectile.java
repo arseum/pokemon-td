@@ -1,8 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-public class Projectile extends Attaque{
+public class Projectile extends Attaque {
 
-    private Ennemi cible;
+    private final Ennemi cible;
+
     public Projectile(Tour tour, Ennemi ennemi, Game game) {
         super(tour, game);
         cible = ennemi;
@@ -26,8 +27,11 @@ public class Projectile extends Attaque{
 
 
         } else {
-            if (cible.getHp() > 0)
+            if (cible.getHp() > 0) {
                 cible.diminueHP(tireur.getDPS());
+                if (cible.getHp() <= 0)
+                    game.remove(cible);
+            }
             game.remove(this);
         }
 

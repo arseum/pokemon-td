@@ -13,16 +13,16 @@ public abstract class Ennemi {
 
     private static int compteurID = 1;
     private final int vitesseMax;
-    private DoubleProperty hp;
     private final double hpMax;
     private final String type;
     private final IntegerProperty x;
     private final IntegerProperty y;
     private final int recompense;
     private final String nom;
-    private Game game;
     private final String id;
     private final Map<Integer, Integer> cheminVersArrive;
+    private final DoubleProperty hp;
+    private final Game game;
     private int vitesseActuel;
     private int[] infoDeplacement;
 
@@ -91,9 +91,6 @@ public abstract class Ennemi {
         return y;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     public void resetVitesse() {
         vitesseActuel = vitesseMax;

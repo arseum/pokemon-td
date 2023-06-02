@@ -12,8 +12,8 @@ import java.util.Objects;
 public class EnnemiSprite {
 
     private final ImageView hitBox;
-    private ProgressBar barVie;
-    private Pane sprite;
+    private final ProgressBar barVie;
+    private final Pane sprite;
 
     public EnnemiSprite(Ennemi ennemi) throws IOException {
         hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(ennemi.getNom() + ".png")).openStream()));
@@ -22,11 +22,11 @@ public class EnnemiSprite {
         barVie = new ProgressBar();
         barVie.layoutXProperty().bind(hitBox.xProperty());
         barVie.layoutYProperty().bind(hitBox.yProperty().add(-8));
-        barVie.setPrefWidth( (ennemi.getHpMax() - 100) / 900 * (50 - 25) + 25 );
+        barVie.setPrefWidth((ennemi.getHpMax() - 50) / 650 * (50 - 25) + 25);
         barVie.setPrefHeight(10);
         barVie.progressProperty().bind(ennemi.hpProperty().divide(ennemi.getHpMax()));
 
-        sprite = new Pane(hitBox,barVie);
+        sprite = new Pane(hitBox, barVie);
         sprite.setId(ennemi.getId());
     }
 
