@@ -109,7 +109,7 @@ public abstract class Tour {
 
         //attaque la cible
         if (cible != null) {
-            idCible.setValue(cible.getId());
+            game.ajouteProjectile(new Projectile(this,cible));
         }
 
 

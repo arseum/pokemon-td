@@ -16,6 +16,7 @@ public class Game {
      * le fait que les ennemi peuvent se depacer les uns des autres
      */
     private final ObservableList<Ennemi> listEnnemi;
+    private final ObservableList<Projectile> listProjectile;
     private final ObservableList<Tour> listTour;
     private final IntegerProperty pokedollar;
 
@@ -23,6 +24,7 @@ public class Game {
         terrain = new Terrain();
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
+        listProjectile = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
 
@@ -31,6 +33,7 @@ public class Game {
         terrain = new Terrain(nomTerrain);
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
+        listProjectile = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
     }
 
@@ -54,12 +57,15 @@ public class Game {
 
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
-        //e.setGame(this);
     }
 
     public void ajouteTour(Tour t) {
         listTour.add(t);
         t.setGame(this);
+    }
+
+    public void ajouteProjectile(Projectile p) {
+        listProjectile.add(p);
     }
 
     public ObservableList<Ennemi> getListEnnemi() {
@@ -68,6 +74,10 @@ public class Game {
 
     public ObservableList<Tour> getListTour() {
         return listTour;
+    }
+
+    public ObservableList<Projectile> getListProjectile() {
+        return listProjectile;
     }
 
     /**
