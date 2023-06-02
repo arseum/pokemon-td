@@ -23,9 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -49,9 +47,11 @@ public class ControlleurMap implements Initializable {
 
     //todo ZONE TEST ATTRIBUT
     @FXML
-    private Label testDrag;
+    private BorderPane scene;
+
     @FXML
-    private VBox testDrop;
+    private  ImageView poussifeuTour;
+
 
 
     @Override
@@ -63,9 +63,7 @@ public class ControlleurMap implements Initializable {
         terrainVue = new TerrainVue();
         ensembleTirVue = new ArrayList<>();
 
-        //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
-        //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
         pane.getChildren().add(map);
 
         //init game loop + label utile
@@ -127,15 +125,37 @@ public class ControlleurMap implements Initializable {
 
         //todo: ZONE DE TEST
 
+        //System.out.println(poussifeuTour);
+
         //ControleurAjoutTour t = new ControleurAjoutTour(4);
         //pane.addEventHandler(MouseEvent.MOUSE_CLICKED, t);
 
-        /*
-        ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(pane);
+        HBox cont = (HBox)scene.lookup("#conteneurTourMenu");
+
+        System.out.println(cont.getChildren());
+
+
+        ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(scene);
         ObservateurMouvementSourisAjoutTour mv = new ObservateurMouvementSourisAjoutTour(o, pane, game);
-        testDrag.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
-        pane.addEventHandler(MouseEvent.MOUSE_MOVED, mv);
-*/
+        poussifeuTour.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, mv);
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, mv);
+
+        /*pane.setOnMouseClicked( e ->{
+            System.out.println("H, W : "+ pane.getHeight() + ", " +pane.getWidth());
+        });
+
+         */
+        /*
+        scene.setOnMouseClicked( e->{
+            Pane p = (Pane)scene.lookup("#pane");
+            System.out.println("Position pane Terrai: " + p.getLayoutX() + ", " + p.getLayoutY());
+            System.out.println("H, W : "+ p.getHeight() + ", " +p.getWidth());
+        });
+
+
+         */
+        //
     }
 
     private void initAnimation() throws IOException {

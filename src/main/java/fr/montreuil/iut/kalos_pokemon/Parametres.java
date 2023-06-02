@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon;
 
 public class Parametres {
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
+    public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Icone/Tour/";
 
     public static int tailleTuile = 32;
     public static int largeurTileset = 1056;

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="725.0"
             prefWidth="990.0" xmlns="http://javafx.com/javafx/19"
-            fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
+            fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap" fx:id="scene">
     <center>
         <Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="671.0" prefWidth="1030.0" styleClass="background"
               stylesheets="@style.css" xmlns="http://javafx.com/javafx/19">
@@ -26,12 +26,12 @@
                     </image>
                 </ImageView>
                 <HBox alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0"
-                      prefWidth="916.0">
+                      prefWidth="916.0" fx:id="conteneurTourMenu">
                     <children>
                         <VBox alignment="CENTER" prefHeight="101.0" prefWidth="85.0">
                             <children>
                                 <ImageView fitHeight="55.0" fitWidth="43.0" nodeOrientation="RIGHT_TO_LEFT"
-                                           pickOnBounds="true" preserveRatio="true">
+                                           pickOnBounds="true" preserveRatio="true" fx:id="poussifeuTour">
                                     <image>
                                         <Image url="@Vue/poussifeu.png"/>
                                     </image>

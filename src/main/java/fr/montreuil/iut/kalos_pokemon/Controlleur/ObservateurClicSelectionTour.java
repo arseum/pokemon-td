@@ -1,10 +1,13 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -17,12 +20,16 @@ public class ObservateurClicSelectionTour implements EventHandler<MouseEvent> {
     public StackPane imageTour;
     private Pane paneTerrain;
 
-    public ObservateurClicSelectionTour(Pane pane) {
+    private  BorderPane scene;
+
+    public ObservateurClicSelectionTour(BorderPane scene) {
         this.estSelectionne = false;
 
         Image i, i_bw;
         try {
-            i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "testDrag.png")).openStream());
+            //i = new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "testDrag.png")).openStream());
+            i = new Image("file:" + Parametres.cheminIconeTour +"testDrag.png");
+
             i_bw= new Image(Objects.requireNonNull(EnnemiSprite.class.getResource( "testDrag_bw.png")).openStream());
 
         } catch (IOException ex) {
@@ -35,21 +42,16 @@ public class ObservateurClicSelectionTour implements EventHandler<MouseEvent> {
         this.imageTour = new StackPane(im_bw, im);
         this.imageTour.setId("tourEnCoursAjout");
 
+        //Empeche l'image de catch des events
+        this.imageTour.setPickOnBounds(false);
 
-        //this.imageTour.setVisible(false);
-
-        this.imageTour.setLayoutX(5 * 32 - 6);
-        this.imageTour.setLayoutY(3 * 32 - 6);
-
+        //Permet de décaller l'image
+        this.imageTour.setTranslateX(22 -6);
+        this.imageTour.setTranslateY(22 -6);
 
 
-        //this.imageTour.setVisible(false);
-
-        this.paneTerrain = pane;
-        //paneTerrain.getChildren().add(this.imageTour);
-
-        //pane.getChildren().add(this.imageTour);
-
+        this.scene = scene;
+        this.paneTerrain = (Pane) scene.lookup("#pane");
 
     }
 
@@ -57,17 +59,24 @@ public class ObservateurClicSelectionTour implements EventHandler<MouseEvent> {
         return estSelectionne;
     }
 
+    public void supprimeImage(){
+        scene.getChildren().remove(scene.lookup("#tourEnCoursAjout"));
+        estSelectionne = false;
+    }
+
     @Override
     public void handle(MouseEvent mouseEvent) {
+
         if(estSelectionne){
-            estSelectionne = false;
-            System.out.println(this.imageTour.getChildren());
-            System.out.println(this.imageTour.lookup("#grise"));
-            paneTerrain.getChildren().remove(paneTerrain.lookup("#tourEnCoursAjout"));
+            supprimeImage();
         }
         else {
             estSelectionne = true;
-            paneTerrain.getChildren().add(this.imageTour);
+            scene.getChildren().add(this.imageTour);
         }
+        //todo
+        // mouseEvent.getTarget(); Permet d'avoir le node clique
+        // ecoute le contener
+        mouseEvent.consume();
     }
 }
