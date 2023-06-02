@@ -17,13 +17,10 @@ public class Zone extends Attaque {
     @Override
     public void bouge() {
 
-        for (int i = 0; i < 6; i++) {
-            if (idImage.get() + 1 > nbImageMax)
-                idImage.set(0);
-            else
-                idImage.set(idImage.get() + 1);
-
-        }
+        if (idImage.get() + 1 > nbImageMax)
+            idImage.set(0);
+        else
+            idImage.set(idImage.get() + 1);
 
     }
 

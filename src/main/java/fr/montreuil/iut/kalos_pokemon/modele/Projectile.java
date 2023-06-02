@@ -29,8 +29,10 @@ public class Projectile extends Attaque {
         } else {
             if (cible.getHp() > 0) {
                 cible.diminueHP(tireur.getDPS());
-                if (cible.getHp() <= 0)
+                if (cible.getHp() <= 0) {
                     game.remove(cible);
+                    game.ajoutePokedollar(cible.getRecompense());
+                }
             }
             game.remove(this);
         }

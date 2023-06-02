@@ -222,6 +222,7 @@ public class ControlleurMap implements Initializable {
             sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
             sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
             sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+            sprite.getHitBox().getStyleClass().add("magneti_zone");
         } else {
             sprite.getHitBox().xProperty().bind(a.xProperty());
             sprite.getHitBox().yProperty().bind(a.yProperty());
