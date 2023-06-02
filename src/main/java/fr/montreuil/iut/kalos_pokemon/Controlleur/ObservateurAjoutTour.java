@@ -10,9 +10,9 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class ObservateurMouvementSourisAjoutTour implements EventHandler<MouseEvent> {
+public class ObservateurAjoutTour implements EventHandler<MouseEvent> {
 
-    private ObservateurClicSelectionTour obsClic;
+    private ObservateurMenuTourClic obsClic;
     private Pane paneTerrain;
 
     private SimpleDoubleProperty xTour;
@@ -23,8 +23,7 @@ public class ObservateurMouvementSourisAjoutTour implements EventHandler<MouseEv
 
     private Game game;
 
-
-    public ObservateurMouvementSourisAjoutTour(ObservateurClicSelectionTour obsClic, Pane paneTerrain, Game game) {
+    public ObservateurAjoutTour(ObservateurMenuTourClic obsClic, Pane paneTerrain, Game game) {
         this.obsClic = obsClic;
         this.paneTerrain = paneTerrain;
         this.xTour = new SimpleDoubleProperty(0);
@@ -32,8 +31,6 @@ public class ObservateurMouvementSourisAjoutTour implements EventHandler<MouseEv
         this.estDansTerrainX = new SimpleBooleanProperty();
         this.estDansTerrainY = new SimpleBooleanProperty();
         this.game = game;
-
-        //System.out.println(this.paneTerrain);
 
         this.obsClic.imageTour.layoutXProperty().bind(xTour);
         this.obsClic.imageTour.layoutYProperty().bind(yTour);
@@ -60,6 +57,8 @@ public class ObservateurMouvementSourisAjoutTour implements EventHandler<MouseEv
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_MOVED) {
+            //System.out.print(this.obsClic.imageTour.getLayoutX());
+            //System.out.println(", " + this.xTour.get());
 
             if (estDansTerrainX.get() && estDansTerrainY.get()) {
                 xTour.set(divisionEuclidienne(mouseEvent.getX()) * Parametres.tailleTuile );
@@ -75,24 +74,23 @@ public class ObservateurMouvementSourisAjoutTour implements EventHandler<MouseEv
             }
         }
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
-            //System.out.println("ajout");
-
-            //System.out.println(game.getListTour());
 
             //todo condition tour meme endroit
 
             int x = divisionEuclidienne(xTour.get());
             int y = divisionEuclidienne(yTour.get());
-            if(this.obsClic.getUneTourEstSelectionnee() && estPlacable(x,y)){
-                if(this.obsClic.nom.equals("poussifeu") && this.obsClic.cetteTourEstSelectionnee){
+            if(this.obsClic.estSelectionnee && estPlacable(x,y)){
+                if(this.obsClic.tourSelectionnee.equals("poussifeu")){
                     game.ajouteTour(new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile, game));
                 }
-                else if (this.obsClic.nom.equals("salameche") && this.obsClic.cetteTourEstSelectionnee) {
+                else if (this.obsClic.tourSelectionnee.equals("salameche")) {
                     game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile, game));
                 }
                 this.obsClic.supprimeImage();
+                this.obsClic.estSelectionnee = false;
 
             }
         }
+
     }
 }

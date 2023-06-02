@@ -1,10 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
-import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
-import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
-import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
+import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
@@ -16,7 +13,11 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
+import javafx.event.Event;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -48,9 +49,17 @@ public class ControlleurMap implements Initializable {
     //todo ZONE TEST ATTRIBUT
     @FXML
     private BorderPane scene;
+    /*
+    @FXML
+    private  ImageView poussifeuTourImage;
 
     @FXML
-    private  ImageView poussifeuTour;
+    private StackPane poussifeuTour;
+
+     */
+
+    @FXML
+    private HBox conteneurTourMenu;
 
 
 
@@ -65,6 +74,10 @@ public class ControlleurMap implements Initializable {
 
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.getChildren().add(map);
+
+        String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "venalgue"};
+        CreateurMenu createurMenu = new CreateurMenu(listeTour);
+        createurMenu.creationMenu(conteneurTourMenu);
 
         //init game loop + label utile
         try {
@@ -130,16 +143,68 @@ public class ControlleurMap implements Initializable {
         //ControleurAjoutTour t = new ControleurAjoutTour(4);
         //pane.addEventHandler(MouseEvent.MOUSE_CLICKED, t);
 
-        HBox cont = (HBox)scene.lookup("#conteneurTourMenu");
-
-        System.out.println(cont.getChildren());
 
 
-        ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(scene);
+        /*
+        ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(scene, "grenousse");
         ObservateurMouvementSourisAjoutTour mv = new ObservateurMouvementSourisAjoutTour(o, pane, game);
-        poussifeuTour.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
+        //poussifeuTour.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
+        //poussifeuTourImage.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
         scene.addEventHandler(MouseEvent.MOUSE_MOVED, mv);
         scene.addEventHandler(MouseEvent.MOUSE_CLICKED, mv);
+
+         */
+
+        //conteneurTourMenu.lookup("#tourMenuSprite_poussifeunormal").addEventHandler(MouseEvent.MOUSE_CLICKED, o);
+
+        //ObservateurMenuTourClic menuSelect = new ObservateurMenuTourClic(scene);
+        //conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuSelect);
+
+        /*
+        conteneurTourMenu.setOnMouseClicked( e -> {
+            EventTarget element = e.getTarget();
+            System.out.println(element.getClass());
+            if(element instanceof ImageView){
+                System.out.println("C'est une image");
+                ImageView i = (ImageView) element;
+
+                System.out.println(i.getId());
+            }
+        });
+
+         */
+
+        ObservateurMenuTourClic menuTourObs = new ObservateurMenuTourClic(scene);
+        ObservateurAjoutTour ajoutTour = new ObservateurAjoutTour(menuTourObs, pane, game);
+        conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, ajoutTour);
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, ajoutTour);
+
+        /*
+        BooleanProperty estSelectionne = new SimpleBooleanProperty(false);
+
+        ObservateurClicSelectionTour i1 = new ObservateurClicSelectionTour(scene, "poussifeu", estSelectionne);
+        ObservateurMouvementSourisAjoutTour m1 = new ObservateurMouvementSourisAjoutTour(i1, pane, game);
+        conteneurTourMenu.lookup("#tourMenuSprite_" + "poussifeu").addEventHandler(MouseEvent.MOUSE_CLICKED, i1);
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, m1);
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, m1);
+
+
+        ObservateurClicSelectionTour i2 = new ObservateurClicSelectionTour(scene, "salameche", estSelectionne);
+        ObservateurMouvementSourisAjoutTour m2 = new ObservateurMouvementSourisAjoutTour(i2, pane, game);
+        conteneurTourMenu.lookup("#tourMenuSprite_" + "salameche").addEventHandler(MouseEvent.MOUSE_CLICKED, i2);
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, m2);
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, m2);
+
+         */
+        /*
+        for(String nom : listeTour){
+            ObservateurClicSelectionTour i = new ObservateurClicSelectionTour(scene);
+            //ObservateurMenuTourClic i = new ObservateurMenuTourClic(scene);
+            conteneurTourMenu.lookup("#tourMenuSprite_" + nom).addEventHandler(MouseEvent.MOUSE_CLICKED, i);
+        }
+
+         */
 
         /*pane.setOnMouseClicked( e ->{
             System.out.println("H, W : "+ pane.getHeight() + ", " +pane.getWidth());

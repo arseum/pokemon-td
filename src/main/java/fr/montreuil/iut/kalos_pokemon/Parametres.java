@@ -16,7 +16,27 @@ public class Parametres {
     public static int colonneZoneDepartTileSet = (largeurTileset / tailleTuile) - 3;
     public static int colonneZoneArriveeTileSet = (largeurTileset / tailleTuile) - 1;
 
-    public static int vitesseMaximale = 10;
+
+    //Parametres des Tours
+
+    public static final int prixpoussifeu = 50;
+    public static final int prixgranivol = 60;
+    public static final int prixmagneti = 70;
+    public static final int prixsalameche = 100;
+    public static final int prixvenalgue = 80;
+    public static final int prixgrenousse = 75;
+    public static final int prixelectrode = 100;
+
+    public static int prixTour(String nom){
+        if(nom == "poussifeu") return prixpoussifeu;
+        else if(nom == "granivol") return prixgranivol;
+        else if(nom == "magneti") return prixmagneti;
+        else if(nom == "salameche") return prixsalameche;
+        else if(nom == "venalgue") return prixvenalgue;
+        else if(nom == "grenousse") return prixgrenousse;
+        else if(nom == "electrode") return prixelectrode;
+        return -1;
+    }
 
     public static int coordonneesXYenCase(int ligne, int colonne, int largeur) {
         //int largeur = 32;//this.arrierePlan.get(0).size();
