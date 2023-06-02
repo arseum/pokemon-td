@@ -1,17 +1,16 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
-import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Nenupiot;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +31,7 @@ public class ControlleurMap implements Initializable {
 
     private Timeline gameLoop;
 
-    private int frame;
+    private IntegerProperty frame;
     private TerrainVue terrainVue;
 
     private TerrainVue terrainDecor;
@@ -45,6 +44,7 @@ public class ControlleurMap implements Initializable {
         //inevitable debut de initialize
         game = new Game("savane");
         terrainVue = new TerrainVue();
+        frame = new SimpleIntegerProperty(0);
 
         //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -124,10 +124,10 @@ public class ControlleurMap implements Initializable {
 
 
         //ajout de tours pour test
-        //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
-        //game.ajouteTour(new Granivol(4 * 32, 9 * 32));
-        //game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
-        //game.ajouteTour(new Magneti(3 * 32, 5 * 32));
+        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
+        game.ajouteTour(new Granivol(4 * 32, 9 * 32));
+        game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
+        game.ajouteTour(new Magneti(3 * 32, 5 * 32));
         game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
 
 
@@ -138,7 +138,7 @@ public class ControlleurMap implements Initializable {
 
     private void initAnimation() throws IOException {
         gameLoop = new Timeline();
-        frame = 0;
+        game.nbFrameProperty().bind(frame);
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         int[] caseDepart = game.getTerrain().caseDepart();
 
@@ -148,28 +148,9 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
+                    game.uneFrame();
 
-                    game.deplacment();
-
-                    if (frame % 30 == 0) {
-                        game.demiSeconde();
-                    }
-
-
-                    //simulation d'une wave ou des togepi spon toutes les 5s
-                    if (frame % (60 * 5) == 0 && frame > 120) {
-                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-                    }
-
-                    if (frame % (60 * 6) == 0 && frame > 120) {
-                        game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-                    }
-
-                    if (frame % (60 * 7) == 0 && frame > 120) {
-                        game.ajouteEnnemi(new Nenupiot(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-                    }
-
-                    frame++;
+                    frame.set(frame.get()+1);
                 })
         );
         gameLoop.getKeyFrames().add(kf);

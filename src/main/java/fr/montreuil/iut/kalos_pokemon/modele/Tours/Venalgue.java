@@ -13,7 +13,7 @@ public class Venalgue extends Tour {
     private int degatsPoison;
 
     public Venalgue(int x, int y) {
-        super(128, 8, "neutre", 80, x, y, "venalgue", 14);
+        super(128, 4, "neutre", 80, x, y, "venalgue", 14,20);
         ennemiEmpoisone = new ArrayList<>();
         degatsPoison = 2;
     }
@@ -24,13 +24,6 @@ public class Venalgue extends Tour {
         Ennemi cible = null;
         int index = 0;
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
-
-        //faire des degats au ennemi emposoné
-        for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
-            ennemiEmpoisone.get(i).diminueHP(degatsPoison);
-            if (ennemiEmpoisone.get(i).getHp() <= 0)
-                ennemiEmpoisone.remove(i);
-        }
 
         //chercher si on peut empoisoner un nouvel ennemi
         while (cible == null && index < listEnnemi.size()) {
@@ -44,8 +37,18 @@ public class Venalgue extends Tour {
 
         if (cible != null) {
             game.ajouteProjectile(new Projectile(this,cible,game));
+            tempProchaineAttaque = game.getNbFrame() + tempProchaineAttaque;
         }
 
+    }
+
+    public void apliquePoison(){
+        //faire des degats au ennemi emposoné
+        for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
+            ennemiEmpoisone.get(i).diminueHP(degatsPoison);
+            if (ennemiEmpoisone.get(i).getHp() <= 0)
+                ennemiEmpoisone.remove(i);
+        }
     }
 
     public ArrayList<Ennemi> getEnnemiEmpoisone() {

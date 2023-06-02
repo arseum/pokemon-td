@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -12,13 +13,14 @@ public class Game {
     private final Terrain terrain;
     /**
      * il faut que cette liste contiene tout les ennemie en fonction du - loin au + loin
-     * pour l'instant tout els togepi on la meme vitesse donc ce n'est pas compliqué mais par a suite il faudra envisager
+     * pour l'instant tout les togepi on la meme vitesse donc ce n'est pas compliqué mais par a suite il faudra envisager
      * le fait que les ennemi peuvent se depacer les uns des autres
      */
     private final ObservableList<Ennemi> listEnnemi;
     private final ObservableList<Attaque> listProjectile;
     private final ObservableList<Tour> listTour;
     private final IntegerProperty pokedollar;
+    private IntegerProperty nbFrame;
 
     public Game() {
         terrain = new Terrain();
@@ -26,6 +28,7 @@ public class Game {
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
+        nbFrame = new SimpleIntegerProperty(0);
     }
 
     public Game(String nomTerrain) {
@@ -35,6 +38,7 @@ public class Game {
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
+        nbFrame = new SimpleIntegerProperty(0);
     }
 
     //todo 1
@@ -49,6 +53,14 @@ public class Game {
 
     public int getPokedollar() {
         return pokedollar.get();
+    }
+
+    public IntegerProperty nbFrameProperty() {
+        return nbFrame;
+    }
+
+    public int getNbFrame() {
+        return nbFrame.get();
     }
 
     public void ajoutePokedollar(int value) {
@@ -92,7 +104,7 @@ public class Game {
      * methode appelée a chaque frame
      * utilisé notament pour les deplacements
      */
-    public void deplacment() {
+    public void uneFrame() {
 
         for (Ennemi e : listEnnemi) {
             e.seDeplace();
@@ -105,17 +117,13 @@ public class Game {
                 listProjectile.get(i).bouge();
         }
 
-    }
-
-    /**
-     * methode appelée toutes les 30 frames (soit 1/2s )
-     * utilisé pour faire des tests sur la mort des pokemons
-     */
-    public void demiSeconde() {
-
         for (Tour t : listTour) {
-            t.attaque();
+            if (getNbFrame() >= t.tempProchaineAttaque)
+                t.attaque();
+            if (t instanceof Venalgue && getNbFrame() % 10 == 0)
+                ((Venalgue) t).apliquePoison();
         }
+
     }
 
     public Ennemi chercheEnnemi(String id) {

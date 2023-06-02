@@ -30,7 +30,7 @@ public class Projectile extends Attaque {
 
         } else {
             if (cible.getHp() > 0) {
-                cible.diminueHP(tireur.getDPS());
+                cible.diminueHP(tireur.getDegats());
                 if (tireur instanceof Venalgue)
                     ((Venalgue) tireur).getEnnemiEmpoisone().add(cible);
             }
