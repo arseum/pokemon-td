@@ -120,25 +120,10 @@ public class Game {
         for (Tour t : listTour) {
             if (getNbFrame() >= t.tempProchaineAttaque)
                 t.attaque();
-            if (t instanceof Venalgue && getNbFrame() % 10 == 0)
+            if (t instanceof Venalgue && getNbFrame() % 20 == 0)
                 ((Venalgue) t).apliquePoison();
         }
 
-    }
-
-    public Ennemi chercheEnnemi(String id) {
-
-        Ennemi e = null;
-        int index = 0;
-
-        while (e == null && index < listEnnemi.size()) {
-            if (Objects.equals(listEnnemi.get(index).getId(), id))
-                e = listEnnemi.get(index);
-            else
-                index++;
-        }
-
-        return e;
     }
 
 }
