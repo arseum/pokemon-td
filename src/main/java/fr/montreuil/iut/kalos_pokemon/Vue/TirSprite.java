@@ -16,8 +16,11 @@ public class TirSprite implements Sprite {
     private ImageView cibleSprite;
     private boolean actif;
     private int idImage;
+    private String idCible;
+    private int degatTir;
 
-    public TirSprite(Tour tour) throws IOException {
+    public TirSprite(Tour tour, String idCible) throws IOException {
+        degatTir = tour.getDPS();
         pokemonName = tour.getNom();
         nbImageMax = tour.getNbImageAdefault();
         hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemonName + "_attaque_default_0.png")).openStream()));
@@ -25,10 +28,19 @@ public class TirSprite implements Sprite {
         compteur++;
         actif = true;
         idImage = 0;
+        this.idCible = idCible;
     }
 
     public ImageView getHitBox() {
         return hitBox;
+    }
+
+    public String getIdCible() {
+        return idCible;
+    }
+
+    public int getDegatTir() {
+        return degatTir;
     }
 
     public void setCibleSprite(ImageView ennemiSprite) {
@@ -42,7 +54,7 @@ public class TirSprite implements Sprite {
     public void bouge() throws IOException {
         if (hitBox.getX() > cibleSprite.getX() + 15 || hitBox.getY() > cibleSprite.getY() + 15 || hitBox.getX() < cibleSprite.getX() - 15 || hitBox.getY() < cibleSprite.getY() - 15) {
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 6; i++) {
                 hitBox.setY(hitBox.getY() < cibleSprite.getY() ? hitBox.getY() + 1 : hitBox.getY() - 1);
                 hitBox.setX(hitBox.getX() < cibleSprite.getX() ? hitBox.getX() + 1 : hitBox.getX() - 1);
 

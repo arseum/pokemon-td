@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Objects;
+
 public class Game {
 
     private final Terrain terrain;
@@ -100,6 +102,20 @@ public class Game {
                 listEnnemi.remove(i);
             }
         }
+    }
+    public Ennemi chercheEnnemi(String id){
+
+        Ennemi e = null;
+        int index = 0;
+
+        while (e == null && index < listEnnemi.size()){
+            if (Objects.equals(listEnnemi.get(index).getId(), id))
+                e = listEnnemi.get(index);
+            else
+                index++;
+        }
+
+        return e;
     }
 
 }

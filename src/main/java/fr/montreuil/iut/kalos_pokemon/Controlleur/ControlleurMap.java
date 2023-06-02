@@ -160,7 +160,9 @@ public class ControlleurMap implements Initializable {
                             }
                         } //pas de else car il se peux que le "sprite tir" ne devienne plus actif en bougeant.
                         if (!ensembleTirVue.get(i).isActif()) {
-                            if (!(ensembleTirVue.get(i) instanceof ZoneSprite)) {
+                            if (ensembleTirVue.get(i) instanceof TirSprite) {
+                                if (game.chercheEnnemi(((TirSprite) ensembleTirVue.get(i)).getIdCible()) != null)
+                                    game.chercheEnnemi(((TirSprite) ensembleTirVue.get(i)).getIdCible()).diminueHP(((TirSprite) ensembleTirVue.get(i)).getDegatTir());
                                 pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
                                 ensembleTirVue.remove(i);
                             }
@@ -232,7 +234,7 @@ public class ControlleurMap implements Initializable {
     }
 
     private void creerTirSprite(Tour tour, String idCible) throws IOException {
-        TirSprite sprite = new TirSprite(tour);
+        TirSprite sprite = new TirSprite(tour,idCible);
         Pane p = (Pane) pane.lookup("#" + idCible);
         sprite.setCibleSprite(((ImageView)p.lookup("#hitbox_" + idCible)));
 

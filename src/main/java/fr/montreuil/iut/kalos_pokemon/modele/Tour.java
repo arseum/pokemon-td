@@ -110,7 +110,6 @@ public abstract class Tour {
         //attaque la cible
         if (cible != null) {
             idCible.setValue(cible.getId());
-            cible.diminueHP(this.DPS);
         }
 
 
