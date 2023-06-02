@@ -17,7 +17,6 @@ public abstract class Tour {
     private final IntegerProperty x;
     private final IntegerProperty y;
     private final String id;
-    private final StringProperty idCible;
     private final int nbImagedefault;
     protected Game game;
 
@@ -31,7 +30,6 @@ public abstract class Tour {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.nom = pokemon;
-        idCible = new SimpleStringProperty(null);
         this.nbImagedefault = nbImageAdefault;
     }
 
@@ -71,10 +69,6 @@ public abstract class Tour {
         return y;
     }
 
-    public StringProperty idCibleProperty() {
-        return idCible;
-    }
-
     public void setGame(Game game) {
         this.game = game;
     }
@@ -95,7 +89,6 @@ public abstract class Tour {
         int index = 0;
 
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
-        idCible.setValue(null);
 
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
