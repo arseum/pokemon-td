@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class Magneti extends Tour implements TourZone {
+public class Magneti extends Tour {
 
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;

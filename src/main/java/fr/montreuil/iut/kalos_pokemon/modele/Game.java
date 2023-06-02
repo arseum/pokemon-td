@@ -80,6 +80,10 @@ public class Game {
         return listProjectile;
     }
 
+    public void remove(Projectile p){
+        listProjectile.remove(p);
+    }
+
     /**
      * methode appelée a chaque frame
      * utilisé notament pour les deplacements
@@ -88,7 +92,10 @@ public class Game {
 
         for (Ennemi e : listEnnemi) {
             e.seDeplace();
-            //e.seDeplaceBFS();
+        }
+
+        for (int i = listProjectile.size() - 1 ; i >= 0 ; i--){
+            listProjectile.get(i).bouge();
         }
 
     }
