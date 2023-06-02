@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class TerrainVue {
-    private TilePane mapVue;
+    private final TilePane mapVue;
 
     public TerrainVue() {
         mapVue = new TilePane();
@@ -75,7 +75,7 @@ public class TerrainVue {
         return mapVue;
     }
 
-    public TilePane genererMapAvecDecor(Terrain t){
+    public TilePane genererMapAvecDecor(Terrain t) {
         ArrayList<ArrayList<Integer>> map = t.getArrierePlan();
         ArrayList<ArrayList<Integer>> mapDecor = t.getDecor();
 
@@ -93,27 +93,25 @@ public class TerrainVue {
             throw new RuntimeException(e);
         }
 
-        for (int i = 0; i < map.size(); i ++){
-            for (int j = 0; j < map.get(0).size(); j++){
+        for (int i = 0; i < map.size(); i++) {
+            for (int j = 0; j < map.get(0).size(); j++) {
                 ImageView carre;
 
                 StackPane carreFinal;
                 carre = new ImageView(tileSet);
                 carre.setViewport(carreDeDecoupe(map.get(i).get(j)));
 
-                if (mapDecor != null){
+                if (mapDecor != null) {
                     ImageView carreDecor;
 
                     carreDecor = new ImageView(tileSet);
-                    if(mapDecor.get(i).get(j) == -1){
+                    if (mapDecor.get(i).get(j) == -1) {
                         carreDecor.setViewport(carreDeDecoupe(Parametres.idTuileTransparente));
-                    }
-                    else {
+                    } else {
                         carreDecor.setViewport(carreDeDecoupe(mapDecor.get(i).get(j)));
                     }
                     carreFinal = new StackPane(carre, carreDecor);
-                }
-                else {
+                } else {
                     carreFinal = new StackPane(carre);
                 }
                 mapVue.getChildren().add(carreFinal);

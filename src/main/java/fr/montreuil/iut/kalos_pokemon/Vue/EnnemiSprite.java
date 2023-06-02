@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class EnnemiSprite {
 
-    private ImageView hitBox;
+    private final ImageView hitBox;
 
     public EnnemiSprite(Ennemi ennemi) throws IOException {
         hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(ennemi.getNom() + ".png")).openStream()));

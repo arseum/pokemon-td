@@ -10,18 +10,18 @@ import java.util.Map;
 public abstract class Ennemi {
 
     private static int compteurID = 1;
-    private int vitesse;
+    private final int vitesse;
     private int hp;
-    private String type;
-    private IntegerProperty x;
-    private IntegerProperty y;
+    private final String type;
+    private final IntegerProperty x;
+    private final IntegerProperty y;
     private int maxHeightHitbox;
     private int maxWidhtHitbox;
-    private int recompense;
-    private String nom;
+    private final int recompense;
+    private final String nom;
     private Game game;
-    private String id;
-    private Map<Integer, Integer> cheminVersArrive;
+    private final String id;
+    private final Map<Integer, Integer> cheminVersArrive;
 
     private int[] infoDeplacement;
 
@@ -41,9 +41,9 @@ public abstract class Ennemi {
         setInfoDeplacement();
     }
 
-    private void setInfoDeplacement(){
+    private void setInfoDeplacement() {
         int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0],caseActuelle[1]));
+        int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
         int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
         this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
@@ -109,12 +109,12 @@ public abstract class Ennemi {
     }
 
     /*Deprecie*/
-    public void seDeplaceBFS(){
+    public void seDeplaceBFS() {
         int[] caseActuelle, caseSuivante, vecteurVitesse; //(ligne, colonne)
         int idCaseActuelle, idCaseSuivante;
 
         caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        idCaseActuelle = this.game.getTerrain().coordonneesXYenCase(caseActuelle[0],caseActuelle[1]);
+        idCaseActuelle = this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]);
 
         //System.out.println("***SE DEPLACE BFS");
         //System.out.println(cheminVersArrive);
@@ -124,20 +124,21 @@ public abstract class Ennemi {
         caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
         //System.out.println("SE DEPLACE BFS***");
 
-        vecteurVitesse = new int[] {(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0])};
+        vecteurVitesse = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0])};
 
         this.xProperty().set(this.getX() + this.getVitesse() * vecteurVitesse[0]);  // 2 lignes du déplacement
         this.yProperty().set(this.getY() + this.getVitesse() * vecteurVitesse[1]);
 
 
-        System.out.println(caseActuelle[0] + ", "+ caseActuelle[1] + " id: " + idCaseActuelle);
+        System.out.println(caseActuelle[0] + ", " + caseActuelle[1] + " id: " + idCaseActuelle);
         System.out.println(this.x.get() + ", " + this.y.get());
-        System.out.println(" vitesse: " + vecteurVitesse[0] + ", "+ vecteurVitesse[1] );
+        System.out.println(" vitesse: " + vecteurVitesse[0] + ", " + vecteurVitesse[1]);
         System.out.println("Suivant : " + cheminVersArrive.get(idCaseActuelle));
         System.out.println("***");
 
     }
-    public void seDeplace(){
+
+    public void seDeplace() {
         int nouveauX, nouveauY;
 
         nouveauX = this.getX() + this.getVitesse() * infoDeplacement[0];
@@ -150,7 +151,7 @@ public abstract class Ennemi {
         this.xProperty().set(nouveauX);
         this.yProperty().set(nouveauY);
 
-        if( arriveX && arriveY){
+        if (arriveX && arriveY) {
             this.xProperty().set(infoDeplacement[2]);
             this.yProperty().set(infoDeplacement[3]);
             setInfoDeplacement();

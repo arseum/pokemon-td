@@ -1,24 +1,27 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import javafx.beans.property.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.List;
 
 public abstract class Tour {
     private static int compteurID = 1;
-    private int portee;
-    private int DPS;
-    private String type;
-    private String nom;
-    private int prix;
-    private IntegerProperty x;
-    private IntegerProperty y;
+    private final int portee;
+    private final int DPS;
+    private final String type;
+    private final String nom;
+    private final int prix;
+    private final IntegerProperty x;
+    private final IntegerProperty y;
     private Game game;
-    private String id;
-    private StringProperty idCible;
-    private int nbImageAdefault;
+    private final String id;
+    private final StringProperty idCible;
+    private final int nbImageAdefault;
 
-    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon,int nbImageAdefault, Game game) {
+    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, Game game) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = portee;
@@ -67,7 +70,10 @@ public abstract class Tour {
     public IntegerProperty yProperty() {
         return y;
     }
-    public StringProperty idCibleProperty() { return idCible; }
+
+    public StringProperty idCibleProperty() {
+        return idCible;
+    }
 
     public void setGame(Game game) {
         this.game = game;
