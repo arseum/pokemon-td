@@ -18,10 +18,10 @@ public abstract class Tour {
     private final IntegerProperty y;
     private final String id;
     private final StringProperty idCible;
-    private final int nbImageAdefault;
+    private final int nbImagedefault;
     protected Game game;
 
-    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, Game game) {
+    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = portee;
@@ -32,11 +32,11 @@ public abstract class Tour {
         this.y = new SimpleIntegerProperty(y);
         this.nom = pokemon;
         idCible = new SimpleStringProperty(null);
-        this.nbImageAdefault = nbImageAdefault;
+        this.nbImagedefault = nbImageAdefault;
     }
 
-    public int getNbImageAdefault() {
-        return nbImageAdefault;
+    public int getNbImagedefault() {
+        return nbImagedefault;
     }
 
     public String getNom() {
@@ -109,8 +109,7 @@ public abstract class Tour {
 
         //attaque la cible
         if (cible != null) {
-            idCible.setValue(cible.getId());
-            cible.diminueHP(this.DPS);
+            game.ajouteProjectile(new Projectile(this, cible, game));
         }
 
 

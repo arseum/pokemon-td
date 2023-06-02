@@ -1,7 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.Map;
@@ -11,6 +13,7 @@ public abstract class Ennemi {
 
     private static int compteurID = 1;
     private final int vitesseMax;
+    private final double hpMax;
     private final String type;
     private final IntegerProperty x;
     private final IntegerProperty y;
@@ -18,19 +21,18 @@ public abstract class Ennemi {
     private final String nom;
     private final String id;
     private final Map<Integer, Integer> cheminVersArrive;
+    private final DoubleProperty hp;
+    private final Game game;
     private int vitesseActuel;
-    private int hp;
-    private int maxHeightHitbox;
-    private int maxWidhtHitbox;
-    private Game game;
     private int[] infoDeplacement;
 
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
+        this.hp = new SimpleDoubleProperty(hp);
+        this.hpMax = hp;
         this.vitesseMax = vitesseMax;
         this.vitesseActuel = vitesseMax;
-        this.hp = hp;
         this.type = type;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
@@ -45,22 +47,6 @@ public abstract class Ennemi {
         return recompense;
     }
 
-    public int getMaxHeightHitbox() {
-        return maxHeightHitbox;
-    }
-
-    public void setMaxHeightHitbox(int maxHeightHitbox) {
-        this.maxHeightHitbox = maxHeightHitbox;
-    }
-
-    public int getMaxWidhtHitbox() {
-        return maxWidhtHitbox;
-    }
-
-    public void setMaxWidhtHitbox(int maxWidhtHitbox) {
-        this.maxWidhtHitbox = maxWidhtHitbox;
-    }
-
     public String getId() {
         return id;
     }
@@ -73,8 +59,16 @@ public abstract class Ennemi {
         vitesseActuel = vitesseMax - v;
     }
 
-    public int getHp() {
+    public double getHp() {
+        return hp.get();
+    }
+
+    public DoubleProperty hpProperty() {
         return hp;
+    }
+
+    public double getHpMax() {
+        return hpMax;
     }
 
     public String getType() {
@@ -97,9 +91,6 @@ public abstract class Ennemi {
         return y;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     public void resetVitesse() {
         vitesseActuel = vitesseMax;
@@ -119,8 +110,8 @@ public abstract class Ennemi {
         nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
 
 
-        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseMax - 1));
-        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseMax - 1));
+        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseActuel - 1));
+        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseActuel - 1));
 
         this.xProperty().set(nouveauX);
         this.yProperty().set(nouveauY);
@@ -133,7 +124,7 @@ public abstract class Ennemi {
     }
 
     public void diminueHP(int value) {
-        hp -= value;
+        hp.set(hp.get() - value);
     }
 
 }
