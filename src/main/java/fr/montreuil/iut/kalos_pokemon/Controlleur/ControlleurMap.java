@@ -1,19 +1,15 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
-import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
-import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
-import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
+import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Granivol;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
+import fr.montreuil.iut.kalos_pokemon.modele.TourZone;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -43,14 +39,13 @@ public class ControlleurMap implements Initializable {
 
     private TerrainVue terrainDecor;
     private Game game;
-    private ArrayList<TirSprite> ensembleTirVue;
+    private ArrayList<Sprite> ensembleTirVue;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        //game = new Game();
         game = new Game("savane");
         terrainVue = new TerrainVue();
         ensembleTirVue = new ArrayList<>();
@@ -113,11 +108,12 @@ public class ControlleurMap implements Initializable {
         game.getListTour().addListener(listenTour);
 
 
-        //ajout d'un poussifeu
+        //ajout de tours pour test
         game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
         game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
         game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
-        //game.ajouteTour(new Magneti(6 * 32 , 5 * 32, game));
+        game.ajouteTour(new Magneti(3 * 32, 5 * 32, game));
+        game.ajouteTour(new Venalgue(7 * 32, 8 * 32, game));
 
 
         //lancement de la game loop
@@ -137,22 +133,19 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
-                    if (frame % 2 == 0) {
-                        game.deplacment();
-                    }
+
+                    game.deplacment();
+
                     if (frame % 30 == 0) {
                         game.demiSeconde();
                     }
+
                     if (frame % (60 * 10) == 0) {
                         game.ajouteEnnemi(new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32, game));
                     }
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
                     if (frame % (60 * 5) == 0) {
-                        //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
-
                         game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
                     if ((frame + 2) % (60 * 5) == 0) {
@@ -161,14 +154,19 @@ public class ControlleurMap implements Initializable {
 
                     //a faire pour chaque frame:
                     for (int i = ensembleTirVue.size() - 1; i >= 0; i--) {
-                        try {
-                            ensembleTirVue.get(i).bouge();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        if (ensembleTirVue.get(i).isActif()) {
+                            try {
+                                ensembleTirVue.get(i).bouge();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } //pas de else car il se peux que le "sprite tir" ne devienne plus actif en bougeant.
                         if (!ensembleTirVue.get(i).isActif()) {
-                            pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
-                            ensembleTirVue.remove(i);
+                            if (!(ensembleTirVue.get(i) instanceof ZoneSprite)) {
+                                pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
+                                ensembleTirVue.remove(i);
+                            }
+
                         }
                     }
 
@@ -221,16 +219,20 @@ public class ControlleurMap implements Initializable {
         });
 
 
-        //ajout d'un listener pour creer des sprites lorsque la tour attaque
-        tour.idCibleProperty().addListener(((observableValue, aBoolean, nouv) -> {
-            if (nouv != null) {
-                try {
-                    creerTirSprite(tour, nouv);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+        if (tour instanceof Magneti t) {
+            creerZoneSprite(t);
+        } else {
+            //ajout d'un listener pour creer des sprites lorsque la tour attaque
+            tour.idCibleProperty().addListener(((observableValue, aBoolean, nouv) -> {
+                if (nouv != null) {
+                    try {
+                        creerTirSprite(tour, nouv);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-        }));
+            }));
+        }
     }
 
     private void creerTirSprite(Tour tour, String idCible) throws IOException {
@@ -239,6 +241,17 @@ public class ControlleurMap implements Initializable {
 
         sprite.getHitBox().setX(tour.getX());
         sprite.getHitBox().setY(tour.getY());
+
+        pane.getChildren().add(sprite.getHitBox());
+        ensembleTirVue.add(sprite);
+    }
+
+    private void creerZoneSprite(TourZone tour) throws IOException {
+        ZoneSprite sprite = new ZoneSprite(tour);
+
+        sprite.getHitBox().xProperty().bind(tour.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+        sprite.getHitBox().yProperty().bind(tour.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+        sprite.getHitBox().visibleProperty().bind(tour.actifProperty());
 
         pane.getChildren().add(sprite.getHitBox());
         ensembleTirVue.add(sprite);

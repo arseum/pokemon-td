@@ -7,15 +7,15 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.Objects;
 
-public class TirSprite {
+public class TirSprite implements Sprite {
 
     private static int compteur = 1;
     private final ImageView hitBox;
+    private final String pokemonName;
+    private final int nbImageMax;
     private ImageView cibleSprite;
     private boolean actif;
     private int idImage;
-    private final String pokemonName;
-    private final int nbImageMax;
 
     public TirSprite(Tour tour) throws IOException {
         pokemonName = tour.getNom();
@@ -31,10 +31,6 @@ public class TirSprite {
         return hitBox;
     }
 
-    public ImageView getCibleSprite() {
-        return cibleSprite;
-    }
-
     public void setCibleSprite(ImageView ennemiSprite) {
         cibleSprite = ennemiSprite;
     }
@@ -46,7 +42,7 @@ public class TirSprite {
     public void bouge() throws IOException {
         if (hitBox.getX() > cibleSprite.getX() + 15 || hitBox.getY() > cibleSprite.getY() + 15 || hitBox.getX() < cibleSprite.getX() - 15 || hitBox.getY() < cibleSprite.getY() - 15) {
 
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 4; i++) {
                 hitBox.setY(hitBox.getY() < cibleSprite.getY() ? hitBox.getY() + 1 : hitBox.getY() - 1);
                 hitBox.setX(hitBox.getX() < cibleSprite.getX() ? hitBox.getX() + 1 : hitBox.getX() - 1);
 

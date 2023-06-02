@@ -9,17 +9,17 @@ import java.util.List;
 
 public abstract class Tour {
     private static int compteurID = 1;
-    private final int portee;
+    protected final int portee;
     private final int DPS;
     private final String type;
     private final String nom;
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
-    private Game game;
     private final String id;
     private final StringProperty idCible;
     private final int nbImageAdefault;
+    protected Game game;
 
     public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, Game game) {
         this.id = "Tour_n°" + compteurID;
@@ -79,27 +79,32 @@ public abstract class Tour {
         this.game = game;
     }
 
+    protected int distance(Ennemi e) {
+        int super_x;
+        int super_y;
+
+        super_x = Math.abs(getX() - e.getX());
+        super_y = Math.abs(getY() - e.getY());
+
+        return (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
+    }
+
     public void attaque() {
 
         Ennemi cible = null;
         int index = 0;
-        int super_x;
-        int super_y;
-        int distance;
+
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
         idCible.setValue(null);
 
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
 
-            super_x = Math.abs(getX() - listEnnemi.get(index).getX());
-            super_y = Math.abs(getY() - listEnnemi.get(index).getY());
-            distance = (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
-
-            if (distance <= portee)
+            if (distance(listEnnemi.get(index)) <= portee)
                 cible = listEnnemi.get(index);
             else
                 index++;
+
         }
 
         //attaque la cible
