@@ -103,19 +103,19 @@ public class ControlleurMap implements Initializable {
         game.getListTour().addListener(listenTour);
 
         //de meme pour les projectiles
-        ListChangeListener<Projectile> listenProjectiles = (c -> {
+        ListChangeListener<Attaque> listenProjectiles = (c -> {
             while (c.next()) {
                 if (c.wasAdded())
-                    for (Projectile p : c.getAddedSubList()) {
+                    for (Attaque a : c.getAddedSubList()) {
                         try {
-                            creerTirSprite(p);
+                            creerTirSprite(a);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 else if (c.wasRemoved())
-                    for (Projectile p : c.getRemoved()) {
-                        pane.getChildren().remove(pane.lookup("#" + p.getId()));
+                    for (Attaque a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
                     }
             }
         });
@@ -126,7 +126,7 @@ public class ControlleurMap implements Initializable {
         game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
         game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
         game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
-        //game.ajouteTour(new Magneti(3 * 32, 5 * 32, game));
+        game.ajouteTour(new Magneti(3 * 32, 5 * 32, game));
         game.ajouteTour(new Venalgue(7 * 32, 8 * 32, game));
 
 
@@ -234,12 +234,14 @@ public class ControlleurMap implements Initializable {
 
     }
 
-    private void creerTirSprite(Projectile p) throws IOException {
-        TirSprite sprite = new TirSprite(p);
+    private void creerTirSprite(Attaque a) throws IOException {
+        TirSprite sprite = new TirSprite(a);
+        if (a instanceof Zone)
+            sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
 
-        sprite.getHitBox().xProperty().bind(p.xProperty());
-        sprite.getHitBox().yProperty().bind(p.yProperty());
-        p.idImageProperty().addListener( ((observableValue, number, t1) -> {
+        sprite.getHitBox().xProperty().bind(a.xProperty());
+        sprite.getHitBox().yProperty().bind(a.yProperty());
+        a.idImageProperty().addListener( ((observableValue, number, t1) -> {
             try {
                 sprite.updateImage(t1.intValue());
             } catch (IOException e) {
@@ -249,14 +251,5 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(sprite.getHitBox());
     }
 
-    private void creerZoneSprite(TourZone tour) throws IOException {
-        ZoneSprite sprite = new ZoneSprite(tour);
-
-        sprite.getHitBox().xProperty().bind(tour.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
-        sprite.getHitBox().yProperty().bind(tour.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
-        sprite.getHitBox().visibleProperty().bind(tour.actifProperty());
-
-        pane.getChildren().add(sprite.getHitBox());
-    }
 
 }

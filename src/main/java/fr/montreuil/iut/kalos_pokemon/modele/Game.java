@@ -16,7 +16,7 @@ public class Game {
      * le fait que les ennemi peuvent se depacer les uns des autres
      */
     private final ObservableList<Ennemi> listEnnemi;
-    private final ObservableList<Projectile> listProjectile;
+    private final ObservableList<Attaque> listProjectile;
     private final ObservableList<Tour> listTour;
     private final IntegerProperty pokedollar;
 
@@ -64,8 +64,8 @@ public class Game {
         t.setGame(this);
     }
 
-    public void ajouteProjectile(Projectile p) {
-        listProjectile.add(p);
+    public void ajouteProjectile(Attaque a) {
+        listProjectile.add(a);
     }
 
     public ObservableList<Ennemi> getListEnnemi() {
@@ -76,7 +76,7 @@ public class Game {
         return listTour;
     }
 
-    public ObservableList<Projectile> getListProjectile() {
+    public ObservableList<Attaque> getListProjectile() {
         return listProjectile;
     }
 
@@ -95,7 +95,10 @@ public class Game {
         }
 
         for (int i = listProjectile.size() - 1 ; i >= 0 ; i--){
-            listProjectile.get(i).bouge();
+            if (listProjectile.get(i) instanceof Zone && ((Zone) listProjectile.get(i)).isActif())
+                listProjectile.get(i).bouge();
+            else
+                listProjectile.get(i).bouge();
         }
 
     }

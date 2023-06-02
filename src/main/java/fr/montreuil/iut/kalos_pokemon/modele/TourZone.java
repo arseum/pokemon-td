@@ -16,5 +16,4 @@ public interface TourZone {
 
     String getNom();
 
-    int getNbImageAdefault();
 }

@@ -1,9 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.TourZone;
+import fr.montreuil.iut.kalos_pokemon.modele.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -15,11 +12,14 @@ public class Magneti extends Tour {
 
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;
+    private Zone zone;
 
     public Magneti(int x, int y, Game game) {
         super(70, 0, "neutre", 70, x, y, "magneti", 4, game);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
+        zone = new Zone(this,game);
+        game.ajouteProjectile(zone);
     }
 
     public ObservableList<Ennemi> getEnnemisCible() {

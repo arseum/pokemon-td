@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
+import fr.montreuil.iut.kalos_pokemon.modele.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import javafx.beans.property.IntegerProperty;
@@ -15,10 +16,10 @@ public class TirSprite {
     private String nomTireur;
 
 
-    public TirSprite(Projectile p) throws IOException {
-        nomTireur = p.getTireur().getNom();
+    public TirSprite(Attaque a) throws IOException {
+        nomTireur = a.getTireur().getNom();
         hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(nomTireur + "_attaque_default_0.png")).openStream()));
-        hitBox.setId(p.getId());
+        hitBox.setId(a.getId());
     }
 
     public ImageView getHitBox() {
