@@ -4,12 +4,12 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="725.0"
-            prefWidth="990.0" xmlns="http://javafx.com/javafx/19"
+            prefWidth="990.0" xmlns="http://javafx.com/javafx/19" stylesheets="@style.css"
             fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
     <center>
         <Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="671.0" prefWidth="1030.0"
               styleClass="background"
-              stylesheets="@style.css" xmlns="http://javafx.com/javafx/19">
+              xmlns="http://javafx.com/javafx/19">
         </Pane>
     </center>
     <bottom>

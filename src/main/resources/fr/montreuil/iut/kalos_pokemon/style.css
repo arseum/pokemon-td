@@ -12,3 +12,6 @@
 .magneti_zone {
     -fx-opacity: 0.7;
 }
+.progress-bar .bar{
+    -fx-background-color: red;
+}
