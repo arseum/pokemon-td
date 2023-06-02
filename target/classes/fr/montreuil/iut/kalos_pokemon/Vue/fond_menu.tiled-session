@@ -1,0 +1,26 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "C:/Users/Renalle/Documents/benj/IUT/Cours/Sae dev Pokemon/the_tileset_oldv2.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Renalle/IdeaProjects/pokemon-td/src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue",
+    "map.fixedSize": false,
+    "map.width": 34,
+    "openFiles": [
+        "C:/Users/Renalle/Documents/benj/IUT/Cours/Sae dev Pokemon/the_tileset_oldv2.tsx"
+    ],
+    "project": "fond_menu.tiled-project",
+    "recentFiles": [
+        "C:/Users/Renalle/Documents/benj/IUT/Cours/Sae dev Pokemon/the_tileset_oldv2.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
