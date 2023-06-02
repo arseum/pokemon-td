@@ -9,15 +9,16 @@ import java.util.Objects;
 
 public class TirSprite implements Sprite {
 
-    private static int compteur = 1;
     private final ImageView hitBox;
-    private final String pokemonName;
     private final int nbImageMax;
-    private ImageView cibleSprite;
-    private boolean actif;
     private int idImage;
     private String idCible;
     private int degatTir;
+    private ImageView cibleSprite;
+    private static int compteur = 1;
+    private final String pokemonName;
+    private boolean actif;
+
 
     public TirSprite(Tour tour, String idCible) throws IOException {
         degatTir = tour.getDPS();
