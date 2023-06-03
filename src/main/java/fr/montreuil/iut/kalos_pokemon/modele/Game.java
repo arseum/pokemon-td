@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -62,6 +63,24 @@ public class Game {
 
     public ObservableList<Ennemi> getListEnnemi() {
         return listEnnemi;
+    }
+
+    public boolean tourSurMemePosition(int x, int y){
+        for(Tour t : this.getListTour()){
+            if(t.getX()/Parametres.tailleTuile == x/Parametres.tailleTuile && t.getY()/Parametres.tailleTuile == y/Parametres.tailleTuile){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean tourAchetable(Tour t){
+        return t.getPrix() <= this.pokedollar.get();
+    }
+
+    public boolean tourAchetable(String nomTour){
+        return (Parametres.prixTour(nomTour) != -1) && (Parametres.prixTour(nomTour) <= this.pokedollar.get());
     }
 
     public ObservableList<Tour> getListTour() {

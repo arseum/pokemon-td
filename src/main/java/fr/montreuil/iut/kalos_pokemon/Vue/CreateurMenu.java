@@ -1,6 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,9 +16,11 @@ import java.util.ArrayList;
 
 public class CreateurMenu {
     private String[] listeTour;
+    private int argentDisponible;
 
-    public CreateurMenu(String[] listeTour){
+    public CreateurMenu(String[] listeTour, int argentDisponible){
         this.listeTour = listeTour;
+        this.argentDisponible = argentDisponible;
     }
 
     public void creationMenu(HBox conteneur){
@@ -38,6 +43,12 @@ public class CreateurMenu {
 
         i = new ImageView(new Image("file:" + Parametres.cheminIconeTour + nom + ".png"));
         i.setId("tourMenuSprite_" + nom + "_normal");
+        if(Parametres.prixTour(nom) <= this.argentDisponible){
+            i.setVisible(true);
+        }else {
+            i.setVisible(false);
+        }
+
         i_bw = new ImageView(new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png"));
         i_bw.setId("tourMenuSprite_" + nom + "_grise");
 
@@ -53,11 +64,7 @@ public class CreateurMenu {
         i.setPickOnBounds(false);
         i_bw.setPickOnBounds(false);
         spriteTour.setPickOnBounds(true);
-
          */
-
-
-
         return contenantTour;
     }
 }

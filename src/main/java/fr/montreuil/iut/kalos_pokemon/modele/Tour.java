@@ -35,6 +35,8 @@ public abstract class Tour {
         this.nbImageAdefault = nbImageAdefault;
     }
 
+    public int getPrix(){return prix;}
+
     public int getNbImageAdefault() {
         return nbImageAdefault;
     }

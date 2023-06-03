@@ -19,6 +19,11 @@ public class Parametres {
 
     //Parametres des Tours
 
+    public static final int tailleTourX = 45;
+    public static final int tailleTourY = 45;
+    public static final int offsetXTour = (tailleTourX - tailleTuile) / 2;
+    public static final int offsetYTour = (tailleTourY - tailleTuile) / 2;
+
     public static final int prixpoussifeu = 50;
     public static final int prixgranivol = 60;
     public static final int prixmagneti = 70;
@@ -27,14 +32,14 @@ public class Parametres {
     public static final int prixgrenousse = 75;
     public static final int prixelectrode = 100;
 
-    public static int prixTour(String nom){
-        if(nom == "poussifeu") return prixpoussifeu;
-        else if(nom == "granivol") return prixgranivol;
-        else if(nom == "magneti") return prixmagneti;
-        else if(nom == "salameche") return prixsalameche;
-        else if(nom == "venalgue") return prixvenalgue;
-        else if(nom == "grenousse") return prixgrenousse;
-        else if(nom == "electrode") return prixelectrode;
+    public static final int prixTour(String nom){
+        if(nom.equals("poussifeu")) return prixpoussifeu;
+        else if(nom.equals("granivol")) return prixgranivol;
+        else if(nom.equals("magneti")) return prixmagneti;
+        else if(nom.equals("salameche")) return prixsalameche;
+        else if(nom.equals("venalgue")) return prixvenalgue;
+        else if(nom.equals("grenousse")) return prixgrenousse;
+        else if(nom.equals("electrode")) return prixelectrode;
         return -1;
     }
 
