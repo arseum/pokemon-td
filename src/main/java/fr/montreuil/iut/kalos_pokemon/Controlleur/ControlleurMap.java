@@ -8,17 +8,9 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Granivol;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
-import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -139,8 +131,8 @@ public class ControlleurMap implements Initializable {
         gameLoop.play();
 
         //todo: Ajouts Zen
-        ObservateurMenuTourClic menuTourObs = new ObservateurMenuTourClic(scene, game);
-        ObservateurAjoutTour ajoutTour = new ObservateurAjoutTour(menuTourObs, pane, game);
+        ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
+        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
         conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
         scene.addEventHandler(MouseEvent.MOUSE_MOVED, ajoutTour);
         scene.addEventHandler(MouseEvent.MOUSE_CLICKED, ajoutTour);

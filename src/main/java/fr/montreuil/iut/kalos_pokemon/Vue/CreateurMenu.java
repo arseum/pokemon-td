@@ -12,8 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-
 public class CreateurMenu {
     private String[] listeTour;
     private int argentDisponible;
@@ -34,8 +32,6 @@ public class CreateurMenu {
         StackPane spriteTour;
         ImageView i, i_bw;
         Label prix = new Label(Parametres.prixTour(nom) + " $");
-
-        //alignment="CENTER" prefHeight="101.0" prefWidth="85.0"
 
         contenantTour.setAlignment(Pos.CENTER);
         contenantTour.setPrefHeight(101);
@@ -58,13 +54,6 @@ public class CreateurMenu {
         contenantTour.getChildren().add(spriteTour);
         contenantTour.getChildren().add(prix);
 
-
-        //A voir si bug
-        /*
-        i.setPickOnBounds(false);
-        i_bw.setPickOnBounds(false);
-        spriteTour.setPickOnBounds(true);
-         */
         return contenantTour;
     }
 }

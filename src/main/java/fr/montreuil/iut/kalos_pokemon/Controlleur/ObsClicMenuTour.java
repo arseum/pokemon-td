@@ -6,7 +6,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.event.EventTarget;
-import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -14,7 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 
-public class ObservateurMenuTourClic implements EventHandler<MouseEvent> {
+public class ObsClicMenuTour implements EventHandler<MouseEvent> {
 
     private BorderPane scene;
 
@@ -24,14 +23,13 @@ public class ObservateurMenuTourClic implements EventHandler<MouseEvent> {
 
     public String tourSelectionnee;
 
-    //public boolean estSelectionnee;
     public BooleanProperty estSelectionnee;
     private Game game;
 
-    public ObservateurMenuTourClic(BorderPane scene, Game game){
+    public ObsClicMenuTour(BorderPane scene, Game game){
         this.scene = scene;
         setImageTour("grenousse");
-        imageTourNom = "grenousse";
+        this.imageTourNom = "grenousse";
         this.tourSelectionnee = null;
         this.estSelectionnee = new SimpleBooleanProperty(false);
         this.game = game;
@@ -70,7 +68,6 @@ public class ObservateurMenuTourClic implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        //imageTour.setCursor(Cursor.OPEN_HAND);
         String idCible;
         EventTarget elementCible = mouseEvent.getTarget();
 
@@ -78,11 +75,9 @@ public class ObservateurMenuTourClic implements EventHandler<MouseEvent> {
             idCible = ((ImageView)elementCible).getId();
             tourSelectionnee = idCible.replace("tourMenuSprite_", "").replace("_normal","").replace("_grise","");
             if(game.tourAchetable(tourSelectionnee)){
-                //if(estSelectionnee == true){
                 if(estSelectionnee.getValue() == true){
                     if(imageTourNom.equals(tourSelectionnee)){
                         supprimeImage();
-                        //estSelectionnee = false;
                         estSelectionnee.setValue(false);
                     }
                     else {
@@ -93,26 +88,9 @@ public class ObservateurMenuTourClic implements EventHandler<MouseEvent> {
                     mettreAJourImage(tourSelectionnee);
                     imageTourNom = tourSelectionnee;
                     scene.getChildren().add(this.imageTour);
-                    //estSelectionnee = true;
                     estSelectionnee.setValue(true);
                 }
             }
         }
     }
 }
-
-/*
-if(elementCible instanceof ImageView){
-            idCible = ((ImageView)elementCible).getId();
-            tourSelectionnee = idCible.replace("tourMenuSprite_", "").replace("_normal","").replace("_grise","");
-            if(estSelectionnee == true){
-                System.out.println(this.imageTour.getChildren().get(0).getId());
-                supprimeImage();
-                estSelectionnee = false;
-            }else {
-                //setImageTour(tourSelectionnee);
-                mettreAJourImage(tourSelectionnee);
-                scene.getChildren().add(this.imageTour);
-                estSelectionnee = true;
-            }
- */

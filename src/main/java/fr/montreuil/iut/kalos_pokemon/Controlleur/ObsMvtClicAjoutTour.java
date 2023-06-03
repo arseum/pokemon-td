@@ -6,13 +6,12 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class ObservateurAjoutTour implements EventHandler<MouseEvent> {
+public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
 
-    private ObservateurMenuTourClic obsClic;
+    private ObsClicMenuTour obsClic;
     private Pane paneTerrain;
     private SimpleDoubleProperty xTour;
     private SimpleDoubleProperty yTour;
@@ -21,7 +20,7 @@ public class ObservateurAjoutTour implements EventHandler<MouseEvent> {
     private SimpleBooleanProperty estDansTerrainY;
     private Game game;
 
-    public ObservateurAjoutTour(ObservateurMenuTourClic obsClic, Pane paneTerrain, Game game) {
+    public ObsMvtClicAjoutTour(ObsClicMenuTour obsClic, Pane paneTerrain, Game game) {
         //paneTerrain.setCursor(Cursor.MOVE);
         this.obsClic = obsClic;
         this.paneTerrain = paneTerrain;
