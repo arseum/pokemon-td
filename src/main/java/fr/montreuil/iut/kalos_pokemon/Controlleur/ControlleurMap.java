@@ -134,11 +134,11 @@ public class ControlleurMap implements Initializable {
 
 
         //ajout de tours pour test
-        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
-        game.ajouteTour(new Granivol(4 * 32, 9 * 32));
-        game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
-        game.ajouteTour(new Magneti(3 * 32, 5 * 32));
-        game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
+        //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
+        //game.ajouteTour(new Granivol(4 * 32, 9 * 32));
+        //game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
+        //game.ajouteTour(new Magneti(3 * 32, 5 * 32));
+        //game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
 
         //lancement de la game loop
         gameLoop.play();
@@ -222,8 +222,17 @@ public class ControlleurMap implements Initializable {
 
     private void creerTourSprite(Tour tour) throws IOException {
         TourSprite sprite = new TourSprite(tour);
-        sprite.getSprite().xProperty().bind(tour.xProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
-        sprite.getSprite().yProperty().bind(tour.yProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
+        //sprite.getSprite().xProperty().bind(tour.xProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
+        //sprite.getSprite().yProperty().bind(tour.yProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
+
+        //todo : Modifs Zen
+        //Niveau modele place la tour niveau coin sup gauche, par exemple (0,0) ou bien (32,32)
+        //Le sprite a les memes coordonnes - le offset
+        //L'image étant plus grande que la tuile il y a un offset pour compenser
+        sprite.getSprite().xProperty().bind(tour.xProperty().add(- Parametres.offsetXTour));
+        sprite.getSprite().yProperty().bind(tour.yProperty().add(- Parametres.offsetYTour));
+        //fin modifs Zen
+
         pane.getChildren().add(sprite.getSprite());
         pane.getChildren().add(sprite.getRange());
 
