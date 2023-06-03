@@ -83,15 +83,7 @@ public class TerrainVue {
         mapVue.setPrefRows(map.size());
 
         Image tileSet;
-        //tileSet = new Image(Parametres.cheminTerrains + "tileset.png");
-
-        try {
-            //todo Faire en sorte que le fichier lu soit celui dans Terrain
-            tileSet = new Image(Objects.requireNonNull(getClass().getResource("the_tileset.png")).openStream());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        tileSet =  new Image("file:" + Parametres.cheminTerrains + "tileset.png");
 
         for (int i = 0; i < map.size(); i ++){
             for (int j = 0; j < map.get(0).size(); j++){

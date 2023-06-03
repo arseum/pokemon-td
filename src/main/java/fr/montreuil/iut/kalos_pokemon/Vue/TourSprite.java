@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +15,8 @@ public class TourSprite {
     private final Circle range;
 
     public TourSprite(Tour pokemon) throws IOException {
-        sprite = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemon.getNom() + ".png")).openStream()));
+        //sprite = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemon.getNom() + ".png")).openStream()));
+        sprite = new ImageView(new Image("file:" + Parametres.cheminIconeTour + pokemon.getNom() + ".png"));
         sprite.setId(pokemon.getId());
         range = new Circle(pokemon.getPortee());
         creationCercleRange(pokemon);

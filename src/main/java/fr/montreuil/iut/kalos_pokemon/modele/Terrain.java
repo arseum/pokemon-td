@@ -188,10 +188,18 @@ public class Terrain {
         return arbreCouvrant;
     }
 
+    public int getHauteurTerrain(){
+        return this.arrierePlan.size() * Parametres.tailleTuile;
+    }
+
+    public int getLargeurTerrain(){
+        return this.arrierePlan.get(0).size() * Parametres.tailleTuile;
+    }
+
     public static void main(String[] args) {
-        Terrain t = new Terrain();
-        System.out.println(t.getDecor());
-        System.out.println(t.getArrierePlan());
+        Terrain t = new Terrain("savane");
+        System.out.println(t.getHauteurTerrain());
+        System.out.println(t.getLargeurTerrain());
     }
 
 }
