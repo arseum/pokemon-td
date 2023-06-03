@@ -8,3 +8,10 @@
 .rangeTour {
     -fx-opacity: 0.4;
 }
+
+.magneti_zone {
+    -fx-opacity: 0.5;
+}
+.progress-bar .bar{
+    -fx-background-color: red;
+}

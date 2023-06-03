@@ -5,15 +5,11 @@ import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
 import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
 import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
+import fr.montreuil.iut.kalos_pokemon.modele.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Nenupiot;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
-import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Granivol;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -21,16 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -45,29 +37,26 @@ public class ControlleurMap implements Initializable {
 
     private TerrainVue terrainDecor;
     private Game game;
-    private ArrayList<TirSprite> ensembleTirVue;
-
-    //todo ZONE TEST ATTRIBUT
-    @FXML
-    private Label testDrag;
-    @FXML
-    private VBox testDrop;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        //game = new Game();
         game = new Game("savane");
         terrainVue = new TerrainVue();
-        ensembleTirVue = new ArrayList<>();
 
         //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
         pane.getChildren().add(map);
+        //pane.getChildren().add(mapDecor);
+        /*
+        if (game.getTerrain().getDecor() != null) {
+            pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
+        }
 
+         */
         //init game loop + label utile
         try {
             initAnimation();
@@ -114,28 +103,37 @@ public class ControlleurMap implements Initializable {
         });
         game.getListTour().addListener(listenTour);
 
+        //de meme pour les projectiles
+        ListChangeListener<Attaque> listenProjectiles = (c -> {
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (Attaque a : c.getAddedSubList()) {
+                        try {
+                            creerTirSprite(a);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (Attaque a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                    }
+            }
+        });
+        game.getListProjectile().addListener(listenProjectiles);
 
-        //ajout d'un poussifeu
-        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32, game));
-        game.ajouteTour(new Granivol(4 * 32, 9 * 32, game));
-        game.ajouteTour(new Grenousse(9 * 32, 4 * 32, game));
-        //game.ajouteTour(new Magneti(6 * 32 , 5 * 32, game));
+
+        //ajout de tours pour test
+        game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
+        game.ajouteTour(new Granivol(4 * 32, 9 * 32));
+        game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
+        game.ajouteTour(new Magneti(3 * 32, 5 * 32));
+        game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
 
 
         //lancement de la game loop
         gameLoop.play();
 
-        //todo: ZONE DE TEST
-
-        //ControleurAjoutTour t = new ControleurAjoutTour(4);
-        //pane.addEventHandler(MouseEvent.MOUSE_CLICKED, t);
-
-        /*
-        ObservateurClicSelectionTour o = new ObservateurClicSelectionTour(pane);
-        ObservateurMouvementSourisAjoutTour mv = new ObservateurMouvementSourisAjoutTour(o, pane, game);
-        testDrag.addEventHandler(MouseEvent.MOUSE_CLICKED, o);
-        pane.addEventHandler(MouseEvent.MOUSE_MOVED, mv);
-*/
     }
 
     private void initAnimation() throws IOException {
@@ -150,43 +148,25 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
-                    if (frame == 5000) {
-                        System.out.println("fini");
-                        gameLoop.stop();
-                    }
-                    if (frame % 2 == 0) {
-                        game.deplacment();
-                    }
+
+                    game.deplacment();
+
                     if (frame % 30 == 0) {
                         game.demiSeconde();
                     }
-                    if (frame % (60 * 10) == 0) {
-                        game.ajouteEnnemi(new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32, game));
-                    }
+
 
                     //simulation d'une wave ou des togepi spon toutes les 5s
-                    if (frame % (60 * 5) == 0) {
-                        //game.ajouteEnnemi(new Togepi(0, 6 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 3 * 32, game));
-                        //game.ajouteEnnemi(new Togepi(0, 1 * 32, game));
-
+                    if (frame % (60 * 5) == 0 && frame > 120) {
                         game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
-                    if ((frame + 2) % (60 * 5) == 0) {
-                        game.ajouteEnnemi(new Tiplouf(caseDepart[0] * 32, caseDepart[1] * 32, game));
+
+                    if (frame % (60 * 6) == 0 && frame > 120) {
+                        game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
 
-                    //a faire pour chaque frame:
-                    for (int i = ensembleTirVue.size() - 1; i >= 0; i--) {
-                        try {
-                            ensembleTirVue.get(i).bouge();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        if (!ensembleTirVue.get(i).isActif()) {
-                            pane.getChildren().remove(pane.lookup("#" + ensembleTirVue.get(i).getHitBox().getId()));
-                            ensembleTirVue.remove(i);
-                        }
+                    if (frame % (60 * 7) == 0 && frame > 120) {
+                        game.ajouteEnnemi(new Nenupiot(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
                     }
 
                     frame++;
@@ -215,50 +195,47 @@ public class ControlleurMap implements Initializable {
      * creer une entite sprite pour un ennemi + fait les bind pour les deplacement
      */
     private void creerEnnemiSprite(Ennemi ennemi) throws IOException {
-        EnnemiSprite Sprite = new EnnemiSprite(ennemi);
-        Sprite.getHitBox().xProperty().bind(ennemi.xProperty());
-        Sprite.getHitBox().yProperty().bind(ennemi.yProperty());
-        pane.getChildren().add(Sprite.getHitBox());
-
-
+        EnnemiSprite nouveauEnnemiSprite = new EnnemiSprite(ennemi);
+        nouveauEnnemiSprite.getHitBox().xProperty().bind(ennemi.xProperty());
+        nouveauEnnemiSprite.getHitBox().yProperty().bind(ennemi.yProperty());
+        pane.getChildren().add(nouveauEnnemiSprite.getSprite());
     }
 
     private void creerTourSprite(Tour tour) throws IOException {
-        TourSprite Sprite = new TourSprite(tour);
-        Sprite.getSprite().xProperty().bind(tour.xProperty().add(-(Sprite.getSprite().getImage().getWidth() / 2)));
-        Sprite.getSprite().yProperty().bind(tour.yProperty().add(-(Sprite.getSprite().getImage().getWidth() / 2)));
-        pane.getChildren().add(Sprite.getSprite());
-        pane.getChildren().add(Sprite.getRange());
-
+        TourSprite sprite = new TourSprite(tour);
+        sprite.getSprite().xProperty().bind(tour.xProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
+        sprite.getSprite().yProperty().bind(tour.yProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
+        pane.getChildren().add(sprite.getSprite());
+        pane.getChildren().add(sprite.getRange());
 
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
-        Sprite.getSprite().setOnMouseClicked(e -> {
-            Sprite.getSprite().toFront();
-            Sprite.getRange().setVisible(!Sprite.getRange().isVisible());
+        sprite.getSprite().setOnMouseClicked(e -> {
+            sprite.getSprite().toFront();
+            sprite.getRange().setVisible(!sprite.getRange().isVisible());
         });
 
+    }
 
-        //ajout d'un listener pour creer des sprites lorsque la tour attaque
-        tour.idCibleProperty().addListener(((observableValue, aBoolean, nouv) -> {
-            if (nouv != null) {
-                try {
-                    creerTirSprite(tour, nouv);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+    private void creerTirSprite(Attaque a) throws IOException {
+        TirSprite sprite = new TirSprite(a);
+        if (a instanceof Zone) {
+            sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
+            sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+            sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+            sprite.getHitBox().getStyleClass().add("magneti_zone");
+        } else {
+            sprite.getHitBox().xProperty().bind(a.xProperty());
+            sprite.getHitBox().yProperty().bind(a.yProperty());
+        }
+        a.idImageProperty().addListener(((observableValue, number, t1) -> {
+            try {
+                sprite.updateImage(t1.intValue());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }));
-    }
-
-    private void creerTirSprite(Tour tour, String idCible) throws IOException {
-        TirSprite sprite = new TirSprite(tour);
-        sprite.setCibleSprite((ImageView) pane.lookup("#" + idCible));
-
-        sprite.getHitBox().setX(tour.getX());
-        sprite.getHitBox().setY(tour.getY());
-
         pane.getChildren().add(sprite.getHitBox());
-        ensembleTirVue.add(sprite);
     }
+
 
 }
