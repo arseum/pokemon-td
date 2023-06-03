@@ -1,10 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.Vue.EnnemiSprite;
-import fr.montreuil.iut.kalos_pokemon.Vue.TerrainVue;
-import fr.montreuil.iut.kalos_pokemon.Vue.TirSprite;
-import fr.montreuil.iut.kalos_pokemon.Vue.TourSprite;
+import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Nenupiot;
@@ -17,6 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -29,15 +30,22 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Pane pane;
-
     private Timeline gameLoop;
-
     private int frame;
     private TerrainVue terrainVue;
-
-    private TerrainVue terrainDecor;
     private Game game;
 
+    @FXML
+    private BorderPane scene;
+
+    @FXML
+    private HBox conteneurTourMenu;
+
+    @FXML
+    private ImageView backgroundMenuTour;
+
+    @FXML
+    private ImageView backgroundMenuBas;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,17 +54,19 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
 
-        //TilePane map = terrainVue.genereMap(game.getTerrain().getArrierePlan());
+        //todo Ajouts Zen
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
-        //TilePane mapDecor = terrainVue.genereMap(game.getTerrain().getDecor());
+        pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
+        pane.setPrefWidth(game.getTerrain().getLargeurTerrain());
         pane.getChildren().add(map);
-        //pane.getChildren().add(mapDecor);
-        /*
-        if (game.getTerrain().getDecor() != null) {
-            pane.getChildren().add(terrainDecor.genereMap(game.getTerrain().getDecor()));
-        }
+        backgroundMenuBas.setFitWidth(game.getTerrain().getLargeurTerrain());
 
-         */
+        String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "venalgue"};
+        CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
+        createurMenu.creationMenu(conteneurTourMenu);
+        ObsPokedollar testPoke2 = new ObsPokedollar(conteneurTourMenu, listeTour);
+        game.PokedollarProperty().addListener(testPoke2);
+
         //init game loop + label utile
         try {
             initAnimation();
@@ -130,9 +140,18 @@ public class ControlleurMap implements Initializable {
         game.ajouteTour(new Magneti(3 * 32, 5 * 32));
         game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
 
-
         //lancement de la game loop
         gameLoop.play();
+
+        //todo: Ajouts Zen
+        ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
+        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
+        conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, ajoutTour);
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, ajoutTour);
+
+        ObsTourEnCoursAjout obsTourEnCoursAjout = new ObsTourEnCoursAjout(scene);
+        menuTourObs.estSelectionnee.addListener(obsTourEnCoursAjout);
 
     }
 
