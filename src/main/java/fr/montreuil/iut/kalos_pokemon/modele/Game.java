@@ -96,8 +96,7 @@ public class Game {
         listProjectile.remove(p);
     }
 
-    public void remove(Ennemi e) {
-        listEnnemi.remove(e);
+    public void remove(Ennemi e) { listEnnemi.remove(e);
     }
 
     /**
