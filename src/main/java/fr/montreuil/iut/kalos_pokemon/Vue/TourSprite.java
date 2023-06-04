@@ -23,8 +23,8 @@ public class TourSprite {
     }
 
     private void creationCercleRange(Tour pokemon) {
-        range.centerXProperty().bind(pokemon.xProperty());
-        range.centerYProperty().bind(pokemon.yProperty());
+        range.centerXProperty().bind(pokemon.xProperty().add(sprite.getImage().getWidth()/2 - Parametres.offsetXTour));
+        range.centerYProperty().bind(pokemon.yProperty().add(sprite.getImage().getHeight()/2 - Parametres.offsetYTour));
         range.getStyleClass().add("rangeTour");
         range.setVisible(false);
     }

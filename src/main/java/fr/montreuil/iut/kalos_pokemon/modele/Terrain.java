@@ -196,10 +196,4 @@ public class Terrain {
         return this.arrierePlan.get(0).size() * Parametres.tailleTuile;
     }
 
-    public static void main(String[] args) {
-        Terrain t = new Terrain("savane");
-        System.out.println(t.getHauteurTerrain());
-        System.out.println(t.getLargeurTerrain());
-    }
-
 }
