@@ -3,12 +3,12 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Nenupiot;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,8 +30,10 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Pane pane;
+
     private Timeline gameLoop;
-    private int frame;
+
+    private IntegerProperty frame;
     private TerrainVue terrainVue;
     private Game game;
 
@@ -53,6 +55,7 @@ public class ControlleurMap implements Initializable {
         //inevitable debut de initialize
         game = new Game("savane");
         terrainVue = new TerrainVue();
+        frame = new SimpleIntegerProperty(0);
 
         //todo Ajouts Zen
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -157,7 +160,7 @@ public class ControlleurMap implements Initializable {
 
     private void initAnimation() throws IOException {
         gameLoop = new Timeline();
-        frame = 0;
+        game.nbFrameProperty().bind(frame);
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         int[] caseDepart = game.getTerrain().caseDepart();
 
@@ -167,28 +170,12 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
+                    game.uneFrame();
 
-                    game.deplacment();
-
-                    if (frame % 30 == 0) {
-                        game.demiSeconde();
-                    }
-
-
-                    //simulation d'une wave ou des togepi spon toutes les 5s
-                    if (frame % (60 * 5) == 0 && frame > 120) {
-                        game.ajouteEnnemi(new Togepi(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-                    }
-
-                    if (frame % (60 * 6) == 0 && frame > 120) {
+                    if (frame.get() % 120 == 0 && frame.get() > 119)
                         game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-                    }
 
-                    if (frame % (60 * 7) == 0 && frame > 120) {
-                        game.ajouteEnnemi(new Nenupiot(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-                    }
-
-                    frame++;
+                    frame.set(frame.get()+1);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
