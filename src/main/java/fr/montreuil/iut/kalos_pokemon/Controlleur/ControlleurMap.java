@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -135,17 +136,6 @@ public class ControlleurMap implements Initializable {
         });
         game.getListProjectile().addListener(listenProjectiles);
 
-
-        //ajout de tours pour test
-        //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
-        //game.ajouteTour(new Granivol(4 * 32, 9 * 32));
-        //game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
-        //game.ajouteTour(new Magneti(3 * 32, 5 * 32));
-        //game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
-
-        //lancement de la game loop
-        gameLoop.play();
-
         //todo: Ajouts Zen
         ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
         ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
@@ -156,13 +146,15 @@ public class ControlleurMap implements Initializable {
         ObsTourEnCoursAjout obsTourEnCoursAjout = new ObsTourEnCoursAjout(scene);
         menuTourObs.estSelectionnee.addListener(obsTourEnCoursAjout);
 
+        //lancement de la game loop
+        gameLoop.play();
     }
 
     private void initAnimation() throws IOException {
         gameLoop = new Timeline();
         game.nbFrameProperty().bind(frame);
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        int[] caseDepart = game.getTerrain().caseDepart();
+        int[] caseDepart = game.getTerrain().getCaseDepart();
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
@@ -172,17 +164,21 @@ public class ControlleurMap implements Initializable {
                 (ev -> {
                     game.uneFrame();
 
+                    /*
                     if (frame.get() % 120 == 0 && frame.get() > 239)
                         game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
 
                     if (frame.get() % (5*60) == 0 && frame.get() > 239)
                         game.ajouteEnnemi(new Camerupt(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
 
-                    if (frame.get() % 120 == 0 && frame.get() > 339)
-                        game.ajouteEnnemi(new Tiplouf(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-
                     if (frame.get() % (4*60) == 0 && frame.get() > 439)
                         game.ajouteEnnemi(new Ludicolo(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
+                     */
+
+                    if (frame.get() == 5 )
+                        game.ajouteEnnemi(new Tiplouf(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
 
 
                     frame.set(frame.get()+1);
@@ -194,17 +190,31 @@ public class ControlleurMap implements Initializable {
     private void initLabel() {
         // creation du label pour les pokedollar
         Label labelDollar = new Label("300 $");
-        labelDollar.setLayoutX(900);
+        labelDollar.setLayoutX(920);
         labelDollar.setLayoutY(10);
-        labelDollar.setPrefWidth(50);
+        labelDollar.setPrefWidth(70);
         labelDollar.setPrefHeight(15);
         labelDollar.setAlignment(Pos.CENTER);
-        labelDollar.getStyleClass().add("labelDollar");
+        labelDollar.getStyleClass().add("label");
         game.PokedollarProperty().addListener((observableValue, number, t1) -> {
             labelDollar.setText(t1 + " $");
             labelDollar.setPrefWidth(t1.toString().length() * 10 + 40);
         });
+
+        //pour les hp
+        Label labelVie = new Label("32 \u2764");
+        labelVie.setLayoutX(820);
+        labelVie.setLayoutY(10);
+        labelVie.setPrefWidth(65);
+        labelVie.setPrefHeight(15);
+        labelVie.setAlignment(Pos.CENTER);
+        labelVie.getStyleClass().add("label");
+        game.vieProperty().addListener(((observableValue, number, t1) -> {
+            labelVie.setText(t1.toString() + " \u2764");
+        }));
+
         pane.getChildren().add(labelDollar);
+        pane.getChildren().add(labelVie);
     }
 
     /**

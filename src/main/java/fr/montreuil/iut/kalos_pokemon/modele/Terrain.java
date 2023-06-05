@@ -10,15 +10,19 @@ public class Terrain {
 
     private final ArrayList<ArrayList<Integer>> arrierePlan;
     private final ArrayList<ArrayList<Integer>> decor;
+    private int[] caseDepart;
+    private int idArrivee;
+    private int[] caseArrivee;
 
     public Terrain() {
-        arrierePlan = chargerCSV("default");
-        decor = chargerCSV("default_decor");
+        this("default");
     }
 
     public Terrain(String nomTerrain){
         arrierePlan = chargerCSV(nomTerrain);
         decor = chargerCSV(nomTerrain + "_decor");
+        initCaseDepart();
+        initCaseArrivee();
     }
 
     public ArrayList<ArrayList<Integer>> getArrierePlan() {
@@ -96,27 +100,34 @@ public class Terrain {
     }
 
 
-    private int caseArrivee(){
+    private void initCaseArrivee(){
         for (int ligne = 0; ligne < this.arrierePlan.size(); ligne ++){
             for (int colonne = 0 ; colonne < this.arrierePlan.get(0).size(); colonne++){
                 if(this.arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur == Parametres.colonneZoneArriveeTileSet){
-                    return this.arrierePlan.get(0).size() * ligne + colonne;
+                    idArrivee = this.arrierePlan.get(0).size() * ligne + colonne;
+                    caseArrivee = new int[] {colonne*32, ligne*32};
                 }
             }
         }
-        return -1;
     }
 
-    public int[] caseDepart(){
+    private void initCaseDepart(){
         for (int ligne = 0; ligne < this.arrierePlan.size(); ligne ++){
             for (int colonne = 0 ; colonne < this.arrierePlan.get(0).size(); colonne++){
                 if(this.arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur == Parametres.colonneZoneDepartTileSet){
                     //return this.arrierePlan.get(0).size() * ligne + colonne;
-                    return new int[] {colonne, ligne};
+                    caseDepart = new int[] {colonne, ligne};
                 }
             }
         }
-        return null;
+    }
+
+    public int[] getCaseDepart() {
+        return caseDepart;
+    }
+
+    public int[] getCaseArrivee() {
+        return caseArrivee;
     }
 
     //todo: faire un jUnit
@@ -163,13 +174,12 @@ public class Terrain {
     public Map<Integer, Integer>  algoBFS() {
         Map<Integer, Integer> arbreCouvrant = new HashMap<>();
 
-        int caseArrivee = this.caseArrivee();
         ArrayList<Integer> parcours = new ArrayList<>();
         LinkedList<Integer> fifo = new LinkedList<>();
 
-        arbreCouvrant.put(caseArrivee, null);
-        fifo.addLast(caseArrivee);
-        parcours.add(caseArrivee);
+        arbreCouvrant.put(idArrivee, null);
+        fifo.addLast(idArrivee);
+        parcours.add(idArrivee);
 
         while (!fifo.isEmpty()){
             Integer caseActuelle = fifo.pollFirst();

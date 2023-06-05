@@ -21,16 +21,9 @@ public class Game {
     private final ObservableList<Attaque> listProjectile;
     private final ObservableList<Tour> listTour;
     private final IntegerProperty pokedollar;
+    private final IntegerProperty vie;
     private IntegerProperty nbFrame;
 
-    public Game() {
-        terrain = new Terrain();
-        listEnnemi = FXCollections.observableArrayList();
-        listTour = FXCollections.observableArrayList();
-        listProjectile = FXCollections.observableArrayList();
-        pokedollar = new SimpleIntegerProperty(300);
-        nbFrame = new SimpleIntegerProperty(0);
-    }
 
     public Game(String nomTerrain) {
         //todo terrain_BFS 2
@@ -40,6 +33,11 @@ public class Game {
         listProjectile = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
         nbFrame = new SimpleIntegerProperty(0);
+        vie = new SimpleIntegerProperty(32);
+    }
+
+    public Game() {
+        this("default");
     }
 
     //todo 1
@@ -50,6 +48,14 @@ public class Game {
 
     public IntegerProperty PokedollarProperty() {
         return pokedollar;
+    }
+
+    public int getVie() {
+        return vie.get();
+    }
+
+    public IntegerProperty vieProperty() {
+        return vie;
     }
 
     public int getPokedollar() {
@@ -68,6 +74,9 @@ public class Game {
         pokedollar.setValue(pokedollar.get() + value);
     }
 
+    public void perdVie(int value) {
+        vie.set(vie.get() - value);
+    }
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
     }
@@ -124,8 +133,8 @@ public class Game {
      */
     public void uneFrame() {
 
-        for (Ennemi e : listEnnemi) {
-            e.seDeplace();
+        for (int i = listEnnemi.size() - 1 ; i >= 0 ; i--){
+            listEnnemi.get(i).seDeplace();
         }
 
         for (int i = listProjectile.size() - 1; i >= 0; i--) {
