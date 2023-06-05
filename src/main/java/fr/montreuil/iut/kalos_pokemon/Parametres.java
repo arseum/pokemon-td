@@ -2,7 +2,8 @@ package fr.montreuil.iut.kalos_pokemon;
 
 public class Parametres {
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
-    public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Icone/Tour/";
+    public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tour/";
+    public static String cheminTirSprite = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tir/";
 
     public static int tailleTuile = 32;
     public static int largeurTileset = 1056;
@@ -15,6 +16,8 @@ public class Parametres {
 
     public static int colonneZoneDepartTileSet = (largeurTileset / tailleTuile) - 3;
     public static int colonneZoneArriveeTileSet = (largeurTileset / tailleTuile) - 1;
+
+    //Parametres des chemin pour les tirs sprites
 
 
     //Parametres des Tours

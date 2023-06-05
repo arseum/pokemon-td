@@ -14,7 +14,7 @@ public class TourSprite {
     private final ImageView sprite;
     private final Circle range;
 
-    public TourSprite(Tour pokemon) throws IOException {
+    public TourSprite(Tour pokemon) {
         //sprite = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemon.getNom() + ".png")).openStream()));
         sprite = new ImageView(new Image("file:" + Parametres.cheminIconeTour + pokemon.getNom() + ".png"));
         sprite.setId(pokemon.getId());
