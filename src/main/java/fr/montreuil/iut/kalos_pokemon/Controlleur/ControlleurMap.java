@@ -172,8 +172,18 @@ public class ControlleurMap implements Initializable {
                 (ev -> {
                     game.uneFrame();
 
-                    if (frame.get() % 120 == 0 && frame.get() > 119)
+                    if (frame.get() % 120 == 0 && frame.get() > 239)
                         game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
+                    if (frame.get() % (5*60) == 0 && frame.get() > 239)
+                        game.ajouteEnnemi(new Camerupt(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
+                    if (frame.get() % 120 == 0 && frame.get() > 339)
+                        game.ajouteEnnemi(new Tiplouf(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
+                    if (frame.get() % (4*60) == 0 && frame.get() > 439)
+                        game.ajouteEnnemi(new Ludicolo(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
 
                     frame.set(frame.get()+1);
                 })
