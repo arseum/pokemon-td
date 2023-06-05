@@ -37,6 +37,7 @@ public class Venalgue extends Tour {
         }
 
         if (cible != null) {
+            ennemiEmpoisone.add(cible);
             game.ajouteProjectile(new Projectile(this,cible,game));
             tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
         }
