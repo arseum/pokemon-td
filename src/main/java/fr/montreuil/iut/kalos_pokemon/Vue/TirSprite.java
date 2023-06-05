@@ -25,6 +25,6 @@ public class TirSprite {
     }
 
     public void updateImage(int idImage) throws IOException {
-        hitBox = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nomTireur + "_attaque_default_" + idImage + ".png"));
+        hitBox.setImage(new Image("file:" + Parametres.cheminTirSprite + nomTireur + "_attaque_default_" + idImage + ".png"));
     }
 }
