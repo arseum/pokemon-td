@@ -32,14 +32,22 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Pane pane;
     private Timeline gameLoop;
-    private IntegerProperty frame =new SimpleIntegerProperty();
+    private IntegerProperty frame = new SimpleIntegerProperty();
     private TerrainVue terrainVue;
     private TerrainVue terrainDecor;
     private Game game;
 
-    public final int getFrame(){return frame.getValue();}
-    public final void setFrame(int i){frame.setValue(i);}
-    public final IntegerProperty frameProperty(){return frame;}
+    public final int getFrame() {
+        return frame.getValue();
+    }
+
+    public final void setFrame(int i) {
+        frame.setValue(i);
+    }
+
+    public final IntegerProperty frameProperty() {
+        return frame;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -135,7 +143,6 @@ public class ControlleurMap implements Initializable {
         game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
 
 
-
         //lancement de la game loop
         gameLoop.play();
 
@@ -154,7 +161,7 @@ public class ControlleurMap implements Initializable {
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
 
-                    if (frame.getValue() == 5*60){
+                    if (frame.getValue() == 5 * 60) {
 
                     }
                     // pour attaquer
@@ -172,8 +179,7 @@ public class ControlleurMap implements Initializable {
                     game.deplacment();
 
 
-
-                    setFrame(getFrame()+1);
+                    setFrame(getFrame() + 1);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -217,28 +223,29 @@ public class ControlleurMap implements Initializable {
             sprite.getSprite().toFront();
             sprite.getRange().setVisible(!sprite.getRange().isVisible());
         });
-
-
-    private void creerTirSprite(Attaque a) throws IOException {
-        TirSprite sprite = new TirSprite(a);
-        if (a instanceof Zone) {
-            sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
-            sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
-            sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
-            sprite.getHitBox().getStyleClass().add("magneti_zone");
-        } else {
-            sprite.getHitBox().xProperty().bind(a.xProperty());
-            sprite.getHitBox().yProperty().bind(a.yProperty());
-        }
-        a.idImageProperty().addListener(((observableValue, number, t1) -> {
-            try {
-                sprite.updateImage(t1.intValue());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }));
-        pane.getChildren().add(sprite.getHitBox());
     }
+
+        private void creerTirSprite (Attaque a) throws IOException {
+            TirSprite sprite = new TirSprite(a);
+            if (a instanceof Zone) {
+                sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
+                sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+                sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+                sprite.getHitBox().getStyleClass().add("magneti_zone");
+            } else {
+                sprite.getHitBox().xProperty().bind(a.xProperty());
+                sprite.getHitBox().yProperty().bind(a.yProperty());
+            }
+            a.idImageProperty().addListener(((observableValue, number, t1) -> {
+                try {
+                    sprite.updateImage(t1.intValue());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }));
+            pane.getChildren().add(sprite.getHitBox());
+        }
+
 
 
 }
