@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
@@ -18,7 +19,7 @@ public class Magneti extends Tour {
     private final Zone zone;
 
     public Magneti(int x, int y) {
-        super(70, 0, "neutre", 70, x, y, "magneti", 4);
+        super(70, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 4,0);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
         zone = new Zone(this, game);

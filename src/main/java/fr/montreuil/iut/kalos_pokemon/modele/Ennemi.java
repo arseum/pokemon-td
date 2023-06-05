@@ -125,6 +125,10 @@ public abstract class Ennemi {
 
     public void diminueHP(int value) {
         hp.set(hp.get() - value);
+        if (hp.get() <= 0){
+            game.remove(this);
+            game.ajoutePokedollar(recompense);
+        }
     }
 
 }

@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="671.0" prefWidth="1030.0"
-      xmlns="http://javafx.com/javafx/19" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap"
-      stylesheets="@style.css" styleClass="background">
-</Pane>
+
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
+    <top>
+        <Label text="Haut" />
+        <VBox fx:id="testDrop">
+            <Label text="Ds HBox"/>
+            <Label text="Ds HBox"/>
+            <Label text="Ds HBox"/>
+        </VBox>
+    </top>
+    <center>
+        <Pane fx:id="pane" prefHeight="671.0" prefWidth="1030.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+        </Pane>
+    </center>
+    <bottom>
+        <VBox>
+            <Label text="Menu" />
+            <Label text="Poussifeu" fx:id="testDrag"/>
+            <Label text="Gobou" />
+        </VBox>
+    </bottom>
+</BorderPane>

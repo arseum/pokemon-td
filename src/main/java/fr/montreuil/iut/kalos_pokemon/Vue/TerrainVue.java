@@ -75,7 +75,7 @@ public class TerrainVue {
         return mapVue;
     }
 
-    public TilePane genererMapAvecDecor(Terrain t) {
+    public TilePane genererMapAvecDecor(Terrain t){
         ArrayList<ArrayList<Integer>> map = t.getArrierePlan();
         ArrayList<ArrayList<Integer>> mapDecor = t.getDecor();
 
@@ -83,18 +83,12 @@ public class TerrainVue {
         mapVue.setPrefRows(map.size());
 
         Image tileSet;
-        //tileSet = new Image(Parametres.cheminTerrains + "tileset.png");
+        tileSet =  new Image("file:" + Parametres.cheminTerrains + "tileset.png");
 
-        try {
-            //todo Faire en sorte que le fichier lu soit celui dans Terrain
-            tileSet = new Image(Objects.requireNonNull(getClass().getResource("the_tileset.png")).openStream());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map.get(0).size(); j++) {
+        for (int i = 0; i < map.size(); i ++){
+            for (int j = 0; j < map.get(0).size(); j++){
+                System.out.println(map.size());
+                System.out.println(map.get(0).size());
                 ImageView carre;
 
                 StackPane carreFinal;

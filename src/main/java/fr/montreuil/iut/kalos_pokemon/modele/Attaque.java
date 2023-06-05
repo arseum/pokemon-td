@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -23,8 +24,8 @@ public abstract class Attaque {
         compteur++;
         this.game = game;
 
-        x = new SimpleIntegerProperty(tour.getX());
-        y = new SimpleIntegerProperty(tour.getY());
+        x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
+        y = new SimpleIntegerProperty(tour.getY() + 22 - Parametres.offsetYTour);
     }
 
     public Tour getTireur() {
