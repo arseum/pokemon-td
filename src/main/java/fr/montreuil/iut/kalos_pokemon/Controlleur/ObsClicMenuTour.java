@@ -15,18 +15,14 @@ import javafx.scene.layout.StackPane;
 
 public class ObsClicMenuTour implements EventHandler<MouseEvent> {
 
-    private BorderPane scene;
-
     public StackPane imageTour;
-
-    private String imageTourNom;
-
     public String tourSelectionnee;
-
     public BooleanProperty estSelectionnee;
-    private Game game;
+    private final BorderPane scene;
+    private String imageTourNom;
+    private final Game game;
 
-    public ObsClicMenuTour(BorderPane scene, Game game){
+    public ObsClicMenuTour(BorderPane scene, Game game) {
         this.scene = scene;
         setImageTour("grenousse");
         this.imageTourNom = "grenousse";
@@ -37,8 +33,8 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
 
     private void setImageTour(String nom) {
         Image i, i_bw;
-        i = new Image("file:" + Parametres.cheminIconeTour + nom +".png");
-        i_bw = new Image("file:" + Parametres.cheminIconeTour + nom +"_bw.png");
+        i = new Image("file:" + Parametres.cheminIconeTour + nom + ".png");
+        i_bw = new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png");
 
         ImageView im = new ImageView(i);
         im.setId("normal");
@@ -49,20 +45,20 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
         this.imageTour.setId("tourEnCoursAjout");
 
         //L'image étant plus grande que la tuile il y a un offset pour compenser
-        this.imageTour.setTranslateX(- Parametres.offsetXTour );
-        this.imageTour.setTranslateY(- Parametres.offsetYTour );
+        this.imageTour.setTranslateX(-Parametres.offsetXTour);
+        this.imageTour.setTranslateY(-Parametres.offsetYTour);
 
         this.imageTour.setMouseTransparent(true);
     }
 
-    private void mettreAJourImage(String nom){
+    private void mettreAJourImage(String nom) {
         ImageView i = (ImageView) this.imageTour.getChildren().get(0);
         ImageView i2 = (ImageView) this.imageTour.getChildren().get(1);
-        i.setImage(new Image("file:" + Parametres.cheminIconeTour + nom +".png"));
-        i2.setImage(new Image("file:" + Parametres.cheminIconeTour + nom +"_bw.png"));
+        i.setImage(new Image("file:" + Parametres.cheminIconeTour + nom + ".png"));
+        i2.setImage(new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png"));
     }
 
-    public void supprimeImage(){
+    public void supprimeImage() {
         scene.getChildren().remove(scene.lookup("#tourEnCoursAjout"));
     }
 
@@ -71,20 +67,19 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
         String idCible;
         EventTarget elementCible = mouseEvent.getTarget();
 
-        if(elementCible instanceof ImageView){
-            idCible = ((ImageView)elementCible).getId();
-            tourSelectionnee = idCible.replace("tourMenuSprite_", "").replace("_normal","").replace("_grise","");
-            if(game.tourAchetable(tourSelectionnee)){
-                if(estSelectionnee.getValue() == true){
-                    if(imageTourNom.equals(tourSelectionnee)){
+        if (elementCible instanceof ImageView) {
+            idCible = ((ImageView) elementCible).getId();
+            tourSelectionnee = idCible.replace("tourMenuSprite_", "").replace("_normal", "").replace("_grise", "");
+            if (game.tourAchetable(tourSelectionnee)) {
+                if (estSelectionnee.getValue()) {
+                    if (imageTourNom.equals(tourSelectionnee)) {
                         supprimeImage();
                         estSelectionnee.setValue(false);
-                    }
-                    else {
+                    } else {
                         mettreAJourImage(tourSelectionnee);
                         imageTourNom = tourSelectionnee;
                     }
-                }else {
+                } else {
                     mettreAJourImage(tourSelectionnee);
                     imageTourNom = tourSelectionnee;
                     scene.getChildren().add(this.imageTour);

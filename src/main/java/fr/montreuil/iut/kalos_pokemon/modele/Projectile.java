@@ -1,7 +1,5 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
-
 public class Projectile extends Attaque {
 
     private final Ennemi cible;

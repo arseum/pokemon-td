@@ -6,9 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
-import java.io.IOException;
-import java.util.Objects;
-
 public class TourSprite {
 
     private final ImageView sprite;
@@ -23,8 +20,8 @@ public class TourSprite {
     }
 
     private void creationCercleRange(Tour pokemon) {
-        range.centerXProperty().bind(pokemon.xProperty().add(sprite.getImage().getWidth()/2 - Parametres.offsetXTour));
-        range.centerYProperty().bind(pokemon.yProperty().add(sprite.getImage().getHeight()/2 - Parametres.offsetYTour));
+        range.centerXProperty().bind(pokemon.xProperty().add(sprite.getImage().getWidth() / 2 - Parametres.offsetXTour));
+        range.centerYProperty().bind(pokemon.yProperty().add(sprite.getImage().getHeight() / 2 - Parametres.offsetYTour));
         range.getStyleClass().add("rangeTour");
         range.setVisible(false);
     }

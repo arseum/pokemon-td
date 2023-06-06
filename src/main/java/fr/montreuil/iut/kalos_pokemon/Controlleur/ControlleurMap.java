@@ -3,8 +3,9 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -20,7 +21,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -168,13 +168,13 @@ public class ControlleurMap implements Initializable {
                     if (frame.get() % 120 == 0 && frame.get() > 239)
                         game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
 
-                    if (frame.get() % (5*60) == 0 && frame.get() > 239)
+                    if (frame.get() % (5 * 60) == 0 && frame.get() > 239)
                         game.ajouteEnnemi(new Camerupt(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
 
-                    if (frame.get() % (4*60) == 0 && frame.get() > 439)
+                    if (frame.get() % (4 * 60) == 0 && frame.get() > 439)
                         game.ajouteEnnemi(new Ludicolo(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
 
-                    frame.set(frame.get()+1);
+                    frame.set(frame.get() + 1);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -229,8 +229,8 @@ public class ControlleurMap implements Initializable {
         //Niveau modele place la tour niveau coin sup gauche, par exemple (0,0) ou bien (32,32)
         //Le sprite a les memes coordonnes - le offset
         //L'image étant plus grande que la tuile il y a un offset pour compenser
-        sprite.getSprite().xProperty().bind(tour.xProperty().add(- Parametres.offsetXTour));
-        sprite.getSprite().yProperty().bind(tour.yProperty().add(- Parametres.offsetYTour));
+        sprite.getSprite().xProperty().bind(tour.xProperty().add(-Parametres.offsetXTour));
+        sprite.getSprite().yProperty().bind(tour.yProperty().add(-Parametres.offsetYTour));
         //fin modifs Zen
 
         pane.getChildren().add(sprite.getSprite());

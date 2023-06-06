@@ -122,7 +122,7 @@ public abstract class Ennemi {
             setInfoDeplacement();
         }
 
-        if (infoDeplacement[2] == game.getTerrain().getCaseArrivee()[0] && infoDeplacement[3] == game.getTerrain().getCaseArrivee()[1] && arriveX && arriveY){
+        if (infoDeplacement[2] == game.getTerrain().getCaseArrivee()[0] && infoDeplacement[3] == game.getTerrain().getCaseArrivee()[1] && arriveX && arriveY) {
             meurt();
             game.perdVie(1);
         }
@@ -131,13 +131,13 @@ public abstract class Ennemi {
 
     public void diminueHP(double value) {
         hp.set(hp.get() - value);
-        if (hp.get() <= 0){
+        if (hp.get() <= 0) {
             game.remove(this);
             game.ajoutePokedollar(recompense);
         }
     }
 
-    private void meurt(){
+    private void meurt() {
         hp.set(0);
         game.remove(this);
     }

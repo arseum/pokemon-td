@@ -10,11 +10,11 @@ import java.util.List;
 
 public class Venalgue extends Tour {
 
-    private ArrayList<Ennemi> ennemiEmpoisone;
-    private int degatsPoison;
+    private final ArrayList<Ennemi> ennemiEmpoisone;
+    private final int degatsPoison;
 
     public Venalgue(int x, int y) {
-        super(128, 4, "neutre", Parametres.prixvenalgue, x, y, "venalgue", 14,20);
+        super(128, 4, "neutre", Parametres.prixvenalgue, x, y, "venalgue", 14, 20);
         ennemiEmpoisone = new ArrayList<>();
         degatsPoison = 2;
     }
@@ -38,13 +38,13 @@ public class Venalgue extends Tour {
 
         if (cible != null) {
             ennemiEmpoisone.add(cible);
-            game.ajouteProjectile(new Projectile(this,cible,game));
+            game.ajouteProjectile(new Projectile(this, cible, game));
             tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
         }
 
     }
 
-    public void apliquePoison(){
+    public void apliquePoison() {
         //faire des degats au ennemi emposoné
         for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
             ennemiEmpoisone.get(i).diminueHP(degatsPoison);
