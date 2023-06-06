@@ -7,13 +7,14 @@ import java.util.List;
 
 public abstract class Tour {
     private static int compteurID = 1;
-    protected final int portee;
-    private final int degats;
+    protected IntegerProperty portee;
+    protected int degats;
     private final String type;
     private final String nom;
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
+    private final IntegerProperty level;
     private final String id;
     private final int nbImagedefault;
     protected int attaqueSpeed;
@@ -23,12 +24,13 @@ public abstract class Tour {
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, int attaqueSpeed) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
-        this.portee = portee;
+        this.portee = new SimpleIntegerProperty(portee);
         this.degats = degats;
         this.type = type;
         this.prix = prix;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
+        this.level = new SimpleIntegerProperty(1);
         this.nom = pokemon;
         this.nbImagedefault = nbImageAdefault;
         this.attaqueSpeed = attaqueSpeed;
@@ -48,6 +50,10 @@ public abstract class Tour {
     }
 
     public int getPortee() {
+        return portee.get();
+    }
+
+    public IntegerProperty porteeProperty() {
         return portee;
     }
 
@@ -61,6 +67,14 @@ public abstract class Tour {
 
     public IntegerProperty xProperty() {
         return x;
+    }
+
+    public int getLevel() {
+        return level.get();
+    }
+
+    public IntegerProperty levelProperty() {
+        return level;
     }
 
     public int getY() {
@@ -78,6 +92,8 @@ public abstract class Tour {
     public int getTempProchaineAttaque() {
         return tempProchaineAttaque;
     }
+
+    public abstract void levelUp();
 
     protected int distance(Ennemi e) {
         int super_x;
@@ -99,7 +115,7 @@ public abstract class Tour {
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
 
-            if (distance(listEnnemi.get(index)) <= portee)
+            if (distance(listEnnemi.get(index)) <= portee.get())
                 cible = listEnnemi.get(index);
             else
                 index++;

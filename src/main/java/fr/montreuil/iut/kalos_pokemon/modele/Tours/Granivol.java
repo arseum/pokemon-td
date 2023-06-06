@@ -8,4 +8,9 @@ public class Granivol extends Tour {
     public Granivol(int x, int y) {
         super(160, 3, "plante", Parametres.prixgranivol, x, y, "granivol", 3, 6);
     }
+
+    @Override
+    public void levelUp() {
+        this.portee.set(180);
+    }
 }

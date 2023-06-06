@@ -8,4 +8,8 @@ public class Salameche extends Tour {
         super(48, 2, "feu", Parametres.prixsalameche, x, y, "salameche", 0, 3);
     }
 
+    @Override
+    public void levelUp() {
+        //todo faire salameche
+    }
 }

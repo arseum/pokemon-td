@@ -57,6 +57,8 @@ public abstract class Ennemi {
 
     public void reduitVitese(int v) {
         vitesseActuel = vitesseMax - v;
+        if (vitesseActuel <= 0)
+            vitesseActuel = 0;
     }
 
     public double getHp() {
