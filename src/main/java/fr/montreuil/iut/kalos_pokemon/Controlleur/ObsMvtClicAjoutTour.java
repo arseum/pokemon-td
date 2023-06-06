@@ -11,14 +11,14 @@ import javafx.scene.layout.Pane;
 
 public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
 
-    private ObsClicMenuTour obsClic;
-    private Pane paneTerrain;
-    private SimpleDoubleProperty xTour;
-    private SimpleDoubleProperty yTour;
+    private final ObsClicMenuTour obsClic;
+    private final Pane paneTerrain;
+    private final SimpleDoubleProperty xTour;
+    private final SimpleDoubleProperty yTour;
 
-    private SimpleBooleanProperty estDansTerrainX;
-    private SimpleBooleanProperty estDansTerrainY;
-    private Game game;
+    private final SimpleBooleanProperty estDansTerrainX;
+    private final SimpleBooleanProperty estDansTerrainY;
+    private final Game game;
 
     public ObsMvtClicAjoutTour(ObsClicMenuTour obsClic, Pane paneTerrain, Game game) {
         //paneTerrain.setCursor(Cursor.MOVE);
@@ -38,32 +38,32 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
 
     }
 
-    private boolean estPlacable(int x, int y){
-        int width = game.getTerrain().getArrierePlan().get(0).size() ;
-        int height = game.getTerrain().getArrierePlan().size() ;
-        if(0 <= x && x < width && 0 <= y && y < height){
-            return !game.getTerrain().estChemin(y,x)&&!game.getTerrain().estDecor(y,x)&&!game.tourSurMemePosition(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
-        }
-        else return false;
+    private boolean estPlacable(int x, int y) {
+        int width = game.getTerrain().getArrierePlan().get(0).size();
+        int height = game.getTerrain().getArrierePlan().size();
+        if (0 <= x && x < width && 0 <= y && y < height) {
+            return !game.getTerrain().estChemin(y, x) && !game.getTerrain().estDecor(y, x) && !game.tourSurMemePosition(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+        } else return false;
     }
 
-    private int divisionEuclidienne(double nombre){
-        return (int)nombre / Parametres.tailleTuile;
+    private int divisionEuclidienne(double nombre) {
+        return (int) nombre / Parametres.tailleTuile;
     }
 
     /**
      * Niveau modele place la tour niveau coin sup gauche, par exemple (0,0) ou bien (32,32)
      * Le sprite a les memes coordonnes - le offset
+     *
      * @param mouseEvent
      */
     @Override
     public void handle(MouseEvent mouseEvent) {
 
 
-        if(mouseEvent.getEventType() == MouseEvent.MOUSE_MOVED) {
+        if (mouseEvent.getEventType() == MouseEvent.MOUSE_MOVED) {
             if (estDansTerrainX.get() && estDansTerrainY.get()) {
-                xTour.set(divisionEuclidienne(mouseEvent.getX()) * Parametres.tailleTuile + Parametres.tailleTourX/2);
-                yTour.set(divisionEuclidienne(mouseEvent.getY()) * Parametres.tailleTuile + Parametres.tailleTourY/2);
+                xTour.set(divisionEuclidienne(mouseEvent.getX()) * Parametres.tailleTuile + Parametres.tailleTourX / 2);
+                yTour.set(divisionEuclidienne(mouseEvent.getY()) * Parametres.tailleTuile + Parametres.tailleTourY / 2);
             } else {
                 xTour.set(mouseEvent.getX());
                 yTour.set(mouseEvent.getY());
@@ -74,30 +74,25 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                 this.obsClic.imageTour.lookup("#normal").toFront();
             }
         }
-        if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
-            int x = divisionEuclidienne(xTour.get() - Parametres.tailleTourX/2);
-            int y = divisionEuclidienne(yTour.get() - Parametres.tailleTourY/2);
-            if(this.obsClic.estSelectionnee.getValue() && estPlacable(x,y)){
-                if(this.obsClic.tourSelectionnee.equals("poussifeu")){
+        if (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED) {
+            int x = divisionEuclidienne(xTour.get() - Parametres.tailleTourX / 2);
+            int y = divisionEuclidienne(yTour.get() - Parametres.tailleTourY / 2);
+            if (this.obsClic.estSelectionnee.getValue() && estPlacable(x, y)) {
+                if (this.obsClic.tourSelectionnee.equals("poussifeu")) {
                     Poussifeu p = new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
                     game.ajouteTour(p);
-                }
-                else if (this.obsClic.tourSelectionnee.equals("salameche")) {
+                } else if (this.obsClic.tourSelectionnee.equals("salameche")) {
                     game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
-                }
-                else if (this.obsClic.tourSelectionnee.equals("magneti")) {
+                } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
                     game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
-                }
-                else if (this.obsClic.tourSelectionnee.equals("venalgue")) {
+                } else if (this.obsClic.tourSelectionnee.equals("venalgue")) {
                     game.ajouteTour(new Venalgue(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
-                }
-                else if (this.obsClic.tourSelectionnee.equals("grenousse")) {
+                } else if (this.obsClic.tourSelectionnee.equals("grenousse")) {
                     game.ajouteTour(new Grenousse(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }/*
                 else if (this.obsClic.tourSelectionnee.equals("electrode")) {
                     game.ajouteTour(new Electrode(x * Parametres.tailleTuile, y * Parametres.tailleTuile, game));
-                }*/
-                else if (this.obsClic.tourSelectionnee.equals("granivol")) {
+                }*/ else if (this.obsClic.tourSelectionnee.equals("granivol")) {
                     game.ajouteTour(new Granivol(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }
                 this.obsClic.supprimeImage();

@@ -8,6 +8,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -32,6 +33,8 @@ public class Game {
     private IntegerProperty nbFrame;
     private IntegerProperty frame = new SimpleIntegerProperty();
     private IntegerProperty cptWave = new SimpleIntegerProperty(0);
+    private final IntegerProperty vie;
+    private final IntegerProperty nbFrame;
 
     public Game() {
         terrain = new Terrain();
@@ -41,6 +44,7 @@ public class Game {
         pokedollar = new SimpleIntegerProperty(300);
         nbFrame = new SimpleIntegerProperty(0);
     }
+
     public Game(String nomTerrain) {
         //todo terrain_BFS 2
         terrain = new Terrain(nomTerrain);
@@ -49,6 +53,11 @@ public class Game {
         listProjectile = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
         nbFrame = new SimpleIntegerProperty(0);
+        vie = new SimpleIntegerProperty(32);
+    }
+
+    public Game() {
+        this("default");
     }
     //todo 1
 
@@ -68,6 +77,15 @@ public class Game {
     public IntegerProperty PokedollarProperty() {
         return pokedollar;
     }
+
+    public int getVie() {
+        return vie.get();
+    }
+
+    public IntegerProperty vieProperty() {
+        return vie;
+    }
+
     public int getPokedollar() {
         return pokedollar.get();
     }
@@ -83,6 +101,11 @@ public class Game {
     public void ajoutePokedollar(int value) {
         pokedollar.setValue(pokedollar.get() + value);
     }
+
+    public void perdVie(int value) {
+        vie.set(vie.get() - value);
+    }
+
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
     }
@@ -99,9 +122,9 @@ public class Game {
         return listEnnemi;
     }
 
-    public boolean tourSurMemePosition(int x, int y){
-        for(Tour t : this.getListTour()){
-            if(t.getX()/Parametres.tailleTuile == x/Parametres.tailleTuile && t.getY()/Parametres.tailleTuile == y/Parametres.tailleTuile){
+    public boolean tourSurMemePosition(int x, int y) {
+        for (Tour t : this.getListTour()) {
+            if (t.getX() / Parametres.tailleTuile == x / Parametres.tailleTuile && t.getY() / Parametres.tailleTuile == y / Parametres.tailleTuile) {
                 return true;
             }
 
@@ -109,11 +132,11 @@ public class Game {
         return false;
     }
 
-    public boolean tourAchetable(Tour t){
+    public boolean tourAchetable(Tour t) {
         return t.getPrix() <= this.pokedollar.get();
     }
 
-    public boolean tourAchetable(String nomTour){
+    public boolean tourAchetable(String nomTour) {
         return (Parametres.prixTour(nomTour) != -1) && (Parametres.prixTour(nomTour) <= this.pokedollar.get());
     }
 
@@ -129,7 +152,8 @@ public class Game {
         listProjectile.remove(p);
     }
 
-    public void remove(Ennemi e) { listEnnemi.remove(e);
+    public void remove(Ennemi e) {
+        listEnnemi.remove(e);
     }
 
     /**
@@ -138,8 +162,8 @@ public class Game {
      */
     public void uneFrame() {
 
-        for (Ennemi e : listEnnemi) {
-            e.seDeplace();
+        for (int i = listEnnemi.size() - 1; i >= 0; i--) {
+            listEnnemi.get(i).seDeplace();
         }
 
         for (int i = listProjectile.size() - 1; i >= 0; i--) {

@@ -3,8 +3,9 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -135,17 +136,6 @@ public class ControlleurMap implements Initializable {
         });
         game.getListProjectile().addListener(listenProjectiles);
 
-
-        //ajout de tours pour test
-        //game.ajouteTour(new Poussifeu(6 * 32, 5 * 32));
-        //game.ajouteTour(new Granivol(4 * 32, 9 * 32));
-        //game.ajouteTour(new Grenousse(9 * 32, 4 * 32));
-        //game.ajouteTour(new Magneti(3 * 32, 5 * 32));
-        //game.ajouteTour(new Venalgue(7 * 32, 8 * 32));
-
-        //lancement de la game loop
-        gameLoop.play();
-
         //todo: Ajouts Zen
         ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
         ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
@@ -156,13 +146,15 @@ public class ControlleurMap implements Initializable {
         ObsTourEnCoursAjout obsTourEnCoursAjout = new ObsTourEnCoursAjout(scene);
         menuTourObs.estSelectionnee.addListener(obsTourEnCoursAjout);
 
+        //lancement de la game loop
+        gameLoop.play();
     }
 
     private void initAnimation() throws IOException {
         gameLoop = new Timeline();
         game.nbFrameProperty().bind(frame);
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        int[] caseDepart = game.getTerrain().caseDepart();
+        int[] caseDepart = game.getTerrain().getCaseDepart();
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
@@ -170,6 +162,7 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
+
                     game.uneFrame();
                     try {
                         game.wave();
@@ -191,17 +184,31 @@ public class ControlleurMap implements Initializable {
     private void initLabel() {
         // creation du label pour les pokedollar
         Label labelDollar = new Label("300 $");
-        labelDollar.setLayoutX(900);
+        labelDollar.setLayoutX(920);
         labelDollar.setLayoutY(10);
-        labelDollar.setPrefWidth(50);
+        labelDollar.setPrefWidth(70);
         labelDollar.setPrefHeight(15);
         labelDollar.setAlignment(Pos.CENTER);
-        labelDollar.getStyleClass().add("labelDollar");
+        labelDollar.getStyleClass().add("label");
         game.PokedollarProperty().addListener((observableValue, number, t1) -> {
             labelDollar.setText(t1 + " $");
             labelDollar.setPrefWidth(t1.toString().length() * 10 + 40);
         });
+
+        //pour les hp
+        Label labelVie = new Label("32 \u2764");
+        labelVie.setLayoutX(820);
+        labelVie.setLayoutY(10);
+        labelVie.setPrefWidth(65);
+        labelVie.setPrefHeight(15);
+        labelVie.setAlignment(Pos.CENTER);
+        labelVie.getStyleClass().add("label");
+        game.vieProperty().addListener(((observableValue, number, t1) -> {
+            labelVie.setText(t1.toString() + " \u2764");
+        }));
+
         pane.getChildren().add(labelDollar);
+        pane.getChildren().add(labelVie);
     }
 
     /**
@@ -223,8 +230,8 @@ public class ControlleurMap implements Initializable {
         //Niveau modele place la tour niveau coin sup gauche, par exemple (0,0) ou bien (32,32)
         //Le sprite a les memes coordonnes - le offset
         //L'image étant plus grande que la tuile il y a un offset pour compenser
-        sprite.getSprite().xProperty().bind(tour.xProperty().add(- Parametres.offsetXTour));
-        sprite.getSprite().yProperty().bind(tour.yProperty().add(- Parametres.offsetYTour));
+        sprite.getSprite().xProperty().bind(tour.xProperty().add(-Parametres.offsetXTour));
+        sprite.getSprite().yProperty().bind(tour.yProperty().add(-Parametres.offsetYTour));
         //fin modifs Zen
 
         pane.getChildren().add(sprite.getSprite());

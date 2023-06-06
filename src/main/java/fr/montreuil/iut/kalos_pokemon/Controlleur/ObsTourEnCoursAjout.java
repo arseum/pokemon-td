@@ -7,14 +7,15 @@ import javafx.scene.layout.BorderPane;
 
 public class ObsTourEnCoursAjout implements ChangeListener<Boolean> {
 
-    private BorderPane scene;
+    private final BorderPane scene;
 
-    public ObsTourEnCoursAjout(BorderPane scene){
+    public ObsTourEnCoursAjout(BorderPane scene) {
         this.scene = scene;
     }
+
     @Override
     public void changed(ObservableValue<? extends Boolean> observableValue, Boolean ancien, Boolean nouveau) {
-        if(nouveau) scene.setCursor(Cursor.CLOSED_HAND);
+        if (nouveau) scene.setCursor(Cursor.CLOSED_HAND);
         else scene.setCursor(Cursor.DEFAULT);
     }
 }

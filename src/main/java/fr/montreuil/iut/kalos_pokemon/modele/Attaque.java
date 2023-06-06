@@ -9,12 +9,12 @@ public abstract class Attaque {
 
     private static int compteur = 1;
     protected final int nbImageMax;
+    private final String id;
     protected Tour tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;
     protected IntegerProperty idImage;
     protected Game game;
-    private final String id;
 
     public Attaque(Tour tour, Game game) {
         nbImageMax = tour.getNbImagedefault();

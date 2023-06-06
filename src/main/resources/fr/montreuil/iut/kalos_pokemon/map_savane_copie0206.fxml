@@ -7,7 +7,8 @@
             prefWidth="990.0" xmlns="http://javafx.com/javafx/19"
             fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap" fx:id="scene">
     <center>
-        <Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="671.0" prefWidth="1030.0" styleClass="background"
+        <Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="671.0" prefWidth="1030.0"
+              styleClass="background"
               stylesheets="@style.css" xmlns="http://javafx.com/javafx/19">
         </Pane>
     </center>

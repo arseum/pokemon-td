@@ -110,8 +110,8 @@ public abstract class Ennemi {
         nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
 
 
-        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseActuel - 1));
-        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseActuel - 1));
+        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseMax - 1));
+        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseMax - 1));
 
         this.xProperty().set(nouveauX);
         this.yProperty().set(nouveauY);
@@ -121,14 +121,25 @@ public abstract class Ennemi {
             this.yProperty().set(infoDeplacement[3]);
             setInfoDeplacement();
         }
+
+        if (infoDeplacement[2] == game.getTerrain().getCaseArrivee()[0] && infoDeplacement[3] == game.getTerrain().getCaseArrivee()[1] && arriveX && arriveY) {
+            meurt();
+            game.perdVie(1);
+        }
+
     }
 
-    public void diminueHP(int value) {
+    public void diminueHP(double value) {
         hp.set(hp.get() - value);
-        if (hp.get() <= 0){
+        if (hp.get() <= 0) {
             game.remove(this);
             game.ajoutePokedollar(recompense);
         }
+    }
+
+    private void meurt() {
+        hp.set(0);
+        game.remove(this);
     }
 
 }
