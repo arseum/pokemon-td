@@ -162,8 +162,8 @@ public class ControlleurMap implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
-                    game.uneFrame();
 
+                    game.uneFrame();
 
                     if (frame.get() % 120 == 0 && frame.get() > 239)
                         game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
@@ -173,9 +173,6 @@ public class ControlleurMap implements Initializable {
 
                     if (frame.get() % (4*60) == 0 && frame.get() > 439)
                         game.ajouteEnnemi(new Ludicolo(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-
-
-
 
                     frame.set(frame.get()+1);
                 })

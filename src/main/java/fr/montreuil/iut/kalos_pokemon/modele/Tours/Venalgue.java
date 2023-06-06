@@ -53,7 +53,4 @@ public class Venalgue extends Tour {
         }
     }
 
-    public ArrayList<Ennemi> getEnnemiEmpoisone() {
-        return ennemiEmpoisone;
-    }
 }

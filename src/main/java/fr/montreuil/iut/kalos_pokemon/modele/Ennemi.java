@@ -110,8 +110,8 @@ public abstract class Ennemi {
         nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
 
 
-        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseActuel - 1));
-        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseActuel - 1));
+        boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseMax - 1));
+        boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseMax - 1));
 
         this.xProperty().set(nouveauX);
         this.yProperty().set(nouveauY);
