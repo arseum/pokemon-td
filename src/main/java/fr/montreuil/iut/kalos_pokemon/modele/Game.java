@@ -161,26 +161,23 @@ public class Game {
 
 public void wave() throws InterruptedException {
         int[] caseDepart = terrain.caseDepart();
-        /*
-        switch (sec){
-            case 2,4,6,8,10,12,14,16,18,20:
-        }*/
 
-        if (getFrame()<=600 && getFrame()%90==0){
-            if (getFrame()==600) setWave(getWave()+1);
+        if ( getNbFrame()%90==0 && getNbFrame()>=300 && getNbFrame()<900){
+            if (getNbFrame()==600) setWave(getWave()+1);
+
             listEnnemi.add(new Togepi(caseDepart[0]*32, caseDepart[1]*32, this));  //WAVE 1
 
         }
-        else if (getFrame()>900 && getFrame()<=1500 && getFrame()%60==0) {
-            if (getFrame()==1200) setWave(getWave()+1);
+        else if (getNbFrame()>=1500 && getNbFrame()<2100 && getNbFrame()%60==0) {
+            if (getNbFrame()==1200) setWave(getWave()+1);
             listEnnemi.add(new Togepi(caseDepart[0]*32, caseDepart[1]*32, this)); // WAVE 2 attente de 5s
         }
-        else if (getFrame()>1800 && getFrame()<=2400 && getFrame()%90==0) {
-            if (getFrame()==1200) setWave(getWave()+1);
+        else if (getNbFrame()>=2700 && getNbFrame()<3300 && getNbFrame()%90==0) {
+            if (getNbFrame()==1200) setWave(getWave()+1);
             listEnnemi.add(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, this)); // WAVE 3 attente de 5s
         }
-        else if (getFrame()>2700 && getFrame()<=3300 && getFrame()%90==0) {
-            if (getFrame()==1200) setWave(getWave()+1);
+        else if (getNbFrame()>3900 && getNbFrame()<=4500 && getNbFrame()%90==0) {
+            if (getNbFrame()==1200) setWave(getWave()+1);
             listEnnemi.add(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32, this)); // WAVE 3 attente de 5s
         }
 

@@ -171,9 +171,16 @@ public class ControlleurMap implements Initializable {
                 // c'est un eventHandler d'ou le lambda
                 (ev -> {
                     game.uneFrame();
+                    try {
+                        game.wave();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
 
-                    if (frame.get() % 120 == 0 && frame.get() > 119)
+                    /*if (frame.get() % 120 == 0 && frame.get() > 119)
                         game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
+
+                     */
 
                     frame.set(frame.get()+1);
                 })
