@@ -21,8 +21,15 @@ public class Venalgue extends Tour {
 
     @Override
     public void levelUp() {
+        this.level.set(level.get()+1);
+
         degatsPoison = 5;
         this.degats = 10;
+    }
+
+    @Override
+    public void actif() {
+
     }
 
     @Override

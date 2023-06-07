@@ -14,7 +14,7 @@ public abstract class Tour {
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
-    private final IntegerProperty level;
+    protected final IntegerProperty level;
     private final String id;
     private final int nbImagedefault;
     protected int attaqueSpeed;
@@ -94,6 +94,7 @@ public abstract class Tour {
     }
 
     public abstract void levelUp();
+    public abstract void actif();
 
     protected int distance(Ennemi e) {
         int super_x;

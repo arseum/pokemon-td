@@ -11,6 +11,13 @@ public class Granivol extends Tour {
 
     @Override
     public void levelUp() {
+        this.level.set(level.get()+1);
+
         this.portee.set(180);
+    }
+
+    @Override
+    public void actif() {
+
     }
 }

@@ -10,6 +10,12 @@ public class Salameche extends Tour {
 
     @Override
     public void levelUp() {
+        this.level.set(level.get()+1);
         //todo faire salameche
+    }
+
+    @Override
+    public void actif() {
+
     }
 }

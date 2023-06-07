@@ -40,8 +40,15 @@ public class Magneti extends Tour {
 
     @Override
     public void levelUp() {
+        this.level.set(level.get()+1);
+
         this.portee.set(110);
         valeurSlow = 2;
+    }
+
+    @Override
+    public void actif() {
+
     }
 
     /**
