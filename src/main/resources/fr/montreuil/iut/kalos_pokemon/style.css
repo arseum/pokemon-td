@@ -13,5 +13,10 @@
     -fx-opacity: 0.5;
 }
 .progress-bar .bar{
-    -fx-background-color: red;
+    -fx-background-color: green;
+}
+
+#sceneTestBackgroundC{
+    -fx-background-color: yellow;
+    -fx-background-image:
 }

@@ -59,7 +59,9 @@ public class ControlleurMap implements Initializable {
         frame = new SimpleIntegerProperty(0);
 
         //todo Ajouts Zen
+        scene.setPrefWidth(1500);
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
+        //scene.setPrefWidth(game.getTerrain().getHauteurTerrain() + 100);
         pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
         pane.setPrefWidth(game.getTerrain().getLargeurTerrain());
         pane.getChildren().add(map);
