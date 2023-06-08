@@ -27,6 +27,7 @@ public class EnnemiSprite {
         barVie.progressProperty().bind(ennemi.hpProperty().divide(ennemi.getHpMax()));
 
         sprite = new Pane(hitBox, barVie);
+        sprite.setMouseTransparent(true);
         sprite.setId(ennemi.getId());
         sprite.setMouseTransparent(true);
     }
