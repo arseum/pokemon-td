@@ -20,11 +20,11 @@ public abstract class Tour {
     protected int tempProchaineAttaque;
     protected Game game;
 
-    public Tour(int portee, int DPS, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, int attaqueSpeed) {
+    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, int attaqueSpeed) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = portee;
-        this.degats = DPS;
+        this.degats = degats;
         this.type = type;
         this.prix = prix;
         this.x = new SimpleIntegerProperty(x);

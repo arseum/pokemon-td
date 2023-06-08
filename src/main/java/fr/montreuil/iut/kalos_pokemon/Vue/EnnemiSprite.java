@@ -28,6 +28,7 @@ public class EnnemiSprite {
 
         sprite = new Pane(hitBox, barVie);
         sprite.setId(ennemi.getId());
+        sprite.setMouseTransparent(true);
     }
 
     public ImageView getHitBox() {

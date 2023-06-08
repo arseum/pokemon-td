@@ -17,6 +17,7 @@ public class TirSprite {
         nomTireur = a.getTireur().getNom();
         hitBox = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nomTireur + "_attaque_default_0.png"));
         hitBox.setId(a.getId());
+        hitBox.setMouseTransparent(true);
     }
 
     public ImageView getHitBox() {
