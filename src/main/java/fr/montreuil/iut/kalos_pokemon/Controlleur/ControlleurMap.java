@@ -196,7 +196,7 @@ public class ControlleurMap implements Initializable {
         });
 
         //pour les hp
-        Label labelVie = new Label("32 \u2764");
+        Label labelVie = new Label("8 \u2764");
         labelVie.setLayoutX(820);
         labelVie.setLayoutY(10);
         labelVie.setPrefWidth(65);
@@ -207,8 +207,22 @@ public class ControlleurMap implements Initializable {
             labelVie.setText(t1.toString() + " \u2764");
         }));
 
+        Label labelWave = new Label("Vague: 1");
+        labelWave.setLayoutX(20);
+        labelWave.setLayoutY(10);
+        labelWave.setPrefWidth(125);
+        labelWave.setPrefHeight(15);
+        labelWave.setAlignment(Pos.CENTER);
+        labelWave.getStyleClass().add("label");
+        game.cptWaveProperty().addListener(((observableValue, number, t1) -> {
+            labelWave.setText( "Vague : " + t1.toString());
+        }));
+
+
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
+        pane.getChildren().add(labelWave);
+
     }
 
     /**
