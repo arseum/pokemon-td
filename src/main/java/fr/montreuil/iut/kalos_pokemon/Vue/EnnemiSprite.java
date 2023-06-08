@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -16,7 +17,7 @@ public class EnnemiSprite {
     private final Pane sprite;
 
     public EnnemiSprite(Ennemi ennemi) throws IOException {
-        hitBox = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(ennemi.getNom() + ".png")).openStream()));
+        hitBox = new ImageView(Parametres.imagesPokemonMap.get(ennemi.getNom() + ".png"));
         hitBox.setId("hitbox_" + ennemi.getId());
 
         barVie = new ProgressBar();

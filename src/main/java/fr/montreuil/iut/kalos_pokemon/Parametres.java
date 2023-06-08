@@ -17,7 +17,7 @@ public class Parametres {
     public static final int prixgrenousse = 75;
     public static final int prixelectrode = 100;
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
-    public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tour/";
+    public static String cheminSrpitePokemon = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
     public static String cheminTirSprite = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tir/";
 
     //Parametres des chemin pour les tirs sprites
@@ -71,6 +71,16 @@ public class Parametres {
             for (File file : files) {
                 Image i = new Image("file:" + cheminTirSprite + file.getName());
                 imagesTirMap.put(file.getName(), i);
+            }
+        }
+
+        directory = new File(cheminSrpitePokemon);
+        files = directory.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                Image i = new Image("file:" + cheminSrpitePokemon + file.getName());
+                imagesPokemonMap.put(file.getName(), i);
             }
         }
     }
