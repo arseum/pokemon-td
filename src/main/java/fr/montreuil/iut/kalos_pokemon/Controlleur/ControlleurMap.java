@@ -57,6 +57,7 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
+        Parametres.chargeImage();
 
         //todo Ajouts Zen
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());

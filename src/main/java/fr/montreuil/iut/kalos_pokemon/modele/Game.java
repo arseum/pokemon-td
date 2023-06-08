@@ -82,7 +82,6 @@ public class Game {
 
     public void ajouteTour(Tour t) {
         if (tourAchetable(t)) {
-            t.levelUp();
             listTour.add(t);
             t.setGame(this);
             pokedollar.set(pokedollar.get() - t.getPrix());
