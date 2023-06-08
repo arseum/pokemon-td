@@ -42,7 +42,7 @@ public class Game {
         listProjectile = FXCollections.observableArrayList();
         pokedollar = new SimpleIntegerProperty(300);
         nbFrame = new SimpleIntegerProperty(0);
-        vie = new SimpleIntegerProperty(32);
+        vie = new SimpleIntegerProperty(15);
     }
 
     public Game() {
@@ -332,8 +332,8 @@ public void wave() throws InterruptedException {
             }
         }
 
-        else if (frameAct >15400 && frameAct<=16000 ) {
-            if (frameAct ==15401) setWave(getWave()+1);
+        else if (frameAct >16100 && frameAct<=16700 ) {
+            if (frameAct ==16101) setWave(getWave()+1);
 
             if ( frameAct %50==0){
                 listEnnemi.add(new Togepi(caseDepart[0]*32, caseDepart[1]*32, this));// WAVE 14
@@ -349,8 +349,8 @@ public void wave() throws InterruptedException {
                 listEnnemi.add(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, this));
             }
         }
-        else if (frameAct >16600 && frameAct<=17600 ) {
-            if (frameAct ==16601) setWave(getWave()+1);
+        else if (frameAct >17300 && frameAct<=17900 ) {
+            if (frameAct ==17301) setWave(getWave()+1);
 
             if ( frameAct %70==0){
                 listEnnemi.add(new Togepi(caseDepart[0]*32, caseDepart[1]*32, this));// WAVE 15

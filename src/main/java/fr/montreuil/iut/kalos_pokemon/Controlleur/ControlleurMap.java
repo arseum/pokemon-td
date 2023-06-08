@@ -196,7 +196,7 @@ public class ControlleurMap implements Initializable {
         });
 
         //pour les hp
-        Label labelVie = new Label("8 \u2764");
+        Label labelVie = new Label("15 \u2764");
         labelVie.setLayoutX(820);
         labelVie.setLayoutY(10);
         labelVie.setPrefWidth(65);
