@@ -1,5 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon;
 
+import javafx.scene.image.Image;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Parametres {
     public static final int tailleTourX = 45;
     public static final int tailleTourY = 45;
@@ -11,7 +17,7 @@ public class Parametres {
     public static final int prixgrenousse = 75;
     public static final int prixelectrode = 100;
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
-    public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tour/";
+    public static String cheminSrpitePokemon = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
     public static String cheminTirSprite = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tir/";
 
     //Parametres des chemin pour les tirs sprites
@@ -29,6 +35,10 @@ public class Parametres {
     public static int debutZoneCheminTileSet = ((largeurTileset / tailleTuile / 2) + 1) * tailleTuile;
     public static int colonneZoneDepartTileSet = (largeurTileset / tailleTuile) - 3;
     public static int colonneZoneArriveeTileSet = (largeurTileset / tailleTuile) - 1;
+
+    //map des images
+    public static Map<String, Image> imagesTirMap = new HashMap<>();
+    public static Map<String, Image> imagesPokemonMap = new HashMap<>();
 
     public static final int prixTour(String nom) {
         if (nom.equals("poussifeu")) return prixpoussifeu;
@@ -50,6 +60,29 @@ public class Parametres {
         //int largeur = 32;//this.arrierePlan.get(0).size();
         //int[] xy = {idCase / largeur,idCase % largeur};
         return new int[]{idCase / largeur, idCase % largeur};
+    }
+
+    public static void chargeImage(){
+
+        File directory = new File(cheminTirSprite);
+        File[] files = directory.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                Image i = new Image("file:" + cheminTirSprite + file.getName());
+                imagesTirMap.put(file.getName(), i);
+            }
+        }
+
+        directory = new File(cheminSrpitePokemon);
+        files = directory.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                Image i = new Image("file:" + cheminSrpitePokemon + file.getName());
+                imagesPokemonMap.put(file.getName(), i);
+            }
+        }
     }
 
 }

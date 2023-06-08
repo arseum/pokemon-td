@@ -9,4 +9,16 @@ public class Poussifeu extends Tour {
     }
 
 
+    @Override
+    public void levelUp() {
+        this.level.set(level.get()+1);
+
+        this.degats = 30;
+        this.attaqueSpeed = 55;
+    }
+
+    @Override
+    public void actif() {
+
+    }
 }

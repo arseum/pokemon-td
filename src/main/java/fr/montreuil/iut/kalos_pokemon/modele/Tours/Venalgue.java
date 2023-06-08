@@ -11,12 +11,25 @@ import java.util.List;
 public class Venalgue extends Tour {
 
     private final ArrayList<Ennemi> ennemiEmpoisone;
-    private final int degatsPoison;
+    private int degatsPoison;
 
     public Venalgue(int x, int y) {
         super(128, 4, "neutre", Parametres.prixvenalgue, x, y, "venalgue", 14, 20);
         ennemiEmpoisone = new ArrayList<>();
         degatsPoison = 2;
+    }
+
+    @Override
+    public void levelUp() {
+        this.level.set(level.get()+1);
+
+        degatsPoison = 5;
+        this.degats = 10;
+    }
+
+    @Override
+    public void actif() {
+
     }
 
     @Override
@@ -29,7 +42,7 @@ public class Venalgue extends Tour {
         //chercher si on peut empoisoner un nouvel ennemi
         while (cible == null && index < listEnnemi.size()) {
 
-            if (!ennemiEmpoisone.contains(listEnnemi.get(index)) && distance(listEnnemi.get(index)) <= portee)
+            if (!ennemiEmpoisone.contains(listEnnemi.get(index)) && distance(listEnnemi.get(index)) <= portee.get())
                 cible = listEnnemi.get(index);
             else
                 index++;

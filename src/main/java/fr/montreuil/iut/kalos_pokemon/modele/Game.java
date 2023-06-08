@@ -99,8 +99,11 @@ public class Game {
         this.listEnnemi.add(e);
     }
     public void ajouteTour(Tour t) {
-        listTour.add(t);
-        t.setGame(this);
+        if (tourAchetable(t)) {
+            listTour.add(t);
+            t.setGame(this);
+            pokedollar.set(pokedollar.get() - t.getPrix());
+        }
     }
 
     public void ajouteProjectile(Attaque a) {
