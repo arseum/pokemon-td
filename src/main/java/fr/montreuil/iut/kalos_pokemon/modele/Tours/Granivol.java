@@ -6,7 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 public class Granivol extends Tour {
 
     public Granivol(int x, int y) {
-        super(160, 3, "plante", Parametres.prixgranivol, x, y, "granivol", 3, 6);
+        super(160, 3, "plante", Parametres.prixgranivol, x, y, "granivol", 6);
     }
 
     @Override

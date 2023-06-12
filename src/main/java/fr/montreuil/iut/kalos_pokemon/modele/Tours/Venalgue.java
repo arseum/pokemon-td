@@ -14,7 +14,7 @@ public class Venalgue extends Tour {
     private int degatsPoison;
 
     public Venalgue(int x, int y) {
-        super(128, 4, "neutre", Parametres.prixvenalgue, x, y, "venalgue", 14, 20);
+        super(128, 4, "neutre", Parametres.prixvenalgue, x, y, "venalgue", 20);
         ennemiEmpoisone = new ArrayList<>();
         degatsPoison = 2;
     }

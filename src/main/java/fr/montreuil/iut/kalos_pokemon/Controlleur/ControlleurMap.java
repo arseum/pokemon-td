@@ -25,6 +25,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -43,9 +44,6 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private HBox conteneurTourMenu;
-
-    @FXML
-    private ImageView backgroundMenuTour;
 
     @FXML
     private ImageView backgroundMenuBas;
@@ -242,7 +240,6 @@ public class ControlleurMap implements Initializable {
             sprite.getSprite().toFront();
             sprite.getRange().setVisible(!sprite.getRange().isVisible());
         });
-
     }
 
     private void creerTirSprite(Attaque a) throws IOException {
@@ -256,13 +253,15 @@ public class ControlleurMap implements Initializable {
             sprite.getHitBox().xProperty().bind(a.xProperty());
             sprite.getHitBox().yProperty().bind(a.yProperty());
         }
-        a.idImageProperty().addListener(((observableValue, number, t1) -> {
-            try {
-                sprite.updateImage(t1.intValue());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        a.bougeProperty().addListener((observableValue, aBoolean, nouvelleValeur) -> {
+            if (nouvelleValeur) {
+                try {
+                    sprite.updateImage();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }));
+        });
         pane.getChildren().add(sprite.getHitBox());
     }
 

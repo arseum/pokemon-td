@@ -141,6 +141,7 @@ public class Game {
         }
 
         for (int i = listProjectile.size() - 1; i >= 0; i--) {
+            //les zones douvent bouger que lorsqu'elles sont actifs car elle sont en permanance dans la list de projectiles
             if (listProjectile.get(i) instanceof Zone && ((Zone) listProjectile.get(i)).isActif())
                 listProjectile.get(i).bouge();
             else

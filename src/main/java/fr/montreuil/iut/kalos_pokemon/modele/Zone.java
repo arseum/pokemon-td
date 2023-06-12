@@ -16,12 +16,8 @@ public class Zone extends Attaque {
 
     @Override
     public void bouge() {
-
-        if (idImage.get() + 1 > nbImageMax)
-            idImage.set(0);
-        else
-            idImage.set(idImage.get() + 1);
-
+        bouge.set(true);
+        bouge.set(false);
     }
 
     public BooleanProperty actifProperty() {

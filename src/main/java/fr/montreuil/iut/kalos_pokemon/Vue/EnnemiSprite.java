@@ -16,7 +16,7 @@ public class EnnemiSprite {
     private final ProgressBar barVie;
     private final Pane sprite;
 
-    public EnnemiSprite(Ennemi ennemi) throws IOException {
+    public EnnemiSprite(Ennemi ennemi){
         hitBox = new ImageView(Parametres.imagesPokemonMap.get(ennemi.getNom() + ".png"));
         hitBox.setId("hitbox_" + ennemi.getId());
 

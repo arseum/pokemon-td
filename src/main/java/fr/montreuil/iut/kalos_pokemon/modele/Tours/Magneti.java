@@ -21,7 +21,7 @@ public class Magneti extends Tour {
     private int valeurSlow;
 
     public Magneti(int x, int y) {
-        super(70, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 4, 0);
+        super(70, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
         zone = new Zone(this, game);

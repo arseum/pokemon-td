@@ -16,12 +16,11 @@ public abstract class Tour {
     private final IntegerProperty y;
     protected final IntegerProperty level;
     private final String id;
-    private final int nbImagedefault;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
     protected Game game;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, int attaqueSpeed) {
+    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -32,13 +31,8 @@ public abstract class Tour {
         this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
         this.nom = pokemon;
-        this.nbImagedefault = nbImageAdefault;
         this.attaqueSpeed = attaqueSpeed;
         tempProchaineAttaque = 0;
-    }
-
-    public int getNbImagedefault() {
-        return nbImagedefault;
     }
 
     public String getNom() {
