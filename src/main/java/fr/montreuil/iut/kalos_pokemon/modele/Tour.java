@@ -1,11 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
 
-public abstract class Tour {
+public abstract class Tour implements Objet{
     private static int compteurID = 1;
     protected IntegerProperty portee;
     protected int degats;
@@ -90,16 +91,6 @@ public abstract class Tour {
     public abstract void levelUp();
     public abstract void actif();
 
-    protected int distance(Ennemi e) {
-        int super_x;
-        int super_y;
-
-        super_x = Math.abs(getX() - e.getX());
-        super_y = Math.abs(getY() - e.getY());
-
-        return (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
-    }
-
     public void attaque() {
 
         Ennemi cible = null;
@@ -110,7 +101,7 @@ public abstract class Tour {
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
 
-            if (distance(listEnnemi.get(index)) <= portee.get())
+            if (Parametres.distance(this,listEnnemi.get(index)) <= portee.get())
                 cible = listEnnemi.get(index);
             else
                 index++;
@@ -119,11 +110,14 @@ public abstract class Tour {
 
         //attaque la cible
         if (cible != null) {
-            game.ajouteProjectile(new Projectile(this, cible, game));
+            lanceProjectile(cible);
             tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
         }
 
+    }
 
+    protected void lanceProjectile(Ennemi cible){
+        game.ajouteProjectile(new Projectile(this, cible, game));
     }
 
     public int getPrix() {

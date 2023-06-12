@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 
-public abstract class Attaque {
+public abstract class Attaque implements Objet {
 
     private static int compteur = 1;
     private final String id;

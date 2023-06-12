@@ -42,7 +42,7 @@ public class Venalgue extends Tour {
         //chercher si on peut empoisoner un nouvel ennemi
         while (cible == null && index < listEnnemi.size()) {
 
-            if (!ennemiEmpoisone.contains(listEnnemi.get(index)) && distance(listEnnemi.get(index)) <= portee.get())
+            if (!ennemiEmpoisone.contains(listEnnemi.get(index)) && Parametres.distance(this,listEnnemi.get(index)) <= portee.get())
                 cible = listEnnemi.get(index);
             else
                 index++;

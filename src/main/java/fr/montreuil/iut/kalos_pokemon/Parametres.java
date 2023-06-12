@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon;
 
+import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -83,6 +84,16 @@ public class Parametres {
                 imagesPokemonMap.put(file.getName(), i);
             }
         }
+    }
+
+    public static int distance(Objet o1, Objet o2){
+        int super_x;
+        int super_y;
+
+        super_x = Math.abs(o1.getX() - o2.getX());
+        super_y = Math.abs(o1.getY() - o2.getY());
+
+        return (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
     }
 
 }

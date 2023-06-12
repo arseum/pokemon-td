@@ -18,13 +18,16 @@ public class Projectile extends Attaque {
 
             bouge.set(true);
             bouge.set(false);
-        } else {
-            if (cible.getHp() > 0) {
-                cible.diminueHP(tireur.getDegats());
-            }
-            game.remove(this);
-        }
+        } else
+            explotionTir();
 
+    }
+
+    protected void explotionTir(){
+        if (cible.getHp() > 0) {
+            cible.diminueHP(tireur.getDegats());
+        }
+        game.remove(this);
     }
 
     private boolean doitBouger(){

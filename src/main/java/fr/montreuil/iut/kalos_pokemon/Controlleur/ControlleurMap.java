@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -130,6 +131,8 @@ public class ControlleurMap implements Initializable {
                 else if (c.wasRemoved())
                     for (Attaque a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        if (a instanceof bouleDeFeu)
+                            creerExploxionSprite(a);
                     }
             }
         });
@@ -263,6 +266,24 @@ public class ControlleurMap implements Initializable {
             }
         });
         pane.getChildren().add(sprite.getHitBox());
+    }
+
+    private void creerExploxionSprite(Attaque a) {
+        ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + "salameche_exploxion.gif"));
+
+        gifImageView.setX(a.getX());
+        gifImageView.setY(a.getY());
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                    pane.getChildren().remove(gifImageView);
+                }
+        ));
+
+        pane.getChildren().add(gifImageView);
+        timeline.play();
+
     }
 
 

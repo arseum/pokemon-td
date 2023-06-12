@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.Map;
 
 
-public abstract class Ennemi {
+public abstract class Ennemi implements Objet{
 
     private static int compteurID = 1;
     private final int vitesseMax;
