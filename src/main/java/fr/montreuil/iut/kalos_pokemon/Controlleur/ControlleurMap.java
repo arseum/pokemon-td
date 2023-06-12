@@ -57,6 +57,7 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
+        Parametres.chargeImage();
 
         //todo Ajouts Zen
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -196,7 +197,7 @@ public class ControlleurMap implements Initializable {
         });
 
         //pour les hp
-        Label labelVie = new Label("8 \u2764");
+        Label labelVie = new Label("15 \u2764");
         labelVie.setLayoutX(820);
         labelVie.setLayoutY(10);
         labelVie.setPrefWidth(65);
