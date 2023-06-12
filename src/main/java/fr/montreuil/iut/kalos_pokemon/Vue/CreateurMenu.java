@@ -37,6 +37,7 @@ public class CreateurMenu {
         i = new ImageView(new Image("file:" + Parametres.cheminIconeTour + nom + ".png"));
         i.setId("tourMenuSprite_" + nom + "_normal");
         i.setVisible(Parametres.prixTour(nom) <= this.argentDisponible);
+        i.setPickOnBounds(true);
 
         i_bw = new ImageView(new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png"));
         i_bw.setId("tourMenuSprite_" + nom + "_grise");

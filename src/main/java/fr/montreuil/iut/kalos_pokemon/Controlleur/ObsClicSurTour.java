@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -27,39 +28,19 @@ public class ObsClicSurTour implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        ImageView tourImg = (ImageView)mouseEvent.getTarget();
+        ImageView tourImg = (ImageView) mouseEvent.getTarget();
         String idTour = tourImg.getId();
 
-        tourImg.toFront();
-        if(idTour.equals(idTourSelectionnee.get()) && unetourCarteSelectionnee.get()){
-            this.nomTour.set("placeholder");
-            this.unetourCarteSelectionnee.set(false);
-        }
-        else {
-            this.idTourSelectionnee.set(idTour);
-            this.nomTour.set(game.retourneTourAPartirId(tourImg.getId()).getNom());
-            this.unetourCarteSelectionnee.set(true);
-        }
-
-        /*
-        if(idTour.equals(idTourSelectionnee.get())){
-            if(unetourCarteSelectionnee.get()){
+        if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+            tourImg.toFront();
+            if (idTour.equals(idTourSelectionnee.get()) && unetourCarteSelectionnee.get()) {
                 this.nomTour.set("placeholder");
                 this.unetourCarteSelectionnee.set(false);
-            }
-            else {
+            } else {
                 this.idTourSelectionnee.set(idTour);
                 this.nomTour.set(game.retourneTourAPartirId(tourImg.getId()).getNom());
                 this.unetourCarteSelectionnee.set(true);
             }
         }
-        else {
-            this.idTourSelectionnee.set(idTour);
-            this.nomTour.set(game.retourneTourAPartirId(tourImg.getId()).getNom());
-            this.unetourCarteSelectionnee.set(true);
-        }
-
-         */
-
     }
 }
