@@ -118,4 +118,6 @@ public abstract class Tour {
     public int getPrix() {
         return this.prix;
     }
+
+
 }

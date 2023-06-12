@@ -15,7 +15,3 @@
 .progress-bar .bar{
     -fx-background-color: green;
 }
-
-#sceneTestBackgroundC{
-    -fx-background-color: yellow;
-}

@@ -9,7 +9,7 @@
     <center>
         <Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="671.0" prefWidth="1030.0"
               styleClass="background"
-              stylesheets="@style.css" xmlns="http://javafx.com/javafx/19">
+              stylesheets="@style_pane.css" xmlns="http://javafx.com/javafx/19">
         </Pane>
     </center>
     <bottom>

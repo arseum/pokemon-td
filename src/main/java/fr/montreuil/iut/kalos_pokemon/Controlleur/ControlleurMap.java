@@ -50,6 +50,9 @@ public class ControlleurMap implements Initializable {
     @FXML
     private ImageView backgroundMenuBas;
 
+    @FXML
+    private Label nomTourMenu;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -59,9 +62,9 @@ public class ControlleurMap implements Initializable {
         frame = new SimpleIntegerProperty(0);
 
         //todo Ajouts Zen
-        scene.setPrefWidth(1500);
-        TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         //scene.setPrefWidth(game.getTerrain().getHauteurTerrain() + 100);
+        scene.setPrefWidth(1300);
+        TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
         pane.setPrefWidth(game.getTerrain().getLargeurTerrain());
         pane.getChildren().add(map);
@@ -72,6 +75,17 @@ public class ControlleurMap implements Initializable {
         createurMenu.creationMenu(conteneurTourMenu);
         ObsPokedollar testPoke2 = new ObsPokedollar(conteneurTourMenu, listeTour);
         game.PokedollarProperty().addListener(testPoke2);
+
+        ObsClicSurTour clicSurTour = new ObsClicSurTour(game);
+        clicSurTour.tourCarteSelectionnee.addListener( ((observableValue, aBoolean, t1) -> {
+            System.out.println(t1);
+            if(t1){
+                nomTourMenu.setText(clicSurTour.getNomTour());
+            }
+            else {
+                nomTourMenu.setText("Nom tour");
+            }
+        }));
 
         //init game loop + label utile
         try {
@@ -106,7 +120,7 @@ public class ControlleurMap implements Initializable {
                 if (c.wasAdded())
                     for (Tour a : c.getAddedSubList()) {
                         try {
-                            creerTourSprite(a);
+                            creerTourSprite(a, clicSurTour);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -114,6 +128,7 @@ public class ControlleurMap implements Initializable {
                 else if (c.wasRemoved())
                     for (Tour a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        pane.getChildren().remove(pane.lookup("#" + "range_" + a.getId()));
                     }
             }
         });
@@ -237,10 +252,8 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(nouveauEnnemiSprite.getSprite());
     }
 
-    private void creerTourSprite(Tour tour) throws IOException {
+    private void creerTourSprite(Tour tour, ObsClicSurTour obsClicSurTour) throws IOException {
         TourSprite sprite = new TourSprite(tour);
-        //sprite.getSprite().xProperty().bind(tour.xProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
-        //sprite.getSprite().yProperty().bind(tour.yProperty().add(-(sprite.getSprite().getImage().getWidth() / 2)));
 
         //todo : Modifs Zen
         //Niveau modele place la tour niveau coin sup gauche, par exemple (0,0) ou bien (32,32)
@@ -254,10 +267,23 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(sprite.getRange());
 
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
+        //todo ici
+        sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
+        /*
         sprite.getSprite().setOnMouseClicked(e -> {
             sprite.getSprite().toFront();
             sprite.getRange().setVisible(!sprite.getRange().isVisible());
+
+            System.out.println(game.getListTour());
+
+            String id = sprite.getSprite().getId();
+            Tour t = game.retourneTourAPartirId(id);
+            game.vendreTour(t);
+
+            System.out.println(game.getListTour());
         });
+
+         */
 
     }
 
