@@ -3,9 +3,6 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -14,13 +11,11 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -53,6 +48,12 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Label nomTourMenu;
 
+    @FXML
+    private StackPane imageTourMenu;
+
+    @FXML
+    private Button vendreTourMenu;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -76,16 +77,23 @@ public class ControlleurMap implements Initializable {
         ObsPokedollar testPoke2 = new ObsPokedollar(conteneurTourMenu, listeTour);
         game.PokedollarProperty().addListener(testPoke2);
 
-        ObsClicSurTour clicSurTour = new ObsClicSurTour(game);
-        clicSurTour.tourCarteSelectionnee.addListener( ((observableValue, aBoolean, t1) -> {
-            System.out.println(t1);
-            if(t1){
-                nomTourMenu.setText(clicSurTour.getNomTour());
+        ObsClicSurTour clicSurTour = new ObsClicSurTour(game, pane);
+        ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu, imageTourMenu, clicSurTour);
+        clicSurTour.nomTour.addListener(tourCarteSelectionnee);
+
+        vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+
+        vendreTourMenu.setOnAction( e -> {
+            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
+            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
+            if(tourSelectionnee){
+                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
+                game.vendreTour(t);
+                clicSurTour.unetourCarteSelectionnee.set(false);
+                clicSurTour.nomTour.set("placeholder");
+
             }
-            else {
-                nomTourMenu.setText("Nom tour");
-            }
-        }));
+        });
 
         //init game loop + label utile
         try {
@@ -255,16 +263,16 @@ public class ControlleurMap implements Initializable {
     private void creerTourSprite(Tour tour, ObsClicSurTour obsClicSurTour) throws IOException {
         TourSprite sprite = new TourSprite(tour);
 
-        //todo : Modifs Zen
         //Niveau modele place la tour niveau coin sup gauche, par exemple (0,0) ou bien (32,32)
         //Le sprite a les memes coordonnes - le offset
         //L'image étant plus grande que la tuile il y a un offset pour compenser
         sprite.getSprite().xProperty().bind(tour.xProperty().add(-Parametres.offsetXTour));
         sprite.getSprite().yProperty().bind(tour.yProperty().add(-Parametres.offsetYTour));
-        //fin modifs Zen
 
         pane.getChildren().add(sprite.getSprite());
         pane.getChildren().add(sprite.getRange());
+
+        sprite.getRange().visibleProperty().bind(obsClicSurTour.unetourCarteSelectionnee.and(obsClicSurTour.idTourSelectionnee.isEqualTo(sprite.getSprite().getId())));
 
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
         //todo ici

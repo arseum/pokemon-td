@@ -40,7 +40,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label fx:id="nomTourMenu" text="Poussifeu" />
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="imageTourMenu" prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <ImageView id="croaporalImageSelection" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -117,7 +117,7 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Vendre" />
+                        <Button fx:id="vendreTourMenu" mnemonicParsing="false" text="Vendre" />
                         <Button alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" text="Améliorer" />
                      </children>
                   </HBox>
