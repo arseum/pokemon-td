@@ -275,23 +275,8 @@ public class ControlleurMap implements Initializable {
         sprite.getRange().visibleProperty().bind(obsClicSurTour.unetourCarteSelectionnee.and(obsClicSurTour.idTourSelectionnee.isEqualTo(sprite.getSprite().getId())));
 
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
-        //todo ici
+        //Permet d'afficher la range de la tour et les actions possibles
         sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
-        /*
-        sprite.getSprite().setOnMouseClicked(e -> {
-            sprite.getSprite().toFront();
-            sprite.getRange().setVisible(!sprite.getRange().isVisible());
-
-            System.out.println(game.getListTour());
-
-            String id = sprite.getSprite().getId();
-            Tour t = game.retourneTourAPartirId(id);
-            game.vendreTour(t);
-
-            System.out.println(game.getListTour());
-        });
-
-         */
 
     }
 
