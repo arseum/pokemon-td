@@ -15,7 +15,6 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
     private final Pane paneTerrain;
     private final SimpleDoubleProperty xTour;
     private final SimpleDoubleProperty yTour;
-
     private final SimpleBooleanProperty estDansTerrainX;
     private final SimpleBooleanProperty estDansTerrainY;
     private final Game game;
@@ -85,8 +84,8 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                     game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
                     game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
-                } else if (this.obsClic.tourSelectionnee.equals("venalgue")) {
-                    game.ajouteTour(new Venalgue(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                } else if (this.obsClic.tourSelectionnee.equals("nidoran")) {
+                    game.ajouteTour(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 } else if (this.obsClic.tourSelectionnee.equals("grenousse")) {
                     game.ajouteTour(new Grenousse(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }/*

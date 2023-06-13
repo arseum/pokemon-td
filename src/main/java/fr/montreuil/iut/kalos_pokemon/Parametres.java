@@ -13,7 +13,7 @@ public class Parametres {
     public static final int prixgranivol = 60;
     public static final int prixmagneti = 70;
     public static final int prixsalameche = 100;
-    public static final int prixvenalgue = 80;
+    public static final int prixnidoran = 80;
     public static final int prixgrenousse = 75;
     public static final int prixelectrode = 100;
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
@@ -45,7 +45,7 @@ public class Parametres {
         else if (nom.equals("granivol")) return prixgranivol;
         else if (nom.equals("magneti")) return prixmagneti;
         else if (nom.equals("salameche")) return prixsalameche;
-        else if (nom.equals("venalgue")) return prixvenalgue;
+        else if (nom.equals("nidoran")) return prixnidoran;
         else if (nom.equals("grenousse")) return prixgrenousse;
         else if (nom.equals("electrode")) return prixelectrode;
         return -1;

@@ -72,7 +72,7 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(map);
         backgroundMenuBas.setFitWidth(game.getTerrain().getLargeurTerrain());
 
-        String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "venalgue"};
+        String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "nidoran"};
         CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
         createurMenu.creationMenu(conteneurTourMenu);
         ObsPokedollar testPoke2 = new ObsPokedollar(conteneurTourMenu, listeTour);
