@@ -73,7 +73,7 @@ public class Nidoran extends Tour {
     public void apliquePoison() {
         //faire des degats au ennemi emposoné
         for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
-            ennemiEmpoisone.get(i).diminueHP(degatsPoison);
+            ennemiEmpoisone.get(i).diminueHP(degatsPoison, Parametres.typeNeutre);
             if (ennemiEmpoisone.get(i).getHp() <= 0)
                 ennemiEmpoisone.remove(i);
         }

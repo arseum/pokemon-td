@@ -22,7 +22,8 @@ public class Projectile extends Attaque {
                 idImage.set(idImage.get() + 1);
         } else {
             if (cible.getHp() > 0) {
-                cible.diminueHP(tireur.getDegats());
+                cible.diminueHP(tireur.getDegats(), tireur.getType());
+                //System.out.println(tireur.getType());
             }
             game.remove(this);
         }

@@ -51,6 +51,30 @@ public class Parametres {
     public static Map<String, Image> imagesTirMap = new HashMap<>();
     public static Map<String, Image> imagesPokemonMap = new HashMap<>();
 
+    public static final String typeEau = "eau";
+    public static final String typeFeu = "feu";
+    public static final String typePlante = "plante";
+    public static final String typeNeutre = "neutre";
+
+    public static final double superEfficace = 1.3;
+    public static final double peuEfficace = 0.7;
+    public static final double affiniteType(String typeAttaquant, String typeDefenseur){
+        if(typeAttaquant.equals(typeEau)){
+            if(typeDefenseur.equals(typeEau)) return peuEfficace;
+            else if (typeDefenseur.equals(typeFeu)) return superEfficace;
+            else if (typeDefenseur.equals(typePlante)) return peuEfficace;
+        } else if (typeAttaquant.equals(typeFeu)) {
+            if(typeDefenseur.equals(typeEau)) return peuEfficace;
+            else if (typeDefenseur.equals(typeFeu)) return peuEfficace;
+            else if (typeDefenseur.equals(typePlante)) return superEfficace;
+        }else if (typeAttaquant.equals(typePlante)){
+            if(typeDefenseur.equals(typeEau)) return superEfficace;
+            else if (typeDefenseur.equals(typeFeu)) return peuEfficace;
+            else if (typeDefenseur.equals(typePlante)) return peuEfficace;
+        }
+        return 1;
+    }
+
     public static final int prixTour(String nom) {
         if (nom.equals("poussifeu")) return prixpoussifeu;
         else if (nom.equals("granivol")) return prixgranivol;

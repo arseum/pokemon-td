@@ -131,8 +131,8 @@ public abstract class Ennemi {
 
     }
 
-    public void diminueHP(double value) {
-        hp.set(hp.get() - value);
+    public void diminueHP(double value, String typeAttaquant) {
+        hp.set(hp.get() - (int)(value * Parametres.affiniteType(typeAttaquant, this.getType())));
         if (hp.get() <= 0) {
             game.remove(this);
             game.ajoutePokedollar(recompense);

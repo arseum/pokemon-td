@@ -69,6 +69,8 @@ public abstract class Tour {
         return x.get();
     }
 
+    public String getType(){return this.type;}
+
     public IntegerProperty xProperty() {
         return x;
     }
