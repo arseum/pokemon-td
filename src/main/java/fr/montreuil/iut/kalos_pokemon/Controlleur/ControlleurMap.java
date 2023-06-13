@@ -8,19 +8,21 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -136,6 +138,11 @@ public class ControlleurMap implements Initializable {
         });
         game.getListProjectile().addListener(listenProjectiles);
 
+        game.vieProperty().addListener((obs,old,nouv)-> {
+            if ((int)nouv==0)
+                partiePerdue();
+        });
+
         //todo: Ajouts Zen
         ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
         ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
@@ -153,6 +160,8 @@ public class ControlleurMap implements Initializable {
     private void initAnimation() throws IOException {
         gameLoop = new Timeline();
         game.nbFrameProperty().bind(frame);
+        game.getVague().nbFrameProperty().bind(frame);
+
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         int[] caseDepart = game.getTerrain().getCaseDepart();
 
@@ -165,7 +174,7 @@ public class ControlleurMap implements Initializable {
 
                     game.uneFrame();
                     try {
-                        game.wave();
+                        game.getVague().wave();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -196,7 +205,7 @@ public class ControlleurMap implements Initializable {
         });
 
         //pour les hp
-        Label labelVie = new Label("8 \u2764");
+        Label labelVie = new Label("15 \u2764");
         labelVie.setLayoutX(820);
         labelVie.setLayoutY(10);
         labelVie.setPrefWidth(65);
@@ -214,7 +223,7 @@ public class ControlleurMap implements Initializable {
         labelWave.setPrefHeight(15);
         labelWave.setAlignment(Pos.CENTER);
         labelWave.getStyleClass().add("label");
-        game.cptWaveProperty().addListener(((observableValue, number, t1) -> {
+        game.getVague().cptWaveProperty().addListener(((observableValue, number, t1) -> {
             labelWave.setText( "Vague : " + t1.toString());
         }));
 
@@ -280,5 +289,114 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(sprite.getHitBox());
     }
 
+    public void partiePerdue(){
+        gameLoop.stop();
+        Stage popup = new Stage();
+        popup.setTitle("Partie Terminée !");
+
+        Label msg = new Label("Vous Perdez La Pertie (loser)");
+        Label msg2 = new Label("Continuer ?");
+        Button oui = new Button("on continue quand même");
+        Button non = new Button("on fuit");
+        HBox hbox = new HBox(oui,non);
+        VBox vbox= new VBox(msg,msg2,hbox);
+
+        vbox.setAlignment(Pos.CENTER);
+        hbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(20);
+
+        Scene scene =new Scene(vbox,400,300);
+        popup.setScene(scene);
+
+        oui.setOnAction(e->{
+            popup.close();
+            gameLoop.play();
+        });
+
+        non.setOnAction(e ->{
+            popup.close();
+            Platform.exit();
+        });
+
+        popup.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
+
+        popup.show();
+
+        popup.setOnCloseRequest(e->{
+
+        });
+    }
+    public void partieGagnee(){
+        gameLoop.stop();
+        Stage popup = new Stage();
+        popup.setTitle("Partie Terminée !");
+
+        Label msg = new Label("Vous Gagnez La Pertie (tricheur)");
+        Label msg2 = new Label("Rejouer ?");
+        Button oui = new Button("on rejoue");
+        Button non = new Button("on part sur une victoire");
+        HBox hbox = new HBox(oui,non);
+        VBox vbox= new VBox(msg,msg2,hbox);
+
+        vbox.setAlignment(Pos.CENTER);
+        hbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(20);
+
+        Scene scene =new Scene(vbox,400,300);
+        popup.setScene(scene);
+
+        oui.setOnAction(e->{
+
+            popup.close();
+
+            Stage popup2 = new Stage();
+            popup2.setTitle("Rejouer ?");
+
+            Label msgbis = new Label("Vous voulez vraiment rejouer ?");
+            Label msg2bis = new Label("ne mentez pas on le saura même pas");
+            Button ouibis = new Button("on rejoue");
+            Button nonbis = new Button("on part sur une victoire");
+            HBox hbox2 = new HBox(ouibis,nonbis);
+            VBox vbox2 = new VBox(msgbis,msg2bis,hbox2);
+
+            vbox2.setAlignment(Pos.CENTER);
+            hbox2.setAlignment(Pos.CENTER);
+            vbox2.setSpacing(20);
+
+            Scene scenebis =new Scene(vbox2,250,300);
+            popup2.setScene(scenebis);
+
+            ouibis.setOnAction(e2->{
+                popup2.close();
+                Platform.exit();
+            });
+
+            nonbis.setOnAction(e2 ->{
+                popup2.close();
+                Platform.exit();
+            });
+
+            popup2.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
+
+            popup2.show();
+
+            popup2.setOnCloseRequest(e2->{
+
+            });
+        });
+
+        non.setOnAction(e ->{
+            popup.close();
+            Platform.exit();
+        });
+
+        popup.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
+
+        popup.show();
+
+        popup.setOnCloseRequest(e->{
+
+        });
+    }
 
 }
