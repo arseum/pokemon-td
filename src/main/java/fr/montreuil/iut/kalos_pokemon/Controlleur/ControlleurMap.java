@@ -278,6 +278,7 @@ public class ControlleurMap implements Initializable {
         //Permet d'afficher la range de la tour et les actions possibles
         sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
 
+
     }
 
     private void creerTirSprite(Attaque a) throws IOException {
