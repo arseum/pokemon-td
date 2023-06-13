@@ -11,6 +11,7 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -93,6 +94,8 @@ public class ControlleurMap implements Initializable {
 
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
+        nomTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        niveauTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
 
         vendreTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
@@ -114,6 +117,15 @@ public class ControlleurMap implements Initializable {
                 game.ameliorerTour(t);
                 clicSurTour.niveauTour.set(t.getLevel());
 
+            }
+        });
+
+        //Permet de deselectionner une tour lorsqu'on clic ailleurs sur la map
+        pane.setOnMouseClicked( e -> {
+            Node n = (Node)e.getTarget();
+            if(n.getId() == null || !n.getId().contains("Tour")){
+                clicSurTour.unetourCarteSelectionnee.set(false);
+                clicSurTour.nomTour.set("placeholder");
             }
         });
 
@@ -300,10 +312,9 @@ public class ControlleurMap implements Initializable {
         //Permet d'afficher la range de la tour et les actions possibles
         sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
 
+        //Permet de changer le sprite de la tour lorsqu'elle évolue
         tour.levelProperty().addListener( ((observableValue, number, t1) -> {
             if(t1.equals(Parametres.niveauEvolutionTour)){
-                //System.out.println(tour.getNom());
-                //System.out.println(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
                 sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
                 obsClicSurTour.nomTour.set(tour.getNom());
             }
