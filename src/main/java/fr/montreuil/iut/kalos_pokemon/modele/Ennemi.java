@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.Map;
 
 
-public abstract class Ennemi {
+public abstract class Ennemi implements Objet{
 
     private static int compteurID = 1;
     private final int vitesseMax;
@@ -18,6 +18,8 @@ public abstract class Ennemi {
     private final IntegerProperty x;
     private final IntegerProperty y;
     private final int recompense;
+    private boolean estStun;
+    private int compteurTour;
     private final String nom;
     private final String id;
     private final Map<Integer, Integer> cheminVersArrive;
@@ -40,6 +42,7 @@ public abstract class Ennemi {
         this.nom = pokemon;
         this.game = game;
         this.cheminVersArrive = this.game.getTerrain().algoBFS();
+        this.estStun = false;
         setInfoDeplacement();
     }
 
@@ -106,6 +109,18 @@ public abstract class Ennemi {
     }
 
     public void seDeplace() {
+
+        if (estStun) {
+            compteurTour++;
+            if (compteurTour == 120)
+                estStun = false;
+        }
+        else
+            deplacement();
+
+    }
+
+    private void deplacement(){
         int nouveauX, nouveauY;
 
         nouveauX = this.getX() + vitesseActuel * infoDeplacement[0];
@@ -128,7 +143,6 @@ public abstract class Ennemi {
             meurt();
             game.perdVie(1);
         }
-
     }
 
     public void diminueHP(double value) {
@@ -144,4 +158,8 @@ public abstract class Ennemi {
         game.remove(this);
     }
 
+    public void stun() {
+        estStun = true;
+        compteurTour = 0;
+    }
 }

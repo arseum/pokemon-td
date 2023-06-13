@@ -1,31 +1,34 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 
-public abstract class Attaque {
+public abstract class Attaque implements Objet {
 
     private static int compteur = 1;
-    protected final int nbImageMax;
     private final String id;
     protected Tour tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;
-    protected IntegerProperty idImage;
     protected Game game;
+    protected BooleanProperty bouge;
 
     public Attaque(Tour tour, Game game) {
-        nbImageMax = tour.getNbImagedefault();
-        idImage = new SimpleIntegerProperty(0);
         tireur = tour;
         id = "Tir_n°" + compteur;
         compteur++;
         this.game = game;
+        bouge = new SimpleBooleanProperty(false);
 
         x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
         y = new SimpleIntegerProperty(tour.getY() + 22 - Parametres.offsetYTour);
+    }
+    public BooleanProperty bougeProperty() {
+        return bouge;
     }
 
     public Tour getTireur() {
@@ -50,10 +53,6 @@ public abstract class Attaque {
 
     public IntegerProperty yProperty() {
         return y;
-    }
-
-    public IntegerProperty idImageProperty() {
-        return idImage;
     }
 
     public abstract void bouge();

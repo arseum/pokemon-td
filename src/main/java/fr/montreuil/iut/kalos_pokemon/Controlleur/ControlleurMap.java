@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -20,6 +21,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -40,9 +42,6 @@ public class ControlleurMap implements Initializable {
     private HBox conteneurTourMenu;
 
     @FXML
-    private ImageView backgroundMenuTour;
-
-    @FXML
     private ImageView backgroundMenuBas;
 
     @FXML
@@ -53,6 +52,9 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Button vendreTourMenu;
+
+    @FXML
+    private Button ameliorerTourMenu;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,7 +94,15 @@ public class ControlleurMap implements Initializable {
                 game.vendreTour(t);
                 clicSurTour.unetourCarteSelectionnee.set(false);
                 clicSurTour.nomTour.set("placeholder");
+            }
+        });
 
+        ameliorerTourMenu.setOnAction( e -> {
+            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
+            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
+            if (tourSelectionnee) {
+                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
+                t.levelUp();
             }
         });
 
@@ -157,6 +167,8 @@ public class ControlleurMap implements Initializable {
                 else if (c.wasRemoved())
                     for (Attaque a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        if (a instanceof bouleDeFeu)
+                            creerExploxionSprite(a);
                     }
             }
         });
@@ -186,7 +198,6 @@ public class ControlleurMap implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'ou le lambda
                 (ev -> {
 
                     game.uneFrame();
@@ -293,14 +304,34 @@ public class ControlleurMap implements Initializable {
             sprite.getHitBox().xProperty().bind(a.xProperty());
             sprite.getHitBox().yProperty().bind(a.yProperty());
         }
-        a.idImageProperty().addListener(((observableValue, number, t1) -> {
-            try {
-                sprite.updateImage(t1.intValue());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        a.bougeProperty().addListener((observableValue, aBoolean, nouvelleValeur) -> {
+            if (nouvelleValeur) {
+                try {
+                    sprite.updateImage();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }));
+        });
         pane.getChildren().add(sprite.getHitBox());
+    }
+
+    private void creerExploxionSprite(Attaque a) {
+        ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + "salameche_exploxion.gif"));
+
+        gifImageView.setX(a.getX());
+        gifImageView.setY(a.getY());
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                    pane.getChildren().remove(gifImageView);
+                }
+        ));
+
+        pane.getChildren().add(gifImageView);
+        timeline.play();
+
     }
 
 

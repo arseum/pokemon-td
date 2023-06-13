@@ -14,7 +14,7 @@ public class Nidoran extends Tour {
     private int degatsPoison;
 
     public Nidoran(int x, int y) {
-        super(128, 4, "neutre", Parametres.prixnidoran, x, y, "nidoran", 14, 20);
+        super(128, 4, "neutre", Parametres.prixnidoran, x, y, "nidoran", 20);
         ennemiEmpoisone = new ArrayList<>();
         degatsPoison = 2;
     }
@@ -42,7 +42,7 @@ public class Nidoran extends Tour {
         //chercher si on peut empoisoner un nouvel ennemi
         while (cible == null && index < listEnnemi.size()) {
 
-            if (!ennemiEmpoisone.contains(listEnnemi.get(index)) && distance(listEnnemi.get(index)) <= portee.get())
+            if (!ennemiEmpoisone.contains(listEnnemi.get(index)) && Parametres.distance(this,listEnnemi.get(index)) <= portee.get())
                 cible = listEnnemi.get(index);
             else
                 index++;

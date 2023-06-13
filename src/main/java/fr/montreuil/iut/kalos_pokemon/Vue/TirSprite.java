@@ -10,9 +10,11 @@ public class TirSprite {
 
     private final String nomTireur;
     private final ImageView hitBox;
+    private int idImage;
 
 
     public TirSprite(Attaque a) {
+        idImage = 0;
         nomTireur = a.getTireur().getNom();
         hitBox = new ImageView(Parametres.imagesTirMap.get(nomTireur + "_attaque_default_0.png"));
         hitBox.setId(a.getId());
@@ -23,7 +25,10 @@ public class TirSprite {
         return hitBox;
     }
 
-    public void updateImage(int idImage) throws IOException {
+    public void updateImage() throws IOException {
+        idImage++;
+        if (Parametres.imagesTirMap.get(nomTireur + "_attaque_default_" + idImage + ".png") == null)
+            idImage = 0;
         hitBox.setImage(Parametres.imagesTirMap.get(nomTireur + "_attaque_default_" + idImage + ".png"));
     }
 }

@@ -12,20 +12,26 @@ public class Projectile extends Attaque {
     @Override
     public void bouge() {
 
-        if (getX() > cible.getX() + 15 || getY() > cible.getY() + 15 || getX() < cible.getX() - 15 || getY() < cible.getY() - 15) {
+        if (doitBouger()) {
             y.set(getY() < cible.getY() ? getY() + 4 : getY() - 4);
             x.set(getX() < cible.getX() ? getX() + 4 : getX() - 4);
 
-            if (idImage.get() + 1 > nbImageMax)
-                idImage.set(0);
-            else
-                idImage.set(idImage.get() + 1);
-        } else {
-            if (cible.getHp() > 0) {
-                cible.diminueHP(tireur.getDegats());
-            }
-            game.remove(this);
-        }
+            bouge.set(true);
+            bouge.set(false);
+        } else
+            explotionTir();
 
     }
+
+    protected void explotionTir(){
+        if (cible.getHp() > 0) {
+            cible.diminueHP(tireur.getDegats());
+        }
+        game.remove(this);
+    }
+
+    private boolean doitBouger(){
+        return (getX() > cible.getX() + 15 || getY() > cible.getY() + 15 || getX() < cible.getX() - 15 || getY() < cible.getY() - 15);
+    }
+
 }

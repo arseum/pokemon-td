@@ -1,11 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-
 import java.util.List;
 
-public abstract class Tour {
+public abstract class Tour implements Objet{
     private static int compteurID = 1;
     protected IntegerProperty portee;
     protected int degats;
@@ -16,12 +16,12 @@ public abstract class Tour {
     private final IntegerProperty y;
     protected final IntegerProperty level;
     private final String id;
-    private final int nbImagedefault;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
+    protected int tempProchainActif;
     protected Game game;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, int attaqueSpeed) {
+    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -32,17 +32,17 @@ public abstract class Tour {
         this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
         this.nom = pokemon;
-        this.nbImagedefault = nbImageAdefault;
         this.attaqueSpeed = attaqueSpeed;
         tempProchaineAttaque = 0;
-    }
-
-    public int getNbImagedefault() {
-        return nbImagedefault;
+        tempProchainActif = 0;
     }
 
     public String getNom() {
         return nom;
+    }
+
+    public int getTempProchainActif() {
+        return tempProchainActif;
     }
 
     public String getId() {
@@ -96,16 +96,6 @@ public abstract class Tour {
     public abstract void levelUp();
     public abstract void actif();
 
-    protected int distance(Ennemi e) {
-        int super_x;
-        int super_y;
-
-        super_x = Math.abs(getX() - e.getX());
-        super_y = Math.abs(getY() - e.getY());
-
-        return (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
-    }
-
     public void attaque() {
 
         Ennemi cible = null;
@@ -116,7 +106,7 @@ public abstract class Tour {
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
 
-            if (distance(listEnnemi.get(index)) <= portee.get())
+            if (Parametres.distance(this,listEnnemi.get(index)) <= portee.get())
                 cible = listEnnemi.get(index);
             else
                 index++;
@@ -125,11 +115,14 @@ public abstract class Tour {
 
         //attaque la cible
         if (cible != null) {
-            game.ajouteProjectile(new Projectile(this, cible, game));
+            lanceProjectile(cible);
             tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
         }
 
+    }
 
+    protected void lanceProjectile(Ennemi cible){
+        game.ajouteProjectile(new Projectile(this, cible, game));
     }
 
     public int getPrix() {
