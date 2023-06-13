@@ -38,7 +38,7 @@ public class Salameche extends Tour {
 
         for (int i = listEnnemi.size() - 1; i >= 0; i--) {
             if (Parametres.distance(listEnnemi.get(i),this) <= portee.get() ) {
-                listEnnemi.get(i).diminueHP(150);
+                listEnnemi.get(i).diminueHP(150, this.getType());
             }
         }
 

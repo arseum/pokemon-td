@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 
 public class Projectile extends Attaque {
@@ -27,7 +28,8 @@ public class Projectile extends Attaque {
 
     protected void explotionTir(){
         if (cible.getHp() > 0) {
-            cible.diminueHP(tireur.getDegats());
+            //todo: Zen - temporaire pour merge - avoir le type de tour et passer en param
+            cible.diminueHP(tireur.getDegats(), Parametres.typeNeutre);
             if (tireur instanceof Nidoran) {
                 ((Nidoran) tireur).ajouteEnnemiEmpoissoner(cible);
                 cible.setEstEmpoisonner(true);

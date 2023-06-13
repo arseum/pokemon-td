@@ -30,7 +30,7 @@ public class Parametres {
     public static final String nomEvolutionGrenousse = "croaporal";
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
     public static String cheminInterface = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Interface/acceuil/";
-    public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
+    public static String cheminSpritePokemon = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
     public static String cheminTirSprite = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tir/";
 
     //Parametres des chemin pour les tirs sprites
@@ -123,12 +123,12 @@ public class Parametres {
             }
         }
 
-        directory = new File(cheminIconeTour);
+        directory = new File(cheminSpritePokemon);
         files = directory.listFiles();
 
         if (files != null) {
             for (File file : files) {
-                Image i = new Image("file:" + cheminIconeTour + file.getName());
+                Image i = new Image("file:" + cheminSpritePokemon + file.getName());
                 imagesPokemonMap.put(file.getName(), i);
             }
         }

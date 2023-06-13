@@ -23,7 +23,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import javafx.scene.Scene;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,6 +53,9 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Label nomTourMenu;
+
+    @FXML
+    private Label niveauTourMenu;
 
     @FXML
     private StackPane imageTourMenu;
