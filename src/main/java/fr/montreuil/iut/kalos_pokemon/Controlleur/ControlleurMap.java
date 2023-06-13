@@ -92,7 +92,7 @@ public class ControlleurMap implements Initializable {
         clicSurTour.niveauTour.addListener(chgNiveauTour);
 
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
-        ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
 
         vendreTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
