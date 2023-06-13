@@ -17,6 +17,7 @@ public class Parametres {
     public static final int prixgrenousse = 75;
     public static final int prixelectrode = 100;
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
+    public static String cheminInterface = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Interface/acceuil/";
     public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
     public static String cheminTirSprite = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tir/";
 
