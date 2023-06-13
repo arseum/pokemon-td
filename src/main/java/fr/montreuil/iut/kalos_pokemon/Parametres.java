@@ -58,6 +58,8 @@ public class Parametres {
 
     public static final double superEfficace = 1.3;
     public static final double peuEfficace = 0.7;
+
+    //todo : à voir si classe à part
     public static final double affiniteType(String typeAttaquant, String typeDefenseur){
         if(typeAttaquant.equals(typeEau)){
             if(typeDefenseur.equals(typeEau)) return peuEfficace;
