@@ -12,8 +12,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-
-public class ObsClicMenuTour implements EventHandler<MouseEvent> {
+/**
+ * Observe les clics sur le contenur du menu d'achat de tour.
+ * Si le clic a lieu sur une tour, crée un stackpane correspondant à la tour cliquée
+ */
+public class ObsClicMenuAchatTour implements EventHandler<MouseEvent> {
 
     public StackPane imageTour;
     public String tourSelectionnee;
@@ -22,7 +25,7 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
     private String imageTourNom;
     private final Game game;
 
-    public ObsClicMenuTour(BorderPane scene, Game game) {
+    public ObsClicMenuAchatTour(BorderPane scene, Game game) {
         this.scene = scene;
         setImageTour("grenousse");
         this.imageTourNom = "grenousse";
@@ -33,8 +36,8 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
 
     private void setImageTour(String nom) {
         Image i, i_bw;
-        i = new Image("file:" + Parametres.cheminIconeTour + nom + ".png");
-        i_bw = new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png");
+        i = new Image("file:" + Parametres.cheminSpritePokemon + nom + ".png");
+        i_bw = new Image("file:" + Parametres.cheminSpritePokemon + nom + "_bw.png");
 
         ImageView im = new ImageView(i);
         im.setId("normal");
@@ -54,8 +57,8 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
     private void mettreAJourImage(String nom) {
         ImageView i = (ImageView) this.imageTour.getChildren().get(0);
         ImageView i2 = (ImageView) this.imageTour.getChildren().get(1);
-        i.setImage(new Image("file:" + Parametres.cheminIconeTour + nom + ".png"));
-        i2.setImage(new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png"));
+        i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + nom + ".png"));
+        i2.setImage(new Image("file:" + Parametres.cheminSpritePokemon + nom + "_bw.png"));
     }
 
     public void supprimeImage() {

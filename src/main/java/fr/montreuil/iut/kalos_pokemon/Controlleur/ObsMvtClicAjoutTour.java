@@ -7,22 +7,25 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 
+/**
+ * Permet de gérer l'affichage du stackpane crée par ObsClicMenuAchatTour.
+ * Le stackpane suit le mouvement de la souris: mouvement discret sur la map et mouvement hors map.
+ * Si la position du stackpane correspond à un endroit où la tour ne peut être place l'image sera grisée
+ * Lorsque on clique sur un endroit de la map plaçable, la tour est ajoutée au modele
+ */
 public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
 
-    private final ObsClicMenuTour obsClic;
-    private final Pane paneTerrain;
+    private final ObsClicMenuAchatTour obsClic;
     private final SimpleDoubleProperty xTour;
     private final SimpleDoubleProperty yTour;
     private final SimpleBooleanProperty estDansTerrainX;
     private final SimpleBooleanProperty estDansTerrainY;
     private final Game game;
 
-    public ObsMvtClicAjoutTour(ObsClicMenuTour obsClic, Pane paneTerrain, Game game) {
+    public ObsMvtClicAjoutTour(ObsClicMenuAchatTour obsClic, Game game) {
         //paneTerrain.setCursor(Cursor.MOVE);
         this.obsClic = obsClic;
-        this.paneTerrain = paneTerrain;
         this.xTour = new SimpleDoubleProperty(0);
         this.yTour = new SimpleDoubleProperty(0);
         this.estDansTerrainX = new SimpleBooleanProperty();

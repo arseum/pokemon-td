@@ -21,10 +21,23 @@ public class Nidoran extends Tour {
 
     @Override
     public void levelUp() {
+        /*
         this.level.set(level.get()+1);
 
         degatsPoison = 5;
         this.degats = 10;
+
+         */
+        int niveauActuel = this.level.get();
+        if((Parametres.niveauEvolutionTour - niveauActuel) > 1){
+            this.degats += 2;
+            this.level.set(niveauActuel + 1);
+        } else if ((Parametres.niveauEvolutionTour - niveauActuel) == 1) {
+            this.degats += 4;
+            this.degatsPoison = 5;
+            this.setNom(Parametres.nomEvolutionNidoran);
+            this.level.set(niveauActuel + 1);
+        }
     }
 
     @Override
@@ -71,7 +84,7 @@ public class Nidoran extends Tour {
     public void apliquePoison() {
         //faire des degats au ennemi emposoné
         for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
-            ennemiEmpoisone.get(i).diminueHP(degatsPoison);
+            ennemiEmpoisone.get(i).diminueHP(degatsPoison, Parametres.typeNeutre);
             if (ennemiEmpoisone.get(i).getHp() <= 0)
                 ennemiEmpoisone.remove(i);
         }

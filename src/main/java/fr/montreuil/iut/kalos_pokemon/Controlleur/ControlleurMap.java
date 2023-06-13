@@ -13,7 +13,6 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -46,6 +45,9 @@ public class ControlleurMap implements Initializable {
     private HBox conteneurTourMenu;
 
     @FXML
+    private ImageView backgroundMenuTour;
+
+    @FXML
     private ImageView backgroundMenuBas;
 
     @FXML
@@ -69,6 +71,8 @@ public class ControlleurMap implements Initializable {
         frame = new SimpleIntegerProperty(0);
         Parametres.chargeImage();
 
+        //todo Ajouts Zen
+        //scene.setPrefWidth(game.getTerrain().getHauteurTerrain() + 100);
         scene.setPrefWidth(1300);
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
@@ -79,14 +83,19 @@ public class ControlleurMap implements Initializable {
         String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "nidoran"};
         CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
         createurMenu.creationMenu(conteneurTourMenu);
-        ObsPokedollar testPoke2 = new ObsPokedollar(conteneurTourMenu, listeTour);
+        ObsPokedollarMenuAchat testPoke2 = new ObsPokedollarMenuAchat(conteneurTourMenu, listeTour);
         game.PokedollarProperty().addListener(testPoke2);
 
-        ObsClicSurTour clicSurTour = new ObsClicSurTour(game, pane);
-        ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu, imageTourMenu, clicSurTour);
+        ObsClicSurTour clicSurTour = new ObsClicSurTour(game);
+        ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu,imageTourMenu);
+        ObsChangementNiveauSurTourSelectionnee chgNiveauTour = new ObsChangementNiveauSurTourSelectionnee(clicSurTour, niveauTourMenu, vendreTourMenu, ameliorerTourMenu);
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
+        clicSurTour.niveauTour.addListener(chgNiveauTour);
 
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
+        nomTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        niveauTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
 
         vendreTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
@@ -96,15 +105,27 @@ public class ControlleurMap implements Initializable {
                 game.vendreTour(t);
                 clicSurTour.unetourCarteSelectionnee.set(false);
                 clicSurTour.nomTour.set("placeholder");
+
             }
         });
 
         ameliorerTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
             String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
-            if (tourSelectionnee) {
+            if(tourSelectionnee){
                 Tour t = game.retourneTourAPartirId(idTourSelectionnee);
-                t.levelUp();
+                game.ameliorerTour(t);
+                clicSurTour.niveauTour.set(t.getLevel());
+
+            }
+        });
+
+        //Permet de deselectionner une tour lorsqu'on clic ailleurs sur la map
+        pane.setOnMouseClicked( e -> {
+            Node n = (Node)e.getTarget();
+            if(n.getId() == null || !n.getId().contains("Tour")){
+                clicSurTour.unetourCarteSelectionnee.set(false);
+                clicSurTour.nomTour.set("placeholder");
             }
         });
 
@@ -175,14 +196,14 @@ public class ControlleurMap implements Initializable {
             }
         });
         game.getListProjectile().addListener(listenProjectiles);
-
         game.vieProperty().addListener((obs,old,nouv)-> {
             if ((int)nouv==0)
                 partiePerdue();
         });
 
-        ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
-        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
+        //todo: Ajouts Zen
+        ObsClicMenuAchatTour menuTourObs = new ObsClicMenuAchatTour(scene, game);
+        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, game);
         conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
         scene.addEventHandler(MouseEvent.MOUSE_MOVED, ajoutTour);
         scene.addEventHandler(MouseEvent.MOUSE_CLICKED, ajoutTour);
@@ -206,6 +227,7 @@ public class ControlleurMap implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 // on définit ce qui se passe à chaque frame
+                // c'est un eventHandler d'ou le lambda
                 (ev -> {
 
                     game.uneFrame();
@@ -292,6 +314,13 @@ public class ControlleurMap implements Initializable {
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
         //Permet d'afficher la range de la tour et les actions possibles
         sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
+
+        tour.levelProperty().addListener( ((observableValue, number, t1) -> {
+            if(t1.equals(Parametres.niveauEvolutionTour)){
+                sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+                obsClicSurTour.nomTour.set(tour.getNom());
+            }
+        }));
 
         //modif pour l'animation de salamehce
         if (tour instanceof Salameche)

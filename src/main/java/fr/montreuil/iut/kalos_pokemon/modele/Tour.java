@@ -10,7 +10,7 @@ public abstract class Tour implements Objet{
     protected IntegerProperty portee;
     protected int degats;
     private final String type;
-    private final String nom;
+    private String nom;
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
@@ -41,6 +41,8 @@ public abstract class Tour implements Objet{
         return nom;
     }
 
+    public void setNom(String nouveauNom){this.nom = nouveauNom;}
+
     public int getTempProchainActif() {
         return tempProchainActif;
     }
@@ -64,6 +66,8 @@ public abstract class Tour implements Objet{
     public int getX() {
         return x.get();
     }
+
+    public String getType(){return this.type;}
 
     public IntegerProperty xProperty() {
         return x;
@@ -129,5 +133,11 @@ public abstract class Tour implements Objet{
         return this.prix;
     }
 
+    public int prixRevente(){
+        return (int)(((this.getLevel() - 1) * (this.prix * Parametres.pourcentageCoutAmelioration) + this.prix) * Parametres.pourcentageRevente);
+    }
 
+    public int prixAmelioration(){
+        return (int)(this.prix * Parametres.pourcentageCoutAmelioration);
+    }
 }

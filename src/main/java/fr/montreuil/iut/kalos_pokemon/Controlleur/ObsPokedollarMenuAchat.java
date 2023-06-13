@@ -5,11 +5,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.HBox;
 
-public class ObsPokedollar implements ChangeListener<Number> {
+/**
+ * Permet de rendre les images des tours du menu d'achat grisées lorsque l'utilisateur n'a pas assez de pokédollar pour l'achat
+ */
+public class ObsPokedollarMenuAchat implements ChangeListener<Number> {
     private final HBox conteneur;
     private final String[] listeTours;
 
-    public ObsPokedollar(HBox conteneur, String[] listeTours) {
+    public ObsPokedollarMenuAchat(HBox conteneur, String[] listeTours) {
         this.conteneur = conteneur;
         this.listeTours = listeTours;
     }
