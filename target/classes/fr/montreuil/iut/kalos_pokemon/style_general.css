@@ -1,0 +1,9 @@
+#sceneTestBackground{
+    /*-fx-background-color: yellow;*/
+    -fx-background-image: url("Vue/Interface/fond_menu_dalles.png");
+    -fx-background-size: contain;
+    /*-fx-background-repeat: repeat-y;*/
+}
+#actionsTourContenant{
+    -fx-background-color: yellow;
+}

@@ -123,4 +123,6 @@ public abstract class Tour implements Objet{
     public int getPrix() {
         return this.prix;
     }
+
+
 }

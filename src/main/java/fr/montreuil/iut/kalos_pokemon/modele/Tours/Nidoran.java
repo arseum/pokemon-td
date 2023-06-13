@@ -8,13 +8,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Venalgue extends Tour {
+public class Nidoran extends Tour {
 
     private final ArrayList<Ennemi> ennemiEmpoisone;
     private int degatsPoison;
 
-    public Venalgue(int x, int y) {
-        super(128, 4, "neutre", Parametres.prixvenalgue, x, y, "venalgue", 20);
+    public Nidoran(int x, int y) {
+        super(128, 4, "neutre", Parametres.prixnidoran, x, y, "nidoran", 14, 20);
         ennemiEmpoisone = new ArrayList<>();
         degatsPoison = 2;
     }
