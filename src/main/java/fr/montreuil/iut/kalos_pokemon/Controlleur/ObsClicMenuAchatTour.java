@@ -12,8 +12,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-
-public class ObsClicMenuTour implements EventHandler<MouseEvent> {
+/**
+ * Observe les clics sur le contenur du menu d'achat de tour.
+ * Si le clic a lieu sur une tour, crée un stackpane correspondant à la tour cliquée
+ */
+public class ObsClicMenuAchatTour implements EventHandler<MouseEvent> {
 
     public StackPane imageTour;
     public String tourSelectionnee;
@@ -22,7 +25,7 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
     private String imageTourNom;
     private final Game game;
 
-    public ObsClicMenuTour(BorderPane scene, Game game) {
+    public ObsClicMenuAchatTour(BorderPane scene, Game game) {
         this.scene = scene;
         setImageTour("grenousse");
         this.imageTourNom = "grenousse";

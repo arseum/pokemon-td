@@ -82,12 +82,14 @@ public class ControlleurMap implements Initializable {
         String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "nidoran"};
         CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
         createurMenu.creationMenu(conteneurTourMenu);
-        ObsPokedollar testPoke2 = new ObsPokedollar(conteneurTourMenu, listeTour);
+        ObsPokedollarMenuAchat testPoke2 = new ObsPokedollarMenuAchat(conteneurTourMenu, listeTour);
         game.PokedollarProperty().addListener(testPoke2);
 
-        ObsClicSurTour clicSurTour = new ObsClicSurTour(game, pane);
-        ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu, niveauTourMenu ,imageTourMenu, clicSurTour, vendreTourMenu, ameliorerTourMenu);
+        ObsClicSurTour clicSurTour = new ObsClicSurTour(game);
+        ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu,imageTourMenu);
+        ObsChangementNiveauSurTourSelectionnee chgNiveauTour = new ObsChangementNiveauSurTourSelectionnee(clicSurTour, niveauTourMenu, vendreTourMenu, ameliorerTourMenu);
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
+        clicSurTour.niveauTour.addListener(chgNiveauTour);
 
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
@@ -110,6 +112,7 @@ public class ControlleurMap implements Initializable {
             if(tourSelectionnee){
                 Tour t = game.retourneTourAPartirId(idTourSelectionnee);
                 game.ameliorerTour(t);
+                clicSurTour.niveauTour.set(t.getLevel());
 
             }
         });
@@ -181,8 +184,8 @@ public class ControlleurMap implements Initializable {
         game.getListProjectile().addListener(listenProjectiles);
 
         //todo: Ajouts Zen
-        ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
-        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
+        ObsClicMenuAchatTour menuTourObs = new ObsClicMenuAchatTour(scene, game);
+        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, game);
         conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
         scene.addEventHandler(MouseEvent.MOUSE_MOVED, ajoutTour);
         scene.addEventHandler(MouseEvent.MOUSE_CLICKED, ajoutTour);
