@@ -201,7 +201,7 @@ public class ControlleurMap implements Initializable {
         game.getVague().nbFrameProperty().bind(frame);
 
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        int[] caseDepart = game.getTerrain().getCaseDepart();
+
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
@@ -215,11 +215,6 @@ public class ControlleurMap implements Initializable {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-
-                    /*if (frame.get() % 120 == 0 && frame.get() > 119)
-                        game.ajouteEnnemi(new Fantominus(caseDepart[0] * Parametres.tailleTuile, caseDepart[1] * Parametres.tailleTuile, game));
-
-                     */
 
                     frame.set(frame.get()+1);
                 })

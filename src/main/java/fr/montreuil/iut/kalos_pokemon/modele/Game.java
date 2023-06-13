@@ -37,6 +37,7 @@ public class Game {
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
         vague= new Wave(terrain,this);
+        vague.nbFrameProperty().bind(nbFrame);
     }
 
     public Game() {
