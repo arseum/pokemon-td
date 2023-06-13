@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -10,7 +11,7 @@ public abstract class Tour {
     protected IntegerProperty portee;
     protected int degats;
     private final String type;
-    private final String nom;
+    private String nom;
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
@@ -19,6 +20,7 @@ public abstract class Tour {
     private final int nbImagedefault;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
+
     protected Game game;
 
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int nbImageAdefault, int attaqueSpeed) {
@@ -44,6 +46,8 @@ public abstract class Tour {
     public String getNom() {
         return nom;
     }
+
+    public void setNom(String nouveauNom){this.nom = nouveauNom;}
 
     public String getId() {
         return id;
@@ -136,5 +140,11 @@ public abstract class Tour {
         return this.prix;
     }
 
+    public int prixRevente(){
+        return (int)(((this.getLevel() - 1) * (this.prix * Parametres.pourcentageCoutAmelioration) + this.prix) * Parametres.pourcentageRevente);
+    }
 
+    public int prixAmelioration(){
+        return (int)(this.prix * Parametres.pourcentageCoutAmelioration);
+    }
 }

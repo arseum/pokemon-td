@@ -33,7 +33,7 @@ public class Game {
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
-        pokedollar = new SimpleIntegerProperty(300);
+        pokedollar = new SimpleIntegerProperty(1000);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
     }
@@ -176,7 +176,14 @@ public class Game {
 
     public void vendreTour(Tour t){
         this.listTour.remove(t);
-        this.pokedollar.setValue(this.pokedollar.getValue() + t.getPrix() * 0.7);
+        this.pokedollar.setValue(this.pokedollar.getValue() + t.prixRevente());
+    }
+
+    public void ameliorerTour(Tour t){
+        if(this.pokedollar.getValue() - t.prixAmelioration() >= 0 && t.getLevel() < Parametres.niveauEvolutionTour){
+            t.levelUp();
+            this.pokedollar.setValue(this.pokedollar.getValue() - t.prixAmelioration());
+        }
     }
 
 

@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -49,10 +50,16 @@ public class ControlleurMap implements Initializable {
     private Label nomTourMenu;
 
     @FXML
+    private Label niveauTourMenu;
+
+    @FXML
     private StackPane imageTourMenu;
 
     @FXML
     private Button vendreTourMenu;
+
+    @FXML
+    private Button ameliorerTourMenu;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,10 +86,11 @@ public class ControlleurMap implements Initializable {
         game.PokedollarProperty().addListener(testPoke2);
 
         ObsClicSurTour clicSurTour = new ObsClicSurTour(game, pane);
-        ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu, imageTourMenu, clicSurTour);
+        ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu, niveauTourMenu ,imageTourMenu, clicSurTour, vendreTourMenu, ameliorerTourMenu);
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
 
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
 
         vendreTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
@@ -92,6 +100,16 @@ public class ControlleurMap implements Initializable {
                 game.vendreTour(t);
                 clicSurTour.unetourCarteSelectionnee.set(false);
                 clicSurTour.nomTour.set("placeholder");
+
+            }
+        });
+
+        ameliorerTourMenu.setOnAction( e -> {
+            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
+            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
+            if(tourSelectionnee){
+                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
+                game.ameliorerTour(t);
 
             }
         });
@@ -279,6 +297,14 @@ public class ControlleurMap implements Initializable {
         //Permet d'afficher la range de la tour et les actions possibles
         sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
 
+        tour.levelProperty().addListener( ((observableValue, number, t1) -> {
+            if(t1.equals(Parametres.niveauEvolutionTour)){
+                //System.out.println(tour.getNom());
+                //System.out.println(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+                sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+                obsClicSurTour.nomTour.set(tour.getNom());
+            }
+        }));
 
     }
 

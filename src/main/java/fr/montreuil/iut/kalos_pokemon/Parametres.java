@@ -9,6 +9,11 @@ import java.util.Map;
 public class Parametres {
     public static final int tailleTourX = 45;
     public static final int tailleTourY = 45;
+
+    //Le niveau à partir duquel une tour "évolue" c-a-d qu'elle change d'apparence
+    public static final int niveauEvolutionTour = 3;
+    public static final double pourcentageCoutAmelioration = 0.75;
+    public static final double pourcentageRevente = 0.6;
     public static final int prixpoussifeu = 50;
     public static final int prixgranivol = 60;
     public static final int prixmagneti = 70;
@@ -16,8 +21,14 @@ public class Parametres {
     public static final int prixnidoran = 80;
     public static final int prixgrenousse = 75;
     public static final int prixelectrode = 100;
+    public static final String nomEvolutionPoussifeu = "galifeu";
+    public static final String nomEvolutionGranivol = "floravol";
+    public static final String nomEvolutionMagneti = "magneton";
+    public static final String nomEvolutionSalameche = "reptincel";
+    public static final String nomEvolutionNidoran = "nidorino";
+    public static final String nomEvolutionGrenousse = "croaporal";
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
-    public static String cheminIconeTour = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
+    public static String cheminSpritePokemon = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
     public static String cheminTirSprite = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tir/";
 
     //Parametres des chemin pour les tirs sprites
@@ -51,6 +62,16 @@ public class Parametres {
         return -1;
     }
 
+    public static String nomPokemonBase(String nomTour){
+        if(nomTour.equals("poussifeu") || nomTour.equals(nomEvolutionPoussifeu)) return "poussifeu";
+        else if(nomTour.equals("granivol") || nomTour.equals(nomEvolutionGranivol)) return "granivol";
+        else if(nomTour.equals("magneti") || nomTour.equals(nomEvolutionMagneti)) return "magneti";
+        else if(nomTour.equals("salameche") || nomTour.equals(nomEvolutionSalameche)) return "salameche";
+        else if(nomTour.equals("nidoran") || nomTour.equals(nomEvolutionNidoran)) return "nidoran";
+        else if(nomTour.equals("grenousse") || nomTour.equals(nomEvolutionGrenousse)) return "grenousse";
+        return null;
+    }
+
     public static int coordonneesXYenCase(int ligne, int colonne, int largeur) {
         //int largeur = 32;//this.arrierePlan.get(0).size();
         return ligne * largeur + colonne;
@@ -74,12 +95,12 @@ public class Parametres {
             }
         }
 
-        directory = new File(cheminIconeTour);
+        directory = new File(cheminSpritePokemon);
         files = directory.listFiles();
 
         if (files != null) {
             for (File file : files) {
-                Image i = new Image("file:" + cheminIconeTour + file.getName());
+                Image i = new Image("file:" + cheminSpritePokemon + file.getName());
                 imagesPokemonMap.put(file.getName(), i);
             }
         }

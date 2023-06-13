@@ -13,7 +13,7 @@ public class TirSprite {
 
 
     public TirSprite(Attaque a) {
-        nomTireur = a.getTireur().getNom();
+        nomTireur = Parametres.nomPokemonBase(a.getTireur().getNom());
         hitBox = new ImageView(Parametres.imagesTirMap.get(nomTireur + "_attaque_default_0.png"));
         hitBox.setId(a.getId());
         hitBox.setMouseTransparent(true);
