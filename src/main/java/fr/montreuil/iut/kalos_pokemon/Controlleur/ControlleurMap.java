@@ -25,7 +25,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlleurMap implements Initializable {
@@ -69,8 +68,6 @@ public class ControlleurMap implements Initializable {
         frame = new SimpleIntegerProperty(0);
         Parametres.chargeImage();
 
-        //todo Ajouts Zen
-        //scene.setPrefWidth(game.getTerrain().getHauteurTerrain() + 100);
         scene.setPrefWidth(1300);
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
@@ -171,6 +168,8 @@ public class ControlleurMap implements Initializable {
                 else if (c.wasRemoved())
                     for (Attaque a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        if (a instanceof bouleDeFeu)
+                            creerExploxionSprite(a);
                     }
             }
         });
@@ -181,7 +180,6 @@ public class ControlleurMap implements Initializable {
                 partiePerdue();
         });
 
-        //todo: Ajouts Zen
         ObsClicMenuTour menuTourObs = new ObsClicMenuTour(scene, game);
         ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, pane, game);
         conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
