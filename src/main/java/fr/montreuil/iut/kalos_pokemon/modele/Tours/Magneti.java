@@ -69,7 +69,8 @@ public class Magneti extends Tour {
         //reset les vitesses des ennemis qui ont été slow avant et supprime les ennemie mort
         for (int i = ennemisCible.size() - 1; i >= 0; i--) {
             if (ennemisCible.get(i).getHp() <= 0 || Parametres.distance(this,ennemisCible.get(i)) > portee.get()) {
-                ennemisCible.get(i).resetVitesse();
+                if (!ennemisCible.get(i).isEstEmpoisonner())
+                    ennemisCible.get(i).resetVitesse();
                 ennemisCible.remove(i);
             }
         }

@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -15,8 +16,8 @@ public abstract class Ennemi implements Objet{
     private final int vitesseMax;
     private final double hpMax;
     private final String type;
-    private final IntegerProperty x;
-    private final IntegerProperty y;
+    protected final IntegerProperty x;
+    protected final IntegerProperty y;
     private final int recompense;
     private boolean estStun;
     private int compteurTour;
@@ -24,7 +25,8 @@ public abstract class Ennemi implements Objet{
     private final String id;
     private final Map<Integer, Integer> cheminVersArrive;
     private final DoubleProperty hp;
-    private final Game game;
+    protected final Game game;
+    private boolean estEmpoisonner;
     private int vitesseActuel;
     private int[] infoDeplacement;
 
@@ -43,11 +45,20 @@ public abstract class Ennemi implements Objet{
         this.game = game;
         this.cheminVersArrive = this.game.getTerrain().algoBFS();
         this.estStun = false;
+        this.estEmpoisonner = false;
         setInfoDeplacement();
     }
 
     public int getRecompense() {
         return recompense;
+    }
+
+    public void setEstEmpoisonner(boolean estEmpoisonner) {
+        this.estEmpoisonner = estEmpoisonner;
+    }
+
+    public boolean isEstEmpoisonner() {
+        return estEmpoisonner;
     }
 
     public String getId() {
@@ -148,6 +159,8 @@ public abstract class Ennemi implements Objet{
     public void diminueHP(double value) {
         hp.set(hp.get() - value);
         if (hp.get() <= 0) {
+            if (this instanceof Ludicolo)
+                ((Ludicolo) this).chevalDeTroie();
             game.remove(this);
             game.ajoutePokedollar(recompense);
         }

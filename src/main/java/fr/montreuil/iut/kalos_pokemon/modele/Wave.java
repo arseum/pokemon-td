@@ -36,7 +36,7 @@ public class Wave {
             if (frameAct==600){
                 setWave(1);
             }
-            if (frameAct%10==0 )
+            if (frameAct%90==0 )
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));  //WAVE 1
 
         }

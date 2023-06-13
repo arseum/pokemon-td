@@ -9,5 +9,6 @@ public class Ludicolo extends Ennemi {
     }
 
     public void chevalDeTroie() {
-    } //TODO
+        game.ajouteEnnemi(new Nenupiot(x.get(), y.get(), game));
+    }
 }

@@ -30,6 +30,14 @@ public class Nidoran extends Tour {
     @Override
     public void actif() {
 
+        for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
+            ennemiEmpoisone.get(i).reduitVitese(1);
+        }
+
+        //todo les ennemis slow ne doivent pas reset leur vitesse grace au magneti
+
+        tempProchainActif = game.getNbFrame() + (60*20) ;
+
     }
 
     @Override
@@ -50,11 +58,14 @@ public class Nidoran extends Tour {
         }
 
         if (cible != null) {
-            ennemiEmpoisone.add(cible);
             game.ajouteProjectile(new Projectile(this, cible, game));
             tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
         }
 
+    }
+
+    public void ajouteEnnemiEmpoissoner(Ennemi e){
+        ennemiEmpoisone.add(e);
     }
 
     public void apliquePoison() {
