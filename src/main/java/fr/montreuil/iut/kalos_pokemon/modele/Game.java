@@ -174,6 +174,18 @@ public class Game {
 
     }
 
+    public Tour retourneTourAPartirId(String id){
+        for (Tour t : this.listTour){
+            if(t.getId().equals(id)) return t;
+        }
+        return null;
+    }
+
+    public void vendreTour(Tour t){
+        this.listTour.remove(t);
+        this.pokedollar.setValue(this.pokedollar.getValue() + t.getPrix() * 0.7);
+    }
+
 
 public void wave() throws InterruptedException {
         int[] caseDepart = terrain.getCaseDepart();
