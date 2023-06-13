@@ -1,19 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Grenousse;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Venalgue;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-
-
-import java.util.Objects;
 
 public class Game {
 
@@ -168,10 +161,22 @@ public class Game {
         for (Tour t : listTour) {
             if (getNbFrame() >= t.tempProchaineAttaque)
                 t.attaque();
-            if (t instanceof Venalgue && getNbFrame() % 20 == 0)
-                ((Venalgue) t).apliquePoison();
+            if (t instanceof Nidoran && getNbFrame() % 20 == 0)
+                ((Nidoran) t).apliquePoison();
         }
 
+    }
+
+    public Tour retourneTourAPartirId(String id){
+        for (Tour t : this.listTour){
+            if(t.getId().equals(id)) return t;
+        }
+        return null;
+    }
+
+    public void vendreTour(Tour t){
+        this.listTour.remove(t);
+        this.pokedollar.setValue(this.pokedollar.getValue() + t.getPrix() * 0.7);
     }
 
 

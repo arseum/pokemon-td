@@ -33,8 +33,8 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
 
     private void setImageTour(String nom) {
         Image i, i_bw;
-        i = new Image("file:" + Parametres.cheminSrpitePokemon + nom + ".png");
-        i_bw = new Image("file:" + Parametres.cheminSrpitePokemon + nom + "_bw.png");
+        i = new Image("file:" + Parametres.cheminIconeTour + nom + ".png");
+        i_bw = new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png");
 
         ImageView im = new ImageView(i);
         im.setId("normal");
@@ -54,8 +54,8 @@ public class ObsClicMenuTour implements EventHandler<MouseEvent> {
     private void mettreAJourImage(String nom) {
         ImageView i = (ImageView) this.imageTour.getChildren().get(0);
         ImageView i2 = (ImageView) this.imageTour.getChildren().get(1);
-        i.setImage(new Image("file:" + Parametres.cheminSrpitePokemon + nom + ".png"));
-        i2.setImage(new Image("file:" + Parametres.cheminSrpitePokemon + nom + "_bw.png"));
+        i.setImage(new Image("file:" + Parametres.cheminIconeTour + nom + ".png"));
+        i2.setImage(new Image("file:" + Parametres.cheminIconeTour + nom + "_bw.png"));
     }
 
     public void supprimeImage() {
