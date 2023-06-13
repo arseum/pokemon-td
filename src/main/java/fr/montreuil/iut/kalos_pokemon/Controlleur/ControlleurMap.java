@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -169,7 +170,7 @@ public class ControlleurMap implements Initializable {
                     for (Attaque a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
                         if (a instanceof bouleDeFeu)
-                            creerExploxionSprite(a);
+                            creerExploxionSprite(a,"salameche_exploxion.gif");
                     }
             }
         });
@@ -292,6 +293,9 @@ public class ControlleurMap implements Initializable {
         //Permet d'afficher la range de la tour et les actions possibles
         sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
 
+        //modif pour l'animation de salamehce
+        if (tour instanceof Salameche)
+            ((Salameche) tour).actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
 
     }
 
@@ -427,11 +431,16 @@ public class ControlleurMap implements Initializable {
 
         });
     }
-    private void creerExploxionSprite(Attaque a) {
-        ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + "salameche_exploxion.gif"));
+    private void creerExploxionSprite(Objet a, String nameFile) {
+        ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));
+        gifImageView.setMouseTransparent(true);
 
-        gifImageView.setX(a.getX());
-        gifImageView.setY(a.getY());
+        gifImageView.setX(a.getX() - (gifImageView.getImage().getWidth() / 2) );
+        gifImageView.setY(a.getY() - (gifImageView.getImage().getHeight() / 2) );
+        /*
+        sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+        sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+         */
 
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(1),

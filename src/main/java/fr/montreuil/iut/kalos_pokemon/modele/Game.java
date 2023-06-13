@@ -43,7 +43,6 @@ public class Game {
     public Game() {
         this("default");
     }
-    //todo 1
 
     public Wave getVague() {
         return vague;

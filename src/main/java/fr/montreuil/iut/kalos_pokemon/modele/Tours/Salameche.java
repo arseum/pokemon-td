@@ -4,15 +4,25 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.bouleDeFeu;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
 
 public class Salameche extends Tour {
 
     private int rayonExploxion;
+    private IntegerProperty actif;
     public Salameche(int x, int y) {
         super(90, 30, "feu", Parametres.prixsalameche, x, y, "salameche", 50);
         rayonExploxion = 57;
+        actif = new SimpleIntegerProperty(0);
+    }
+
+    public IntegerProperty actifProperty() {
+        return actif;
     }
 
     @Override
@@ -32,6 +42,10 @@ public class Salameche extends Tour {
             }
         }
 
+        tempProchainActif = game.getNbFrame() + (60*25) ;
+
+        //permet de provoquer une animation dans la vue
+        actif.set(actif.get()+1);
     }
 
     @Override
