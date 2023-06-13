@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -41,6 +42,10 @@ public class ObsClicSurTour implements EventHandler<MouseEvent> {
                 this.nomTour.set(game.retourneTourAPartirId(tourImg.getId()).getNom());
                 this.unetourCarteSelectionnee.set(true);
             }
+        }else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+            Tour t = game.retourneTourAPartirId(idTour);
+            if (t.getLevel() >= 3 && t.getTempProchainActif() < game.getNbFrame())
+                t.actif();
         }
     }
 }

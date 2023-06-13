@@ -5,6 +5,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.bouleDeFeu;
 
+import java.util.List;
+
 public class Salameche extends Tour {
 
     private int rayonExploxion;
@@ -17,11 +19,18 @@ public class Salameche extends Tour {
     public void levelUp() {
         this.level.set(level.get()+1);
         rayonExploxion = 75;
-        //todo faire salameche
     }
 
     @Override
     public void actif() {
+
+        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+
+        for (int i = listEnnemi.size() - 1; i >= 0; i--) {
+            if (Parametres.distance(listEnnemi.get(i),this) <= portee.get() ) {
+                listEnnemi.get(i).diminueHP(150);
+            }
+        }
 
     }
 

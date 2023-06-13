@@ -118,7 +118,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="vendreTourMenu" mnemonicParsing="false" text="Vendre" />
-                        <Button alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" text="Améliorer" />
+                        <Button fx:id="ameliorerTourMenu" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" text="Améliorer" />
                      </children>
                   </HBox>
                </children>

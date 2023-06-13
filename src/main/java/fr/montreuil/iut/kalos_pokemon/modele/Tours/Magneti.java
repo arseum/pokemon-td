@@ -17,7 +17,6 @@ public class Magneti extends Tour {
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;
     private final Zone zone;
-
     private int valeurSlow;
 
     public Magneti(int x, int y) {
@@ -49,6 +48,14 @@ public class Magneti extends Tour {
     @Override
     public void actif() {
 
+        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+
+        for (Ennemi e : listEnnemi) {
+            if (Parametres.distance(this,e) <= portee.get())
+                e.stun();
+        }
+
+        tempProchainActif = game.getNbFrame() + (60*15) ;
     }
 
     /**

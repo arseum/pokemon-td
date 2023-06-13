@@ -18,13 +18,14 @@ public class TourSprite {
         //sprite = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemon.getNom() + ".png")).openStream()));
         sprite = new ImageView(new Image("file:" + Parametres.cheminIconeTour + pokemon.getNom() + ".png"));
         sprite.setId(pokemon.getId());
-        range = new Circle(pokemon.getPortee());
-        range.setId("range_" + pokemon.getId());
-        range.setMouseTransparent(true);
+        range = new Circle();
         creationCercleRange(pokemon);
     }
 
     private void creationCercleRange(Tour pokemon) {
+        range.radiusProperty().bind(pokemon.porteeProperty());
+        range.setId("range_" + pokemon.getId());
+        range.setMouseTransparent(true);
         range.centerXProperty().bind(pokemon.xProperty().add(sprite.getImage().getWidth() / 2 - Parametres.offsetXTour));
         range.centerYProperty().bind(pokemon.yProperty().add(sprite.getImage().getHeight() / 2 - Parametres.offsetYTour));
         range.getStyleClass().add("rangeTour");

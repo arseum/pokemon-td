@@ -53,6 +53,9 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Button vendreTourMenu;
 
+    @FXML
+    private Button ameliorerTourMenu;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -91,7 +94,15 @@ public class ControlleurMap implements Initializable {
                 game.vendreTour(t);
                 clicSurTour.unetourCarteSelectionnee.set(false);
                 clicSurTour.nomTour.set("placeholder");
+            }
+        });
 
+        ameliorerTourMenu.setOnAction( e -> {
+            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
+            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
+            if (tourSelectionnee) {
+                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
+                t.levelUp();
             }
         });
 
@@ -187,7 +198,6 @@ public class ControlleurMap implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'ou le lambda
                 (ev -> {
 
                     game.uneFrame();
