@@ -9,6 +9,7 @@ public abstract class Tour implements Objet{
     private static int compteurID = 1;
     protected IntegerProperty portee;
     protected int degats;
+    protected int coutAmelioration;
     private final String type;
     private String nom;
     private final int prix;
@@ -28,6 +29,7 @@ public abstract class Tour implements Objet{
         this.degats = degats;
         this.type = type;
         this.prix = prix;
+        this.coutAmelioration = (int) (prix / 0.6);
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
@@ -36,7 +38,6 @@ public abstract class Tour implements Objet{
         tempProchaineAttaque = 0;
         tempProchainActif = 0;
     }
-
     public String getNom() {
         return nom;
     }
@@ -46,15 +47,12 @@ public abstract class Tour implements Objet{
     public int getTempProchainActif() {
         return tempProchainActif;
     }
-
     public String getId() {
         return id;
     }
-
-    public int getPortee() {
-        return portee.get();
+    public int getCoutAmelioration() {
+        return coutAmelioration;
     }
-
     public IntegerProperty porteeProperty() {
         return portee;
     }
@@ -80,24 +78,20 @@ public abstract class Tour implements Objet{
     public IntegerProperty levelProperty() {
         return level;
     }
-
     public int getY() {
         return y.get();
     }
-
     public IntegerProperty yProperty() {
         return y;
     }
-
     public void setGame(Game game) {
         this.game = game;
     }
 
-    public int getTempProchaineAttaque() {
-        return tempProchaineAttaque;
-    }
-
-    public abstract void levelUp();
+    public void levelUp(){
+        this.level.set(level.get()+1);
+        coutAmelioration *= 1.2;
+    };
     public abstract void actif();
 
     public void attaque() {

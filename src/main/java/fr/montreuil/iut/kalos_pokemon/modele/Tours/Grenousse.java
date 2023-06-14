@@ -11,10 +11,10 @@ public class Grenousse extends Tour {
     @Override
     public void levelUp() {
         /*
-        this.level.set(level.get()+1);
+        super.levelUp();
 
-        this.degats = 80;
-        this.attaqueSpeed = 75;
+        this.degats += 40;
+        this.attaqueSpeed *= 0.8;
          */
         int niveauActuel = this.level.get();
         if((Parametres.niveauEvolutionTour - niveauActuel) > 1){

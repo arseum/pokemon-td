@@ -12,9 +12,14 @@ public class Granivol extends Tour {
     @Override
     public void levelUp() {
         /*
-        this.level.set(level.get()+1);
+        super.levelUp();
 
-        this.portee.set(180);
+        if (level.get() == 2)
+            portee.set(180);
+        else {
+            attaqueSpeed = 5;
+            degats = 4;
+        }
 
          */
         int niveauActuel = this.level.get();

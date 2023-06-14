@@ -22,10 +22,10 @@ public class Nidoran extends Tour {
     @Override
     public void levelUp() {
         /*
-        this.level.set(level.get()+1);
+        super.levelUp();
 
-        degatsPoison = 5;
-        this.degats = 10;
+        degatsPoison += 2;
+        this.degats += 4;
 
          */
         int niveauActuel = this.level.get();

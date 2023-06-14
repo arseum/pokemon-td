@@ -39,23 +39,14 @@ public class Magneti extends Tour {
 
     @Override
     public void levelUp() {
-        /*
-        this.level.set(level.get()+1);
+        super.levelUp();
 
-        this.portee.set(110);
-        valeurSlow = 2;
-
-         */
-        int niveauActuel = this.level.get();
-        if((Parametres.niveauEvolutionTour - niveauActuel) > 1){
-            this.portee.set(this.portee.get() + 10);
-            this.level.set(niveauActuel + 1);
-        } else if ((Parametres.niveauEvolutionTour - niveauActuel) == 1) {
-            this.portee.set(this.portee.get() + 15);
-            this.valeurSlow = 2;
+        portee.set(portee.get() + (5*level.get()));
+        if(level.get() == 3) {
             this.setNom(Parametres.nomEvolutionMagneti);
-            this.level.set(niveauActuel + 1);
+            valeurSlow = 2;
         }
+        //todo il faudrait augmenter la taille de la zone dans la vue
     }
 
     @Override

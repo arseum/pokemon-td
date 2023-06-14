@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
+import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
 import javafx.animation.KeyFrame;
@@ -11,8 +12,11 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,9 +50,6 @@ public class ControlleurMap implements Initializable {
     private HBox conteneurTourMenu;
 
     @FXML
-    private ImageView backgroundMenuTour;
-
-    @FXML
     private ImageView backgroundMenuBas;
 
     @FXML
@@ -75,9 +76,6 @@ public class ControlleurMap implements Initializable {
         frame = new SimpleIntegerProperty(0);
         Parametres.chargeImage();
 
-        //todo Ajouts Zen
-        //scene.setPrefWidth(game.getTerrain().getHauteurTerrain() + 100);
-        scene.setPrefWidth(1300);
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
         pane.setPrefWidth(game.getTerrain().getLargeurTerrain());
@@ -116,11 +114,11 @@ public class ControlleurMap implements Initializable {
         ameliorerTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
             String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
-            if(tourSelectionnee){
-                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
-                game.ameliorerTour(t);
+            Tour t = game.retourneTourAPartirId(idTourSelectionnee);
+            if (tourSelectionnee && game.getPokedollar() >= t.getCoutAmelioration() && t.getLevel() < 4) {
+                game.depensePokedollar(t.getCoutAmelioration());
+                t.levelUp();
                 clicSurTour.niveauTour.set(t.getLevel());
-
             }
         });
 
@@ -200,12 +198,12 @@ public class ControlleurMap implements Initializable {
             }
         });
         game.getListProjectile().addListener(listenProjectiles);
+
         game.vieProperty().addListener((obs,old,nouv)-> {
             if ((int)nouv==0)
                 partiePerdue();
         });
 
-        //todo: Ajouts Zen
         ObsClicMenuAchatTour menuTourObs = new ObsClicMenuAchatTour(scene, game);
         ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, game);
         conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
@@ -231,7 +229,6 @@ public class ControlleurMap implements Initializable {
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'ou le lambda
                 (ev -> {
 
                     game.uneFrame();
@@ -381,7 +378,17 @@ public class ControlleurMap implements Initializable {
 
         non.setOnAction(e ->{
             popup.close();
-            Platform.exit();
+            FXMLLoader fxmlNiveau1 = new FXMLLoader(main.class.getResource("acceuil.fxml"));
+            Parent p;
+            try {
+                p = fxmlNiveau1.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            Scene s = pane.getScene();
+
+            s.setRoot(p);
         });
 
         popup.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre

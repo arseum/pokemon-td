@@ -12,10 +12,10 @@ public class Poussifeu extends Tour {
     @Override
     public void levelUp() {
         /*
-        this.level.set(level.get()+1);
+        super.levelUp();
 
-        this.degats = 30;
-        this.attaqueSpeed = 55;
+        this.degats *= 1.5;
+        this.attaqueSpeed -= 5;
         */
         int niveauActuel = this.level.get();
         if((Parametres.niveauEvolutionTour - niveauActuel) > 1){

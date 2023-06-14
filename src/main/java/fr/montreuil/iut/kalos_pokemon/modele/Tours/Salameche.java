@@ -27,8 +27,9 @@ public class Salameche extends Tour {
 
     @Override
     public void levelUp() {
-        this.level.set(level.get()+1);
-        rayonExploxion = 75;
+        super.levelUp();
+
+        rayonExploxion += 10;
     }
 
     @Override

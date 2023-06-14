@@ -92,6 +92,7 @@ public class Game {
             pokedollar.set(pokedollar.get() - t.getPrix());
         }
     }
+    public void depensePokedollar(int value){ pokedollar.set(pokedollar.get() - value);}
 
     public void ajouteProjectile(Attaque a) {
         listProjectile.add(a);
