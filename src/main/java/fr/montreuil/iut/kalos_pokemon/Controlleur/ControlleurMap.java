@@ -8,7 +8,9 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -42,6 +44,7 @@ public class ControlleurMap implements Initializable {
     private IntegerProperty frame;
     private TerrainVue terrainVue;
     private Game game;
+    private BooleanProperty pause;
 
     @FXML
     private BorderPane scene;
@@ -67,6 +70,21 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Button ameliorerTourMenu;
 
+    public ControlleurMap() {
+    }
+
+    public void setPause(boolean etat) {
+        pause.setValue(etat);
+    }
+
+    public BooleanProperty getPause() {
+        return pause;
+    }
+
+    public BooleanProperty pauseProperty() {
+        return pause;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -74,6 +92,7 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
+        pause = new SimpleBooleanProperty(false);
         Parametres.chargeImage();
 
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -273,7 +292,7 @@ public class ControlleurMap implements Initializable {
         Label labelWave = new Label("Vague: 1");
         labelWave.setLayoutX(20);
         labelWave.setLayoutY(10);
-        labelWave.setPrefWidth(125);
+        labelWave.setPrefWidth(100);
         labelWave.setPrefHeight(15);
         labelWave.setAlignment(Pos.CENTER);
         labelWave.getStyleClass().add("label");
@@ -281,10 +300,31 @@ public class ControlleurMap implements Initializable {
             labelWave.setText( "Vague : " + t1.toString());
         }));
 
+        Button pauseButton = new Button("pause");
+
+        pauseButton.setLayoutX(0);
+        pauseButton.setLayoutY(0);
+        pauseButton.setPrefWidth(125);
+        pauseButton.setPrefHeight(15);
+        pauseButton.setAlignment(Pos.CENTER);
+
+        pauseButton.setOnAction(e-> {
+            setPause(!pause.getValue());
+                });
+
+        pause.addListener((obs,old,nouv)-> {
+            if (nouv.equals(true)){
+                gameLoop.stop();
+            }else {
+                gameLoop.play();
+            }
+        });
+
 
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
+        conteneurTourMenu.getChildren().add(pauseButton); // TODO  zen place le plz
 
     }
 
@@ -357,7 +397,7 @@ public class ControlleurMap implements Initializable {
         Stage popup = new Stage();
         popup.setTitle("Partie Terminée !");
 
-        Label msg = new Label("Vous Perdez La Pertie (loser)");
+        Label msg = new Label("Vous Perdez La Partie (loser)");
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("on continue quand même");
         Button non = new Button("on fuit");
@@ -366,7 +406,7 @@ public class ControlleurMap implements Initializable {
 
         vbox.setAlignment(Pos.CENTER);
         hbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(20);
+        vbox.setSpacing(20);hbox.setSpacing(20);
 
         Scene scene =new Scene(vbox,400,300);
         popup.setScene(scene);
@@ -404,7 +444,7 @@ public class ControlleurMap implements Initializable {
         Stage popup = new Stage();
         popup.setTitle("Partie Terminée !");
 
-        Label msg = new Label("Vous Gagnez La Pertie (tricheur)");
+        Label msg = new Label("Vous Gagnez La Partie (tricheur)");
         Label msg2 = new Label("Rejouer ?");
         Button oui = new Button("on rejoue");
         Button non = new Button("on part sur une victoire");
@@ -413,7 +453,7 @@ public class ControlleurMap implements Initializable {
 
         vbox.setAlignment(Pos.CENTER);
         hbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(20);
+        vbox.setSpacing(20);hbox.setSpacing(20);
 
         Scene scene =new Scene(vbox,400,300);
         popup.setScene(scene);
@@ -434,7 +474,7 @@ public class ControlleurMap implements Initializable {
 
             vbox2.setAlignment(Pos.CENTER);
             hbox2.setAlignment(Pos.CENTER);
-            vbox2.setSpacing(20);
+            vbox2.setSpacing(20);hbox2.setSpacing(20);
 
             Scene scenebis =new Scene(vbox2,250,300);
             popup2.setScene(scenebis);
@@ -495,4 +535,7 @@ public class ControlleurMap implements Initializable {
     }
 
 
-}
+  }
+
+
+
