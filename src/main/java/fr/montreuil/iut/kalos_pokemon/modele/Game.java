@@ -149,7 +149,7 @@ public class Game {
 
         for (int i = listProjectile.size() - 1; i >= 0; i--) {
             //les zones douvent bouger que lorsqu'elles sont actifs car elle sont en permanance dans la list de projectiles
-            if (listProjectile.get(i) instanceof Zone && ((Zone) listProjectile.get(i)).isActif())
+            if (listProjectile.get(i) instanceof Zone zone && zone.isActif())
                 listProjectile.get(i).bouge();
             else
                 listProjectile.get(i).bouge();
@@ -158,8 +158,8 @@ public class Game {
         for (Tour t : listTour) {
             if (getNbFrameValue() >= t.tempProchaineAttaque)
                 t.attaque();
-            if (t instanceof Nidoran && getNbFrameValue() % 20 == 0)
-                ((Nidoran) t).apliquePoison();
+            if (t instanceof Nidoran nidoran && getNbFrameValue() % 20 == 0)
+                nidoran.apliquePoison();
         }
 
     }

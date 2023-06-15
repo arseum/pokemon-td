@@ -8,7 +8,9 @@ public class Ludicolo extends Ennemi {
         super(2, 250, "eau", x, y, 45, "ludicolo", game, true);
     }
 
-    public void chevalDeTroie() {
+    @Override
+    protected void meurt() {
+        super.meurt();
         game.ajouteEnnemi(new Nenupiot(x.get(), y.get(), game));
     }
 }

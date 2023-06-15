@@ -161,15 +161,12 @@ public abstract class Ennemi implements Objet{
     public void diminueHP(double value) {
         hp.set(hp.get() - value);
         if (hp.get() <= 0) {
-            if (this instanceof Ludicolo)
-                ((Ludicolo) this).chevalDeTroie();
-            game.remove(this);
+            meurt();
             game.ajoutePokedollar(recompense);
         }
     }
 
-    private void meurt() {
-        hp.set(0);
+    protected void meurt() {
         game.remove(this);
     }
 

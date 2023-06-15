@@ -366,12 +366,12 @@ public class ControlleurMap implements Initializable {
         }));
 
         //modif pour l'animation de salamehce
-        if (tour instanceof Salameche)
-            ((Salameche) tour).actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
+        if (tour instanceof Salameche salameche)
+            salameche.actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
 
         //Ajout sprite empoisonnée
-        if (tour instanceof Nidoran){
-            ((Nidoran) tour).getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
+        if (tour instanceof Nidoran nidoran){
+            nidoran.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
                 while (change.next()){
                     if (change.wasAdded())
                         for (Ennemi e : change.getAddedSubList()) {
@@ -404,10 +404,10 @@ public class ControlleurMap implements Initializable {
 
     private void creerTirSprite(Attaque a) throws IOException {
         TirSprite sprite = new TirSprite(a);
-        if (a instanceof Zone) {
-            sprite.getHitBox().fitHeightProperty().bind(((Zone) a).rangeProperty().multiply(2));
-            sprite.getHitBox().fitWidthProperty().bind(((Zone) a).rangeProperty().multiply(2));
-            sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
+        if (a instanceof Zone zone) {
+            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
+            sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
+            sprite.getHitBox().visibleProperty().bind(zone.actifProperty());
             sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
             sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
             sprite.getHitBox().getStyleClass().add("magneti_zone");
@@ -549,9 +549,9 @@ public class ControlleurMap implements Initializable {
     private void creerExploxionSprite(Objet a, String nameFile) {
         ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));
 
-        if (a instanceof bouleDeFeu){
-            gifImageView.setFitHeight(((bouleDeFeu) a).getRayonExploxion());
-            gifImageView.setFitWidth(((bouleDeFeu) a).getRayonExploxion());
+        if (a instanceof bouleDeFeu bouleDeFeu){
+            gifImageView.setFitHeight(bouleDeFeu.getRayonExploxion());
+            gifImageView.setFitWidth(bouleDeFeu.getRayonExploxion());
         }
         gifImageView.setX(a.getX() - (gifImageView.getImage().getWidth() / 2) );
         gifImageView.setY(a.getY() - (gifImageView.getImage().getHeight() / 2) );
