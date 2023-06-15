@@ -27,7 +27,6 @@ public class Game {
 
 
     public Game(String nomTerrain) {
-        //todo terrain_BFS 2
         terrain = new Terrain(nomTerrain);
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();

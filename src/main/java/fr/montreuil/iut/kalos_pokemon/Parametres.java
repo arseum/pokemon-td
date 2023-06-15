@@ -63,7 +63,6 @@ public class Parametres {
     public static final double superEfficace = 1.3;
     public static final double peuEfficace = 0.7;
 
-    //todo : à voir si classe à part
     public static double calculDegats(String typeAttaquant, String typeDefenseur, int degats){
         double multiplicateur = 1;
         switch (typeAttaquant) {
