@@ -372,9 +372,9 @@ public class ControlleurMap implements Initializable {
             ((Nidoran) tour).getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
                 while (change.next()){
                     if (change.wasAdded())
-                        for (Ennemi a : change.getAddedSubList()) {
-                            ImageView i = (ImageView)pane.lookup("#hitbox_" + a.getId());
-                            i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + a.getNom() + "_poison.png"));
+                        for (Ennemi e : change.getAddedSubList()) {
+                            ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
+                            i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
                         }
                 }
             });
