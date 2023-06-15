@@ -17,7 +17,7 @@ public class TirSprite {
         idImage = 0;
 
         String n = a.getTireur().getNom();
-        nomTireur = Parametres.creerHashmapNomPetit().getOrDefault(n, n);
+        nomTireur = Parametres.nomPetitEvolution.getOrDefault(n, n);
         // permet d'obtenir le nom de la plus petite evolution du tireur dans tout les cas car
         // le nom des fichiers est en fonction du nom de la petite evolution de chaque tour
 

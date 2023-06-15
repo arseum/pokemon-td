@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -91,6 +92,7 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
+        pause = new SimpleBooleanProperty(false);
         Parametres.init();
 
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -321,6 +323,7 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
+        conteneurTourMenu.getChildren().add(pauseButton);
 
     }
 
