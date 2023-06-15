@@ -177,8 +177,8 @@ public class Game {
 
     public void ameliorerTour(Tour t){
         if(this.pokedollar.getValue() - t.prixAmelioration() >= 0 && t.getLevel() < Parametres.niveauEvolutionTour){
-            t.levelUp();
             this.pokedollar.setValue(this.pokedollar.getValue() - t.prixAmelioration());
+            t.levelUp();
         }
     }
 

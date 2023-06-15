@@ -135,7 +135,7 @@ public class ControlleurMap implements Initializable {
             String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
             if (tourSelectionnee) {
                 Tour t = game.retourneTourAPartirId(idTourSelectionnee);
-                t.levelUp();
+                game.ameliorerTour(t);
                 clicSurTour.niveauTour.set(t.getLevel());
             }
         });

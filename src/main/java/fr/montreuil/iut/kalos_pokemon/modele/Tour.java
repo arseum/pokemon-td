@@ -123,11 +123,16 @@ public abstract class Tour implements Objet{
         return this.prix;
     }
 
+
     public int prixRevente(){
-        return (int)(((this.getLevel() - 1) * (this.prix * Parametres.pourcentageCoutAmelioration) + this.prix) * Parametres.pourcentageRevente);
+        int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
+        return (int)( (this.prix + this.prix * (this.level.get() - 1 + sommeCumulee/10.0)) * Parametres.pourcentageRevente);
     }
 
+    /*
+    Chaque amélioration coute 10% plus cher
+     */
     public int prixAmelioration(){
-        return (int)(this.prix * Parametres.pourcentageCoutAmelioration);
+        return (int)(this.prix * (1 + 0.1 * this.level.get() ) );
     }
 }

@@ -14,7 +14,7 @@ public class Parametres {
     //Le niveau à partir duquel une tour "évolue" c-a-d qu'elle change d'apparence
     public static final int niveauEvolutionTour = 3;
     public static final double pourcentageCoutAmelioration = 0.75;
-    public static final double pourcentageRevente = 0.6;
+    public static final double pourcentageRevente = 1;
     public static final int prixpoussifeu = 50;
     public static final int prixgranivol = 60;
     public static final int prixmagneti = 70;
