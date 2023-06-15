@@ -30,7 +30,9 @@ public abstract class Ennemi implements Objet{
     private int vitesseActuel;
     private int[] infoDeplacement;
 
-    public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game) {
+    private boolean estTerrestre;
+
+    public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
         this.hp = new SimpleDoubleProperty(hp);
@@ -43,7 +45,8 @@ public abstract class Ennemi implements Objet{
         this.recompense = recompense;
         this.nom = pokemon;
         this.game = game;
-        this.cheminVersArrive = this.game.getTerrain().algoBFS();
+        this.estTerrestre = estTerrestre;
+        this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
         this.estStun = false;
         this.estEmpoisonner = false;
         setInfoDeplacement();

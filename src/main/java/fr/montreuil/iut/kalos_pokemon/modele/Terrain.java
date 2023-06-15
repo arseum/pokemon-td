@@ -130,7 +130,29 @@ public class Terrain {
         return caseArrivee;
     }
 
-    //todo: faire un jUnit
+
+    public void ajouteAdjacents(ArrayList adjacents, boolean estTerrestre, int idCase, int hauteur, int largeur){
+        int ligneCase = idCase / largeur;
+        int colonneCase = idCase % largeur;
+
+        int[][] direction = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+        for (int i = 0; i < direction.length; i++) {
+            int nouvelleLigne = ligneCase + direction[i][0];
+            int nouvelleColonne = colonneCase + direction[i][1];
+
+            boolean ligneDsBords = (0 <= nouvelleLigne) && (nouvelleLigne <= hauteur - 1);
+            boolean colonneDsBords = (0 <= nouvelleColonne) && (nouvelleColonne <= largeur - 1);
+
+            if(ligneDsBords && colonneDsBords ){
+                if(estTerrestre && estChemin(nouvelleLigne, nouvelleColonne)){
+                    adjacents.add(this.arrierePlan.get(0).size() * nouvelleLigne + nouvelleColonne);
+                }
+                else if(!estTerrestre) {
+                    adjacents.add(this.arrierePlan.get(0).size() * nouvelleLigne + nouvelleColonne);
+                }
+            }
+        }
+    }
 
     /**
      * Retourne les voisins d'une case; renvoi null si aucun voisins ou bien pas case non chemin
@@ -138,7 +160,7 @@ public class Terrain {
      * @param idCase
      * @return
      */
-    public ArrayList<Integer> adjacents(int idCase) {
+    public ArrayList<Integer> adjacents(int idCase, boolean estTerrestre) {
         ArrayList<Integer> adjacents = new ArrayList<>();
 
         int largeur = this.arrierePlan.get(0).size();
@@ -147,21 +169,11 @@ public class Terrain {
         int ligneCase = idCase / largeur;
         int colonneCase = idCase % largeur;
 
-        //todo condition estChemin
-        if (estChemin(ligneCase, colonneCase)) {
-            int[][] direction = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
-
-            for (int i = 0; i < direction.length; i++) {
-                int nouvelleLigne = ligneCase + direction[i][0];
-                int nouvelleColonne = colonneCase + direction[i][1];
-
-                boolean ligneDsBords = (0 <= nouvelleLigne) && (nouvelleLigne <= hauteur - 1);
-                boolean colonneDsBords = (0 <= nouvelleColonne) && (nouvelleColonne <= largeur - 1);
-
-                if (ligneDsBords && colonneDsBords && estChemin(nouvelleLigne, nouvelleColonne)) {
-                    adjacents.add(this.arrierePlan.get(0).size() * nouvelleLigne + nouvelleColonne);
-                }
-            }
+        if (estChemin(ligneCase, colonneCase) && estTerrestre) {
+            ajouteAdjacents(adjacents,true, idCase, hauteur, largeur);
+        }
+        else {
+            ajouteAdjacents(adjacents,false, idCase, hauteur, largeur);
         }
 
         return adjacents;
@@ -173,7 +185,7 @@ public class Terrain {
      *
      * @return
      */
-    public Map<Integer, Integer> algoBFS() {
+    public Map<Integer, Integer> algoBFS(boolean estTerrestre) {
         Map<Integer, Integer> arbreCouvrant = new HashMap<>();
 
         ArrayList<Integer> parcours = new ArrayList<>();
@@ -186,7 +198,7 @@ public class Terrain {
         while (!fifo.isEmpty()) {
             Integer caseActuelle = fifo.pollFirst();
 
-            ArrayList<Integer> casesAdjacentes = this.adjacents(caseActuelle);
+            ArrayList<Integer> casesAdjacentes = this.adjacents(caseActuelle, estTerrestre);
             Collections.shuffle(casesAdjacentes);
 
             for (Integer caseAdjacente : casesAdjacentes) {

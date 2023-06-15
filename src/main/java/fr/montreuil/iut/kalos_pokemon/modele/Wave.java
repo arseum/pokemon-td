@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -27,6 +28,15 @@ public class Wave {
     public final void setWave(int i){cptWave.setValue(i);}
     public final IntegerProperty cptWaveProperty(){return cptWave;}
 
+    private int caseDepartYVol(){
+        int delta = 2;
+        int min = delta;
+        int max = (terrain.getHauteurTerrain()/Parametres.tailleTuile - 1) - delta;
+        return min + (int)(Math.random() * ((max - min) + 1));
+        //return  1 + (int)(Math.random() * ((terrain.getHauteurTerrain()/Parametres.tailleTuile - 1 - 1) + 1));
+
+        //return (int)(Math.random() * terrain.getHauteurTerrain()/ Parametres.tailleTuile);
+    }
 
     public void wave() throws InterruptedException {
         int[] caseDepart = terrain.getCaseDepart();
@@ -43,7 +53,7 @@ public class Wave {
 
         else if (frameAct>=1500 && frameAct<2400 && frameAct%60==0) {
             if (frameAct==1500) setWave(getWave()+1);
-            game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepart[1]*32, game)); // WAVE 2 attente de 5s
+            game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game)); // WAVE 2 attente de 5s
         }
 
         else if (frameAct>=2700 && frameAct<3300 && frameAct%90==0) {
@@ -101,7 +111,7 @@ public class Wave {
             if (frameAct==8901) setWave(getWave()+1);
 
             if ( frameAct%40==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 8
+                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));// WAVE 8
             }
 
             if (frameAct %90==0) {
@@ -172,7 +182,7 @@ public class Wave {
             if (frameAct ==14901) setWave(getWave()+1);
 
             if ( frameAct %70==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 13
+                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));// WAVE 13
             }
             if ( frameAct %80==0){
                 game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));
@@ -193,7 +203,7 @@ public class Wave {
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 14
             }
             if ( frameAct %70==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepart[1]*32, game));
+                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));
             }
 
             if (frameAct %90==0) {
@@ -210,7 +220,7 @@ public class Wave {
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 15
             }
             if ( frameAct %80==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepart[1]*32, game));
+                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));
             }
             if ( frameAct %90==0){
                 game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));
