@@ -29,7 +29,6 @@ public abstract class Ennemi implements Objet{
     private boolean estEmpoisonner;
     private int vitesseActuel;
     private int[] infoDeplacement;
-
     private boolean estTerrestre;
 
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
