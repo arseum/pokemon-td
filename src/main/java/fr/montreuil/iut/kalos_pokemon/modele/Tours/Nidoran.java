@@ -5,10 +5,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Nidoran extends Tour {
@@ -43,7 +41,8 @@ public class Nidoran extends Tour {
 
         //todo les ennemis slow ne doivent pas reset leur vitesse grace au magneti
 
-        tempProchainActif = game.getNbFrame() + (60*20) ;
+        //tempProchainActif = game.getNbFrameValue() + (60*20) ;
+        tempProchainActif.set(game.getNbFrameValue() + (60*5));
 
     }
 
@@ -66,7 +65,7 @@ public class Nidoran extends Tour {
 
         if (cible != null) {
             game.ajouteProjectile(new Projectile(this, cible, game));
-            tempProchaineAttaque = game.getNbFrame() + attaqueSpeed;
+            tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
         }
 
     }

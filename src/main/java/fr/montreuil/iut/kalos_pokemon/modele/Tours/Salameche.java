@@ -4,9 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.bouleDeFeu;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
@@ -47,7 +45,8 @@ public class Salameche extends Tour {
             }
         }
 
-        tempProchainActif = game.getNbFrame() + (60*25) ;
+        //tempProchainActif = game.getNbFrameValue() + (60*25) ;
+        tempProchainActif.set(game.getNbFrameValue() + (60*25)) ;
 
         //permet de provoquer une animation dans la vue
         actif.set(actif.get()+1);

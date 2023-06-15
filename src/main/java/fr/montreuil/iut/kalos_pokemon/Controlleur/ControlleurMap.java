@@ -4,6 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
 import javafx.animation.KeyFrame;
@@ -359,9 +360,6 @@ public class ControlleurMap implements Initializable {
         tour.levelProperty().addListener( ((observableValue, number, t1) -> {
             if(t1.equals(Parametres.niveauEvolutionTour)){
                 sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
-                if(tour instanceof Nidoran){
-                    sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + "magneton_ready" + ".png"));
-                }
                 obsClicSurTour.nomTour.set(tour.getNom());
             }
         }));
@@ -382,6 +380,24 @@ public class ControlleurMap implements Initializable {
                             }
                         }
                 }
+            });
+        }
+
+        //todo: Il devrait y avoir une classe qui fait le pont entre tour avec effet et sans effet
+
+        //Est actif
+        if(tour instanceof Magneti || tour instanceof Nidoran || tour instanceof Salameche){
+            //tour.getEstPretActif().bind(game.getNbFrame().greaterThan(tour.getTempProchainActif()).and(tour.levelProperty().isEqualTo(Parametres.niveauEvolutionTour)));
+            tour.getEstPretActif().bind(game.getNbFrame().greaterThan(tour.getTempProchainActif()));
+
+            tour.getEstPretActif().addListener((observableValue, aBoolean, t1) -> {
+                if(t1) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
+                else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+            });
+
+            //todo: redondant; le bind tour.levelProperty().isEqualTo(Parametres.niveauEvolutionTour) ne fonctionne pas
+            tour.levelProperty().addListener((observableValue, number, t1) -> {
+                if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
             });
         }
 

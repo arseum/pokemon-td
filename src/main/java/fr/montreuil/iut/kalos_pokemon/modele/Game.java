@@ -1,6 +1,5 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
@@ -70,9 +69,11 @@ public class Game {
         return nbFrame;
     }
 
-    public int getNbFrame() {
+    public int getNbFrameValue() {
         return nbFrame.get();
     }
+
+    public IntegerProperty getNbFrame(){return  nbFrame;}
 
     public void ajoutePokedollar(int value) {
         pokedollar.setValue(pokedollar.get() + value);
@@ -155,9 +156,9 @@ public class Game {
         }
 
         for (Tour t : listTour) {
-            if (getNbFrame() >= t.tempProchaineAttaque)
+            if (getNbFrameValue() >= t.tempProchaineAttaque)
                 t.attaque();
-            if (t instanceof Nidoran && getNbFrame() % 20 == 0)
+            if (t instanceof Nidoran && getNbFrameValue() % 20 == 0)
                 ((Nidoran) t).apliquePoison();
         }
 

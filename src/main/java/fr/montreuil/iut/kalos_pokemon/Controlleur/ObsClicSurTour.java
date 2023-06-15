@@ -43,7 +43,7 @@ public class ObsClicSurTour implements EventHandler<MouseEvent> {
             }
         }else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
             Tour t = game.retourneTourAPartirId(idTour);
-            if (t.getLevel() >= 3 && t.getTempProchainActif() < game.getNbFrame())
+            if (t.getLevel() >= 3 && t.getTempProchainActif().get() < game.getNbFrameValue())
                 t.actif();
         }
     }

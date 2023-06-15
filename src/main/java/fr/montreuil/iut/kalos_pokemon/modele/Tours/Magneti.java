@@ -59,7 +59,8 @@ public class Magneti extends Tour {
                 e.stun();
         }
 
-        tempProchainActif = game.getNbFrame() + (60*15) ;
+        //tempProchainActif = game.getNbFrameValue() + (60*15) ;
+        tempProchainActif.set(game.getNbFrameValue() + (60*15));
     }
 
     /**
