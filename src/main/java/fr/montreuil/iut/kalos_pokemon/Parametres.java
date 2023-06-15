@@ -52,6 +52,8 @@ public class Parametres {
     //map des images
     public static Map<String, Image> imagesTirMap = new HashMap<>();
     public static Map<String, Image> imagesPokemonMap = new HashMap<>();
+    public static Map<String,String> nomPetitEvolution = new HashMap<>();
+    public static Map<String,String> nomGrandEvolution = new HashMap<>();
 
     public static final String typeEau = "eau";
     public static final String typeFeu = "feu";
@@ -62,24 +64,44 @@ public class Parametres {
     public static final double peuEfficace = 0.7;
 
     //todo : à voir si classe à part
-    public static final double affiniteType(String typeAttaquant, String typeDefenseur){
-        if(typeAttaquant.equals(typeEau)){
-            if(typeDefenseur.equals(typeEau)) return peuEfficace;
-            else if (typeDefenseur.equals(typeFeu)) return superEfficace;
-            else if (typeDefenseur.equals(typePlante)) return peuEfficace;
-        } else if (typeAttaquant.equals(typeFeu)) {
-            if(typeDefenseur.equals(typeEau)) return peuEfficace;
-            else if (typeDefenseur.equals(typeFeu)) return peuEfficace;
-            else if (typeDefenseur.equals(typePlante)) return superEfficace;
-        }else if (typeAttaquant.equals(typePlante)){
-            if(typeDefenseur.equals(typeEau)) return superEfficace;
-            else if (typeDefenseur.equals(typeFeu)) return peuEfficace;
-            else if (typeDefenseur.equals(typePlante)) return peuEfficace;
+    public static double calculDegats(String typeAttaquant, String typeDefenseur, int degats){
+        double multiplicateur = 1;
+        switch (typeAttaquant) {
+            case typeEau -> {
+                switch (typeDefenseur) {
+                    case typeEau, typePlante -> {
+                        multiplicateur = peuEfficace;
+                    }
+                    case typeFeu -> {
+                        multiplicateur = superEfficace;
+                    }
+                }
+            }
+            case typeFeu -> {
+                switch (typeDefenseur) {
+                    case typeEau, typeFeu -> {
+                        multiplicateur = peuEfficace;
+                    }
+                    case typePlante -> {
+                        multiplicateur = superEfficace;
+                    }
+                }
+            }
+            case typePlante -> {
+                switch (typeDefenseur) {
+                    case typeEau -> {
+                        multiplicateur = superEfficace;
+                    }
+                    case typeFeu, typePlante -> {
+                        multiplicateur = peuEfficace;
+                    }
+                }
+            }
         }
-        return 1;
+        return degats * multiplicateur;
     }
 
-    public static final int prixTour(String nom) {
+    public static int prixTour(String nom) {
         if (nom.equals("poussifeu")) return prixpoussifeu;
         else if (nom.equals("granivol")) return prixgranivol;
         else if (nom.equals("magneti")) return prixmagneti;
@@ -90,28 +112,7 @@ public class Parametres {
         return -1;
     }
 
-    public static String nomPokemonBase(String nomTour){
-        if(nomTour.equals("poussifeu") || nomTour.equals(nomEvolutionPoussifeu)) return "poussifeu";
-        else if(nomTour.equals("granivol") || nomTour.equals(nomEvolutionGranivol)) return "granivol";
-        else if(nomTour.equals("magneti") || nomTour.equals(nomEvolutionMagneti)) return "magneti";
-        else if(nomTour.equals("salameche") || nomTour.equals(nomEvolutionSalameche)) return "salameche";
-        else if(nomTour.equals("nidoran") || nomTour.equals(nomEvolutionNidoran)) return "nidoran";
-        else if(nomTour.equals("grenousse") || nomTour.equals(nomEvolutionGrenousse)) return "grenousse";
-        return null;
-    }
-
-    public static int coordonneesXYenCase(int ligne, int colonne, int largeur) {
-        //int largeur = 32;//this.arrierePlan.get(0).size();
-        return ligne * largeur + colonne;
-    }
-
-    public static int[] coordonneesCaseEnXY(int idCase, int largeur) {
-        //int largeur = 32;//this.arrierePlan.get(0).size();
-        //int[] xy = {idCase / largeur,idCase % largeur};
-        return new int[]{idCase / largeur, idCase % largeur};
-    }
-
-    public static void chargeImage(){
+    public static void init(){
 
         File directory = new File(cheminTirSprite);
         File[] files = directory.listFiles();
@@ -132,6 +133,20 @@ public class Parametres {
                 imagesPokemonMap.put(file.getName(), i);
             }
         }
+
+        nomPetitEvolution.put(nomEvolutionPoussifeu,"poussifeu");
+        nomPetitEvolution.put(nomEvolutionGranivol,"granivol");
+        nomPetitEvolution.put(nomEvolutionMagneti,"magneti");
+        nomPetitEvolution.put(nomEvolutionSalameche,"salameche");
+        nomPetitEvolution.put(nomEvolutionNidoran,"nidoran");
+        nomPetitEvolution.put(nomEvolutionGrenousse,"grenousse");
+
+        nomGrandEvolution.put("poussifeu",nomEvolutionPoussifeu);
+        nomGrandEvolution.put("granivol",nomEvolutionGranivol);
+        nomGrandEvolution.put("magneti",nomEvolutionMagneti);
+        nomGrandEvolution.put("salameche",nomEvolutionSalameche);
+        nomGrandEvolution.put("nidoran",nomEvolutionNidoran);
+        nomGrandEvolution.put("grenousse",nomEvolutionGrenousse);
     }
 
     public static int distance(Objet o1, Objet o2){

@@ -156,8 +156,8 @@ public abstract class Ennemi implements Objet{
         }
     }
 
-    public void diminueHP(double value, String typeAttaquant) {
-        hp.set(hp.get() - (int)(value * Parametres.affiniteType(typeAttaquant, this.getType())));
+    public void diminueHP(double value) {
+        hp.set(hp.get() - value);
         if (hp.get() <= 0) {
             if (this instanceof Ludicolo)
                 ((Ludicolo) this).chevalDeTroie();

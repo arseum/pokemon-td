@@ -6,10 +6,12 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 public class Projectile extends Attaque {
 
     private final Ennemi cible;
+    protected double degatFinal;
 
     public Projectile(Tour tour, Ennemi ennemi, Game game) {
         super(tour, game);
         cible = ennemi;
+        degatFinal = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
 
     @Override
@@ -28,8 +30,7 @@ public class Projectile extends Attaque {
 
     protected void explotionTir(){
         if (cible.getHp() > 0) {
-            //todo: Zen - temporaire pour merge - avoir le type de tour et passer en param
-            cible.diminueHP(tireur.getDegats(), Parametres.typeNeutre);
+            cible.diminueHP(degatFinal);
             if (tireur instanceof Nidoran) {
                 ((Nidoran) tireur).ajouteEnnemiEmpoissoner(cible);
                 cible.setEstEmpoisonner(true);

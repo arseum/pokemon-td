@@ -9,8 +9,7 @@ public abstract class Tour implements Objet{
     private static int compteurID = 1;
     protected IntegerProperty portee;
     protected int degats;
-    protected int coutAmelioration;
-    private final String type;
+    protected final String type;
     private String nom;
     private final int prix;
     private final IntegerProperty x;
@@ -29,7 +28,6 @@ public abstract class Tour implements Objet{
         this.degats = degats;
         this.type = type;
         this.prix = prix;
-        this.coutAmelioration = (int) (prix / 0.6);
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
@@ -49,9 +47,6 @@ public abstract class Tour implements Objet{
     }
     public String getId() {
         return id;
-    }
-    public int getCoutAmelioration() {
-        return coutAmelioration;
     }
     public IntegerProperty porteeProperty() {
         return portee;
@@ -89,8 +84,9 @@ public abstract class Tour implements Objet{
     }
 
     public void levelUp(){
+        if (level.get() + 1 == Parametres.niveauEvolutionTour)
+            setNom(Parametres.nomGrandEvolution.get(nom));
         this.level.set(level.get()+1);
-        coutAmelioration *= 1.2;
     };
     public abstract void actif();
 

@@ -15,7 +15,12 @@ public class TirSprite {
 
     public TirSprite(Attaque a) {
         idImage = 0;
-        nomTireur = a.getTireur().getNom();
+
+        String n = a.getTireur().getNom();
+        nomTireur = Parametres.creerHashmapNomPetit().getOrDefault(n, n);
+        // permet d'obtenir le nom de la plus petite evolution du tireur dans tout les cas car
+        // le nom des fichiers est en fonction du nom de la petite evolution de chaque tour
+
         hitBox = new ImageView(Parametres.imagesTirMap.get(nomTireur + "_attaque_default_0.png"));
         hitBox.setId(a.getId());
         hitBox.setMouseTransparent(true);

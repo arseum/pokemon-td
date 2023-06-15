@@ -11,25 +11,14 @@ public class Granivol extends Tour {
 
     @Override
     public void levelUp() {
-        /*
+
         super.levelUp();
 
-        if (level.get() == 2)
+        if (level.get() == 3)
             portee.set(180);
         else {
             attaqueSpeed = 5;
             degats = 4;
-        }
-
-         */
-        int niveauActuel = this.level.get();
-        if((Parametres.niveauEvolutionTour - niveauActuel) > 1){
-            this.portee.set(this.portee.get() + 5);
-            this.level.set(niveauActuel + 1);
-        } else if ((Parametres.niveauEvolutionTour - niveauActuel) == 1) {
-            this.portee.set(this.portee.get() + 10);
-            this.setNom(Parametres.nomEvolutionGranivol);
-            this.level.set(niveauActuel + 1);
         }
     }
 

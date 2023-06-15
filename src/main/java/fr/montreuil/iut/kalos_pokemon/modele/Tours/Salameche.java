@@ -25,6 +25,8 @@ public class Salameche extends Tour {
         return actif;
     }
 
+
+
     @Override
     public void levelUp() {
         super.levelUp();
@@ -36,10 +38,12 @@ public class Salameche extends Tour {
     public void actif() {
 
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+        Ennemi e;
 
         for (int i = listEnnemi.size() - 1; i >= 0; i--) {
-            if (Parametres.distance(listEnnemi.get(i),this) <= portee.get() ) {
-                listEnnemi.get(i).diminueHP(150, this.getType());
+            e = listEnnemi.get(i);
+            if (Parametres.distance(e,this) <= portee.get() ) {
+                e.diminueHP(Parametres.calculDegats(type,e.getType(),150));
             }
         }
 
