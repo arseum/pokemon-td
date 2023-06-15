@@ -265,7 +265,7 @@ public class ControlleurMap implements Initializable {
 
     private void initLabel() {
         // creation du label pour les pokedollar
-        Label labelDollar = new Label("300 $");
+        Label labelDollar = new Label(this.game.getPokedollar() + " $");
         labelDollar.setLayoutX(920);
         labelDollar.setLayoutY(10);
         labelDollar.setPrefWidth(70);
@@ -359,6 +359,9 @@ public class ControlleurMap implements Initializable {
         tour.levelProperty().addListener( ((observableValue, number, t1) -> {
             if(t1.equals(Parametres.niveauEvolutionTour)){
                 sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+                if(tour instanceof Nidoran){
+                    sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + "magneton_ready" + ".png"));
+                }
                 obsClicSurTour.nomTour.set(tour.getNom());
             }
         }));
@@ -374,7 +377,9 @@ public class ControlleurMap implements Initializable {
                     if (change.wasAdded())
                         for (Ennemi e : change.getAddedSubList()) {
                             ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
-                            i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
+                            if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
+                                i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
+                            }
                         }
                 }
             });
