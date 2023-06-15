@@ -8,19 +8,9 @@ public class Poussifeu extends Tour {
         super(96, 20, "feu", Parametres.prixpoussifeu, x, y, "poussifeu", 60);
     }
 
-
     @Override
-    public void levelUp() {
-
-        super.levelUp();
-
+    protected void amelioreStats() {
         this.degats *= 1.5;
         this.attaqueSpeed -= 5;
-
-    }
-
-    @Override
-    public void actif() {
-
     }
 }

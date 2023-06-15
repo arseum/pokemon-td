@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
 
-public class Salameche extends Tour {
+public class Salameche extends TourActif {
 
     private int rayonExploxion;
     private IntegerProperty actif;
@@ -23,13 +23,12 @@ public class Salameche extends Tour {
         return actif;
     }
 
-
-
     @Override
-    public void levelUp() {
-        super.levelUp();
-
+    protected void amelioreStats() {
         rayonExploxion += 10;
+        portee.set(portee.get() + 10 * (level.get()-1));
+
+        System.out.println(10 * (level.get()-1));
     }
 
     @Override
@@ -44,8 +43,6 @@ public class Salameche extends Tour {
                 e.diminueHP(Parametres.calculDegats(type,e.getType(),150));
             }
         }
-
-        //tempProchainActif = game.getNbFrameValue() + (60*25) ;
         tempProchainActif.set(game.getNbFrameValue() + (60*25)) ;
 
         //permet de provoquer une animation dans la vue

@@ -9,17 +9,8 @@ public class Grenousse extends Tour {
     }
 
     @Override
-    public void levelUp() {
-
-        super.levelUp();
-
+    protected void amelioreStats() {
         this.degats += 40;
         this.attaqueSpeed *= 0.8;
-
-    }
-
-    @Override
-    public void actif() {
-
     }
 }

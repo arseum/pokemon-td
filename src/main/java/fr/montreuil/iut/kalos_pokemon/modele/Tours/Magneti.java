@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class Magneti extends Tour {
+public class Magneti extends TourActif {
 
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;
@@ -38,15 +38,12 @@ public class Magneti extends Tour {
     }
 
     @Override
-    public void levelUp() {
-        super.levelUp();
-
+    protected void amelioreStats() {
         portee.set(portee.get() + (5*level.get()));
         if(level.get() == 3) {
             this.setNom(Parametres.nomEvolutionMagneti);
             valeurSlow = 2;
         }
-        //todo il faudrait augmenter la taille de la zone dans la vue
     }
 
     @Override
@@ -59,7 +56,6 @@ public class Magneti extends Tour {
                 e.stun();
         }
 
-        //tempProchainActif = game.getNbFrameValue() + (60*15) ;
         tempProchainActif.set(game.getNbFrameValue() + (60*15));
     }
 

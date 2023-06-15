@@ -7,6 +7,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourActif;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -383,21 +384,19 @@ public class ControlleurMap implements Initializable {
             });
         }
 
-        //todo: Il devrait y avoir une classe qui fait le pont entre tour avec effet et sans effet
-
         //Est actif
-        if(tour instanceof Magneti || tour instanceof Nidoran || tour instanceof Salameche){
-            //tour.getEstPretActif().bind(game.getNbFrame().greaterThan(tour.getTempProchainActif()).and(tour.levelProperty().isEqualTo(Parametres.niveauEvolutionTour)));
-            tour.getEstPretActif().bind(game.getNbFrame().greaterThan(tour.getTempProchainActif()));
+        if(tour instanceof TourActif t){
 
-            tour.getEstPretActif().addListener((observableValue, aBoolean, t1) -> {
-                if(t1) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
-                else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+            t.getEstPretActif().bind(game.getNbFrame().greaterThan(t.getTempProchainActif()));
+
+            t.getEstPretActif().addListener((observableValue, aBoolean, t1) -> {
+                if(t1) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
+                else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + ".png"));
             });
 
             //todo: redondant; le bind tour.levelProperty().isEqualTo(Parametres.niveauEvolutionTour) ne fonctionne pas
-            tour.levelProperty().addListener((observableValue, number, t1) -> {
-                if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
+            t.levelProperty().addListener((observableValue, number, t1) -> {
+                if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
             });
         }
 
