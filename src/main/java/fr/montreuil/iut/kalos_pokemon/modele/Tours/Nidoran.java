@@ -4,18 +4,24 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Tour;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Nidoran extends Tour {
 
-    private final ArrayList<Ennemi> ennemiEmpoisone;
+    //private final ArrayList<Ennemi> ennemiEmpoisone;
+
+    private ObservableList<Ennemi> ennemiEmpoisone;
     private int degatsPoison;
 
     public Nidoran(int x, int y) {
         super(128, 4, "neutre", Parametres.prixnidoran, x, y, "nidoran", 20);
-        ennemiEmpoisone = new ArrayList<>();
+        //ennemiEmpoisone = new ArrayList<>();
+        ennemiEmpoisone = FXCollections.observableArrayList();
         degatsPoison = 2;
     }
 
@@ -79,4 +85,7 @@ public class Nidoran extends Tour {
         }
     }
 
+    public ObservableList<Ennemi> getEnnemiEmpoisone() {
+        return ennemiEmpoisone;
+    }
 }

@@ -4,6 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -365,6 +366,19 @@ public class ControlleurMap implements Initializable {
         //modif pour l'animation de salamehce
         if (tour instanceof Salameche)
             ((Salameche) tour).actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
+
+        //Ajout sprite empoisonnée
+        if (tour instanceof Nidoran){
+            ((Nidoran) tour).getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
+                while (change.next()){
+                    if (change.wasAdded())
+                        for (Ennemi a : change.getAddedSubList()) {
+                            ImageView i = (ImageView)pane.lookup("#hitbox_" + a.getId());
+                            i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + a.getNom() + "_poison.png"));
+                        }
+                }
+            });
+        }
 
     }
 
