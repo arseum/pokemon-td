@@ -29,6 +29,7 @@ public class Zone extends Attaque {
 
     @Override
     public void bouge() {
+        //permet de faire bouger la vue
         bouge.set(true);
         bouge.set(false);
     }

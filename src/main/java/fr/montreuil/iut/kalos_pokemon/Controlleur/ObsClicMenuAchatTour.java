@@ -70,8 +70,8 @@ public class ObsClicMenuAchatTour implements EventHandler<MouseEvent> {
         String idCible;
         EventTarget elementCible = mouseEvent.getTarget();
 
-        if (elementCible instanceof ImageView) {
-            idCible = ((ImageView) elementCible).getId();
+        if (elementCible instanceof ImageView imageView) {
+            idCible = imageView.getId();
             tourSelectionnee = idCible.replace("tourMenuSprite_", "").replace("_normal", "").replace("_grise", "");
             if (game.tourAchetable(tourSelectionnee)) {
                 if (estSelectionnee.getValue()) {

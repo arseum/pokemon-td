@@ -1,9 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import java.util.List;
 
@@ -20,13 +18,8 @@ public abstract class Tour implements Objet{
     private final String id;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
-
-    //todo: Il devrait y avoir une classe qui fait le pont entre tour avec effet et sans effet
-    protected IntegerProperty tempProchainActif;
     
     protected Game game;
-
-    protected BooleanProperty estPretActif;
 
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed) {
         this.id = "Tour_n°" + compteurID;
@@ -41,20 +34,13 @@ public abstract class Tour implements Objet{
         this.nom = pokemon;
         this.attaqueSpeed = attaqueSpeed;
         tempProchaineAttaque = 0;
-        tempProchainActif = new SimpleIntegerProperty(0);
-
-        estPretActif = new SimpleBooleanProperty(false);
     }
-    public BooleanProperty getEstPretActif() {return estPretActif;}
+
     public String getNom() {
         return nom;
     }
-
     public void setNom(String nouveauNom){this.nom = nouveauNom;}
 
-    public IntegerProperty getTempProchainActif() {
-        return tempProchainActif;
-    }
     public String getId() {
         return id;
     }
@@ -95,10 +81,16 @@ public abstract class Tour implements Objet{
 
     public void levelUp(){
         if (level.get() + 1 == Parametres.niveauEvolutionTour)
-            setNom(Parametres.nomGrandEvolution.get(nom));
+            evolution();
         this.level.set(level.get()+1);
+        amelioreStats();
     };
-    public abstract void actif();
+
+    protected void evolution(){
+        setNom(Parametres.nomGrandEvolution.get(nom));
+    }
+
+    protected abstract void amelioreStats();
 
     public void attaque() {
 

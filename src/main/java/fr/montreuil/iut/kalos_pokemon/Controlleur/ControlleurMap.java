@@ -7,6 +7,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourActif;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -365,12 +366,12 @@ public class ControlleurMap implements Initializable {
         }));
 
         //modif pour l'animation de salamehce
-        if (tour instanceof Salameche)
-            ((Salameche) tour).actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
+        if (tour instanceof Salameche salameche)
+            salameche.actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
 
         //Ajout sprite empoisonnée
-        if (tour instanceof Nidoran){
-            ((Nidoran) tour).getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
+        if (tour instanceof Nidoran nidoran){
+            nidoran.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
                 while (change.next()){
                     if (change.wasAdded())
                         for (Ennemi e : change.getAddedSubList()) {
@@ -383,21 +384,19 @@ public class ControlleurMap implements Initializable {
             });
         }
 
-        //todo: Il devrait y avoir une classe qui fait le pont entre tour avec effet et sans effet
-
         //Est actif
-        if(tour instanceof Magneti || tour instanceof Nidoran || tour instanceof Salameche){
-            //tour.getEstPretActif().bind(game.getNbFrame().greaterThan(tour.getTempProchainActif()).and(tour.levelProperty().isEqualTo(Parametres.niveauEvolutionTour)));
-            tour.getEstPretActif().bind(game.getNbFrame().greaterThan(tour.getTempProchainActif()));
+        if(tour instanceof TourActif t){
 
-            tour.getEstPretActif().addListener((observableValue, aBoolean, t1) -> {
-                if(t1) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
-                else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+            t.getEstPretActif().bind(game.getNbFrame().greaterThan(t.getTempProchainActif()));
+
+            t.getEstPretActif().addListener((observableValue, aBoolean, t1) -> {
+                if(t1) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
+                else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + ".png"));
             });
 
             //todo: redondant; le bind tour.levelProperty().isEqualTo(Parametres.niveauEvolutionTour) ne fonctionne pas
-            tour.levelProperty().addListener((observableValue, number, t1) -> {
-                if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
+            t.levelProperty().addListener((observableValue, number, t1) -> {
+                if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
             });
         }
 
@@ -405,10 +404,10 @@ public class ControlleurMap implements Initializable {
 
     private void creerTirSprite(Attaque a) throws IOException {
         TirSprite sprite = new TirSprite(a);
-        if (a instanceof Zone) {
-            sprite.getHitBox().fitHeightProperty().bind(((Zone) a).rangeProperty().multiply(2));
-            sprite.getHitBox().fitWidthProperty().bind(((Zone) a).rangeProperty().multiply(2));
-            sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
+        if (a instanceof Zone zone) {
+            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
+            sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
+            sprite.getHitBox().visibleProperty().bind(zone.actifProperty());
             sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
             sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
             sprite.getHitBox().getStyleClass().add("magneti_zone");
@@ -550,9 +549,9 @@ public class ControlleurMap implements Initializable {
     private void creerExploxionSprite(Objet a, String nameFile) {
         ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));
 
-        if (a instanceof bouleDeFeu){
-            gifImageView.setFitHeight(((bouleDeFeu) a).getRayonExploxion());
-            gifImageView.setFitWidth(((bouleDeFeu) a).getRayonExploxion());
+        if (a instanceof bouleDeFeu bouleDeFeu){
+            gifImageView.setFitHeight(bouleDeFeu.getRayonExploxion());
+            gifImageView.setFitWidth(bouleDeFeu.getRayonExploxion());
         }
         gifImageView.setX(a.getX() - (gifImageView.getImage().getWidth() / 2) );
         gifImageView.setY(a.getY() - (gifImageView.getImage().getHeight() / 2) );

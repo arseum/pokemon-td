@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class Nidoran extends Tour {
+public class Nidoran extends TourActif {
 
     //private final ArrayList<Ennemi> ennemiEmpoisone;
 
@@ -24,10 +24,7 @@ public class Nidoran extends Tour {
     }
 
     @Override
-    public void levelUp() {
-
-        super.levelUp();
-
+    protected void amelioreStats() {
         degatsPoison += 2;
         this.degats += 4;
     }
@@ -41,7 +38,6 @@ public class Nidoran extends Tour {
 
         //todo les ennemis slow ne doivent pas reset leur vitesse grace au magneti
 
-        //tempProchainActif = game.getNbFrameValue() + (60*20) ;
         tempProchainActif.set(game.getNbFrameValue() + (60*5));
 
     }
