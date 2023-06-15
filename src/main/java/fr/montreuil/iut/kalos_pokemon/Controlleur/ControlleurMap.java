@@ -27,7 +27,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.Scene;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -74,7 +74,7 @@ public class ControlleurMap implements Initializable {
         game = new Game("savane");
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
-        Parametres.chargeImage();
+        Parametres.init();
 
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
@@ -114,9 +114,8 @@ public class ControlleurMap implements Initializable {
         ameliorerTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
             String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
-            Tour t = game.retourneTourAPartirId(idTourSelectionnee);
-            if (tourSelectionnee && game.getPokedollar() >= t.getCoutAmelioration() && t.getLevel() < 4) {
-                game.depensePokedollar(t.getCoutAmelioration());
+            if (tourSelectionnee) {
+                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
                 t.levelUp();
                 clicSurTour.niveauTour.set(t.getLevel());
             }
@@ -332,9 +331,11 @@ public class ControlleurMap implements Initializable {
     private void creerTirSprite(Attaque a) throws IOException {
         TirSprite sprite = new TirSprite(a);
         if (a instanceof Zone) {
+            sprite.getHitBox().fitHeightProperty().bind(((Zone) a).rangeProperty().multiply(2));
+            sprite.getHitBox().fitWidthProperty().bind(((Zone) a).rangeProperty().multiply(2));
             sprite.getHitBox().visibleProperty().bind(((Zone) a).actifProperty());
-            sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
-            sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
+            sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
+            sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
             sprite.getHitBox().getStyleClass().add("magneti_zone");
         } else {
             sprite.getHitBox().xProperty().bind(a.xProperty());
@@ -473,14 +474,14 @@ public class ControlleurMap implements Initializable {
     }
     private void creerExploxionSprite(Objet a, String nameFile) {
         ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));
-        gifImageView.setMouseTransparent(true);
 
+        if (a instanceof bouleDeFeu){
+            gifImageView.setFitHeight(((bouleDeFeu) a).getRayonExploxion());
+            gifImageView.setFitWidth(((bouleDeFeu) a).getRayonExploxion());
+        }
         gifImageView.setX(a.getX() - (gifImageView.getImage().getWidth() / 2) );
         gifImageView.setY(a.getY() - (gifImageView.getImage().getHeight() / 2) );
-        /*
-        sprite.getHitBox().xProperty().bind(a.xProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
-        sprite.getHitBox().yProperty().bind(a.yProperty().add(-(sprite.getHitBox().getImage().getWidth() / 2)));
-         */
+        gifImageView.setMouseTransparent(true);
 
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(1),

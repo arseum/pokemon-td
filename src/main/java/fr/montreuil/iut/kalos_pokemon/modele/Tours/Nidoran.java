@@ -21,23 +21,11 @@ public class Nidoran extends Tour {
 
     @Override
     public void levelUp() {
-        /*
+
         super.levelUp();
 
         degatsPoison += 2;
         this.degats += 4;
-
-         */
-        int niveauActuel = this.level.get();
-        if((Parametres.niveauEvolutionTour - niveauActuel) > 1){
-            this.degats += 2;
-            this.level.set(niveauActuel + 1);
-        } else if ((Parametres.niveauEvolutionTour - niveauActuel) == 1) {
-            this.degats += 4;
-            this.degatsPoison = 5;
-            this.setNom(Parametres.nomEvolutionNidoran);
-            this.level.set(niveauActuel + 1);
-        }
     }
 
     @Override
@@ -82,10 +70,11 @@ public class Nidoran extends Tour {
     }
 
     public void apliquePoison() {
-        //faire des degats au ennemi emposoné
         for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
-            ennemiEmpoisone.get(i).diminueHP(degatsPoison, Parametres.typeNeutre);
-            if (ennemiEmpoisone.get(i).getHp() <= 0)
+            if (ennemiEmpoisone.get(i).getHp() > 0) //si la cible est mort entre temps
+                ennemiEmpoisone.get(i).diminueHP(degatsPoison);
+                //le poisson etant neutre pas besoin de faire un calcul avec les types
+            else
                 ennemiEmpoisone.remove(i);
         }
     }

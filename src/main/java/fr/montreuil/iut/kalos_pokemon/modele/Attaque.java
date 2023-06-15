@@ -11,6 +11,7 @@ public abstract class Attaque implements Objet {
 
     private static int compteur = 1;
     private final String id;
+
     protected Tour tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;
@@ -18,11 +19,11 @@ public abstract class Attaque implements Objet {
     protected BooleanProperty bouge;
 
     public Attaque(Tour tour, Game game) {
-        tireur = tour;
-        id = "Tir_n°" + compteur;
+        this.tireur = tour;
+        this.id = "Tir_n°" + compteur;
         compteur++;
         this.game = game;
-        bouge = new SimpleBooleanProperty(false);
+        this.bouge = new SimpleBooleanProperty(false);
 
         x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
         y = new SimpleIntegerProperty(tour.getY() + 22 - Parametres.offsetYTour);
