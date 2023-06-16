@@ -131,6 +131,7 @@ public abstract class Ennemi implements Objet,Mobile{
     private void deplacement(){
         int nouveauX, nouveauY;
 
+
         nouveauX = this.getX() + vitesseActuel * infoDeplacement[0];
         nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
 
