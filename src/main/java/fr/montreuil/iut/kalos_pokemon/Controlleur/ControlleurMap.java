@@ -16,6 +16,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,13 +52,12 @@ public class ControlleurMap implements Initializable {
 
     private BooleanProperty gameGagnee ;
     @FXML
+    private Button buttonMenu;
+    @FXML
     private BorderPane scene;
 
     @FXML
     private HBox conteneurTourMenu;
-
-    @FXML
-    private ImageView backgroundMenuBas;
 
     @FXML
     private Label nomTourMenu;
@@ -84,21 +84,10 @@ public class ControlleurMap implements Initializable {
         pause.setValue(etat);
     }
 
-    public BooleanProperty getPause() {
-        return pause;
-    }
-
-    public BooleanProperty pauseProperty() {
-        return pause;
-    }
-
     public boolean isGameGagnee() {
         return gameGagnee.get();
     }
 
-    public BooleanProperty gameGagneeProperty() {
-        return gameGagnee;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -159,6 +148,8 @@ public class ControlleurMap implements Initializable {
                 clicSurTour.niveauTour.set(t.getLevel());
             }
         });
+
+        buttonMenu.setOnAction( e -> partiePerdue("jeu mis en pause"));
 
         //Permet de deselectionner une tour lorsqu'on clic ailleurs sur la map
         pane.setOnMouseClicked( e -> {
@@ -239,7 +230,7 @@ public class ControlleurMap implements Initializable {
 
         game.vieProperty().addListener((obs,old,nouv)-> {
             if ((int)nouv==0)
-                partiePerdue();
+                partiePerdue("Vous Perdez La Partie (loser)");
         });
 
         gameGagnee.addListener((obs,old,nouv)-> {
@@ -446,12 +437,12 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(sprite.getHitBox());
     }
 
-    public void partiePerdue(){
+    public void partiePerdue(String message){
         gameLoop.stop();
         Stage popup = new Stage();
         popup.setTitle("Partie Terminée !");
 
-        Label msg = new Label("Vous Perdez La Partie (loser)");
+        Label msg = new Label(message);
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("on continue quand même");
         Button non = bouttonRetouracceuil(popup);
@@ -588,9 +579,7 @@ public class ControlleurMap implements Initializable {
         timeline.play();
 
     }
-
-
-  }
+}
 
 
 
