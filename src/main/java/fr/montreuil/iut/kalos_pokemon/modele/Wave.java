@@ -214,11 +214,8 @@ public class Wave {
             }
         }
 
-        else if (frameAct >16300 && frameAct<=16900 ) {
-            if (frameAct ==16302) {
-                setWave(getWave() + 1);
-                System.out.println("coucou");
-            }
+        else if (frameAct >17000 && frameAct<=17600 ) {
+            if (frameAct == 17001) setWave(getWave() + 1);
 
             if ( frameAct %50==0){
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 14
@@ -234,8 +231,8 @@ public class Wave {
                 game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game));
             }
         }
-        else if (frameAct >17500 && frameAct<=18500 ) {
-            if (frameAct ==17501) setWave(getWave()+1);
+        else if (frameAct >18400 && frameAct<=19400 ) {
+            if (frameAct ==18401) setWave(getWave()+1);
 
             if ( frameAct %70==0){
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 15
@@ -259,7 +256,7 @@ public class Wave {
 
         }
 
-        else if (frameAct == 19300){
+        else if (frameAct == 20500){
             game.ajouteEnnemi(new Boss(caseDepart[0]*32, caseDepart[1]*32,game));
         } else if (frameAct > 19300 && game.bossEstVaincu()) { setGagne(true); }
 
