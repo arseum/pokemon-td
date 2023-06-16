@@ -15,18 +15,27 @@ public class Parametres {
     public static final int niveauEvolutionTour = 3;
     public static final double pourcentageCoutAmelioration = 0.75;
     public static final double pourcentageRevente = 1;
+
+    // Prix
+
     public static final int prixpoussifeu = 60;
     public static final int prixgranivol = 95;
     public static final int prixmagneti = 100;
-    public static final int prixsalameche = 130;
+    public static final int prixgrenousse = 155;
     public static final int prixnidoran = 150;
-    public static final int prixgrenousse = 110;
+    public static final int prixsalameche = 130;
+
+
+    // nom évolutions (pokemon niveau 3)
     public static final String nomEvolutionPoussifeu = "galifeu";
     public static final String nomEvolutionGranivol = "floravol";
     public static final String nomEvolutionMagneti = "magneton";
     public static final String nomEvolutionSalameche = "reptincel";
     public static final String nomEvolutionNidoran = "nidorino";
     public static final String nomEvolutionGrenousse = "croaporal";
+
+
+    //
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
     public static String cheminInterface = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Interface/acceuil/";
     public static String cheminSpritePokemon = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
@@ -49,12 +58,15 @@ public class Parametres {
     public static int colonneZoneDepartTileSet = (largeurTileset / tailleTuile) - 3;
     public static int colonneZoneArriveeTileSet = (largeurTileset / tailleTuile) - 1;
 
+
     //map des images
     public static Map<String, Image> imagesTirMap = new HashMap<>();
     public static Map<String, Image> imagesPokemonMap = new HashMap<>();
     public static Map<String,String> nomPetitEvolution = new HashMap<>();
     public static Map<String,String> nomGrandEvolution = new HashMap<>();
 
+
+    // Types
     public static final String typeEau = "eau";
     public static final String typeFeu = "feu";
     public static final String typePlante = "plante";

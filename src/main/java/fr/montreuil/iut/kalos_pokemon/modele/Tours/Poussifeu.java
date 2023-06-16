@@ -11,7 +11,7 @@ public class Poussifeu extends Tour {
     @Override
     protected void amelioreStats() {
         this.degats *= 1.5;
-        this.attaqueSpeed -= 6 * (level.get()-1);
-        portee.set(portee.get() + 3 * level.get());
+        this.attaqueSpeed -= 6* (getLevel()-1);
+        portee.set(portee.get()+(3* getLevel()));
     }
 }

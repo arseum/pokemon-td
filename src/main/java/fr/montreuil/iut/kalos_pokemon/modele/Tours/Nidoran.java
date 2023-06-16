@@ -25,9 +25,8 @@ public class Nidoran extends TourActif {
     protected void amelioreStats() {
         degatsPoison += 2;
         this.degats += 4;
-        if (level.get() == Parametres.niveauEvolutionTour) {
-            portee.set(portee.get() +10);
-        }
+        if (level.get() == Parametres.niveauEvolutionTour)
+            portee.set(portee.get()+10);
     }
 
     @Override

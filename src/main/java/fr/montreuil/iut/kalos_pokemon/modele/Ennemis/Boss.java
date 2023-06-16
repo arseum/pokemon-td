@@ -7,4 +7,10 @@ public class Boss extends Ennemi {
     public Boss( int x, int y, Game game) {
         super(2, 8000, "neutre", x, y, 0, "rayquaza", game, true);
     }
+
+    @Override
+    protected void meurt() {
+        super.meurt();
+        game.setBossVaincu(true);
+    }
 }

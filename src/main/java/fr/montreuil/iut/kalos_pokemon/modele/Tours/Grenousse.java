@@ -12,6 +12,7 @@ public class Grenousse extends Tour {
     protected void amelioreStats() {
         this.degats += 25 * (level.get()-1);
         this.attaqueSpeed *= 0.8;
-        portee.set(portee.get() + 5 * level.get());
+        portee.set(portee.get()+5*level.get());
+
     }
 }

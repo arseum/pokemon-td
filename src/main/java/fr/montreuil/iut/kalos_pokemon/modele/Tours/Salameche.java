@@ -26,8 +26,8 @@ public class Salameche extends TourActif {
     @Override
     protected void amelioreStats() {
         rayonExploxion += 10;
-        portee.set(portee.get() + 10 * (level.get()-1));
         degats *= 1.2;
+        portee.set(portee.get() + 10 * (level.get()-1));
     }
 
     @Override

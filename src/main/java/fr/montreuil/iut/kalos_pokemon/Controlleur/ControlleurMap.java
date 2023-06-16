@@ -49,6 +49,7 @@ public class ControlleurMap implements Initializable {
     private Game game;
     private BooleanProperty pause;
 
+    private BooleanProperty gameGagnee ;
     @FXML
     private BorderPane scene;
 
@@ -88,6 +89,14 @@ public class ControlleurMap implements Initializable {
         return pause;
     }
 
+    public boolean isGameGagnee() {
+        return gameGagnee.get();
+    }
+
+    public BooleanProperty gameGagneeProperty() {
+        return gameGagnee;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -96,6 +105,7 @@ public class ControlleurMap implements Initializable {
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
         pause = new SimpleBooleanProperty(false);
+        gameGagnee = new SimpleBooleanProperty(false);
         Parametres.init();
 
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
@@ -116,11 +126,17 @@ public class ControlleurMap implements Initializable {
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
         clicSurTour.niveauTour.addListener(chgNiveauTour);
 
+
+        //Binds
+
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
         nomTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         niveauTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        gameGagnee.bind(game.getVague().gagneProperty());
 
+
+        // setOnAction's
         vendreTourMenu.setOnAction( e -> {
             Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
             String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
@@ -223,6 +239,11 @@ public class ControlleurMap implements Initializable {
         game.vieProperty().addListener((obs,old,nouv)-> {
             if ((int)nouv==0)
                 partiePerdue();
+        });
+
+        gameGagnee.addListener((obs,old,nouv)-> {
+            if (isGameGagnee())
+                partieGagnee();
         });
 
         ObsClicMenuAchatTour menuTourObs = new ObsClicMenuAchatTour(scene, game);
@@ -435,7 +456,7 @@ public class ControlleurMap implements Initializable {
         Label msg = new Label("Vous Perdez La Partie (loser)");
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("on continue quand même");
-        Button non = new Button("on fuit");
+        Button non = new Button("on quitte");
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
 
@@ -482,7 +503,7 @@ public class ControlleurMap implements Initializable {
         Label msg = new Label("Vous Gagnez La Partie (tricheur)");
         Label msg2 = new Label("Rejouer ?");
         Button oui = new Button("on rejoue");
-        Button non = new Button("on part sur une victoire");
+        Button non = new Button("on quitte");
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
 
@@ -501,9 +522,9 @@ public class ControlleurMap implements Initializable {
             popup2.setTitle("Rejouer ?");
 
             Label msgbis = new Label("Vous voulez vraiment rejouer ?");
-            Label msg2bis = new Label("ne mentez pas on le saura même pas");
+            Label msg2bis = new Label("vous forcez pas on le saura pas");
             Button ouibis = new Button("on rejoue");
-            Button nonbis = new Button("on part sur une victoire");
+            Button nonbis = new Button("Quitter");
             HBox hbox2 = new HBox(ouibis,nonbis);
             VBox vbox2 = new VBox(msgbis,msg2bis,hbox2);
 

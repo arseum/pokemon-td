@@ -25,6 +25,8 @@ public class Game {
 
     private Wave vague;
 
+    private boolean bossVaincu = false;
+
 
 
     public Game(String nomTerrain) {
@@ -51,6 +53,17 @@ public class Game {
     }
     public IntegerProperty PokedollarProperty() {
         return pokedollar;
+    }
+
+    public void setBossVaincu(boolean bossVaincu) {
+        this.bossVaincu = bossVaincu;
+    }
+    public boolean bossEstVaincu() {
+        return bossVaincu;
+    }
+
+    public int getVie() {
+        return vie.get();
     }
 
     public IntegerProperty vieProperty() {
