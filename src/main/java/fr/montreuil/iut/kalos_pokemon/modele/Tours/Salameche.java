@@ -14,7 +14,7 @@ public class Salameche extends TourActif {
     private int rayonExploxion;
     private IntegerProperty actif;
     public Salameche(int x, int y) {
-        super(90, 30, "feu", Parametres.prixsalameche, x, y, "salameche", 50);
+        super(90, 50, "feu", Parametres.prixsalameche, x, y, "salameche", 40);
         rayonExploxion = 57;
         actif = new SimpleIntegerProperty(0);
     }
@@ -27,8 +27,7 @@ public class Salameche extends TourActif {
     protected void amelioreStats() {
         rayonExploxion += 10;
         portee.set(portee.get() + 10 * (level.get()-1));
-
-        System.out.println(10 * (level.get()-1));
+        degats *= 1.2;
     }
 
     @Override

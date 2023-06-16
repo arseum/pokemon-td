@@ -53,10 +53,6 @@ public class Game {
         return pokedollar;
     }
 
-    public int getVie() {
-        return vie.get();
-    }
-
     public IntegerProperty vieProperty() {
         return vie;
     }
@@ -93,7 +89,6 @@ public class Game {
             pokedollar.set(pokedollar.get() - t.getPrix());
         }
     }
-    public void depensePokedollar(int value){ pokedollar.set(pokedollar.get() - value);}
 
     public void ajouteProjectile(Attaque a) {
         listProjectile.add(a);
@@ -143,12 +138,18 @@ public class Game {
      */
     public void uneFrame() {
 
-        for (int i = listEnnemi.size() - 1; i >= 0; i--)
-            listEnnemi.get(i).seDeplace();
+        deplacement(listEnnemi);
+        deplacement(listProjectile);
+        gestionTour();
 
-        for (int i = listProjectile.size() - 1; i >= 0; i--)
-            listProjectile.get(i).bouge();
+    }
 
+    private void deplacement(ObservableList<? extends Mobile> list){
+        for (int i = list.size() - 1; i >= 0; i--)
+            list.get(i).bouge();
+    }
+
+    private void gestionTour() {
         for (Tour t : listTour) {
             if (getNbFrameValue() >= t.tempProchaineAttaque)
                 t.attaque();
@@ -158,7 +159,6 @@ public class Game {
             else if (t instanceof Magneti magneti && magneti.isActif())
                 magneti.getZone().bouge();
         }
-
     }
 
     public Tour retourneTourAPartirId(String id){

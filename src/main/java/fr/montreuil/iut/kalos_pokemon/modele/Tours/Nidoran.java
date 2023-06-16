@@ -15,7 +15,7 @@ public class Nidoran extends TourActif {
     private int degatsPoison;
 
     public Nidoran(int x, int y) {
-        super(128, 4, "neutre", Parametres.prixnidoran, x, y, "nidoran", 20);
+        super(128, 4, "neutre", Parametres.prixnidoran, x, y, "nidoran", 30);
         //ennemiEmpoisone = new ArrayList<>();
         ennemiEmpoisone = FXCollections.observableArrayList();
         degatsPoison = 2;
@@ -25,6 +25,9 @@ public class Nidoran extends TourActif {
     protected void amelioreStats() {
         degatsPoison += 2;
         this.degats += 4;
+        if (level.get() == Parametres.niveauEvolutionTour) {
+            portee.set(portee.get() +10);
+        }
     }
 
     @Override

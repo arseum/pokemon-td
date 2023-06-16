@@ -42,7 +42,7 @@ public class Wave {
         int[] caseDepart = terrain.getCaseDepart();
         int frameAct = getNbFrame();
 
-        if ( frameAct>=10 && frameAct<900){
+        if ( frameAct>=120 && frameAct<900){
             if (frameAct==600){
                 setWave(1);
             }

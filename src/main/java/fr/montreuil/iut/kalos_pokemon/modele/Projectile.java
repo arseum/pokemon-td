@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
+import javafx.scene.input.MouseEvent;
 
 public class Projectile extends Attaque {
 

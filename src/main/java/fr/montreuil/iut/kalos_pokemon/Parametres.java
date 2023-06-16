@@ -15,13 +15,12 @@ public class Parametres {
     public static final int niveauEvolutionTour = 3;
     public static final double pourcentageCoutAmelioration = 0.75;
     public static final double pourcentageRevente = 1;
-    public static final int prixpoussifeu = 50;
-    public static final int prixgranivol = 60;
-    public static final int prixmagneti = 70;
-    public static final int prixsalameche = 100;
-    public static final int prixnidoran = 80;
-    public static final int prixgrenousse = 75;
-    public static final int prixelectrode = 100;
+    public static final int prixpoussifeu = 60;
+    public static final int prixgranivol = 95;
+    public static final int prixmagneti = 100;
+    public static final int prixsalameche = 130;
+    public static final int prixnidoran = 150;
+    public static final int prixgrenousse = 110;
     public static final String nomEvolutionPoussifeu = "galifeu";
     public static final String nomEvolutionGranivol = "floravol";
     public static final String nomEvolutionMagneti = "magneton";
@@ -112,7 +111,6 @@ public class Parametres {
         else if (nom.equals("salameche")) return prixsalameche;
         else if (nom.equals("nidoran")) return prixnidoran;
         else if (nom.equals("grenousse")) return prixgrenousse;
-        else if (nom.equals("electrode")) return prixelectrode;
         return -1;
     }
 

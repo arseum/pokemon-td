@@ -5,12 +5,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 
 public class Grenousse extends Tour {
     public Grenousse(int x, int y) {
-        super(160, 40, "eau", Parametres.prixgrenousse, x, y, "grenousse", 90);
+        super(160, 75, "eau", Parametres.prixgrenousse, x, y, "grenousse", 90);
     }
 
     @Override
     protected void amelioreStats() {
-        this.degats += 40;
+        this.degats += 25 * (level.get()-1);
         this.attaqueSpeed *= 0.8;
+        portee.set(portee.get() + 5 * level.get());
     }
 }

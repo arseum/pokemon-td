@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -10,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.Map;
 
 
-public abstract class Ennemi implements Objet{
+public abstract class Ennemi implements Objet,Mobile{
 
     private static int compteurID = 1;
     private int vitesseMax;
@@ -111,7 +110,7 @@ public abstract class Ennemi implements Objet{
         this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
 
-    public void seDeplace() {
+    public void bouge() {
 
         if (estStun) {
             compteurTour++;

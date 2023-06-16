@@ -5,6 +5,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Nenupiot extends Ennemi {
     public Nenupiot(int x, int y, Game game) {
-        super(4, 100, "eau", x, y, 15, "nenupiot", game, true);
+        super(3, 100, "plante", x, y, 5, "nenupiot", game, true);
     }
 }

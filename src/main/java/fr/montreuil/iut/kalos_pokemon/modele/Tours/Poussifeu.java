@@ -5,12 +5,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 
 public class Poussifeu extends Tour {
     public Poussifeu(int x, int y) {
-        super(96, 20, "feu", Parametres.prixpoussifeu, x, y, "poussifeu", 60);
+        super(100, 30, "feu", Parametres.prixpoussifeu, x, y, "poussifeu", 50);
     }
 
     @Override
     protected void amelioreStats() {
         this.degats *= 1.5;
-        this.attaqueSpeed -= 5;
+        this.attaqueSpeed -= 6 * (level.get()-1);
+        portee.set(portee.get() + 3 * level.get());
     }
 }
