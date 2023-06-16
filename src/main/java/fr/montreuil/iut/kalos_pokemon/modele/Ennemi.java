@@ -21,6 +21,9 @@ public abstract class Ennemi implements Objet,Mobile{
     protected final IntegerProperty y;
     private final int recompense;
     private boolean estStun;
+    /**
+     * compteur de frame utile pour compter le nombre de frames que le pokemon ne peut pas bouger
+     */
     private int compteurTour;
     private final String nom;
     private final String id;
@@ -122,6 +125,9 @@ public abstract class Ennemi implements Objet,Mobile{
 
     }
 
+    /**
+     * methode a executer lorsque l'ennemi est immobile
+     */
     private void attendre() {
         compteurTour++;
         if (compteurTour == dureeStun)

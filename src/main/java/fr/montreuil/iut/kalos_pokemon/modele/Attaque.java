@@ -7,6 +7,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 
+/**
+ * super-classe qui regroupe les differents type d'attaque des tours
+ * est necessaire pour pouvoir donner un effet speciales a des attaques
+ */
 public abstract class Attaque implements Objet,Mobile {
 
     private static int compteur = 1;
@@ -15,6 +19,11 @@ public abstract class Attaque implements Objet,Mobile {
     protected IntegerProperty x;
     protected IntegerProperty y;
     protected Game game;
+    /**
+     * boolean qui permet de signaler a la vue que l'attaque se deplace
+     * il aurait pu etre remplacer par un listener qui ecoute le y et x de l'attaque mais
+     * cela est plus 'simple' de rajouter un boleanProperty
+     */
     protected BooleanProperty bouge;
 
     public Attaque(Tour tour, Game game) {
@@ -55,6 +64,10 @@ public abstract class Attaque implements Objet,Mobile {
         return y;
     }
 
-    public abstract void bouge();
+    public void bouge(){
+        //permet de faire bouger la vue
+        bouge.set(true);
+        bouge.set(false);
+    }
 
 }

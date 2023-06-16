@@ -6,6 +6,10 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+/**
+ * classe pour la zone de magneti
+ * elle ne fait pas grand chose car la zone ne se deplace pas et ne fait pas de degats
+ */
 public class Zone extends Attaque {
 
     private final BooleanProperty actif;
@@ -23,18 +27,8 @@ public class Zone extends Attaque {
         return range;
     }
 
-    @Override
-    public void bouge() {
-        //permet de faire bouger la vue
-        bouge.set(true);
-        bouge.set(false);
-    }
-
     public BooleanProperty actifProperty() {
         return actif;
     }
 
-    public boolean isActif() {
-        return actif.get();
-    }
 }

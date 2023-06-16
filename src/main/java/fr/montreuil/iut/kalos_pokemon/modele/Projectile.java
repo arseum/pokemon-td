@@ -15,20 +15,26 @@ public class Projectile extends Attaque {
         degatFinal = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
 
+    /**
+     * methode qui permet de simuler un deplacement simple des projectiles
+     * ils suivent la cible jusqu'a etre assez proche pour exploser
+     */
     @Override
     public void bouge() {
 
         if (doitBouger()) {
             y.set(getY() < cible.getY() ? getY() + 4 : getY() - 4);
             x.set(getX() < cible.getX() ? getX() + 4 : getX() - 4);
-
-            bouge.set(true);
-            bouge.set(false);
+            super.bouge();
         } else
             explotionTir();
 
     }
 
+    /**
+     * methode a executer a la fin de vie du projectiles
+     * permet de faire subir des degats a la cible puis disparait
+     */
     protected void explotionTir(){
         if (cible.getHp() > 0) {
             cible.diminueHP(degatFinal);
@@ -38,8 +44,11 @@ public class Projectile extends Attaque {
         game.remove(this);
     }
 
+    /**
+     * on estime que le projectile est arrivé lorsqu'il est a 15 pixel de la cible
+     */
     private boolean doitBouger(){
-        return (getX() > cible.getX() + 15 || getY() > cible.getY() + 15 || getX() < cible.getX() - 15 || getY() < cible.getY() - 15);
+        return Parametres.distance(this,cible) > 15;
     }
 
 }

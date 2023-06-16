@@ -55,6 +55,9 @@ public abstract class Tour implements Objet{
     public int getX() {
         return x.get();
     }
+    public int getPrix() {
+        return this.prix;
+    }
 
     public String getType(){return this.type;}
 
@@ -103,6 +106,9 @@ public abstract class Tour implements Objet{
 
     }
 
+    /**
+     * @return un ennemi si il y en a un en portée sinon renvoie null
+     */
     protected Ennemi chercheCible() {
         Ennemi cible = null;
         int index = 0;
@@ -121,22 +127,26 @@ public abstract class Tour implements Objet{
         return cible;
     }
 
+    /**
+     * methode qui est utile car il y a des tours qui ont des conditions supplementaires pour le ciblage
+     */
     protected boolean peutCibler(Ennemi ennemi) {
         return estADistance(ennemi);
     }
 
+    /**
+     * @return true si l'ennemi est a une distance inferieur a la portée de la tour
+     */
     protected boolean estADistance(Ennemi ennemi) {
         return Parametres.distance(this,ennemi) <= portee.get();
     }
 
+    /**
+     * utile car toutes les tours ne lancent pas les meme type projectiles
+     */
     protected void lanceProjectile(Ennemi cible){
         game.ajouteProjectile(new Projectile(this, cible, game));
     }
-
-    public int getPrix() {
-        return this.prix;
-    }
-
 
     public int prixRevente(){
         int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;

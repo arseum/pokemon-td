@@ -12,22 +12,22 @@ public class Game {
 
     private final Terrain terrain;
     /**
-     * il faut que cette liste contiene tout les ennemie en fonction du - loin au + loin
-     * pour l'instant tout les togepi on la meme vitesse donc ce n'est pas compliqué mais par a suite il faudra envisager
-     * le fait que les ennemi peuvent se depacer les uns des autres
+     * contient tout les ennemie en vie sur la map
      */
     private final ObservableList<Ennemi> listEnnemi;
+    /**
+     * contient tout les projectiles qui sont en train de se diriger vers un ennemie
+     */
     private final ObservableList<Attaque> listProjectile;
+    /**
+     * contient toutes les tours qui sont posé
+     */
     private final ObservableList<Tour> listTour;
     private final IntegerProperty pokedollar;
     private IntegerProperty nbFrame;
     private final IntegerProperty vie;
-
     private Wave vague;
-
     private boolean bossVaincu = false;
-
-
 
     public Game(String nomTerrain) {
         terrain = new Terrain(nomTerrain);
@@ -44,7 +44,6 @@ public class Game {
     public Game() {
         this("default");
     }
-
     public Wave getVague() {
         return vague;
     }
@@ -69,6 +68,9 @@ public class Game {
     public int getPokedollar() {
         return pokedollar.get();
     }
+    public ObservableList<Ennemi> getListEnnemi() {
+        return listEnnemi;
+    }
 
     public IntegerProperty nbFrameProperty() {
         return nbFrame;
@@ -77,17 +79,24 @@ public class Game {
     public int getNbFrameValue() {
         return nbFrame.get();
     }
-
-    public IntegerProperty getNbFrame(){return  nbFrame;}
-
-    public void ajoutePokedollar(int value) {
-        pokedollar.setValue(pokedollar.get() + value);
+    public ObservableList<Tour> getListTour() {
+        return listTour;
     }
 
+    public ObservableList<Attaque> getListProjectile() {
+        return listProjectile;
+    }
+
+    public IntegerProperty getNbFrame(){return  nbFrame;}
     public void perdVie(int value) {
         vie.set(vie.get() - value);
     }
-
+    public void ajoutePokedollar(int value) {
+        pokedollar.setValue(pokedollar.get() + value);
+    }
+    public void ajouteProjectile(Attaque a) {
+        listProjectile.add(a);
+    }
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
     }
@@ -97,14 +106,6 @@ public class Game {
             t.setGame(this);
             pokedollar.set(pokedollar.get() - t.getPrix());
         }
-    }
-
-    public void ajouteProjectile(Attaque a) {
-        listProjectile.add(a);
-    }
-
-    public ObservableList<Ennemi> getListEnnemi() {
-        return listEnnemi;
     }
 
     public boolean tourSurMemePosition(int x, int y) {
@@ -125,14 +126,6 @@ public class Game {
         return (Parametres.prixTour(nomTour) != -1) && (Parametres.prixTour(nomTour) <= this.pokedollar.get());
     }
 
-    public ObservableList<Tour> getListTour() {
-        return listTour;
-    }
-
-    public ObservableList<Attaque> getListProjectile() {
-        return listProjectile;
-    }
-
     public void remove(Attaque p) {
         listProjectile.remove(p);
     }
@@ -143,7 +136,7 @@ public class Game {
 
     /**
      * methode appelée a chaque frame
-     * utilisé notament pour les deplacements
+     * utilisé notament pour les deplacements et la gestion des tours
      */
     public void uneFrame() {
 
@@ -160,16 +153,19 @@ public class Game {
         return null;
     }
 
+    /**
+     * supprime une tour de la liste et rajoute un peu d'argent en contre-partit
+     */
     public void vendreTour(Tour t){
         this.listTour.remove(t);
         if (t instanceof Magneti magneti)
             magneti.vendre();
-        this.pokedollar.setValue(this.pokedollar.getValue() + t.prixRevente());
+        ajoutePokedollar(t.prixRevente());
     }
 
     public void ameliorerTour(Tour t){
         if(peutEtreAmeliorer(t)){
-            this.pokedollar.setValue(this.pokedollar.getValue() - t.prixAmelioration());
+            ajoutePokedollar(-t.prixAmelioration());
             t.levelUp();
         }
     }
