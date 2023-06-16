@@ -12,6 +12,7 @@ public class Ludicolo extends Ennemi {
     @Override
     protected void meurt() {
         super.meurt();
+        //todo : corectif nenupiot (ligne avant, ligne apres)
         //game.ajouteEnnemi(new Nenupiot(x.get(), y.get(), game));
         game.ajouteEnnemi(new Nenupiot((x.get()/Parametres.tailleTuile)*Parametres.tailleTuile, (y.get()/ Parametres.tailleTuile)*Parametres.tailleTuile, game));
     }

@@ -416,7 +416,6 @@ public class ControlleurMap implements Initializable {
                 else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + ".png"));
             });
 
-            //todo: redondant; le bind tour.levelProperty().isEqualTo(Parametres.niveauEvolutionTour) ne fonctionne pas
             t.levelProperty().addListener((observableValue, number, t1) -> {
                 if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
             });
