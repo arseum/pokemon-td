@@ -8,20 +8,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="fond" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0" stylesheets="@acceuil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurAcceuil">
+<AnchorPane id="fond" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0" stylesheets="@acceuil.css"
+            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurAcceuil">
    <children>
       <Label id="titre" alignment="CENTER" layoutX="551.0" layoutY="35.0" prefHeight="75.0" prefWidth="226.0" text="POKEMON TOWER DEFENSE" />
       <HBox layoutX="2.0" layoutY="185.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="1324.0">
          <children>
             <VBox fx:id="Vbox" alignment="CENTER" minWidth="-Infinity" prefHeight="402.0" prefWidth="320.0" styleClass="vbox">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="73.0" styleClass="textVbox" text="Safrania">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="73.0" text="niveau 1">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
                   <ImageView fx:id="imageNiveau1" fitHeight="272.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
-                  <Button fx:id="buttonNiveau1" minWidth="-Infinity" mnemonicParsing="false" onAction="#launchNiveau1" prefWidth="100.0" styleClass="boutonStyle" text="Play">
+                  <Button fx:id="buttonNiveau1" mnemonicParsing="false" onAction="#launchNiveau1" text="play">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -36,7 +37,7 @@
             </VBox>
             <VBox fx:id="Vbox1" alignment="CENTER" minWidth="-Infinity" prefHeight="402.0" prefWidth="320.0" styleClass="vbox">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="114.0" styleClass="textVbox" text="Frimapic">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="73.0" text="niveau 2">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -46,7 +47,7 @@
                         <Insets />
                      </VBox.margin>
                   </ImageView>
-                  <Button fx:id="buttonNiveau2" minWidth="-Infinity" mnemonicParsing="false" onAction="#launchNiveau2" prefWidth="100.0" styleClass="boutonStyle" text="Play">
+                  <Button fx:id="buttonNiveau2" mnemonicParsing="false" onAction="#launchNiveau2" text="play">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -61,13 +62,13 @@
             </VBox>
             <VBox fx:id="Vbox2" alignment="CENTER" minWidth="-Infinity" prefHeight="402.0" prefWidth="320.0" styleClass="vbox">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="116.0" styleClass="textVbox" text="Carmin sur Mer">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="73.0" text="niveau 3">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
                   <ImageView fx:id="imageNiveau3" fitHeight="272.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
-                  <Button fx:id="buttonNiveau3" minWidth="-Infinity" mnemonicParsing="false" onAction="#launchNiveau3" prefWidth="100.0" styleClass="boutonStyle" text="Play">
+                  <Button fx:id="buttonNiveau3" mnemonicParsing="false" onAction="#launchNiveau3" text="play">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
