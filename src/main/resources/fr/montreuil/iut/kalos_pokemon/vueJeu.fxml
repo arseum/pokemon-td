@@ -12,14 +12,27 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane id="sceneTestBackground" fx:id="scene" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0" stylesheets="@style_general.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
+<BorderPane id="sceneTestBackground" fx:id="scene" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0" stylesheets="@style_general.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
     <center>
         <Pane fx:id="pane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="1024.0" styleClass="background" stylesheets="@style_pane.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
         </Pane>
     </center>
     <bottom>
        <HBox>
-        <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="200.0">
+            <children>
+               <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Menu">
+                  <VBox.margin>
+                     <Insets bottom="77.0" left="25.0" right="25.0" top="77.0" />
+                  </VBox.margin>
+                  <styleClass>
+                     <String fx:value="boutonStyle" />
+                     <String fx:value="boutonStylePause" />
+                  </styleClass>
+               </Button>
+            </children>
+         </VBox>
+        <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="824.0" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fx:id="backgroundMenuTour" fitHeight="151.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
                     <image>
