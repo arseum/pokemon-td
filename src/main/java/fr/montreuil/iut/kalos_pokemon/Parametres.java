@@ -35,6 +35,7 @@ public class Parametres {
 
     //Parametres des chemin pour les tirs sprites
 
+    public static String map;
 
     //Parametres des Tours
     public static int tailleTuile = 32;
@@ -98,6 +99,10 @@ public class Parametres {
             }
         }
         return degats * multiplicateur;
+    }
+
+    public static void setMap(String s){
+        map = s;
     }
 
     public static int prixTour(String nom) {

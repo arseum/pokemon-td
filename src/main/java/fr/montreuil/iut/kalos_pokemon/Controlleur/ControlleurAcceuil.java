@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.main;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,22 +23,38 @@ public class ControlleurAcceuil implements Initializable {
     private Button buttonNiveau1;
     @FXML
     private ImageView imageNiveau1;
+    @FXML
+    private ImageView imageNiveau2;
+    @FXML
+    private ImageView imageNiveau3;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         buttonNiveau1.setCursor(Cursor.HAND);
         imageNiveau1.setImage(new Image("File:" + Parametres.cheminInterface + "niveau 1.png"));
-
+        imageNiveau2.setImage(new Image("File:" + Parametres.cheminInterface + "niveau 2.png"));
+        imageNiveau3.setImage(new Image("File:" + Parametres.cheminInterface + "niveau 3.png"));
+    }
+    @FXML
+    public void launchNiveau1() throws IOException {
+        Parametres.setMap("savane");
+        changeScene();
     }
 
-    public void launchNiveau1() throws IOException {
+    @FXML
+    public void launchNiveau2() throws IOException {
+        Parametres.setMap("neige");
+        changeScene();
+    }
+    @FXML
+    public void launchNiveau3() throws IOException {
+        Parametres.setMap("eau");
+        changeScene();
+    }
 
-        FXMLLoader fxmlNiveau1 = new FXMLLoader(main.class.getResource("vueJeu.fxml"));
-        Parent p = fxmlNiveau1.load();
-
+    private void changeScene() throws IOException {
+        FXMLLoader niveau = new FXMLLoader(main.class.getResource("vueJeu.fxml"));
+        Parent p = niveau.load();
         Scene scene = buttonNiveau1.getScene();
-
         scene.setRoot(p);
-
     }
 }

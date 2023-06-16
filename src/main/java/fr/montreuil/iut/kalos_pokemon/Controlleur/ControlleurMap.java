@@ -92,7 +92,7 @@ public class ControlleurMap implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        game = new Game("savane");
+        game = new Game(Parametres.map);
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
         pause = new SimpleBooleanProperty(false);
