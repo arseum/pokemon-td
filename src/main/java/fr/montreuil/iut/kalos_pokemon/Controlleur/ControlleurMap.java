@@ -76,6 +76,9 @@ public class ControlleurMap implements Initializable {
     @FXML
     private VBox vboxPause;
 
+    @FXML
+    private Button pauseButton;
+
     public ControlleurMap() {
     }
 
@@ -120,17 +123,6 @@ public class ControlleurMap implements Initializable {
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
         clicSurTour.niveauTour.addListener(chgNiveauTour);
         clicSurTour.nomTour.addListener(chgNiveauTour);
-/*
-        clicSurTour.nomTour.addListener( (observableValue, s, t1) -> {
-            Tour t = clicSurTour.game.retourneTourAPartirId(clicSurTour.idTourSelectionnee.get());
-            if(t != null){
-                niveauTourMenu.setText("Niveau " + t.getLevel());
-                vendreTourMenu.setText("Vendre (" + t.prixRevente() + "$)");
-                ameliorerTourMenu.setText("Améliorer (" + t.prixAmelioration() + "$)");
-            }
-        });
-
- */
 
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
@@ -318,16 +310,26 @@ public class ControlleurMap implements Initializable {
             labelWave.setText( "Vague : " + t1.toString());
         }));
 
-        Button pauseButton = new Button("pause");
+        //Button pauseButton = new Button("pause");
 
+        /*
         pauseButton.setLayoutX(0);
         pauseButton.setLayoutY(0);
         pauseButton.setPrefWidth(280);
         pauseButton.setPrefHeight(100);
         pauseButton.setAlignment(Pos.CENTER);
 
+         */
+
         pauseButton.setOnAction(e-> {
-            setPause(!pause.getValue());
+            //setPause(!pause.getValue());
+            if(pause.getValue()){
+                setPause(false);
+                pauseButton.setText("Pause");
+            }else {
+                setPause(true);
+                pauseButton.setText("Continuer");
+            }
                 });
 
         pause.addListener((obs,old,nouv)-> {
@@ -342,7 +344,7 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
-        vboxPause.getChildren().add(pauseButton);
+        //vboxPause.getChildren().add(pauseButton);
 
     }
 
