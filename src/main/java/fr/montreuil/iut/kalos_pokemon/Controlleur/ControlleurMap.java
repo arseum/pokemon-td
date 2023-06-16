@@ -456,7 +456,7 @@ public class ControlleurMap implements Initializable {
         Label msg = new Label("Vous Perdez La Partie (loser)");
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("on continue quand même");
-        Button non = new Button("on quitte");
+        Button non = bouttonRetouracceuil(popup);
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
 
@@ -470,21 +470,6 @@ public class ControlleurMap implements Initializable {
         oui.setOnAction(e->{
             popup.close();
             gameLoop.play();
-        });
-
-        non.setOnAction(e ->{
-            popup.close();
-            FXMLLoader fxmlNiveau1 = new FXMLLoader(main.class.getResource("acceuil.fxml"));
-            Parent p;
-            try {
-                p = fxmlNiveau1.load();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            Scene s = pane.getScene();
-
-            s.setRoot(p);
         });
 
         popup.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
@@ -503,7 +488,7 @@ public class ControlleurMap implements Initializable {
         Label msg = new Label("Vous Gagnez La Partie (tricheur)");
         Label msg2 = new Label("Rejouer ?");
         Button oui = new Button("on rejoue");
-        Button non = new Button("on quitte");
+        Button non = new Button("on quitte ");
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
 
@@ -523,7 +508,7 @@ public class ControlleurMap implements Initializable {
 
             Label msgbis = new Label("Vous voulez vraiment rejouer ?");
             Label msg2bis = new Label("vous forcez pas on le saura pas");
-            Button ouibis = new Button("on rejoue");
+            Button ouibis = bouttonRetouracceuil(popup2);
             Button nonbis = new Button("Quitter");
             HBox hbox2 = new HBox(ouibis,nonbis);
             VBox vbox2 = new VBox(msgbis,msg2bis,hbox2);
@@ -534,11 +519,6 @@ public class ControlleurMap implements Initializable {
 
             Scene scenebis =new Scene(vbox2,250,300);
             popup2.setScene(scenebis);
-
-            ouibis.setOnAction(e2->{
-                popup2.close();
-                Platform.exit();
-            });
 
             nonbis.setOnAction(e2 ->{
                 popup2.close();
@@ -566,6 +546,27 @@ public class ControlleurMap implements Initializable {
         popup.setOnCloseRequest(e->{
 
         });
+    }
+
+    private Button bouttonRetouracceuil(Stage popup) {
+        Button non = new Button("retour acceuil");
+
+        non.setOnAction(e ->{
+            popup.close();
+            FXMLLoader fxmlNiveau1 = new FXMLLoader(main.class.getResource("acceuil.fxml"));
+            Parent p;
+            try {
+                p = fxmlNiveau1.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            Scene s = pane.getScene();
+
+            s.setRoot(p);
+        });
+
+        return non;
     }
     private void creerExploxionSprite(Objet a, String nameFile) {
         ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));

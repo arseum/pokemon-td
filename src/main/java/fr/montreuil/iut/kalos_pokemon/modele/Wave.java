@@ -9,10 +9,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Wave {
     private IntegerProperty nbFrame;
-    private IntegerProperty cptWave = new SimpleIntegerProperty(1);
+    private IntegerProperty cptWave;
     private Terrain terrain;
     private Game game;
-    private BooleanProperty gameGagnee = new SimpleBooleanProperty(false);
+    private BooleanProperty gameGagnee;
 
 
 
@@ -20,6 +20,8 @@ public class Wave {
         nbFrame = new SimpleIntegerProperty(0);
         this.terrain= terrain;
         this.game = g;
+        gameGagnee = new SimpleBooleanProperty(false);
+        cptWave = new SimpleIntegerProperty(1);
     }
 
     public void setGagne(boolean gagne) {
