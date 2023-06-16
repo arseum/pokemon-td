@@ -13,7 +13,6 @@ public class TourSprite {
 
 
     public TourSprite(Tour pokemon) {
-        //sprite = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(pokemon.getNom() + ".png")).openStream()));
         sprite = new ImageView(new Image("file:" + Parametres.cheminSpritePokemon + pokemon.getNom() + ".png"));
         sprite.setId(pokemon.getId());
         range = new Circle();

@@ -33,48 +33,6 @@ public class TerrainVue {
         return new Rectangle2D(x, y, tailleTuile, tailleTuile);
     }
 
-    //public TilePane genereMap(ArrayList<ArrayList<Integer>> map){
-    public TilePane genereMap(ArrayList<ArrayList<Integer>> map) {
-        mapVue.setPrefColumns(map.get(0).size());
-        mapVue.setPrefRows(map.size());
-
-        Image tileSet;
-        ImageView carre, carre2;
-        try {
-            //todo Faire en sorte que le fichier lu soit celui dans Terrain
-            tileSet = new Image(Objects.requireNonNull(getClass().getResource("the_tileset.png")).openStream());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        //for(int[] ligne : map)
-        for (ArrayList<Integer> ligne : map) {
-            for (int a : ligne) {
-                if (a == -1) {
-                    carre = new ImageView(tileSet);
-
-                    carre.setViewport(carreDeDecoupe(Parametres.idTuileTransparente));
-
-                    mapVue.getChildren().add(carre);
-                } else {
-                    carre = new ImageView(tileSet);
-                    carre.setViewport(carreDeDecoupe(a));
-
-
-                    carre2 = new ImageView(tileSet);
-                    carre2.setViewport(carreDeDecoupe(133));
-
-                    StackPane carreFinal = new StackPane(carre, carre2);
-                    mapVue.getChildren().add(carreFinal);
-                    //mapVue.getChildren().add(carre2);
-                }
-            }
-        }
-        return mapVue;
-    }
-
     public TilePane genererMapAvecDecor(Terrain t) {
         ArrayList<ArrayList<Integer>> map = t.getArrierePlan();
         ArrayList<ArrayList<Integer>> mapDecor = t.getDecor();

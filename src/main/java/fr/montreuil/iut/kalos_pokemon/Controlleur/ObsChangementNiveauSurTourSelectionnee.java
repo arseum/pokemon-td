@@ -24,7 +24,6 @@ public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener {
     }
 
     @Override
-    //public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
     public void changed(ObservableValue observableValue, Object o, Object t1){
         Tour t = obsClicSurTour.game.retourneTourAPartirId(obsClicSurTour.idTourSelectionnee.get());
         if(t != null){
@@ -33,11 +32,4 @@ public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener {
             ameliorerTourMenu.setText("Améliorer (" + t.prixAmelioration() + "$)");
         }
     }
-/*
-    @Override
-    public void changed(ObservableValue observableValue, Object o, Object t1) {
-
-    }
-
- */
 }
