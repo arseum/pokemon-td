@@ -19,8 +19,10 @@ public class bouleDeFeu extends Projectile{
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
 
         for (int i = listEnnemi.size() - 1 ; i >= 0 ; i--)
-            if (Parametres.distance(this,listEnnemi.get(i)) <= rayonExploxion && listEnnemi.get(i).getHp() > 0)
+            if (Parametres.distance(this,listEnnemi.get(i)) <= rayonExploxion && listEnnemi.get(i).getHp() > 0) {
                 listEnnemi.get(i).diminueHP(degatFinal);
+                tireur.ajouteDegats(degatFinal);
+            }
         game.remove(this);
 
     }

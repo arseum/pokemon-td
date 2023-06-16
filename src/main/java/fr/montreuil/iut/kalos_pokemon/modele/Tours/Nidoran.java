@@ -55,9 +55,11 @@ public class Nidoran extends TourActif {
 
     public void apliquePoison() {
         for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
-            if (ennemiEmpoisone.get(i).getHp() > 0) //si la cible est mort entre temps
+            if (ennemiEmpoisone.get(i).getHp() > 0) { //si la cible est mort entre temps
                 ennemiEmpoisone.get(i).diminueHP(degatsPoison);
                 //le poisson etant neutre pas besoin de faire un calcul avec les types
+                ajouteDegats(degatsPoison);
+            }
             else
                 ennemiEmpoisone.remove(i);
         }

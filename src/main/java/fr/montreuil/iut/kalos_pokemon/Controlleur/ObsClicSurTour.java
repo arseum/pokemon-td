@@ -18,6 +18,7 @@ public class ObsClicSurTour implements EventHandler<MouseEvent> {
     protected SimpleBooleanProperty unetourCarteSelectionnee;
     protected StringProperty idTourSelectionnee;
     protected StringProperty nomTour;
+    protected DoubleProperty compteurDegats;
     protected IntegerProperty niveauTour;
     protected Game game;
 
@@ -26,6 +27,7 @@ public class ObsClicSurTour implements EventHandler<MouseEvent> {
         this.idTourSelectionnee = new SimpleStringProperty("placeholder");
         this.nomTour = new SimpleStringProperty("placeholder");
         this.niveauTour = new SimpleIntegerProperty(0);
+        this.compteurDegats = new SimpleDoubleProperty(0);
         this.game = game;
     }
 

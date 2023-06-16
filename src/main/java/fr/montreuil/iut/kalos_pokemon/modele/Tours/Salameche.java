@@ -35,11 +35,14 @@ public class Salameche extends TourActif {
 
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
         Ennemi e;
+        double damage;
 
         for (int i = listEnnemi.size() - 1; i >= 0; i--) {
             e = listEnnemi.get(i);
             if (estADistance(e) ) {
-                e.diminueHP(Parametres.calculDegats(type,e.getType(),150));
+                damage = Parametres.calculDegats(type,e.getType(),150);
+                e.diminueHP(damage);
+                ajouteDegats(damage);
             }
         }
         tempProchainActif.set(game.getNbFrameValue() + (60*22)) ;

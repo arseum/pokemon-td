@@ -59,6 +59,8 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Label niveauTourMenu;
     @FXML
+    private Label compteurDegats;
+    @FXML
     private StackPane imageTourMenu;
     @FXML
     private Button vendreTourMenu;
@@ -106,10 +108,11 @@ public class ControlleurMap implements Initializable {
         // des données de l'encart de la tour selectionnée
         ObsClicSurTour clicSurTour = new ObsClicSurTour(game);
         ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu,imageTourMenu);
-        ObsChangementNiveauSurTourSelectionnee chgNiveauTour = new ObsChangementNiveauSurTourSelectionnee(clicSurTour, niveauTourMenu, vendreTourMenu, ameliorerTourMenu);
+        ObsChangementNiveauSurTourSelectionnee chgNiveauTour = new ObsChangementNiveauSurTourSelectionnee(clicSurTour, niveauTourMenu, vendreTourMenu, ameliorerTourMenu,compteurDegats);
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
         clicSurTour.niveauTour.addListener(chgNiveauTour);
         clicSurTour.nomTour.addListener(chgNiveauTour);
+        clicSurTour.compteurDegats.addListener(chgNiveauTour);
 
         //Iniatilisation des différents observables necessaires pour le drag&drop avec tous les effets
         //(Icone tour accompagnant la souris en mouvement discontinu, effet grisé lorsque non placable, etc..)
@@ -315,6 +318,7 @@ public class ControlleurMap implements Initializable {
         ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
         nomTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         niveauTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        compteurDegats.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         gameGagnee.bind(game.getVague().gagneProperty());
     }
 

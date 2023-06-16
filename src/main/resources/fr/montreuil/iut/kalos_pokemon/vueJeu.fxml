@@ -66,6 +66,7 @@
                <children>
                   <Label id="titreTour" fx:id="nomTourMenu" alignment="CENTER" minWidth="-Infinity" prefWidth="280.0" styleClass="policePokemon" text="Poussifeu" textAlignment="CENTER" />
                   <Label fx:id="niveauTourMenu" alignment="CENTER" minWidth="-Infinity" prefWidth="280.0" styleClass="policePokemon" text="Label" />
+                  <Label fx:id="compteurDegats" alignment="CENTER" minWidth="-Infinity" prefWidth="280.0" styleClass="policePokemon" text="Label" />
                   <StackPane fx:id="imageTourMenu" prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <ImageView id="croaporalImageSelection" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">

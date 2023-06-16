@@ -1,7 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public abstract class Tour implements Objet{
     private final IntegerProperty x;
     private final IntegerProperty y;
     protected final IntegerProperty level;
+    protected final DoubleProperty compteurDegats;
     private final String id;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
@@ -33,6 +36,7 @@ public abstract class Tour implements Objet{
         this.level = new SimpleIntegerProperty(1);
         this.nom = pokemon;
         this.attaqueSpeed = attaqueSpeed;
+        this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
     }
 
@@ -68,7 +72,12 @@ public abstract class Tour implements Objet{
     public int getLevel() {
         return level.get();
     }
-
+    public double getCompteurDegats() {
+        return compteurDegats.get();
+    }
+    public DoubleProperty compteurDegatsProperty() {
+        return compteurDegats;
+    }
     public IntegerProperty levelProperty() {
         return level;
     }
@@ -81,7 +90,7 @@ public abstract class Tour implements Objet{
     public void setGame(Game game) {
         this.game = game;
     }
-
+    protected void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
     public void levelUp(){
         if (level.get() + 1 == Parametres.niveauEvolutionTour)
             evolution();

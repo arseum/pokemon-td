@@ -13,14 +13,16 @@ import javafx.scene.control.Label;
 public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener {
     private ObsClicSurTour obsClicSurTour;
     private Label niveauTour;
+    private Label compteurDegats;
     private Button vendreTourMenu;
     private Button ameliorerTourMenu;
 
-    public ObsChangementNiveauSurTourSelectionnee(ObsClicSurTour obsClicSurTour, Label niveauTour, Button vendreTourMenu, Button ameliorerTourMenu){
+    public ObsChangementNiveauSurTourSelectionnee(ObsClicSurTour obsClicSurTour, Label niveauTour, Button vendreTourMenu, Button ameliorerTourMenu,Label compteurDegats){
         this.obsClicSurTour = obsClicSurTour;
         this.niveauTour = niveauTour;
         this.vendreTourMenu = vendreTourMenu;
         this.ameliorerTourMenu = ameliorerTourMenu;
+        this.compteurDegats = compteurDegats;
     }
 
     @Override
@@ -30,6 +32,7 @@ public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener {
             niveauTour.setText("Niveau " + t.getLevel());
             vendreTourMenu.setText("Vendre (" + t.prixRevente() + "$)");
             ameliorerTourMenu.setText("Améliorer (" + t.prixAmelioration() + "$)");
+            compteurDegats.setText("degats : " + t.getCompteurDegats());
         }
     }
 }

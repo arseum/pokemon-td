@@ -38,6 +38,7 @@ public class Projectile extends Attaque {
     protected void explotionTir(){
         if (cible.getHp() > 0) {
             cible.diminueHP(degatFinal);
+            tireur.ajouteDegats(degatFinal);
             if (tireur instanceof Nidoran nidoran)
                 nidoran.ajouteEnnemiEmpoissoner(cible);
         }
