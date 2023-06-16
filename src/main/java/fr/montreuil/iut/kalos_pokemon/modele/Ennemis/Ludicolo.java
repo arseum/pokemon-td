@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
+import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
@@ -11,6 +12,8 @@ public class Ludicolo extends Ennemi {
     @Override
     protected void meurt() {
         super.meurt();
-        game.ajouteEnnemi(new Nenupiot(x.get(), y.get(), game));
+        //todo : corectif nenupiot (ligne avant, ligne apres)
+        //game.ajouteEnnemi(new Nenupiot(x.get(), y.get(), game));
+        game.ajouteEnnemi(new Nenupiot((x.get()/Parametres.tailleTuile)*Parametres.tailleTuile, (y.get()/ Parametres.tailleTuile)*Parametres.tailleTuile, game));
     }
 }

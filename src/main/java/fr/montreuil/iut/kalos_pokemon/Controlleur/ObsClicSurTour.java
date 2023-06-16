@@ -9,6 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Permet de gerer les clics sur une tour de la map. Clic gauche sur range + achat/vente
+ * Clic droit attaque spéciale si disponible
+ */
 public class ObsClicSurTour implements EventHandler<MouseEvent> {
 
     protected SimpleBooleanProperty unetourCarteSelectionnee;

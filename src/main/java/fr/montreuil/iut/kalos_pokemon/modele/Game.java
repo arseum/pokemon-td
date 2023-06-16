@@ -34,7 +34,7 @@ public class Game {
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
-        pokedollar = new SimpleIntegerProperty(300);
+        pokedollar = new SimpleIntegerProperty(850);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
         vague= new Wave(terrain,this);
