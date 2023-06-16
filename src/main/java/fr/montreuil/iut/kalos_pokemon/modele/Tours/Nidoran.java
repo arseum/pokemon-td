@@ -11,8 +11,6 @@ import java.util.List;
 
 public class Nidoran extends TourActif {
 
-    //private final ArrayList<Ennemi> ennemiEmpoisone;
-
     private ObservableList<Ennemi> ennemiEmpoisone;
     private int degatsPoison;
 
@@ -33,10 +31,8 @@ public class Nidoran extends TourActif {
     public void actif() {
 
         for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
-            ennemiEmpoisone.get(i).reduitVitese(1);
+            ennemiEmpoisone.get(i).reduitVitesseMax(1);
         }
-
-        //todo les ennemis slow ne doivent pas reset leur vitesse grace au magneti
 
         tempProchainActif.set(game.getNbFrameValue() + (60*5));
 

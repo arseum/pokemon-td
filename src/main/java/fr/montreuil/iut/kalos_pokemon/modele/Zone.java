@@ -19,10 +19,6 @@ public class Zone extends Attaque {
         actif.bind(tour.actifProperty());
     }
 
-    public int getRange() {
-        return range.get();
-    }
-
     public IntegerProperty rangeProperty() {
         return range;
     }

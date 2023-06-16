@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
@@ -128,7 +129,7 @@ public class Game {
         return listProjectile;
     }
 
-    public void remove(Projectile p) {
+    public void remove(Attaque p) {
         listProjectile.remove(p);
     }
 
@@ -142,23 +143,20 @@ public class Game {
      */
     public void uneFrame() {
 
-        for (int i = listEnnemi.size() - 1; i >= 0; i--) {
+        for (int i = listEnnemi.size() - 1; i >= 0; i--)
             listEnnemi.get(i).seDeplace();
-        }
 
-        for (int i = listProjectile.size() - 1; i >= 0; i--) {
-            //les zones douvent bouger que lorsqu'elles sont actifs car elle sont en permanance dans la list de projectiles
-            if (listProjectile.get(i) instanceof Zone zone && zone.isActif())
-                listProjectile.get(i).bouge();
-            else
-                listProjectile.get(i).bouge();
-        }
+        for (int i = listProjectile.size() - 1; i >= 0; i--)
+            listProjectile.get(i).bouge();
 
         for (Tour t : listTour) {
             if (getNbFrameValue() >= t.tempProchaineAttaque)
                 t.attaque();
+
             if (t instanceof Nidoran nidoran && getNbFrameValue() % 20 == 0)
                 nidoran.apliquePoison();
+            else if (t instanceof Magneti magneti && magneti.isActif())
+                magneti.getZone().bouge();
         }
 
     }
@@ -172,6 +170,8 @@ public class Game {
 
     public void vendreTour(Tour t){
         this.listTour.remove(t);
+        if (t instanceof Magneti magneti)
+            magneti.vendre();
         this.pokedollar.setValue(this.pokedollar.getValue() + t.prixRevente());
     }
 
