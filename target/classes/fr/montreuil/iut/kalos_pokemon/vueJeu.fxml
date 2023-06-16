@@ -23,7 +23,7 @@
             <children>
                 <ImageView fx:id="backgroundMenuTour" fitHeight="151.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@Vue/pixel-art-wood.png" />
+                        <Image url="@Vue/Interface/pixel-art-wood.png" />
                     </image>
                 </ImageView>
                 <HBox fx:id="conteneurTourMenu" alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="1024.0">

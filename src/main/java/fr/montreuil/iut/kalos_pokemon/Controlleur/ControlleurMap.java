@@ -74,6 +74,9 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Button ameliorerTourMenu;
 
+    @FXML
+    private Button pauseButton;
+
     public ControlleurMap() {
     }
 
@@ -109,10 +112,7 @@ public class ControlleurMap implements Initializable {
         Parametres.init();
 
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
-        pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
-        pane.setPrefWidth(game.getTerrain().getLargeurTerrain());
         pane.getChildren().add(map);
-        backgroundMenuBas.setFitWidth(game.getTerrain().getLargeurTerrain());
 
         String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "nidoran"};
         CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
@@ -125,6 +125,7 @@ public class ControlleurMap implements Initializable {
         ObsChangementNiveauSurTourSelectionnee chgNiveauTour = new ObsChangementNiveauSurTourSelectionnee(clicSurTour, niveauTourMenu, vendreTourMenu, ameliorerTourMenu);
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
         clicSurTour.niveauTour.addListener(chgNiveauTour);
+        clicSurTour.nomTour.addListener(chgNiveauTour);
 
 
         //Binds
@@ -323,17 +324,16 @@ public class ControlleurMap implements Initializable {
             labelWave.setText( "Vague : " + t1.toString());
         }));
 
-        Button pauseButton = new Button("pause");
-
-        pauseButton.setLayoutX(0);
-        pauseButton.setLayoutY(0);
-        pauseButton.setPrefWidth(125);
-        pauseButton.setPrefHeight(15);
-        pauseButton.setAlignment(Pos.CENTER);
-
         pauseButton.setOnAction(e-> {
-            setPause(!pause.getValue());
-                });
+            //setPause(!pause.getValue());
+            if(pause.getValue()){
+                setPause(false);
+                pauseButton.setText("Pause");
+            }else {
+                setPause(true);
+                pauseButton.setText("Continuer");
+            }
+        });
 
         pause.addListener((obs,old,nouv)-> {
             if (nouv.equals(true)){
@@ -343,11 +343,9 @@ public class ControlleurMap implements Initializable {
             }
         });
 
-
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
-        conteneurTourMenu.getChildren().add(pauseButton);
 
     }
 

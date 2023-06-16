@@ -1,7 +1,6 @@
 #fond{
     -fx-background-image: url("Vue/Interface/acceuil/fond.png");
     -fx-background-size: contain;
-    /*-fx-background-repeat: repeat-y;*/
 }
 
 #titre{
