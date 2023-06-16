@@ -13,8 +13,7 @@ public class Parametres {
 
     //Le niveau à partir duquel une tour "évolue" c-a-d qu'elle change d'apparence
     public static final int niveauEvolutionTour = 3;
-    public static final double pourcentageCoutAmelioration = 0.75;
-    public static final double pourcentageRevente = 1;
+    public static final double pourcentageRevente = 0.75;
 
     // Prix
 
@@ -53,7 +52,7 @@ public class Parametres {
     public static int hauteurTileset = 512;
     public static int nbTuilesLargueur = largeurTileset / tailleTuile;
     public static int nbTuilesHauteur = hauteurTileset / tailleTuile;
-    public static int idTuileTransparente = 15; //À modifier
+    public static int idTuileTransparente = 15;
     public static int debutZoneCheminTileSet = ((largeurTileset / tailleTuile / 2) + 1) * tailleTuile;
     public static int colonneZoneDepartTileSet = (largeurTileset / tailleTuile) - 3;
     public static int colonneZoneArriveeTileSet = (largeurTileset / tailleTuile) - 1;

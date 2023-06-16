@@ -96,12 +96,15 @@ public class ControlleurMap implements Initializable {
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.getChildren().add(map);
 
+        //Initialisation de la barre d'achat des tours
         String[] listeTour = {"poussifeu", "granivol", "magneti", "salameche", "nidoran", "grenousse"}; // ordre des tours dans le menu
         CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
         createurMenu.creationMenu(conteneurTourMenu);
         ObsPokedollarMenuAchat testPoke2 = new ObsPokedollarMenuAchat(conteneurTourMenu, listeTour);
         game.PokedollarProperty().addListener(testPoke2);
 
+        //Iniatilisation des différents observables necessaires pour une mise à jour
+        // des données de l'encart de la tour selectionnée
         ObsClicSurTour clicSurTour = new ObsClicSurTour(game);
         ObsTourCarteSelectionnee tourCarteSelectionnee = new ObsTourCarteSelectionnee(nomTourMenu,imageTourMenu);
         ObsChangementNiveauSurTourSelectionnee chgNiveauTour = new ObsChangementNiveauSurTourSelectionnee(clicSurTour, niveauTourMenu, vendreTourMenu, ameliorerTourMenu);
@@ -109,40 +112,19 @@ public class ControlleurMap implements Initializable {
         clicSurTour.niveauTour.addListener(chgNiveauTour);
         clicSurTour.nomTour.addListener(chgNiveauTour);
 
+        //Iniatilisation des différents observables necessaires pour le drag&drop avec tous les effets
+        //(Icone tour accompagnant la souris en mouvement discontinu, effet grisé lorsque non placable, etc..)
+        ObsClicMenuAchatTour menuTourObs = new ObsClicMenuAchatTour(scene, game);
+        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, game);
+        conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, ajoutTour);
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, ajoutTour);
 
-        //Binds
+        ObsTourEnCoursAjout obsTourEnCoursAjout = new ObsTourEnCoursAjout(scene);
+        menuTourObs.estSelectionnee.addListener(obsTourEnCoursAjout);
 
-        vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
-        ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
-        nomTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
-        niveauTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
-        gameGagnee.bind(game.getVague().gagneProperty());
-
-
-        // setOnAction's
-        vendreTourMenu.setOnAction( e -> {
-            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
-            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
-            if(tourSelectionnee){
-                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
-                game.vendreTour(t);
-                clicSurTour.unetourCarteSelectionnee.set(false);
-                clicSurTour.nomTour.set("placeholder");
-
-            }
-        });
-
-        ameliorerTourMenu.setOnAction( e -> {
-            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
-            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
-            if (tourSelectionnee) {
-                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
-                game.ameliorerTour(t);
-                clicSurTour.niveauTour.set(t.getLevel());
-            }
-        });
-
-        buttonMenu.setOnAction( e -> partiePerdue("jeu mis en pause"));
+        bindProprietesPourEncartTour(clicSurTour);
+        initialisationButtonAchatVente(clicSurTour);
 
         //Permet de deselectionner une tour lorsqu'on clic ailleurs sur la map
         pane.setOnMouseClicked( e -> {
@@ -161,65 +143,8 @@ public class ControlleurMap implements Initializable {
         }
         initLabel();
 
-        //creation du listener qui va ecouter la list des ennemi de game
-        ListChangeListener<Ennemi> listenEnnemi = (c -> {
-            while (c.next()) {
-                if (c.wasAdded())
-                    for (Ennemi a : c.getAddedSubList()) {
-                        try {
-                            creerEnnemiSprite(a);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                else if (c.wasRemoved())
-                    for (Ennemi a : c.getRemoved()) {
-                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
-                    }
-            }
-        });
-        game.getListEnnemi().addListener(listenEnnemi);
+        initialisationDesListenerTourEnnemiProjectile(clicSurTour);
 
-        //de meme pour les tours
-        ListChangeListener<Tour> listenTour = (c -> {
-            while (c.next()) {
-                if (c.wasAdded())
-                    for (Tour a : c.getAddedSubList()) {
-                        try {
-                            creerTourSprite(a, clicSurTour);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                else if (c.wasRemoved())
-                    for (Tour a : c.getRemoved()) {
-                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
-                        pane.getChildren().remove(pane.lookup("#" + "range_" + a.getId()));
-                    }
-            }
-        });
-        game.getListTour().addListener(listenTour);
-
-        //de meme pour les projectiles
-        ListChangeListener<Attaque> listenProjectiles = (c -> {
-            while (c.next()) {
-                if (c.wasAdded())
-                    for (Attaque a : c.getAddedSubList()) {
-                        try {
-                            creerTirSprite(a);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                else if (c.wasRemoved())
-                    for (Attaque a : c.getRemoved()) {
-                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
-                        if (a instanceof bouleDeFeu)
-                            creerExploxionSprite(a,"salameche_exploxion.gif");
-                    }
-            }
-        });
-        game.getListProjectile().addListener(listenProjectiles);
 
         game.vieProperty().addListener((obs,old,nouv)-> {
             if ((int)nouv==0)
@@ -230,15 +155,6 @@ public class ControlleurMap implements Initializable {
             if (isGameGagnee())
                 partieGagnee();
         });
-
-        ObsClicMenuAchatTour menuTourObs = new ObsClicMenuAchatTour(scene, game);
-        ObsMvtClicAjoutTour ajoutTour = new ObsMvtClicAjoutTour(menuTourObs, game);
-        conteneurTourMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, menuTourObs);
-        scene.addEventHandler(MouseEvent.MOUSE_MOVED, ajoutTour);
-        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, ajoutTour);
-
-        ObsTourEnCoursAjout obsTourEnCoursAjout = new ObsTourEnCoursAjout(scene);
-        menuTourObs.estSelectionnee.addListener(obsTourEnCoursAjout);
 
         //lancement de la game loop
         gameLoop.play();
@@ -331,6 +247,104 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
 
+    }
+
+    private void initialisationDesListenerTourEnnemiProjectile(ObsClicSurTour clicSurTour){
+        //creation du listener qui va ecouter la list des ennemi de game
+        ListChangeListener<Ennemi> listenEnnemi = (c -> {
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (Ennemi a : c.getAddedSubList()) {
+                        try {
+                            creerEnnemiSprite(a);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (Ennemi a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                    }
+            }
+        });
+        game.getListEnnemi().addListener(listenEnnemi);
+
+        //de meme pour les tours
+        ListChangeListener<Tour> listenTour = (c -> {
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (Tour a : c.getAddedSubList()) {
+                        try {
+                            creerTourSprite(a, clicSurTour);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (Tour a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        pane.getChildren().remove(pane.lookup("#" + "range_" + a.getId()));
+                    }
+            }
+        });
+        game.getListTour().addListener(listenTour);
+
+        //de meme pour les projectiles
+        ListChangeListener<Attaque> listenProjectiles = (c -> {
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (Attaque a : c.getAddedSubList()) {
+                        try {
+                            creerTirSprite(a);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (Attaque a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        if (a instanceof bouleDeFeu)
+                            creerExploxionSprite(a,"salameche_exploxion.gif");
+                    }
+            }
+        });
+        game.getListProjectile().addListener(listenProjectiles);
+    }
+
+    private void bindProprietesPourEncartTour(ObsClicSurTour clicSurTour){
+        vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
+        nomTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        niveauTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
+        gameGagnee.bind(game.getVague().gagneProperty());
+    }
+
+
+    private void initialisationButtonAchatVente(ObsClicSurTour clicSurTour){
+        // setOnAction's
+        vendreTourMenu.setOnAction( e -> {
+            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
+            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
+            if(tourSelectionnee){
+                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
+                game.vendreTour(t);
+                clicSurTour.unetourCarteSelectionnee.set(false);
+                clicSurTour.nomTour.set("placeholder");
+
+            }
+        });
+
+        ameliorerTourMenu.setOnAction( e -> {
+            Boolean tourSelectionnee = clicSurTour.unetourCarteSelectionnee.get();
+            String idTourSelectionnee = clicSurTour.idTourSelectionnee.get();
+            if (tourSelectionnee) {
+                Tour t = game.retourneTourAPartirId(idTourSelectionnee);
+                game.ameliorerTour(t);
+                clicSurTour.niveauTour.set(t.getLevel());
+            }
+        });
+
+        buttonMenu.setOnAction( e -> partiePerdue("jeu mis en pause"));
     }
 
     /**
