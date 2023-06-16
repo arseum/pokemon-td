@@ -16,6 +16,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -239,7 +240,7 @@ public class ControlleurMap implements Initializable {
 
         game.vieProperty().addListener((obs,old,nouv)-> {
             if ((int)nouv==0)
-                partiePerdue();
+                partiePerdue("Vous Perdez La Partie (loser)");
         });
 
         gameGagnee.addListener((obs,old,nouv)-> {
@@ -446,12 +447,12 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(sprite.getHitBox());
     }
 
-    public void partiePerdue(){
+    public void partiePerdue(String message){
         gameLoop.stop();
         Stage popup = new Stage();
         popup.setTitle("Partie Terminée !");
 
-        Label msg = new Label("Vous Perdez La Partie (loser)");
+        Label msg = new Label(message);
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("on continue quand même");
         Button non = bouttonRetouracceuil(popup);
@@ -589,8 +590,11 @@ public class ControlleurMap implements Initializable {
 
     }
 
-
-  }
+    @FXML
+    public void quitter() {
+        partiePerdue("jeu mis en pause");
+    }
+}
 
 
 

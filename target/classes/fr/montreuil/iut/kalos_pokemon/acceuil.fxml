@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="fond" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0" stylesheets="@acceuil.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurAcceuil">
+<AnchorPane id="fond" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0" stylesheets="@acceuil.css"
+            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurAcceuil">
    <children>
       <Label id="titre" alignment="CENTER" layoutX="551.0" layoutY="35.0" prefHeight="75.0" prefWidth="226.0" text="POKEMON TOWER DEFENSE" />
       <HBox layoutX="2.0" layoutY="185.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="1324.0">
