@@ -1,15 +1,11 @@
-@font-face {
-    font-family: 'pokemon-dppt';
-    src: url('Vue/pokemon-dppt.ttf');
+.root{
+    -fx-font-family: 'pokemon dppt';
+}
+.policePokemon{
+    -fx-font-family: 'pokemon dppt';
 }
 
 #sceneTestBackground{
-    /*-fx-background-color: yellow;*/
-    /*-fx-background-image: url("Vue/Interface/fond_menu_dalles.png");
-    -fx-background-size: contain;
-    */
-
-    /*-fx-background-repeat: repeat-y;*/
     -fx-background-color: #464646;
 }
 #actionsTourContenant{
@@ -22,8 +18,8 @@
 }
 
 #titreTour{
-    -fx-font-family: 'pokemon-dppt';
     -fx-font-size: 30px;
+    -fx-text-transform: uppercase;
 }
 
 .boutonStyle{
@@ -31,10 +27,18 @@
         -fx-background-radius: 30;
         -fx-background-insets: 0;
         -fx-text-fill: white;
-        -fx-font-size: 15px;
+        -fx-font-size: 12px;
 }
 .boutonStyle:hover{
-    -fx-font-size: 17px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
+}
+
+.boutonStylePause{
+       -fx-font-size: 15px;
+}
+
+.boutonStylePause:hover{
+        -fx-font-size: 17px;
 }
