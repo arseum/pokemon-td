@@ -539,6 +539,7 @@ public class ControlleurMap implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(1),
                 event -> {
+
                     pane.getChildren().remove(gifImageView);
                 }
         ));
