@@ -8,12 +8,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="fond" prefHeight="735.0" prefWidth="1260.0"
-            stylesheets="@acceuil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurAcceuil">
+<AnchorPane id="fond" prefHeight="735.0" prefWidth="1260.0" stylesheets="@acceuil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurAcceuil">
    <children>
-      <Label alignment="CENTER" layoutX="487.0" layoutY="36.0" prefHeight="75.0" prefWidth="226.0" text="POKEMON TOWER DEFENSE" id="titre" />
-      <HBox layoutX="81.0" layoutY="160.0" prefHeight="402.0" prefWidth="804.0">
+      <Label id="titre" alignment="CENTER" layoutX="487.0" layoutY="36.0" prefHeight="75.0" prefWidth="226.0" text="POKEMON TOWER DEFENSE" />
+      <HBox layoutX="81.0" layoutY="160.0" prefHeight="402.0" prefWidth="1059.0">
          <children>
             <VBox fx:id="Vbox" alignment="CENTER" prefHeight="402.0" prefWidth="304.0" styleClass="vbox">
                <children>
@@ -24,6 +22,49 @@
                   </Label>
                   <ImageView fx:id="imageNiveau1" fitHeight="272.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
                   <Button fx:id="buttonNiveau1" mnemonicParsing="false" onAction="#launchNiveau1" text="play">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="Vbox1" alignment="CENTER" prefHeight="402.0" prefWidth="304.0" styleClass="vbox">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="73.0" text="niveau 2">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ImageView fx:id="imageNiveau2" fitHeight="272.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button fx:id="buttonNiveau2" mnemonicParsing="false" onAction="#launchNiveau2" text="play">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="25.0" right="25.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox fx:id="Vbox2" alignment="CENTER" prefHeight="402.0" prefWidth="304.0" styleClass="vbox">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="73.0" text="niveau 3">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ImageView fx:id="imageNiveau3" fitHeight="272.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
+                  <Button fx:id="buttonNiveau3" mnemonicParsing="false" onAction="#launchNiveau3" text="play">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
