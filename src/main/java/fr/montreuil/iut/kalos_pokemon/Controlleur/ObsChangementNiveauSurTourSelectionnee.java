@@ -32,7 +32,7 @@ public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener {
             niveauTour.setText("Niveau " + t.getLevel());
             vendreTourMenu.setText("Vendre (" + t.prixRevente() + "$)");
             ameliorerTourMenu.setText("Améliorer (" + t.prixAmelioration() + "$)");
-            compteurDegats.setText("degats : " + t.getCompteurDegats());
+            compteurDegats.setText("Total dégâts : " + (int)t.getCompteurDegats());
         }
     }
 }
