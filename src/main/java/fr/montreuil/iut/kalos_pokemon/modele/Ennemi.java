@@ -34,6 +34,7 @@ public abstract class Ennemi implements Objet,Mobile{
     private int[] infoDeplacement;
     private boolean estTerrestre;
     private int dureeStun;
+    protected boolean estArrive;
 
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
         this.id = "Ennemi_n°" + compteurID;
@@ -51,6 +52,7 @@ public abstract class Ennemi implements Objet,Mobile{
         this.estTerrestre = estTerrestre;
         this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
         this.estStun = false;
+        this.estArrive = false;
         setInfoDeplacement();
     }
 
@@ -60,6 +62,10 @@ public abstract class Ennemi implements Objet,Mobile{
 
     public String getNom() {
         return nom;
+    }
+
+    public boolean isEstArrive() {
+        return estArrive;
     }
 
     public void reduitVitese(int v) {
@@ -157,6 +163,7 @@ public abstract class Ennemi implements Objet,Mobile{
         if (infoDeplacement[2]/32 == game.getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == game.getTerrain().getCaseArrivee()[1]/32){
             game.remove(this);
             game.perdVie(1);
+            estArrive = true;
         }
     }
 
