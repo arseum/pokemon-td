@@ -13,7 +13,7 @@ import java.util.Map;
 public abstract class Ennemi implements Objet{
 
     private static int compteurID = 1;
-    private final int vitesseMax;
+    private int vitesseMax;
     private final double hpMax;
     private final String type;
     protected final IntegerProperty x;
@@ -26,7 +26,6 @@ public abstract class Ennemi implements Objet{
     private final Map<Integer, Integer> cheminVersArrive;
     private final DoubleProperty hp;
     protected final Game game;
-    private boolean estEmpoisonner;
     private int vitesseActuel;
     private int[] infoDeplacement;
     private boolean estTerrestre;
@@ -47,20 +46,7 @@ public abstract class Ennemi implements Objet{
         this.estTerrestre = estTerrestre;
         this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
         this.estStun = false;
-        this.estEmpoisonner = false;
         setInfoDeplacement();
-    }
-
-    public int getRecompense() {
-        return recompense;
-    }
-
-    public void setEstEmpoisonner(boolean estEmpoisonner) {
-        this.estEmpoisonner = estEmpoisonner;
-    }
-
-    public boolean isEstEmpoisonner() {
-        return estEmpoisonner;
     }
 
     public String getId() {
@@ -108,7 +94,11 @@ public abstract class Ennemi implements Objet{
     public IntegerProperty yProperty() {
         return y;
     }
-
+    public void reduitVitesseMax(int value){
+        //il faut empecher l'accumulation de slow qui pourront mettre la vitesse a 0
+        vitesseMax = vitesseMax - value > 0 ? vitesseMax - value : 1;
+        vitesseActuel = vitesseMax;
+    }
 
     public void resetVitesse() {
         vitesseActuel = vitesseMax;

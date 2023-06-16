@@ -31,6 +31,14 @@ public class Magneti extends TourActif {
         return actif;
     }
 
+    public boolean isActif() {
+        return actif.get();
+    }
+
+    public Zone getZone() {
+        return zone;
+    }
+
     @Override
     public void setGame(Game game) {
         super.setGame(game);
@@ -70,8 +78,7 @@ public class Magneti extends TourActif {
         //reset les vitesses des ennemis qui ont été slow avant et supprime les ennemie mort
         for (int i = ennemisCible.size() - 1; i >= 0; i--) {
             if (ennemisCible.get(i).getHp() <= 0 || Parametres.distance(this,ennemisCible.get(i)) > portee.get()) {
-                if (!ennemisCible.get(i).isEstEmpoisonner())
-                    ennemisCible.get(i).resetVitesse();
+                ennemisCible.get(i).resetVitesse();
                 ennemisCible.remove(i);
             }
         }
@@ -89,5 +96,16 @@ public class Magneti extends TourActif {
 
         actif.setValue(ennemisCible.size() > 0);
 
+    }
+
+    /**
+     * permet de retirer la son animation dans la vue et
+     * de retirer les slow sur les ennemi
+     */
+    public void vendre(){
+        game.remove(zone);
+
+        for (Ennemi e : ennemisCible)
+            e.resetVitesse();
     }
 }
