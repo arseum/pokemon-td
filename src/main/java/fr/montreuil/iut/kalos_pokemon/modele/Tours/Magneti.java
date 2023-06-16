@@ -21,7 +21,7 @@ public class Magneti extends TourActif {
     private int dureeStun;
 
     public Magneti(int x, int y) {
-        super(85, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0);
+        super(90, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
         zone = new Zone(this, game);
@@ -48,10 +48,10 @@ public class Magneti extends TourActif {
 
     @Override
     protected void amelioreStats() {
-        portee.set(portee.get() + (5*level.get()));
+        portee.set(portee.get() + (6*level.get()));
         if(level.get() == Parametres.niveauEvolutionTour) {
             valeurSlow = 2;
-            dureeStun = 120; //2s
+            dureeStun = 90; //1,5s
         }
     }
 

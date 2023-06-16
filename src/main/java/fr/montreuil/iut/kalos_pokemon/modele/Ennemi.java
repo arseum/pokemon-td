@@ -154,8 +154,6 @@ public abstract class Ennemi implements Objet,Mobile{
             setInfoDeplacement();
         }
 
-        //todo : corectif nenupiot (ligne avant, ligne apres)
-        //if (infoDeplacement[2] == game.getTerrain().getCaseArrivee()[0] && infoDeplacement[3] == game.getTerrain().getCaseArrivee()[1] && arriveX && arriveY) {
         if (infoDeplacement[2]/32 == game.getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == game.getTerrain().getCaseArrivee()[1]/32){
             game.remove(this);
             game.perdVie(1);

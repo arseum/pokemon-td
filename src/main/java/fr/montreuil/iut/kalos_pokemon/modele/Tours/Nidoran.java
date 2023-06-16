@@ -15,7 +15,7 @@ public class Nidoran extends TourActif {
     private int degatsPoison;
 
     public Nidoran(int x, int y) {
-        super(128, 4, "neutre", Parametres.prixnidoran, x, y, "nidoran", 30);
+        super(115, 3, "neutre", Parametres.prixnidoran, x, y, "nidoran", 30);
         //ennemiEmpoisone = new ArrayList<>();
         ennemiEmpoisone = FXCollections.observableArrayList();
         degatsPoison = 2;

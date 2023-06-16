@@ -14,7 +14,7 @@ public class Salameche extends TourActif {
     private int rayonExploxion;
     private IntegerProperty actif;
     public Salameche(int x, int y) {
-        super(90, 50, "feu", Parametres.prixsalameche, x, y, "salameche", 40);
+        super(98, 50, "feu", Parametres.prixsalameche, x, y, "salameche", 40);
         rayonExploxion = 57;
         actif = new SimpleIntegerProperty(0);
     }

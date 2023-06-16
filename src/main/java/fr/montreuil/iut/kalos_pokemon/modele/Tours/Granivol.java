@@ -6,7 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 public class Granivol extends Tour {
 
     public Granivol(int x, int y) {
-        super(160, 4, "plante", Parametres.prixgranivol, x, y, "granivol", 6);
+        super(160, 5, "plante", Parametres.prixgranivol, x, y, "granivol", 6);
     }
 
     @Override
@@ -15,7 +15,6 @@ public class Granivol extends Tour {
             portee.set(180);}
         else {
             attaqueSpeed = 5;
-
         }
         degats += 1;
     }

@@ -5,7 +5,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Boss extends Ennemi {
     public Boss( int x, int y, Game game) {
-        super(2, 8000, "neutre", x, y, 0, "rayquaza", game, true);
+        super(2, 10545, "neutre", x, y, 0, "rayquaza", game, true);
     }
 
     @Override

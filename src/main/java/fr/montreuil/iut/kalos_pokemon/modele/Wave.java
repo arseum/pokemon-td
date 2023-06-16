@@ -151,10 +151,7 @@ public class Wave {
             }
         }
 
-
         //Pause 15s
-
-
 
         else if (frameAct >12200 && frameAct<=12800 ) {
             if (frameAct ==12201) setWave(getWave()+1);
@@ -202,23 +199,26 @@ public class Wave {
         else if (frameAct >15800 && frameAct<=16400 ) {
             if (frameAct ==15801) setWave(getWave()+1);
 
-            if ( frameAct %140==0){
+            if ( frameAct %110==0){
                 game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));// WAVE 13
             }
-            if ( frameAct %80==0){
+            if ( frameAct %70==0){
                 game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));
             }
 
             if (frameAct %100==0) {
                 game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
             }
-            if (getNbFrame()%140==0) {
+            if (getNbFrame()%120==0) {
                 game.ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32, game));
             }
         }
 
         else if (frameAct >16300 && frameAct<=16900 ) {
-            if (frameAct ==16301) setWave(getWave()+1);
+            if (frameAct ==16302) {
+                setWave(getWave() + 1);
+                System.out.println("coucou");
+            }
 
             if ( frameAct %50==0){
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 14
