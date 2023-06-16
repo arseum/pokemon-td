@@ -62,10 +62,6 @@ public class Game {
         return bossVaincu;
     }
 
-    public int getVie() {
-        return vie.get();
-    }
-
     public IntegerProperty vieProperty() {
         return vie;
     }
@@ -112,8 +108,8 @@ public class Game {
     }
 
     public boolean tourSurMemePosition(int x, int y) {
-        for (Tour t : this.getListTour()) {
-            if (t.getX() / Parametres.tailleTuile == x / Parametres.tailleTuile && t.getY() / Parametres.tailleTuile == y / Parametres.tailleTuile) {
+        for (Tour tour : this.getListTour()) {
+            if (estSurMemeCase(tour,x,y)) {
                 return true;
             }
 
@@ -157,6 +153,31 @@ public class Game {
 
     }
 
+    public Tour retourneTourAPartirId(String id){
+        for (Tour t : this.listTour){
+            if(t.getId().equals(id)) return t;
+        }
+        return null;
+    }
+
+    public void vendreTour(Tour t){
+        this.listTour.remove(t);
+        if (t instanceof Magneti magneti)
+            magneti.vendre();
+        this.pokedollar.setValue(this.pokedollar.getValue() + t.prixRevente());
+    }
+
+    public void ameliorerTour(Tour t){
+        if(peutEtreAmeliorer(t)){
+            this.pokedollar.setValue(this.pokedollar.getValue() - t.prixAmelioration());
+            t.levelUp();
+        }
+    }
+
+    private boolean peutEtreAmeliorer(Tour tour) {
+        return this.pokedollar.getValue() - tour.prixAmelioration() >= 0 && tour.getLevel() < Parametres.niveauEvolutionTour;
+    }
+
     private void deplacement(ObservableList<? extends Mobile> list){
         for (int i = list.size() - 1; i >= 0; i--)
             list.get(i).bouge();
@@ -174,28 +195,8 @@ public class Game {
         }
     }
 
-    public Tour retourneTourAPartirId(String id){
-        for (Tour t : this.listTour){
-            if(t.getId().equals(id)) return t;
-        }
-        return null;
+    private boolean estSurMemeCase(Tour t, int x, int y) {
+        return t.getX() / Parametres.tailleTuile == x / Parametres.tailleTuile && t.getY() / Parametres.tailleTuile == y / Parametres.tailleTuile;
     }
-
-    public void vendreTour(Tour t){
-        this.listTour.remove(t);
-        if (t instanceof Magneti magneti)
-            magneti.vendre();
-        this.pokedollar.setValue(this.pokedollar.getValue() + t.prixRevente());
-    }
-
-    public void ameliorerTour(Tour t){
-        if(this.pokedollar.getValue() - t.prixAmelioration() >= 0 && t.getLevel() < Parametres.niveauEvolutionTour){
-            this.pokedollar.setValue(this.pokedollar.getValue() - t.prixAmelioration());
-            t.levelUp();
-        }
-    }
-
-
-
 
 }

@@ -94,6 +94,16 @@ public abstract class Tour implements Objet{
 
     public void attaque() {
 
+        Ennemi cible = chercheCible();
+
+        if (cible != null) {
+            lanceProjectile(cible);
+            tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
+        }
+
+    }
+
+    protected Ennemi chercheCible() {
         Ennemi cible = null;
         int index = 0;
 
@@ -102,19 +112,21 @@ public abstract class Tour implements Objet{
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
 
-            if (Parametres.distance(this,listEnnemi.get(index)) <= portee.get())
+            if (peutCibler(listEnnemi.get(index)))
                 cible = listEnnemi.get(index);
             else
                 index++;
 
         }
+        return cible;
+    }
 
-        //attaque la cible
-        if (cible != null) {
-            lanceProjectile(cible);
-            tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
-        }
+    protected boolean peutCibler(Ennemi ennemi) {
+        return estADistance(ennemi);
+    }
 
+    protected boolean estADistance(Ennemi ennemi) {
+        return Parametres.distance(this,ennemi) <= portee.get();
     }
 
     protected void lanceProjectile(Ennemi cible){
@@ -131,8 +143,8 @@ public abstract class Tour implements Objet{
         return (int)( (this.prix + this.prix * (this.level.get() - 1 + sommeCumulee/10.0)) * Parametres.pourcentageRevente);
     }
 
-    /*
-    Chaque amélioration coute 10% plus cher
+    /**
+     *Chaque amélioration coute 10% plus cher
      */
     public int prixAmelioration(){
         return (int)(this.prix * (1 + 0.1 * this.level.get() ) );

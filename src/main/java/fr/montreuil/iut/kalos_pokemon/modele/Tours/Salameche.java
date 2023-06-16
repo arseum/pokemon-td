@@ -38,11 +38,11 @@ public class Salameche extends TourActif {
 
         for (int i = listEnnemi.size() - 1; i >= 0; i--) {
             e = listEnnemi.get(i);
-            if (Parametres.distance(e,this) <= portee.get() ) {
+            if (estADistance(e) ) {
                 e.diminueHP(Parametres.calculDegats(type,e.getType(),150));
             }
         }
-        tempProchainActif.set(game.getNbFrameValue() + (60*25)) ;
+        tempProchainActif.set(game.getNbFrameValue() + (60*22)) ;
 
         //permet de provoquer une animation dans la vue
         actif.set(actif.get()+1);

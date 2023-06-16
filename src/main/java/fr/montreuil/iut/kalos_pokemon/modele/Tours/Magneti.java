@@ -18,6 +18,7 @@ public class Magneti extends TourActif {
     private final BooleanProperty actif;
     private final Zone zone;
     private int valeurSlow;
+    private int dureeStun;
 
     public Magneti(int x, int y) {
         super(85, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0);
@@ -50,6 +51,7 @@ public class Magneti extends TourActif {
         portee.set(portee.get() + (5*level.get()));
         if(level.get() == Parametres.niveauEvolutionTour) {
             valeurSlow = 2;
+            dureeStun = 120; //2s
         }
     }
 
@@ -60,10 +62,10 @@ public class Magneti extends TourActif {
 
         for (Ennemi e : listEnnemi) {
             if (Parametres.distance(this,e) <= portee.get())
-                e.stun();
+                e.stun(dureeStun);
         }
 
-        tempProchainActif.set(game.getNbFrameValue() + (60*15));
+        tempProchainActif.set(game.getNbFrameValue() + (60*18));
     }
 
     /**
@@ -74,17 +76,11 @@ public class Magneti extends TourActif {
 
         List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
 
-        //reset les vitesses des ennemis qui ont été slow avant et supprime les ennemie mort
-        for (int i = ennemisCible.size() - 1; i >= 0; i--) {
-            if (ennemisCible.get(i).getHp() <= 0 || Parametres.distance(this,ennemisCible.get(i)) > portee.get()) {
-                ennemisCible.get(i).resetVitesse();
-                ennemisCible.remove(i);
-            }
-        }
+        updateListCibles();
 
         //cherche les ennemis en portée
         for (Ennemi e : listEnnemi) {
-            if (Parametres.distance(this,e) <= portee.get())
+            if (estADistance(e))
                 ennemisCible.add(e);
         }
 
@@ -95,6 +91,18 @@ public class Magneti extends TourActif {
 
         actif.setValue(ennemisCible.size() > 0);
 
+    }
+
+    /**
+     * reset les vitesses des ennemis qui ont été slow avant et supprime les ennemie mort
+     */
+    private void updateListCibles() {
+        for (int i = ennemisCible.size() - 1; i >= 0; i--) {
+            if (ennemisCible.get(i).getHp() <= 0 || Parametres.distance(this,ennemisCible.get(i)) > portee.get()) {
+                ennemisCible.get(i).resetVitesse();
+                ennemisCible.remove(i);
+            }
+        }
     }
 
     /**

@@ -21,6 +21,10 @@ public class Nidoran extends TourActif {
         degatsPoison = 2;
     }
 
+    public ObservableList<Ennemi> getEnnemiEmpoisone() {
+        return ennemiEmpoisone;
+    }
+
     @Override
     protected void amelioreStats() {
         degatsPoison += 2;
@@ -36,32 +40,13 @@ public class Nidoran extends TourActif {
             ennemiEmpoisone.get(i).reduitVitesseMax(1);
         }
 
-        tempProchainActif.set(game.getNbFrameValue() + (60*5));
+        tempProchainActif.set(game.getNbFrameValue() + (60*12));
 
     }
 
     @Override
-    public void attaque() {
-
-        Ennemi cible = null;
-        int index = 0;
-        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
-
-        //chercher si on peut empoisoner un nouvel ennemi
-        while (cible == null && index < listEnnemi.size()) {
-
-            if (!ennemiEmpoisone.contains(listEnnemi.get(index)) && Parametres.distance(this,listEnnemi.get(index)) <= portee.get())
-                cible = listEnnemi.get(index);
-            else
-                index++;
-
-        }
-
-        if (cible != null) {
-            game.ajouteProjectile(new Projectile(this, cible, game));
-            tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
-        }
-
+    protected boolean peutCibler(Ennemi ennemi) {
+        return !ennemiEmpoisone.contains(ennemi) && estADistance(ennemi);
     }
 
     public void ajouteEnnemiEmpoissoner(Ennemi e){
@@ -76,9 +61,5 @@ public class Nidoran extends TourActif {
             else
                 ennemiEmpoisone.remove(i);
         }
-    }
-
-    public ObservableList<Ennemi> getEnnemiEmpoisone() {
-        return ennemiEmpoisone;
     }
 }

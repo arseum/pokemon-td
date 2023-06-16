@@ -30,6 +30,7 @@ public abstract class Ennemi implements Objet,Mobile{
     private int vitesseActuel;
     private int[] infoDeplacement;
     private boolean estTerrestre;
+    private int dureeStun;
 
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
         this.id = "Ennemi_n°" + compteurID;
@@ -114,14 +115,17 @@ public abstract class Ennemi implements Objet,Mobile{
 
     public void bouge() {
 
-        if (estStun) {
-            compteurTour++;
-            if (compteurTour == 120)
-                estStun = false;
-        }
+        if (estStun)
+            attendre();
         else
             deplacement();
 
+    }
+
+    private void attendre() {
+        compteurTour++;
+        if (compteurTour == dureeStun)
+            estStun = false;
     }
 
     private void deplacement(){
@@ -161,8 +165,9 @@ public abstract class Ennemi implements Objet,Mobile{
         game.remove(this);
     }
 
-    public void stun() {
+    public void stun(int dureeStun) {
         estStun = true;
         compteurTour = 0;
+        this.dureeStun = dureeStun;
     }
 }
