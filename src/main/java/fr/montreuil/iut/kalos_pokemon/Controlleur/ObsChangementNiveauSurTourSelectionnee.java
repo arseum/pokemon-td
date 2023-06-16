@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
  * Permet d'avoir un affichage dynamique du prix de revente et d'amélioration sur le panneau de caractérisque de la tour.
  * Lorsque que le niveau de la tour change les prix se mettent à jour
  */
-public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener<Number> {
+public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener {
     private ObsClicSurTour obsClicSurTour;
     private Label niveauTour;
     private Button vendreTourMenu;
@@ -24,7 +24,8 @@ public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener<Nu
     }
 
     @Override
-    public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+    //public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+    public void changed(ObservableValue observableValue, Object o, Object t1){
         Tour t = obsClicSurTour.game.retourneTourAPartirId(obsClicSurTour.idTourSelectionnee.get());
         if(t != null){
             niveauTour.setText("Niveau " + t.getLevel());
@@ -32,4 +33,11 @@ public class ObsChangementNiveauSurTourSelectionnee implements ChangeListener<Nu
             ameliorerTourMenu.setText("Améliorer (" + t.prixAmelioration() + "$)");
         }
     }
+/*
+    @Override
+    public void changed(ObservableValue observableValue, Object o, Object t1) {
+
+    }
+
+ */
 }

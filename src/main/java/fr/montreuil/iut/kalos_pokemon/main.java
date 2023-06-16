@@ -18,6 +18,10 @@ public class main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("acceuil.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Pokemon TD !");
+        stage.setWidth(1324);
+        stage.setHeight(757);
+        //stage.setPref
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

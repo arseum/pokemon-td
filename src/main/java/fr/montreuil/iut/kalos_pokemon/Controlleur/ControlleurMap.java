@@ -73,6 +73,9 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Button ameliorerTourMenu;
 
+    @FXML
+    private VBox vboxPause;
+
     public ControlleurMap() {
     }
 
@@ -92,17 +95,18 @@ public class ControlleurMap implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        game = new Game("savane");
+        game = new Game("eau");
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
         pause = new SimpleBooleanProperty(false);
         Parametres.init();
 
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
-        pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
-        pane.setPrefWidth(game.getTerrain().getLargeurTerrain());
+        //scene.setPrefWidth(1500);
+        //pane.setPrefHeight(game.getTerrain().getHauteurTerrain());
+        //pane.setPrefWidth(game.getTerrain().getLargeurTerrain());
         pane.getChildren().add(map);
-        backgroundMenuBas.setFitWidth(game.getTerrain().getLargeurTerrain());
+        //backgroundMenuBas.setFitWidth(game.getTerrain().getLargeurTerrain());
 
         String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "nidoran"};
         CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
@@ -115,6 +119,18 @@ public class ControlleurMap implements Initializable {
         ObsChangementNiveauSurTourSelectionnee chgNiveauTour = new ObsChangementNiveauSurTourSelectionnee(clicSurTour, niveauTourMenu, vendreTourMenu, ameliorerTourMenu);
         clicSurTour.nomTour.addListener(tourCarteSelectionnee);
         clicSurTour.niveauTour.addListener(chgNiveauTour);
+        clicSurTour.nomTour.addListener(chgNiveauTour);
+/*
+        clicSurTour.nomTour.addListener( (observableValue, s, t1) -> {
+            Tour t = clicSurTour.game.retourneTourAPartirId(clicSurTour.idTourSelectionnee.get());
+            if(t != null){
+                niveauTourMenu.setText("Niveau " + t.getLevel());
+                vendreTourMenu.setText("Vendre (" + t.prixRevente() + "$)");
+                ameliorerTourMenu.setText("Améliorer (" + t.prixAmelioration() + "$)");
+            }
+        });
+
+ */
 
         vendreTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee);
         ameliorerTourMenu.visibleProperty().bind(clicSurTour.unetourCarteSelectionnee.and(clicSurTour.niveauTour.lessThan(Parametres.niveauEvolutionTour)));
@@ -306,8 +322,8 @@ public class ControlleurMap implements Initializable {
 
         pauseButton.setLayoutX(0);
         pauseButton.setLayoutY(0);
-        pauseButton.setPrefWidth(125);
-        pauseButton.setPrefHeight(15);
+        pauseButton.setPrefWidth(280);
+        pauseButton.setPrefHeight(100);
         pauseButton.setAlignment(Pos.CENTER);
 
         pauseButton.setOnAction(e-> {
@@ -326,7 +342,7 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
-        conteneurTourMenu.getChildren().add(pauseButton);
+        vboxPause.getChildren().add(pauseButton);
 
     }
 
