@@ -84,7 +84,7 @@ public class Wave {
             game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game)); // WAVE 3 attente de 5s
         }
 
-        else if (frameAct>=3900 && frameAct<=4500 && frameAct%60==0 ) {
+        else if (frameAct>=3900 && frameAct<=4500 && frameAct%150==0 ) {
             if (frameAct==3900) setWave(getWave()+1);
             game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game)); // WAVE4 attente de 5s
 
@@ -131,7 +131,7 @@ public class Wave {
         else if (frameAct>9800 && frameAct<=10400 ) {
             if (frameAct==9801) setWave(getWave()+1);
 
-            if ( frameAct%40==0){
+            if ( frameAct%120==0){
                 game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));// WAVE 8
             }
 
@@ -202,7 +202,7 @@ public class Wave {
         else if (frameAct >15800 && frameAct<=16400 ) {
             if (frameAct ==15801) setWave(getWave()+1);
 
-            if ( frameAct %70==0){
+            if ( frameAct %140==0){
                 game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));// WAVE 13
             }
             if ( frameAct %80==0){
@@ -223,7 +223,7 @@ public class Wave {
             if ( frameAct %50==0){
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 14
             }
-            if ( frameAct %70==0){
+            if ( frameAct %150==0){
                 game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));
             }
 
@@ -240,7 +240,7 @@ public class Wave {
             if ( frameAct %70==0){
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 15
             }
-            if ( frameAct %80==0){
+            if ( frameAct %180==0){
                 game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));
             }
             if ( frameAct %90==0){

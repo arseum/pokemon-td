@@ -11,7 +11,6 @@ public abstract class Attaque implements Objet,Mobile {
 
     private static int compteur = 1;
     private final String id;
-
     protected Tour tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;

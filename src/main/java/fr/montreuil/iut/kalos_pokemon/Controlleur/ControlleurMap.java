@@ -16,7 +16,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,40 +41,33 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Pane pane;
-
     private Timeline gameLoop;
-
     private IntegerProperty frame;
     private TerrainVue terrainVue;
     private Game game;
     private BooleanProperty pause;
-
     private BooleanProperty gameGagnee ;
     @FXML
     private Button buttonMenu;
     @FXML
     private BorderPane scene;
-
     @FXML
     private HBox conteneurTourMenu;
 
     @FXML
     private Label nomTourMenu;
-
     @FXML
     private Label niveauTourMenu;
-
     @FXML
     private StackPane imageTourMenu;
-
     @FXML
     private Button vendreTourMenu;
-
     @FXML
     private Button ameliorerTourMenu;
 
     @FXML
     private Button pauseButton;
+
 
     public ControlleurMap() {
     }
@@ -100,10 +92,11 @@ public class ControlleurMap implements Initializable {
         gameGagnee = new SimpleBooleanProperty(false);
         Parametres.init();
 
+        //création du terrain
         TilePane map = terrainVue.genererMapAvecDecor(game.getTerrain());
         pane.getChildren().add(map);
 
-        String[] listeTour = {"poussifeu", "salameche", "magneti", "granivol", "grenousse", "nidoran"};
+        String[] listeTour = {"poussifeu", "granivol", "magneti", "salameche", "nidoran", "grenousse"}; // ordre des tours dans le menu
         CreateurMenu createurMenu = new CreateurMenu(listeTour, game.PokedollarProperty().get());
         createurMenu.creationMenu(conteneurTourMenu);
         ObsPokedollarMenuAchat testPoke2 = new ObsPokedollarMenuAchat(conteneurTourMenu, listeTour);
@@ -333,7 +326,7 @@ public class ControlleurMap implements Initializable {
                 gameLoop.play();
             }
         });
-
+//ajoute les buttons au parent correspondant
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
@@ -350,6 +343,9 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(nouveauEnnemiSprite.getSprite());
     }
 
+    /**
+     * creer une entite sprite pour une tour + fait les bind pour la placer
+     */
     private void creerTourSprite(Tour tour, ObsClicSurTour obsClicSurTour) throws IOException {
         TourSprite sprite = new TourSprite(tour);
 
@@ -368,6 +364,8 @@ public class ControlleurMap implements Initializable {
         //Permet d'afficher la range de la tour et les actions possibles
         sprite.getSprite().addEventHandler(MouseEvent.MOUSE_CLICKED, obsClicSurTour);
 
+
+        //listener pour changer de sprite à l'evolution
         tour.levelProperty().addListener( ((observableValue, number, t1) -> {
             if(t1.equals(Parametres.niveauEvolutionTour)){
                 sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
@@ -379,7 +377,7 @@ public class ControlleurMap implements Initializable {
         if (tour instanceof Salameche salameche)
             salameche.actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
 
-        //Ajout sprite empoisonnée
+        //Ajout sprite empoisonné
         if (tour instanceof Nidoran nidoran){
             nidoran.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
                 while (change.next()){
@@ -476,7 +474,7 @@ public class ControlleurMap implements Initializable {
 
         Label msg = new Label("Vous Gagnez La Partie (tricheur)");
         Label msg2 = new Label("Rejouer ?");
-        Button oui = new Button("on rejoue");
+        Button oui = bouttonRetouracceuil(popup);
         Button non = new Button("on quitte ");
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
@@ -488,41 +486,6 @@ public class ControlleurMap implements Initializable {
         Scene scene =new Scene(vbox,400,300);
         popup.setScene(scene);
 
-        oui.setOnAction(e->{
-
-            popup.close();
-
-            Stage popup2 = new Stage();
-            popup2.setTitle("Rejouer ?");
-
-            Label msgbis = new Label("Vous voulez vraiment rejouer ?");
-            Label msg2bis = new Label("vous forcez pas on le saura pas");
-            Button ouibis = bouttonRetouracceuil(popup2);
-            Button nonbis = new Button("Quitter");
-            HBox hbox2 = new HBox(ouibis,nonbis);
-            VBox vbox2 = new VBox(msgbis,msg2bis,hbox2);
-
-            vbox2.setAlignment(Pos.CENTER);
-            hbox2.setAlignment(Pos.CENTER);
-            vbox2.setSpacing(20);hbox2.setSpacing(20);
-
-            Scene scenebis =new Scene(vbox2,250,300);
-            popup2.setScene(scenebis);
-
-            nonbis.setOnAction(e2 ->{
-                popup2.close();
-                Platform.exit();
-            });
-
-            popup2.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
-
-            popup2.show();
-
-            popup2.setOnCloseRequest(e2->{
-
-            });
-        });
-
         non.setOnAction(e ->{
             popup.close();
             Platform.exit();
@@ -533,7 +496,6 @@ public class ControlleurMap implements Initializable {
         popup.show();
 
         popup.setOnCloseRequest(e->{
-
         });
     }
 
@@ -571,15 +533,16 @@ public class ControlleurMap implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(1),
                 event -> {
+
                     pane.getChildren().remove(gifImageView);
                 }
         ));
-
         pane.getChildren().add(gifImageView);
         timeline.play();
 
     }
 }
+
 
 
 
