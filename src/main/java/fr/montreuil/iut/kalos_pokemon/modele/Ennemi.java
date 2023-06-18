@@ -175,10 +175,19 @@ public abstract class Ennemi implements Objet,Mobile{
         }
     }
 
+    /**
+     * Methode qui supprime les ennemis n'ayant plus d'hp, est réecrite pour certains ennemis qui provoquent des
+     * evenements a leur mort.
+     */
     protected void meurt() {
         game.remove(this);
     }
 
+    /**
+     *
+     * @param dureeStun durée de l'effet en frame     *
+     *  Methode qui gere l'immobilisation apres la capacité de magneton.
+     */
     public void stun(int dureeStun) {
         estStun = true;
         compteurTour = 0;

@@ -49,13 +49,16 @@ public class Wave {
     public final IntegerProperty cptWaveProperty(){return cptWave;}
 
     private int caseDepartYVol(){
+
+        // pour pas que les roucool n'apparaissent trop haut
         int delta = 2;
         int min = delta;
-        int max = (terrain.getHauteurTerrain()/Parametres.tailleTuile - 1) - delta;
-        return min + (int)(Math.random() * ((max - min) + 1));
-        //return  1 + (int)(Math.random() * ((terrain.getHauteurTerrain()/Parametres.tailleTuile - 1 - 1) + 1));
 
-        //return (int)(Math.random() * terrain.getHauteurTerrain()/ Parametres.tailleTuile);
+        //calcul du y max en case
+        int max = (terrain.getHauteurTerrain()/Parametres.tailleTuile - 1) - delta;
+
+        return min + (int)(Math.random() * ((max - min) + 1));
+
     }
 
     public void wave() throws InterruptedException {
@@ -63,9 +66,8 @@ public class Wave {
         int frameAct = getNbFrame();
 
         if ( frameAct>=300 && frameAct<900){
-            if (frameAct==600){
-                setWave(1);
-            }
+            if (frameAct==300){     setWave(1);}
+
             if (frameAct%90==0 )
                 game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));  //WAVE 1
 
