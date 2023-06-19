@@ -105,8 +105,5 @@ public class EnnemiTest {
         }
         fantominus.bouge();
         assertEquals(3, fantominus.getY());
-
-
-
     }
 }
