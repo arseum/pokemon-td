@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EnnemiTest {
 
+    //Pas testable car la vitesseAct et max ne sont pas accessibles
+
     //resetVItesse
     //reduitVitesseMax
     //reduitVitesse
@@ -18,19 +20,19 @@ public class EnnemiTest {
         Ludicolo ludicolo = new Ludicolo(0*32, 3*32, g);
         g.ajouteEnnemi(ludicolo);
 
-        assertEquals(ludicolo.getHp(), 250);
+        assertEquals(250, ludicolo.getHp());
         assertTrue(g.getListEnnemi().contains(ludicolo));
-        assertEquals(850, g.getPokedollar());
+        assertEquals(g.getPokedollar(),850);
 
         ludicolo.diminueHP(249);
-        assertEquals(ludicolo.getHp(), 1);
+        assertEquals(1,ludicolo.getHp());
         assertTrue(g.getListEnnemi().contains(ludicolo));
-        assertEquals(850, g.getPokedollar());
+        assertEquals(g.getPokedollar(),850);
 
         ludicolo.diminueHP(2);
-        assertEquals(ludicolo.getHp(), -1);
+        assertEquals( -1, ludicolo.getHp());
         assertFalse(g.getListEnnemi().contains(ludicolo));
-        assertEquals(895, g.getPokedollar());
+        assertEquals(g.getPokedollar(),895);
     }
     private void parcoursToutCheminSensPositif(Ennemi e, int positionInitiale, int vitesseEnnemi, int longueurChemin, boolean selonX){
         int position = positionInitiale;
@@ -38,19 +40,19 @@ public class EnnemiTest {
             while((position + vitesseEnnemi) < (i+1) * Parametres.tailleTuile){
                 position = position + vitesseEnnemi;
                 e.bouge();
-                if(selonX) assertEquals(e.getX(), position);
-                else assertEquals(e.getY(), position);
+                if(selonX) assertEquals(position, e.getX());
+                else assertEquals(position, e.getY());
             }
             position = Parametres.tailleTuile * (i+1);
             e.bouge();
-            if(selonX) assertEquals(e.getX(), position);
-            else assertEquals(e.getY(), position);
+            if(selonX) assertEquals(position, e.getX());
+            else assertEquals(position, e.getY());
         }
         while ((position + vitesseEnnemi) < longueurChemin * Parametres.tailleTuile){
             position = position + vitesseEnnemi;
             e.bouge();
-            if(selonX) assertEquals(e.getX(), position);
-            else assertEquals(e.getY(), position);
+            if(selonX) assertEquals(position, e.getX());
+            else assertEquals(position, e.getY());
         }
     }
 
@@ -60,18 +62,19 @@ public class EnnemiTest {
             while((position - vitesseEnnemi) > (i-1) * Parametres.tailleTuile){
                 position = position - vitesseEnnemi;
                 e.bouge();
-                if(selonX) assertEquals(e.getX(), position);
-                else assertEquals(e.getY(), position);
+                if(selonX) assertEquals(position, e.getX());
+                else assertEquals(position, e.getY());
             }
             position = Parametres.tailleTuile * (i-1);
             e.bouge();
-            if(selonX) assertEquals(e.getX(), position);
-            else assertEquals(e.getY(), position);
+            if(selonX) assertEquals(position, e.getX());
+            else assertEquals(position, e.getY());
         }
     }
 
     @Test
     public final void bougeTest(){
+        //Cas sans stun
         Game gameDplVersBas = new Game("deplacementTestVersBas");
         Game gameDplVersHaut = new Game("deplacementTestVersHaut");
         Game gameDplVersGauche = new Game("deplacementTestVersGauche");
@@ -92,6 +95,18 @@ public class EnnemiTest {
         Ludicolo lidiculo = new Ludicolo(9*32, 4*32, gameDplVersGauche);
         parcoursToutCheminSensNegatif(lidiculo,9*32,2,9,true);
         assertTrue(lidiculo.estArrive);
+
+        //Cas avec stun
+        Fantominus fantominus = new Fantominus(4*32, 0*32, gameDplVersBas);
+        fantominus.stun(5);
+        for(int i = 0; i < 5; i++){
+            fantominus.bouge();
+            assertEquals(0, fantominus.getY());
+        }
+        fantominus.bouge();
+        assertEquals(3, fantominus.getY());
+
+
 
     }
 }
