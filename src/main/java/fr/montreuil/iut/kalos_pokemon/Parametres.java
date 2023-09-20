@@ -39,6 +39,7 @@ public class Parametres {
     public static String cheminInterface = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Interface/acceuil/";
     public static String cheminSpritePokemon = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Pokemon/";
     public static String cheminTirSprite = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Sprites/Tir/";
+    public static String cheminAudioCintya = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/cintya_music.mp3";
 
     //Parametres des chemin pour les tirs sprites
 
