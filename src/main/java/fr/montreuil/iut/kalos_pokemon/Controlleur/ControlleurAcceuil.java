@@ -28,6 +28,8 @@ public class ControlleurAcceuil implements Initializable {
     private ImageView imageNiveau2;
     @FXML
     private ImageView imageNiveau3;
+
+    private MediaPlayer media_player;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buttonNiveau1.setCursor(Cursor.HAND);
@@ -37,7 +39,7 @@ public class ControlleurAcceuil implements Initializable {
 
         //test audio
 		Media media = new Media(new File(Parametres.cheminAudioCintya).toURI().toString());
-		MediaPlayer media_player = new MediaPlayer(media);
+		media_player = new MediaPlayer(media);
         media_player.play();
 
     }
