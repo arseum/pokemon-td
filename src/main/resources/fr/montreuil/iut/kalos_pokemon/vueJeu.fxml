@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane id="sceneTestBackground" fx:id="scene" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0" stylesheets="@style_general.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
+<BorderPane id="sceneTestBackground" fx:id="scene" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1324.0"
+            stylesheets="@style_general.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurMap">
     <center>
         <Pane fx:id="pane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="1024.0" styleClass="background" stylesheets="@style_pane.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
         </Pane>

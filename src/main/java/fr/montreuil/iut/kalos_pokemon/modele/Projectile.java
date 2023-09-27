@@ -23,7 +23,7 @@ public class Projectile extends Attaque {
     public void bouge() {
 
         if (doitBouger()) {
-            y.set(getY() < cible.getY() ? getY() + 4 : getY() - 4);
+            y.set(getY() < cible.getY() ? getY() + 4 : getY() - 4); //changer le 4 en fonction/attribut pour pouvoir moduler la vitesse de projectiles
             x.set(getX() < cible.getX() ? getX() + 4 : getX() - 4);
             super.bouge();
         } else
@@ -39,7 +39,7 @@ public class Projectile extends Attaque {
         if (cible.getHp() > 0) {
             cible.diminueHP(degatFinal);
             tireur.ajouteDegats(degatFinal);
-            if (tireur instanceof Nidoran nidoran)
+            if (tireur instanceof Nidoran nidoran)//a regler
                 nidoran.ajouteEnnemiEmpoissoner(cible);
         }
         game.remove(this);

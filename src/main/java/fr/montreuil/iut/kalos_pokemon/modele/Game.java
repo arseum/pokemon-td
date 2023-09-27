@@ -68,6 +68,7 @@ public class Game {
     public int getPokedollar() {
         return pokedollar.get();
     }
+
     public ObservableList<Ennemi> getListEnnemi() {
         return listEnnemi;
     }
@@ -180,7 +181,10 @@ public class Game {
     }
 
     private void gestionTour() {
+
         for (Tour t : listTour) {
+            //il faut avoir que t.attaque() ici il faut donc que le apliquePoison et le zone.bouge soit coder dans une classe
+            // apart qui sera strategie de ataque
             if (getNbFrameValue() >= t.tempProchaineAttaque)
                 t.attaque();
 

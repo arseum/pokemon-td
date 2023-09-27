@@ -9,5 +9,8 @@
         <module name="pokemon_td" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo" target="0" />
+    </bytecodeTargetLevel>
   </component>
 </project>
