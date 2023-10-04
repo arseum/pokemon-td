@@ -1,10 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 

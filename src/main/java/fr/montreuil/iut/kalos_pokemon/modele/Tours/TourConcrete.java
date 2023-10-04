@@ -1,14 +1,17 @@
-package fr.montreuil.iut.kalos_pokemon.modele;
+package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Projectile;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import java.util.List;
 
-public abstract class Tour implements Objet{
-    private static int compteurID = 1;
+public abstract class TourConcrete implements Tour {
+
     protected IntegerProperty portee;
     protected int degats;
     protected final String type;
@@ -16,15 +19,15 @@ public abstract class Tour implements Objet{
     private final int prix;
     private final IntegerProperty x;
     private final IntegerProperty y;
+    protected int attaqueSpeed;
+    private static int compteurID = 1;
     protected final IntegerProperty level;
     protected final DoubleProperty compteurDegats;
     private final String id;
-    protected int attaqueSpeed;
     protected int tempProchaineAttaque;
-    
     protected Game game;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed) {
+    public TourConcrete(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -38,6 +41,14 @@ public abstract class Tour implements Objet{
         this.attaqueSpeed = attaqueSpeed;
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public int getPortee() {
+        return portee.get();
     }
 
     public String getNom() {
@@ -90,15 +101,16 @@ public abstract class Tour implements Objet{
     public void setGame(Game game) {
         this.game = game;
     }
-    protected void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
+    public void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
     public void levelUp(){
-        if (level.get() + 1 == Parametres.niveauEvolutionTour)
-            evolution();
         this.level.set(level.get()+1);
         amelioreStats();
+        if (level.get() == Parametres.niveauEvolutionTour)
+            evolution();
     };
 
-    protected void evolution(){
+
+    public void evolution(){
         setNom(Parametres.nomGrandEvolution.get(nom));
     }
 
@@ -146,7 +158,7 @@ public abstract class Tour implements Objet{
     /**
      * @return true si l'ennemi est a une distance inferieur a la portée de la tour
      */
-    protected boolean estADistance(Ennemi ennemi) {
+    public boolean estADistance(Ennemi ennemi) {
         return Parametres.distance(this,ennemi) <= portee.get();
     }
 
@@ -157,10 +169,10 @@ public abstract class Tour implements Objet{
         game.ajouteProjectile(new Projectile(this, cible, game));
     }
 
-    public int prixRevente(){
-        int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
-        return (int)( (this.prix + this.prix * (this.level.get() - 1 + sommeCumulee/10.0)) * Parametres.pourcentageRevente);
-    }
+        public int prixRevente(){
+            int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
+            return (int)( (this.prix + this.prix * (this.level.get() - 1 + sommeCumulee/10.0)) * Parametres.pourcentageRevente);
+        }
 
     /**
      *Chaque amélioration coute 10% plus cher
@@ -168,4 +180,5 @@ public abstract class Tour implements Objet{
     public int prixAmelioration(){
         return (int)(this.prix * (1 + 0.1 * this.level.get() ) );
     }
+
 }

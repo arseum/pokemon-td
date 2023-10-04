@@ -1,9 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 
-public class Granivol extends Tour {
+public class Granivol extends TourConcrete {
 
     public Granivol(int x, int y) {
         super(160, 5, "plante", Parametres.prixgranivol, x, y, "granivol", 6);
@@ -11,11 +10,13 @@ public class Granivol extends Tour {
 
     @Override
     protected void amelioreStats() {
-        if (level.get() == Parametres.niveauEvolutionTour) {
-            portee.set(180);}
-        else {
-            attaqueSpeed = 5;
-        }
+        attaqueSpeed = 5;
         degats += 1;
+    }
+
+    @Override
+    public void evolution() {
+        super.evolution();
+        portee.set(180);
     }
 }

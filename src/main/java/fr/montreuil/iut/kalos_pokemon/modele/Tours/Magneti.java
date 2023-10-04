@@ -3,7 +3,6 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.Zone;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,7 +11,7 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class Magneti extends TourActif {
+public class Magneti extends TourConcrete {
 
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;
@@ -54,20 +53,6 @@ public class Magneti extends TourActif {
             dureeStun = 90; //1,5s
         }
     }
-
-    @Override
-    public void actif() {
-
-        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
-
-        for (Ennemi e : listEnnemi) {
-            if (Parametres.distance(this,e) <= portee.get())
-                e.stun(dureeStun);
-        }
-
-        tempProchainActif.set(game.getNbFrameValue() + (60*18));
-    }
-
     /**
      * il faudrait appeler cette methode le + souvent possible (toute les 4/5 frame de dirais)
      */

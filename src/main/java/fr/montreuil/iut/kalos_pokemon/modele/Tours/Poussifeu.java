@@ -1,9 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
 
-public class Poussifeu extends Tour {
+public class Poussifeu extends TourConcrete {
     public Poussifeu(int x, int y) {
         super(100, 30, "feu", Parametres.prixpoussifeu, x, y, "poussifeu", 50);
     }

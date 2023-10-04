@@ -1,6 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourConcrete;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,7 +17,7 @@ public abstract class Attaque implements Objet,Mobile {
 
     private static int compteur = 1;
     private final String id;
-    protected Tour tireur;
+    protected TourConcrete tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;
     protected Game game;
@@ -26,7 +28,7 @@ public abstract class Attaque implements Objet,Mobile {
      */
     protected BooleanProperty bouge;
 
-    public Attaque(Tour tour, Game game) {
+    public Attaque(TourConcrete tour, Game game) {
         this.tireur = tour;
         this.id = "Tir_n°" + compteur;
         compteur++;

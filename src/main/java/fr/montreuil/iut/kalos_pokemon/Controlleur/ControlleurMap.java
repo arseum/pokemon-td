@@ -4,10 +4,9 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourActif;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplotionAutourTour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.TourAvecCompetence;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -391,8 +390,8 @@ public class ControlleurMap implements Initializable {
         }));
 
         //modif pour l'animation de salamehce
-        if (tour instanceof Salameche salameche)
-            salameche.actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
+        if (tour instanceof ExplotionAutourTour t)
+            t.actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
 
         //Ajout sprite empoisonnée
         if (tour instanceof Nidoran nidoran){
@@ -410,7 +409,7 @@ public class ControlleurMap implements Initializable {
         }
 
         //Est actif
-        if(tour instanceof TourActif t){
+        if(tour instanceof TourAvecCompetence t){
 
             t.getEstPretActif().bind(game.getNbFrame().greaterThan(t.getTempProchainActif()));
 
