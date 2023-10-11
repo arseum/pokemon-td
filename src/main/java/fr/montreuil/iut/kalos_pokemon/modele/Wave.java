@@ -58,7 +58,9 @@ public class Wave {
         //return (int)(Math.random() * terrain.getHauteurTerrain()/ Parametres.tailleTuile);
     }
 
-    public void wave() throws InterruptedException {
+    public void wave() throws InterruptedException {//return  1 + (int)(Math.random() * ((terrain.getHauteurTerrain()/Parametres.tailleTuile - 1 - 1) + 1));
+
+        //return (int)(Math.random() * terrain.getHauteurTerrain()/ Parametres.tailleTuile);
         int[] caseDepart = terrain.getCaseDepart();
         int frameAct = getNbFrame();
 

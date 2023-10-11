@@ -21,18 +21,16 @@ public class Projectile extends Attaque {
      */
     @Override
     public void bouge() {
-
         if (doitBouger()) {
             y.set(getY() < cible.getY() ? getY() + 4 : getY() - 4);
             x.set(getX() < cible.getX() ? getX() + 4 : getX() - 4);
             super.bouge();
         } else
             explotionTir();
-
     }
 
     /**
-     * methode a executer a la fin de vie du projectiles
+     * methode a executer a la fin de vie du projectile
      * permet de faire subir des degats a la cible puis disparait
      */
     protected void explotionTir(){
@@ -46,6 +44,7 @@ public class Projectile extends Attaque {
     }
 
     /**
+     * return True si le projectile n'a pas atteint sa cible
      * on estime que le projectile est arrivé lorsqu'il est a 15 pixel de la cible
      */
     private boolean doitBouger(){
