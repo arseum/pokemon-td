@@ -1,27 +1,49 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Vagues.Vague;
+import fr.montreuil.iut.kalos_pokemon.modele.Vagues.VagueTypeDeux;
+import fr.montreuil.iut.kalos_pokemon.modele.Vagues.VagueTypeUn;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Wave {
+import java.util.ArrayList;
+
+public class GenerateurVagues {
     private IntegerProperty nbFrame;
     private IntegerProperty cptWave;
     private Terrain terrain;
     private Game game;
     private BooleanProperty gameGagnee;
 
+    //todo: Nouveaux attributs
+    private int compteurFrame;
+    private ArrayList<Vague> listesVagues;
+    private Vague vagueActuelle;
+    private int indexVagueActuelle;
 
 
-    public Wave(Terrain terrain, Game g) {
+
+    public GenerateurVagues(Terrain terrain, Game g) {
         nbFrame = new SimpleIntegerProperty(0);
         this.terrain= terrain;
         this.game = g;
         gameGagnee = new SimpleBooleanProperty(false);
         cptWave = new SimpleIntegerProperty(1);
+
+        //todo: Nouveaux attributs
+        this.compteurFrame = 0;
+        this.listesVagues = new ArrayList<>();
+        Vague v1 = new VagueTypeUn(game,terrain);
+        Vague v2 = new VagueTypeDeux(game, terrain);
+        Vague v3 = new VagueTypeUn(game,terrain);
+        listesVagues.add(v1);
+        listesVagues.add(v2);
+        listesVagues.add(v3);
+        vagueActuelle = listesVagues.get(0);
+        this.indexVagueActuelle = 0;
     }
 
     public void setGagne(boolean gagne) {
@@ -48,6 +70,7 @@ public class Wave {
     public final void setWave(int i){cptWave.setValue(i);}
     public final IntegerProperty cptWaveProperty(){return cptWave;}
 
+
     private int caseDepartYVol(){
         int delta = 2;
         int min = delta;
@@ -57,6 +80,27 @@ public class Wave {
 
         //return (int)(Math.random() * terrain.getHauteurTerrain()/ Parametres.tailleTuile);
     }
+
+
+    //Todo: Nouvelle
+    public void chargeVague() throws InterruptedException{
+        int frameActuelle = getNbFrame();
+        if((indexVagueActuelle < listesVagues.size())){
+            if((indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(frameActuelle)){
+                game.ajouteEnnemi(listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi());
+            }
+            if(this.compteurFrame > listesVagues.get(indexVagueActuelle).getDuree()){
+                this.compteurFrame = 0;
+                this.setWave(this.getWave() + 1);
+                this.indexVagueActuelle++;
+            }
+        }
+        compteurFrame++;
+    }
+
+
+
+    /*
 
     public void wave() throws InterruptedException {
         int[] caseDepart = terrain.getCaseDepart();
@@ -261,5 +305,6 @@ public class Wave {
         } else if (frameAct > 19300 && game.bossEstVaincu()) { setGagne(true); }
 
     }
+    */
 
 }
