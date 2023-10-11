@@ -4,7 +4,6 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourActif;
@@ -178,7 +177,7 @@ public class ControlleurMap implements Initializable {
 
                     game.uneFrame();
                     try {
-                        game.getVague().wave();
+                        game.getVague().chargeVague();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
