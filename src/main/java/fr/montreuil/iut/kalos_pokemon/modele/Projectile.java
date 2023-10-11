@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourConcrete;
 
 public class Projectile extends Attaque {
 

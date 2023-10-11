@@ -3,6 +3,9 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplotionAutourTour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ImmobilisationZone;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.RalentiEnnemiEmpoisone;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
@@ -84,11 +87,11 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                     Poussifeu p = new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
                     game.ajouteTour(p);
                 } else if (this.obsClic.tourSelectionnee.equals("salameche")) {
-                    game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    game.ajouteTour(new ExplotionAutourTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile)));
                 } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
-                    game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    game.ajouteTour(new ImmobilisationZone(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile)));
                 } else if (this.obsClic.tourSelectionnee.equals("nidoran")) {
-                    game.ajouteTour(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    game.ajouteTour(new RalentiEnnemiEmpoisone(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile)));
                 } else if (this.obsClic.tourSelectionnee.equals("grenousse")) {
                     game.ajouteTour(new Grenousse(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }/*

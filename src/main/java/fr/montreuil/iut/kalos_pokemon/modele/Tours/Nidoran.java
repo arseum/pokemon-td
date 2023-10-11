@@ -13,7 +13,7 @@ public class Nidoran extends TourPoisson {
 
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         degatsPoison += 2;
         this.degats += 4;
     }

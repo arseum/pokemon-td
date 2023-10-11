@@ -46,7 +46,7 @@ public class Magneti extends TourConcrete {
     }
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         portee.set(portee.get() + (6*level.get()));
         if(level.get() == Parametres.niveauEvolutionTour) {
             valeurSlow = 2;

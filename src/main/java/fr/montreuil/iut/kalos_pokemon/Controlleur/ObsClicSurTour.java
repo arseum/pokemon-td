@@ -3,7 +3,6 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.TourAvecCompetence;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourActif;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;

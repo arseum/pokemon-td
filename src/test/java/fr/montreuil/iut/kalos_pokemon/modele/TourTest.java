@@ -34,15 +34,15 @@ public class TourTest {
         assertEquals(1, poussifeu.getLevel());
 
         poussifeu.levelUp();
-        assertEquals(45, poussifeu.degats);
-        assertEquals(44, poussifeu.attaqueSpeed);
-        assertEquals(106, poussifeu.portee.getValue());
+        assertEquals(45, poussifeu.getDegats());
+        assertEquals(44, poussifeu.getAttaqueSpeed());
+        assertEquals(106, poussifeu.getPortee());
         assertEquals(2, poussifeu.getLevel());
 
         poussifeu.levelUp();
-        assertEquals(67, poussifeu.degats);
-        assertEquals(32, poussifeu.attaqueSpeed);
-        assertEquals(115, poussifeu.portee.getValue());
+        assertEquals(67, poussifeu.getDegats());
+        assertEquals(32, poussifeu.getAttaqueSpeed());
+        assertEquals(115, poussifeu.getPortee());
         assertEquals(3, poussifeu.getLevel());
         System.out.println(poussifeu.getNom()); //todo: Pourquoi c'est null?
     }

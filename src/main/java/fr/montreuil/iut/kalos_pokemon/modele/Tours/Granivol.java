@@ -9,7 +9,7 @@ public class Granivol extends TourConcrete {
     }
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         attaqueSpeed = 5;
         degats += 1;
     }

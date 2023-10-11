@@ -41,4 +41,5 @@ public class ExplotionAutourTour extends TourAvecCompetence {
         //permet de provoquer une animation dans la vue
         actif.set(actif.get()+1);
     }
+
 }

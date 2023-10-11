@@ -17,7 +17,7 @@ public abstract class Attaque implements Objet,Mobile {
 
     private static int compteur = 1;
     private final String id;
-    protected TourConcrete tireur;
+    protected Tour tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;
     protected Game game;
@@ -28,7 +28,7 @@ public abstract class Attaque implements Objet,Mobile {
      */
     protected BooleanProperty bouge;
 
-    public Attaque(TourConcrete tour, Game game) {
+    public Attaque(Tour tour, Game game) {
         this.tireur = tour;
         this.id = "Tir_n°" + compteur;
         compteur++;

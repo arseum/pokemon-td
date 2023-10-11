@@ -1,10 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourConcrete;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -186,7 +183,7 @@ public class Game {
             if (getNbFrameValue() >= t.getTempProchaineAttaque())
                 t.attaque();
 
-            if (t instanceof Nidoran nidoran && getNbFrameValue() % 20 == 0)
+            if (t instanceof TourPoisson nidoran && getNbFrameValue() % 20 == 0)
                 nidoran.apliquePoison();
             else if (t instanceof Magneti magneti && magneti.isActif())
                 magneti.getZone().bouge();
