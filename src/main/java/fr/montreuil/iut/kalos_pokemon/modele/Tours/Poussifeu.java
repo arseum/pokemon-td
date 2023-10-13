@@ -1,11 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
 
 public class Poussifeu extends Tour {
     public Poussifeu(int x, int y) {
-        super(100, 30, "feu", Parametres.prixpoussifeu, x, y, "poussifeu", 50);
+        super(100, 30, "feu", Parametres.prixpoussifeu, x, y, "poussifeu", 50, new NullActif());
     }
 
     @Override

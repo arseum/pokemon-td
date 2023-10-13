@@ -3,7 +3,8 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ImmobilisationZone;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
 import fr.montreuil.iut.kalos_pokemon.modele.Zone;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,20 +13,21 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class Magneti extends TourActif {
+public class Magneti extends Tour {
 
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;
     private final Zone zone;
     private int valeurSlow;
-    private int dureeStun;
+
 
     public Magneti(int x, int y) {
-        super(90, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0);
+        super(90, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0,null);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
         zone = new Zone(this, game);
         valeurSlow = 1;
+        setMyCompetence(new ImmobilisationZone(this,90));
     }
 
     public BooleanProperty actifProperty() {
@@ -51,22 +53,10 @@ public class Magneti extends TourActif {
         portee.set(portee.get() + (6*level.get()));
         if(level.get() == Parametres.niveauEvolutionTour) {
             valeurSlow = 2;
-            dureeStun = 90; //1,5s
         }
     }
 
-    @Override
-    public void actif() {
 
-        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
-
-        for (Ennemi e : listEnnemi) {
-            if (Parametres.distance(this,e) <= portee.get())
-                e.stun(dureeStun);
-        }
-
-        tempProchainActif.set(game.getNbFrameValue() + (60*18));
-    }
 
     /**
      * il faudrait appeler cette methode le + souvent possible (toute les 4/5 frame de dirais)

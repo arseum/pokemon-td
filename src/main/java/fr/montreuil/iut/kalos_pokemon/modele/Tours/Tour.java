@@ -1,13 +1,16 @@
-package fr.montreuil.iut.kalos_pokemon.modele;
+package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Objet;
+import fr.montreuil.iut.kalos_pokemon.modele.Projectile;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
+import javafx.beans.property.*;
+
 import java.util.List;
 
-public abstract class Tour implements Objet{
+public abstract class Tour implements Objet {
     private static int compteurID = 1;
     protected IntegerProperty portee;
     protected int degats;
@@ -24,7 +27,9 @@ public abstract class Tour implements Objet{
     
     protected Game game;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed) {
+    protected Competence myCompetence;
+
+    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -34,10 +39,32 @@ public abstract class Tour implements Objet{
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
+        this.myCompetence = competence;
         this.nom = pokemon;
         this.attaqueSpeed = attaqueSpeed;
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
+
+    }
+
+    public int getPortee() {
+        return portee.get();
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public int getTempProchaineAttaque() {
+        return tempProchaineAttaque;
+    }
+
+    public Competence getMyCompetence() {
+        return myCompetence;
+    }
+
+    public void setMyCompetence(Competence myCompetence) {
+        this.myCompetence = myCompetence;
     }
 
     public String getNom() {
@@ -90,16 +117,32 @@ public abstract class Tour implements Objet{
     public void setGame(Game game) {
         this.game = game;
     }
-    protected void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
+    public void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
     public void levelUp(){
+        // !! l'ordre est important car il y a des listener qui sont pris en compte
         if (level.get() + 1 == Parametres.niveauEvolutionTour)
             evolution();
+
         this.level.set(level.get()+1);
+
         amelioreStats();
     };
 
+    public void actif(){
+        myCompetence.actif();
+    }
+
+    public boolean actifPret() {
+        return myCompetence.isEstPretActif();
+    }
+
+    public BooleanProperty estPretActifProperty() { return myCompetence.estPretActifProperty();}
+
+    public IntegerProperty tempProchaineActifProperty() { return myCompetence.tempProchainActifProperty();}
+
     protected void evolution(){
         setNom(Parametres.nomGrandEvolution.get(nom));
+        myCompetence.setTempProchainActif(game.getNbFrameValue());
     }
 
     protected abstract void amelioreStats();
@@ -146,7 +189,7 @@ public abstract class Tour implements Objet{
     /**
      * @return true si l'ennemi est a une distance inferieur a la portée de la tour
      */
-    protected boolean estADistance(Ennemi ennemi) {
+    public boolean estADistance(Ennemi ennemi) {
         return Parametres.distance(this,ennemi) <= portee.get();
     }
 

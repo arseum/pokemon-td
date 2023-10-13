@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -181,7 +182,7 @@ public class Game {
 
     private void gestionTour() {
         for (Tour t : listTour) {
-            if (getNbFrameValue() >= t.tempProchaineAttaque)
+            if (getNbFrameValue() >= t.getTempProchaineAttaque())
                 t.attaque();
 
             if (t instanceof Nidoran nidoran && getNbFrameValue() % 20 == 0)

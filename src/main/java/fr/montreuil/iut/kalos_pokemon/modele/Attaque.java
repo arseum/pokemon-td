@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;

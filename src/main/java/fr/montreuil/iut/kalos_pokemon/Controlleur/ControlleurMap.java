@@ -4,10 +4,8 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourActif;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -387,12 +385,24 @@ public class ControlleurMap implements Initializable {
             if(t1.equals(Parametres.niveauEvolutionTour)){
                 sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
                 obsClicSurTour.nomTour.set(tour.getNom());
+
+                if (tour.tempProchaineActifProperty() != null) {
+                    tour.estPretActifProperty().bind(game.getNbFrame().greaterThan(tour.tempProchaineActifProperty()));
+
+                    tour.estPretActifProperty().addListener((obs, aBoolean, newBool) -> {
+                        if (newBool)
+                            sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
+                        else
+                            sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+                    });
+                }
             }
         }));
 
         //modif pour l'animation de salamehce
-        if (tour instanceof Salameche salameche)
-            salameche.actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
+        if (tour.getMyCompetence() instanceof ExplosionAutourTour t)
+            t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
+
 
         //Ajout sprite empoisonnée
         if (tour instanceof Nidoran nidoran){
@@ -409,20 +419,8 @@ public class ControlleurMap implements Initializable {
             });
         }
 
-        //Est actif
-        if(tour instanceof TourActif t){
 
-            t.getEstPretActif().bind(game.getNbFrame().greaterThan(t.getTempProchainActif()));
 
-            t.getEstPretActif().addListener((observableValue, aBoolean, t1) -> {
-                if(t1) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
-                else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + ".png"));
-            });
-
-            t.levelProperty().addListener((observableValue, number, t1) -> {
-                if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
-            });
-        }
 
     }
 

@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Poussifeu;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

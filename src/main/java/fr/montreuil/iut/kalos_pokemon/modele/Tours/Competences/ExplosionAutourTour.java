@@ -1,0 +1,49 @@
+package fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences;
+
+import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
+import java.util.List;
+
+public class ExplosionAutourTour extends ClassicCompetence{
+
+    private BooleanProperty actif;
+    public ExplosionAutourTour(Tour myTour) {
+        super(myTour);
+        actif = new SimpleBooleanProperty(false);
+    }
+
+    public BooleanProperty actifProperty() {
+        return actif;
+    }
+
+    public void activation(){
+        actif.set(!actif.get());
+    }
+
+    @Override
+    public void actif() {
+
+        List<Ennemi> listEnnemi = myTour.getGame().getListEnnemi().stream().toList();
+        Ennemi e;
+        double damage;
+
+        for (int i = listEnnemi.size() - 1; i >= 0; i--) {
+            e = listEnnemi.get(i);
+            if (myTour.estADistance(e) ) {
+                damage = Parametres.calculDegats(myTour.getType(),e.getType(),150);
+                e.diminueHP(damage);
+                myTour.ajouteDegats(damage);
+            }
+        }
+        tempProchainActif.set(myTour.getGame().getNbFrameValue() + (60*22)) ;
+
+        //permet de provoquer une animation dans la vue
+        activation();
+
+    }
+}
