@@ -10,40 +10,41 @@ public class TourTest {
     @Test
     public final void attaqueTest(){
         Game g = new Game("deplacementTestVersBas");
-        Togepi togepi = new Togepi(4*32, 0*32, g);
-        Poussifeu poussifeu = new Poussifeu(5*32, 0*32);
+        Togepi togepi = new Togepi(4*32, 0, g);
+        Poussifeu poussifeu = new Poussifeu(5*32, 0);
         g.ajouteTour(poussifeu);
 
         poussifeu.attaque();
         //System.out.println(poussifeu.tempProchaineAttaque);
-        assertTrue(g.getListProjectile().size() == 0, "Pas de projectile lancé");
+        assertEquals(0, g.getListProjectile().size(), "Pas de projectile lancé");
 
         g.ajouteEnnemi(togepi);
         poussifeu.attaque();
         //System.out.println(poussifeu.tempProchaineAttaque);
-        assertTrue(g.getListProjectile().size() == 1, "Un projectile lancé");
+        assertEquals(1, g.getListProjectile().size(), "Un projectile lancé");
 
         poussifeu.attaque();
         //System.out.println(poussifeu.tempProchaineAttaque);
-        assertTrue(g.getListProjectile().size() == 2, "Un deuxieme projectile lancé");
+        assertEquals(2, g.getListProjectile().size(), "Un deuxieme projectile lancé");
     }
 
     @Test
     public final void levelUpTest(){
+        //il faut une game pour faire fonctionner une tour
         Tour poussifeu = new Poussifeu(0, 0);
         assertEquals(1, poussifeu.getLevel());
 
         poussifeu.levelUp();
-        assertEquals(45, poussifeu.degats);
-        assertEquals(44, poussifeu.attaqueSpeed);
-        assertEquals(106, poussifeu.portee.getValue());
+        assertEquals(45, poussifeu.getDegats());
+        assertEquals(44, poussifeu.getAttaqueSpeed());
+        assertEquals(106, poussifeu.getPortee());
         assertEquals(2, poussifeu.getLevel());
 
         poussifeu.levelUp();
-        assertEquals(67, poussifeu.degats);
-        assertEquals(32, poussifeu.attaqueSpeed);
-        assertEquals(115, poussifeu.portee.getValue());
+        assertEquals(67, poussifeu.getDegats());
+        assertEquals(32, poussifeu.getAttaqueSpeed());
+        assertEquals(115, poussifeu.getPortee());
         assertEquals(3, poussifeu.getLevel());
-        System.out.println(poussifeu.getNom()); //todo: Pourquoi c'est null?
+        System.out.println(poussifeu.getNom());
     }
 }

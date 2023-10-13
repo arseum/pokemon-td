@@ -47,6 +47,10 @@ public abstract class Tour implements Objet {
 
     }
 
+    public int getAttaqueSpeed() {
+        return attaqueSpeed;
+    }
+
     public int getPortee() {
         return portee.get();
     }
