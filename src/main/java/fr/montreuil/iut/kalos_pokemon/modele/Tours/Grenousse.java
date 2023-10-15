@@ -9,7 +9,7 @@ public class Grenousse extends Tour {
     }
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         this.degats += 25 * (level.get()-1);
         this.attaqueSpeed *= 0.8;
         portee.set(portee.get()+5*level.get());

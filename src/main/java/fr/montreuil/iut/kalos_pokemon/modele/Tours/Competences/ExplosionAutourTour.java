@@ -40,7 +40,7 @@ public class ExplosionAutourTour extends ClassicCompetence{
                 myTour.ajouteDegats(damage);
             }
         }
-        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempMs()) ;
+        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
 
         //permet de provoquer une animation dans la vue
         activation();

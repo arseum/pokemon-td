@@ -24,7 +24,7 @@ public class SlowEnnemiEmpoissone extends ClassicCompetence{
             ennemiEmpoisone.get(i).reduitVitesseMax(1);
         }
 
-        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempMs());
+        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempFrameInt());
 
     }
 

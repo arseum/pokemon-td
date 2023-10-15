@@ -149,7 +149,7 @@ public abstract class Tour implements Objet {
         myCompetence.setTempProchainActif(game.getNbFrameValue());
     }
 
-    protected abstract void amelioreStats();
+    public abstract void amelioreStats();
 
     public void attaque() {
 

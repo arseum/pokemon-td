@@ -16,7 +16,7 @@ public class Salameche extends Tour {
     }
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         rayonExploxion += 10;
         degats *= 1.2;
         portee.set(portee.get() + 10 * (level.get()-1));

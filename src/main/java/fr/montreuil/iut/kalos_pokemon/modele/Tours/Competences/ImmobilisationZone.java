@@ -30,7 +30,7 @@ public class ImmobilisationZone extends ClassicCompetence {
                 e.stun(dureeStun);
         }
 
-        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempMs());
+        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempFrameInt());
     }
 
 

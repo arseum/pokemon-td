@@ -7,12 +7,11 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 public class Nidoran extends Tour {
 
     public Nidoran(int x, int y) {
-        super(115, 3, "neutre", Parametres.prixnidoran, x, y, "nidoran", 30, null,2);
-        setMyCompetence(new SlowEnnemiEmpoissone(this));
+        super(115, 3, "neutre", Parametres.prixnidoran, x, y, "nidoran", 30, null);
     }
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         this.degats += 4;
         if (level.get() == Parametres.niveauEvolutionTour)
             portee.set(portee.get()+10);

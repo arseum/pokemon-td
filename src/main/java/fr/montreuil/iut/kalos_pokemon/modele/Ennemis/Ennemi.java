@@ -1,20 +1,21 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Boss;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
-import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 
-public abstract class Ennemi implements Objet, Mobile {
+public abstract class Ennemi implements Mobile {
 
     private static int compteurID = 1;
     private int vitesseMax;
@@ -38,6 +39,7 @@ public abstract class Ennemi implements Objet, Mobile {
     private boolean estTerrestre;
     private int dureeStun;
     protected boolean estArrive;
+    protected ObservableList<EffetImpact> effetActif;
 
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
         this.id = "Ennemi_n°" + compteurID;
@@ -56,7 +58,16 @@ public abstract class Ennemi implements Objet, Mobile {
         this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
         this.estStun = false;
         this.estArrive = false;
+        this.effetActif = FXCollections.observableArrayList();;
         setInfoDeplacement();
+    }
+
+    public ObservableList<EffetImpact> getEffetActif() {
+        return effetActif;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public String getId() {
@@ -108,6 +119,30 @@ public abstract class Ennemi implements Objet, Mobile {
     public IntegerProperty yProperty() {
         return y;
     }
+
+    public void ajouteEffet(EffetImpact e) {
+        e.debutVie(this, game.getNbFrameValue());
+        effetActif.add(e);
+    }
+
+    public void removeEffet(EffetImpact e) {
+        effetActif.remove(e);
+    }
+
+    public void gereEffet() {
+        EffetImpact e;
+        for (int i = effetActif.size() - 1 ; i >= 0 ; i-- ) {
+            e = effetActif.get(i);
+            if (e.peutEtreAppliquer(game.getNbFrameValue()))
+                e.appliqueEffet();
+            if(e.finDeVie()) {
+                removeEffet(e);
+                e.fin();
+            }
+        }
+
+    }
+
     public void reduitVitesseMax(int value){
         //il faut empecher l'accumulation de slow qui pourront mettre la vitesse a 0
         vitesseMax = vitesseMax - value > 0 ? vitesseMax - value : 1;
@@ -186,5 +221,12 @@ public abstract class Ennemi implements Objet, Mobile {
         estStun = true;
         compteurTour = 0;
         this.dureeStun = dureeStun;
+    }
+
+    public boolean containtEffect(EffetImpact effet) {
+        for (EffetImpact e : effetActif)
+            if (e.getClass() == effet.getClass())
+                return true;
+        return false;
     }
 }

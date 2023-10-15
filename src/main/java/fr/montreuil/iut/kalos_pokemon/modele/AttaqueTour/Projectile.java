@@ -1,22 +1,37 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.Poison;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
+
+import java.util.ArrayList;
 
 public class Projectile extends Attaque {
 
     private final Ennemi cible;
-    protected double degatFinal;
+    protected double degatToucher;
+
+
+    public Projectile(Tour tour, Ennemi ennemi, Game game, ArrayList<EffetImpact> effetImpacts ) {
+        super(tour, game,effetImpacts);
+        cible = ennemi;
+        degatToucher = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
+    }
 
     public Projectile(Tour tour, Ennemi ennemi, Game game) {
-        super(tour, game);
-        cible = ennemi;
-        degatFinal = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
+        this(tour, ennemi,game, (ArrayList<EffetImpact>) null); //c moche mais jsp pk je suis obliger de faire ca
+        effetImpacts = new ArrayList<>();
+    }
+
+    public Projectile(Tour tour, Ennemi cible, Game game, EffetImpact effet) {
+        this(tour, cible, game);
+        ArrayList<EffetImpact> list = new ArrayList<>();
+        list.add(effet);
+        this.effetImpacts = list;
     }
 
     /**
@@ -41,12 +56,17 @@ public class Projectile extends Attaque {
      */
     protected void explotionTir(){
         if (cible.getHp() > 0) {
-            cible.diminueHP(degatFinal);
-            tireur.ajouteDegats(degatFinal);
-            if (tireur instanceof TourPoison tourPoison)
-                tourPoison.ajouteEnnemiEmpoissoner(cible);
+            cible.diminueHP(degatToucher);
+            tireur.ajouteDegats(degatToucher);
+            ajouteEffet();
         }
         game.remove(this);
+    }
+
+    private void ajouteEffet() {
+        for (EffetImpact e : effetImpacts)
+            cible.ajouteEffet(e);
+
     }
 
     /**

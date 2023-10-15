@@ -5,13 +5,13 @@ package fr.montreuil.iut.kalos_pokemon.Donne;
  */
 public class Seconde {
 
-    private int temp;
+    private double temp;
 
-    public Seconde(int temp) {
+    public Seconde(double temp) {
         this.temp = temp;
     }
 
-    public int getTemp() {
+    public double getTemp() {
         return temp;
     }
 
@@ -19,7 +19,11 @@ public class Seconde {
         this.temp = temp;
     }
 
-    public int getTempMs() {
-        return temp*60;
+    public int getTempFrameInt() {
+        return (int) temp*60;
+    }
+
+    public double getTempFrameDouble() {
+        return temp * 60 ;
     }
 }

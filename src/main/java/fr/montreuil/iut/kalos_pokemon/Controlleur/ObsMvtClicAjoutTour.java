@@ -1,8 +1,10 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
@@ -90,7 +92,7 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                 } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
                     game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 } else if (this.obsClic.tourSelectionnee.equals("nidoran")) {
-                    game.ajouteTour(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    game.ajouteTour(new TourPoison(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile),2,new Seconde(5)));
                 } else if (this.obsClic.tourSelectionnee.equals("grenousse")) {
                     game.ajouteTour(new Grenousse(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }/*

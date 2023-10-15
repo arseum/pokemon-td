@@ -10,7 +10,7 @@ public class Granivol extends Tour {
     }
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         if (level.get() == Parametres.niveauEvolutionTour) {
             portee.set(180);
         } else {

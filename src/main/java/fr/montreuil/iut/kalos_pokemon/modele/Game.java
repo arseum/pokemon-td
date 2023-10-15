@@ -146,10 +146,25 @@ public class Game {
      */
     public void uneFrame() {
 
-        deplacement(listEnnemi);
         deplacement(listProjectile);
+        gestionEnnemi();
         gestionTour();
 
+    }
+
+    private void gestionEnnemi() {
+
+        Ennemi e;
+
+        for (int i = listEnnemi.size() - 1; i >= 0 ;i --){
+            e = listEnnemi.get(i);
+            if (e.isEstArrive())
+                listEnnemi.remove(e);
+            else
+                e.gereEffet();
+        }
+
+        deplacement(listEnnemi);
     }
 
     public Tour retourneTourAPartirId(String id){
@@ -190,9 +205,9 @@ public class Game {
             if (getNbFrameValue() >= t.getTempProchaineAttaque())
                 t.attaque();
 
-            //todo il faut reussir a sortir le modulo 20 du if
-            if (t instanceof TourSpe tourSpe && getNbFrameValue() % 20 == 0)
-                tourSpe.appliqueEffet();
+//            //todo il faut reussir a sortir le modulo 20 du if
+//            if (t instanceof TourSpe tourSpe && getNbFrameValue() % 20 == 0)
+//                tourSpe.appliqueEffet();
         }
     }
 

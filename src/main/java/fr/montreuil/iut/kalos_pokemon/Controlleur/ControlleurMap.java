@@ -5,6 +5,7 @@ import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
@@ -367,6 +368,33 @@ public class ControlleurMap implements Initializable {
         nouveauEnnemiSprite.getHitBox().xProperty().bind(ennemi.xProperty());
         nouveauEnnemiSprite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(nouveauEnnemiSprite.getSprite());
+
+        //adaptation de leur sprite en fonction des effet
+        ListChangeListener<EffetImpact> listChangeListener = (c -> {
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (EffetImpact effet : c.getAddedSubList()) {
+                        Ennemi e = effet.getVictime();
+                        ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
+                        if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
+                            i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (EffetImpact effet : c.getRemoved()) {
+                        Ennemi e = effet.getVictime();
+                        if (!e.containtEffect(effet)) {
+                            ImageView i = (ImageView) pane.lookup("#hitbox_" + e.getId());
+                            if (i != null) { //un ennemi peut etre dans plusieurs liste donc bug potentiel
+                                i.setImage(Parametres.imagesPokemonMap.get(ennemi.getNom() + ".png"));
+                            }
+                        }
+
+
+                    }
+            }
+        });
+        ennemi.getEffetActif().addListener(listChangeListener);
     }
 
     /**
@@ -415,20 +443,20 @@ public class ControlleurMap implements Initializable {
             t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
 
 
-        //Ajout sprite empoisonnée
-        if (tour instanceof TourPoison tourPoison){
-            tourPoison.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
-                while (change.next()){
-                    if (change.wasAdded())
-                        for (Ennemi e : change.getAddedSubList()) {
-                            ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
-                            if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
-                                i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
-                            }
-                        }
-                }
-            });
-        }
+//        //todo adapter ca
+//        if (tour instanceof TourPoison tourPoison){
+//            tourPoison.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
+//                while (change.next()){
+//                    if (change.wasAdded())
+//                        for (Ennemi e : change.getAddedSubList()) {
+//                            ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
+//                            if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
+//                                i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
+//                            }
+//                        }
+//                }
+//            });
+//        }
 
         if (tour instanceof Magneti magneti) {
             magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
@@ -536,6 +564,7 @@ public class ControlleurMap implements Initializable {
 
         non.setOnAction(e ->{
             popup.close();
+            media_player.stop();
             FXMLLoader fxmlNiveau1 = new FXMLLoader(main.class.getResource("acceuil.fxml"));
             Parent p;
             try {
