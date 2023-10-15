@@ -6,6 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 
 public class Projectile extends Attaque {
 
@@ -42,8 +43,8 @@ public class Projectile extends Attaque {
         if (cible.getHp() > 0) {
             cible.diminueHP(degatFinal);
             tireur.ajouteDegats(degatFinal);
-            if (tireur instanceof Nidoran nidoran)
-                nidoran.ajouteEnnemiEmpoissoner(cible);
+            if (tireur instanceof TourPoison tourPoison)
+                tourPoison.ajouteEnnemiEmpoissoner(cible);
         }
         game.remove(this);
     }

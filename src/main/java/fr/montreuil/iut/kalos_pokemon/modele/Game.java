@@ -8,6 +8,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourSpe;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -189,8 +190,9 @@ public class Game {
             if (getNbFrameValue() >= t.getTempProchaineAttaque())
                 t.attaque();
 
-            if (t instanceof TourPoison tourPoison && getNbFrameValue() % 20 == 0)
-                tourPoison.apliquePoison();
+            //todo il faut reussir a sortir le modulo 20 du if
+            if (t instanceof TourSpe tourSpe && getNbFrameValue() % 20 == 0)
+                tourSpe.appliqueEffet();
         }
     }
 

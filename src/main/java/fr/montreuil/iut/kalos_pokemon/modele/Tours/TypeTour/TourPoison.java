@@ -6,13 +6,12 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public abstract class TourPoison extends Tour {
+public abstract class TourPoison extends TourAvecType implements TourSpe {
 
     protected ObservableList<Ennemi> ennemiEmpoisone;
     protected int degatsPoison;
-
-    public TourPoison(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence, int degatsPoison) {
-        super(portee, degats, type, prix, x, y, pokemon, attaqueSpeed, competence);
+    public TourPoison(Tour t, int degatsPoison) {
+        super(t);
         ennemiEmpoisone = FXCollections.observableArrayList();
         this.degatsPoison = degatsPoison;
     }
@@ -34,7 +33,9 @@ public abstract class TourPoison extends Tour {
         return ennemiEmpoisone;
     }
 
-    public void apliquePoison() {
+
+    @Override
+    public void appliqueEffet() {
         //TODO on part du principe que le poison est permanent, c'est peut-etre a revoir ?
         Ennemi ennemi;
         for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
@@ -48,5 +49,4 @@ public abstract class TourPoison extends Tour {
                 ennemiEmpoisone.remove(i);
         }
     }
-
 }
