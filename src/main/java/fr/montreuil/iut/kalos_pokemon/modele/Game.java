@@ -7,7 +7,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Map.Wave;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourPoison;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -191,8 +191,6 @@ public class Game {
 
             if (t instanceof TourPoison tourPoison && getNbFrameValue() % 20 == 0)
                 tourPoison.apliquePoison();
-//            else if (t instanceof Magneti magneti && magneti.isActif())
-//                magneti.getZone().bouge();
         }
     }
 

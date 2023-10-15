@@ -1,11 +1,12 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Tours;
+package fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public abstract class TourPoison extends Tour{
+public abstract class TourPoison extends Tour {
 
     protected ObservableList<Ennemi> ennemiEmpoisone;
     protected int degatsPoison;

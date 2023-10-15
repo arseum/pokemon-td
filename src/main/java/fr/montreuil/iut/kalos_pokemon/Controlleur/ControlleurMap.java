@@ -10,6 +10,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -31,10 +32,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,6 +52,7 @@ public class ControlleurMap implements Initializable {
     private TerrainVue terrainVue;
     private Game game;
     private BooleanProperty pause;
+    private MediaPlayer media_player;
     private BooleanProperty gameGagnee ;
     @FXML
     private Button buttonMenu;
@@ -71,9 +76,6 @@ public class ControlleurMap implements Initializable {
 
     @FXML
     private Button pauseButton;
-
-    public ControlleurMap() {
-    }
 
     public void setPause(boolean etat) {
         pause.setValue(etat);
@@ -138,6 +140,11 @@ public class ControlleurMap implements Initializable {
                 clicSurTour.nomTour.set("placeholder");
             }
         });
+
+        //test audio
+        Media media = new Media(new File(Parametres.cheminAudioCintya).toURI().toString());
+        media_player = new MediaPlayer(media);
+        media_player.play();
 
         //init game loop + label utile
         try {

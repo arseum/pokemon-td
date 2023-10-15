@@ -11,9 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.*;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,19 +25,12 @@ public class ControlleurAcceuil implements Initializable {
     private ImageView imageNiveau2;
     @FXML
     private ImageView imageNiveau3;
-
-    private MediaPlayer media_player;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buttonNiveau1.setCursor(Cursor.HAND);
         imageNiveau1.setImage(new Image("File:" + Parametres.cheminInterface + "niveau 1.png"));
         imageNiveau2.setImage(new Image("File:" + Parametres.cheminInterface + "niveau 2.png"));
         imageNiveau3.setImage(new Image("File:" + Parametres.cheminInterface + "niveau 3.png"));
-
-        //test audio
-		Media media = new Media(new File(Parametres.cheminAudioCintya).toURI().toString());
-		media_player = new MediaPlayer(media);
-        media_player.play();
 
     }
     @FXML
