@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -13,7 +14,7 @@ public class ExplosionAutourTour extends ClassicCompetence{
 
     private BooleanProperty actif;
     public ExplosionAutourTour(Tour myTour) {
-        super(myTour);
+        super(myTour, new Seconde(22));
         actif = new SimpleBooleanProperty(false);
     }
 
@@ -40,7 +41,7 @@ public class ExplosionAutourTour extends ClassicCompetence{
                 myTour.ajouteDegats(damage);
             }
         }
-        tempProchainActif.set(myTour.getGame().getNbFrameValue() + (60*22)) ;
+        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempMs()) ;
 
         //permet de provoquer une animation dans la vue
         activation();

@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourPoison;
@@ -9,7 +10,7 @@ import java.util.List;
 public class SlowEnnemiEmpoissone extends ClassicCompetence{
     private TourPoison myTourPoisson;
     public SlowEnnemiEmpoissone(TourPoison myTour) {
-        super(myTour);
+        super(myTour, new Seconde(12));
         myTourPoisson = myTour;
     }
 
@@ -24,7 +25,7 @@ public class SlowEnnemiEmpoissone extends ClassicCompetence{
             ennemiEmpoisone.get(i).reduitVitesseMax(1);
         }
 
-        tempProchainActif.set(myTour.getGame().getNbFrameValue() + (60*12));
+        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempMs());
 
     }
 
