@@ -1,11 +1,13 @@
-package fr.montreuil.iut.kalos_pokemon.modele;
+package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
 
 import java.util.List;
 
-public class bouleDeFeu extends Projectile{
+public class bouleDeFeu extends Projectile {
 
     private final int rayonExploxion;
 

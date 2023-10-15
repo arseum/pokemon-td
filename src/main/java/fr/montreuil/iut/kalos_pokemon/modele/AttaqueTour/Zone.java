@@ -1,5 +1,7 @@
-package fr.montreuil.iut.kalos_pokemon.modele;
+package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;

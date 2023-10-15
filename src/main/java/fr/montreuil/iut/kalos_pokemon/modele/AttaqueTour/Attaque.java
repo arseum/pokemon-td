@@ -1,6 +1,9 @@
-package fr.montreuil.iut.kalos_pokemon.modele;
+package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
+import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -12,7 +15,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  * super-classe qui regroupe les differents type d'attaque des tours
  * est necessaire pour pouvoir donner un effet speciales a des attaques
  */
-public abstract class Attaque implements Objet,Mobile {
+public abstract class Attaque implements Objet, Mobile {
 
     private static int compteur = 1;
     private final String id;

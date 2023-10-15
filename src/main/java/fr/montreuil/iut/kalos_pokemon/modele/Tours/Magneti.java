@@ -1,11 +1,10 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ImmobilisationZone;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
-import fr.montreuil.iut.kalos_pokemon.modele.Zone;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;

@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele;
+package fr.montreuil.iut.kalos_pokemon.modele.Map;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 

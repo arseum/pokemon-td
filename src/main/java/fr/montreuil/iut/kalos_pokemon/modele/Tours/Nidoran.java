@@ -1,11 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.SlowEnnemiEmpoissone;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class Nidoran extends TourPoison {
 

@@ -1,8 +1,11 @@
-package fr.montreuil.iut.kalos_pokemon.modele;
+package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Boss;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
+import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -11,7 +14,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.Map;
 
 
-public abstract class Ennemi implements Objet,Mobile{
+public abstract class Ennemi implements Objet, Mobile {
 
     private static int compteurID = 1;
     private int vitesseMax;

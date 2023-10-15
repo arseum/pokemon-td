@@ -1,14 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
-import fr.montreuil.iut.kalos_pokemon.modele.bouleDeFeu;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
-import java.util.List;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 
 public class Salameche extends Tour {
 

@@ -4,6 +4,10 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
 import javafx.animation.KeyFrame;
@@ -405,8 +409,8 @@ public class ControlleurMap implements Initializable {
 
 
         //Ajout sprite empoisonnée
-        if (tour instanceof Nidoran nidoran){
-            nidoran.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
+        if (tour instanceof TourPoison tourPoison){
+            tourPoison.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
                 while (change.next()){
                     if (change.wasAdded())
                         for (Ennemi e : change.getAddedSubList()) {
@@ -416,6 +420,13 @@ public class ControlleurMap implements Initializable {
                             }
                         }
                 }
+            });
+        }
+
+        if (tour instanceof Magneti magneti) {
+            magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (t1)
+                    magneti.getZone().bouge();
             });
         }
 

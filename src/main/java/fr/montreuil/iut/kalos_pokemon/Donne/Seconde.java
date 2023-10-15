@@ -5,7 +5,7 @@ package fr.montreuil.iut.kalos_pokemon.Donne;
  */
 public class Seconde {
 
-    private final int temp;
+    private int temp;
 
     public Seconde(int temp) {
         this.temp = temp;
@@ -13,6 +13,10 @@ public class Seconde {
 
     public int getTemp() {
         return temp;
+    }
+
+    public void setTemp(int temp) {
+        this.temp = temp;
     }
 
     public int getTempMs() {

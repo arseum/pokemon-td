@@ -77,9 +77,11 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
             }
         }
         if (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED) {
+            //TODO il faudrait faire une classe pour les division et tout le tralala
             int x = divisionEuclidienne(xTour.get() - Parametres.tailleTourX / 2);
             int y = divisionEuclidienne(yTour.get() - Parametres.tailleTourY / 2);
             if (this.obsClic.estSelectionnee.getValue() && estPlacable(x, y)) {
+                //TODO forge pour les tours
                 if (this.obsClic.tourSelectionnee.equals("poussifeu")) {
                     Poussifeu p = new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
                     game.ajouteTour(p);
