@@ -131,6 +131,7 @@ public class Terrain {
     }
 
 
+
     public void ajouteAdjacents(ArrayList adjacents, boolean estTerrestre, int idCase, int hauteur, int largeur){
         int ligneCase = idCase / largeur;
         int colonneCase = idCase % largeur;
@@ -185,6 +186,7 @@ public class Terrain {
      *
      * @return
      */
+    /*
     public Map<Integer, Integer> algoBFS(boolean estTerrestre) {
         Map<Integer, Integer> arbreCouvrant = new HashMap<>();
 
@@ -210,7 +212,7 @@ public class Terrain {
             }
         }
         return arbreCouvrant;
-    }
+    }*/
 
     public int getHauteurTerrain() {
         return this.arrierePlan.size() * Parametres.tailleTuile;
@@ -219,5 +221,11 @@ public class Terrain {
     public int getLargeurTerrain() {
         return this.arrierePlan.get(0).size() * Parametres.tailleTuile;
     }
+
+    public int getIdArrivee() {return idArrivee;}
+
+    //public int getNbLigneTerrain() {return this.arrierePlan.size() * Parametres.tailleTuile;}
+
+    //public int getLargeurTerrain() {return this.arrierePlan.get(0).size() * Parametres.tailleTuile;}
 
 }

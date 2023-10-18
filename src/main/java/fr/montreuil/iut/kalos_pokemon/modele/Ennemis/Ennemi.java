@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -55,7 +56,8 @@ public abstract class Ennemi implements Mobile {
         this.nom = pokemon;
         this.game = game;
         this.estTerrestre = estTerrestre;
-        this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
+        //this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
+        this.cheminVersArrive = BFS.getBFS(this.game.getTerrain()).algoBFS(estTerrestre);
         this.estStun = false;
         this.estArrive = false;
         this.effetActif = FXCollections.observableArrayList();;
