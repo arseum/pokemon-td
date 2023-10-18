@@ -7,9 +7,7 @@ import java.util.*;
 public class BFS {
 
     private static BFS uniqueInstance = null;
-
     private Terrain terrain;
-
     private BFS(Terrain terrain){
         this.terrain = terrain;
     }
