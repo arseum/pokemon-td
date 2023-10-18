@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.Poison;
@@ -19,7 +20,8 @@ public class Projectile extends Attaque {
     public Projectile(Tour tour, Ennemi ennemi, Game game, ArrayList<EffetImpact> effetImpacts ) {
         super(tour, game,effetImpacts);
         cible = ennemi;
-        degatToucher = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
+        //degatToucher = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
+        degatToucher = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
 
     public Projectile(Tour tour, Ennemi ennemi, Game game) {

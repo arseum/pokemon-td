@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -35,7 +36,8 @@ public class ExplosionAutourTour extends ClassicCompetence{
         for (int i = listEnnemi.size() - 1; i >= 0; i--) {
             e = listEnnemi.get(i);
             if (myTour.estADistance(e) ) {
-                damage = Parametres.calculDegats(myTour.getType(),e.getType(),150);
+                //damage = Parametres.calculDegats(myTour.getType(),e.getType(),150);
+                damage = Type.calculDegats(myTour.getType(),e.getType(),150);
                 e.diminueHP(damage);
                 myTour.ajouteDegats(damage);
             }

@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -143,7 +144,8 @@ public abstract class Tour implements Objet {
     public IntegerProperty tempProchaineActifProperty() { return myCompetence.tempProchainActifProperty();}
 
     protected void evolution(){
-        setNom(Parametres.nomGrandEvolution.get(nom));
+        //setNom(Parametres.nomGrandEvolution.get(nom));
+        setNom(Pokemon.valueOf(nom).getNomEvolution());
         myCompetence.setTempProchainActif(game.getNbFrameValue());
     }
 

@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import javafx.scene.image.Image;
 
@@ -17,6 +18,7 @@ public class Parametres {
 
     // Prix
 
+    /*
     public static final int prixpoussifeu = 60;
     public static final int prixgranivol = 95;
     public static final int prixmagneti = 100;
@@ -33,7 +35,7 @@ public class Parametres {
     public static final String nomEvolutionNidoran = "nidorino";
     public static final String nomEvolutionGrenousse = "croaporal";
 
-
+*/
     //
     public static String cheminTerrains = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Terrain/";
     public static String cheminInterface = "src/main/resources/fr/montreuil/iut/kalos_pokemon/Vue/Interface/acceuil/";
@@ -63,14 +65,18 @@ public class Parametres {
     public static Map<String, Image> imagesTirMap = new HashMap<>();
     public static Map<String, Image> imagesPokemonMap = new HashMap<>();
     public static Map<String,String> nomPetitEvolution = new HashMap<>();
-    public static Map<String,String> nomGrandEvolution = new HashMap<>();
+    //public static Map<String,String> nomGrandEvolution = new HashMap<>();
 
 
     // Types
+
+    /*
     public static final String typeEau = "eau";
     public static final String typeFeu = "feu";
     public static final String typePlante = "plante";
     public static final String typeNeutre = "neutre";
+
+
 
     public static final double superEfficace = 1.3;
     public static final double peuEfficace = 0.7;
@@ -112,10 +118,12 @@ public class Parametres {
         return degats * multiplicateur;
     }
 
+     */
+
     public static void setMap(String s){
         map = s;
     }
-
+/*
     public static int prixTour(String nom) {
         if (nom.equals("poussifeu")) return prixpoussifeu;
         else if (nom.equals("granivol")) return prixgranivol;
@@ -125,6 +133,8 @@ public class Parametres {
         else if (nom.equals("grenousse")) return prixgrenousse;
         return -1;
     }
+
+ */
 
     public static void init(){
 
@@ -148,6 +158,7 @@ public class Parametres {
             }
         }
 
+        /*
         nomPetitEvolution.put(nomEvolutionPoussifeu,"poussifeu");
         nomPetitEvolution.put(nomEvolutionGranivol,"granivol");
         nomPetitEvolution.put(nomEvolutionMagneti,"magneti");
@@ -155,12 +166,23 @@ public class Parametres {
         nomPetitEvolution.put(nomEvolutionNidoran,"nidoran");
         nomPetitEvolution.put(nomEvolutionGrenousse,"grenousse");
 
+         */
+        nomPetitEvolution.put(Pokemon.poussifeu.getNomEvolution(), Pokemon.poussifeu.name());
+        nomPetitEvolution.put(Pokemon.granivol.getNomEvolution(), Pokemon.granivol.name());
+        nomPetitEvolution.put(Pokemon.magneti.getNomEvolution(), Pokemon.magneti.name());
+        nomPetitEvolution.put(Pokemon.salameche.getNomEvolution(), Pokemon.salameche.name());
+        nomPetitEvolution.put(Pokemon.nidoran.getNomEvolution(), Pokemon.nidoran.name());
+        nomPetitEvolution.put(Pokemon.grenousse.getNomEvolution(), Pokemon.granivol.name());
+/*
+        //Deprecié
         nomGrandEvolution.put("poussifeu",nomEvolutionPoussifeu);
         nomGrandEvolution.put("granivol",nomEvolutionGranivol);
         nomGrandEvolution.put("magneti",nomEvolutionMagneti);
         nomGrandEvolution.put("salameche",nomEvolutionSalameche);
         nomGrandEvolution.put("nidoran",nomEvolutionNidoran);
         nomGrandEvolution.put("grenousse",nomEvolutionGrenousse);
+
+ */
     }
 
     public static int distance(Objet o1, Objet o2){

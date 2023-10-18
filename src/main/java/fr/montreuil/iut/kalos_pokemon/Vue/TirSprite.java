@@ -15,6 +15,7 @@ public class TirSprite {
 
     public TirSprite(Attaque a) {
         idImage = 0;
+        //a.getTireur().
 
         String n = a.getTireur().getNom();
         nomTireur = Parametres.nomPetitEvolution.getOrDefault(n, n);
