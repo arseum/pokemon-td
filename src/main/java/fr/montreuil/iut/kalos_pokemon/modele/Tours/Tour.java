@@ -1,13 +1,16 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ModeDattaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 import javafx.beans.property.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tour implements Objet {
@@ -26,8 +29,9 @@ public abstract class Tour implements Objet {
     protected int tempProchaineAttaque;
     protected Game game;
     protected Competence myCompetence;
+    protected ModeAttaque myModeAttaque;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
+    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence, ModeAttaque myModeAttaque) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -38,11 +42,16 @@ public abstract class Tour implements Objet {
         this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
         this.myCompetence = competence;
+        this.myModeAttaque = myModeAttaque;
         this.nom = pokemon;
         this.attaqueSpeed = attaqueSpeed;
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
 
+    }
+
+    public void setMyModeAttaque(ModeAttaque myModeAttaque) {
+        this.myModeAttaque = myModeAttaque;
     }
 
     public int getAttaqueSpeed() {
@@ -104,9 +113,6 @@ public abstract class Tour implements Objet {
     public double getCompteurDegats() {
         return compteurDegats.get();
     }
-    public DoubleProperty compteurDegatsProperty() {
-        return compteurDegats;
-    }
     public IntegerProperty levelProperty() {
         return level;
     }
@@ -154,7 +160,7 @@ public abstract class Tour implements Objet {
         Ennemi cible = chercheCible();
 
         if (cible != null) {
-            lanceProjectile(cible);
+            lanceProjectile(cible,new ArrayList<>());
             tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
         }
 
@@ -198,8 +204,8 @@ public abstract class Tour implements Objet {
     /**
      * utile car toutes les tours ne lancent pas les meme type projectiles
      */
-    protected void lanceProjectile(Ennemi cible){
-        game.ajouteProjectile(new Projectile(this, cible, game));
+    public void lanceProjectile(Ennemi cible, ArrayList<EffetImpact> listEffect){
+        game.ajouteProjectile(new Projectile(this, cible, game,listEffect));
     }
 
     public int prixRevente(){

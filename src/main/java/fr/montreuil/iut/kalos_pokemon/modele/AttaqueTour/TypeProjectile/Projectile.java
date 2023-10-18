@@ -1,12 +1,11 @@
-package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
+package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.Poison;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 
 public class Poison extends EffetImpact {
@@ -17,10 +16,8 @@ public class Poison extends EffetImpact {
         this.duree = duree;
         this.tic = tic;
         this.myTourPoison = tireur;
-    }
-
-    public TourPoison getMyTourPoison() {
-        return myTourPoison;
+        //todo il faut que le poison ne sois pas stackable
+        //il faut gere le fait que lorsque le poison arrive sur un ennemi empoisoner il reset seulement le poison deja existant dessus
     }
 
     @Override

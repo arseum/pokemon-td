@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
+package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;

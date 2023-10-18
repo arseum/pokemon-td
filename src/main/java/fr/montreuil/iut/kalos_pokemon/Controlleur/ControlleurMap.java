@@ -4,14 +4,13 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile.ZoneProjectile;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -457,7 +456,7 @@ public class ControlleurMap implements Initializable {
 
     private void creerTirSprite(Attaque a) throws IOException {
         TirSprite sprite = new TirSprite(a);
-        if (a instanceof Zone zone) {
+        if (a instanceof ZoneProjectile zone) {
             sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
             sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
             sprite.getHitBox().visibleProperty().bind(zone.actifProperty());

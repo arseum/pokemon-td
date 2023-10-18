@@ -1,6 +1,5 @@
-package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
+package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile;
 
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import javafx.beans.property.BooleanProperty;
@@ -12,12 +11,12 @@ import javafx.beans.property.SimpleIntegerProperty;
  * classe pour la zone de magneti
  * elle ne fait pas grand chose car la zone ne se deplace pas et ne fait pas de degats
  */
-public class Zone extends Attaque {
+public class ZoneProjectile extends Attaque {
 
     private final BooleanProperty actif;
     private final IntegerProperty range;
 
-    public Zone(Magneti tour, Game game) {
+    public ZoneProjectile(Magneti tour, Game game) {
         super(tour, game);
         range = new SimpleIntegerProperty(tour.porteeProperty().get());
         range.bind(tour.porteeProperty());

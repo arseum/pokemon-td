@@ -1,10 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ModeDattaque.Zone;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ImmobilisationZone;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile.ZoneProjectile;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -16,17 +17,18 @@ public class Magneti extends Tour {
 
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;
-    private final Zone zone;
+    private final ZoneProjectile zone;
     private int valeurSlow;
 
 
     public Magneti(int x, int y) {
-        super(90, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0,null);
+        super(90, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0,null,null);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
-        zone = new Zone(this, game);
+        zone = new ZoneProjectile(this, game);
         valeurSlow = 1;
         setMyCompetence(new ImmobilisationZone(this,90));
+        setMyModeAttaque(new Zone(this));
     }
 
     public BooleanProperty actifProperty() {
@@ -37,7 +39,7 @@ public class Magneti extends Tour {
         return actif.get();
     }
 
-    public Zone getZone() {
+    public ZoneProjectile getZone() {
         return zone;
     }
 

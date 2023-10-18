@@ -1,14 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.TypeProjectile.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Wave;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourSpe;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
