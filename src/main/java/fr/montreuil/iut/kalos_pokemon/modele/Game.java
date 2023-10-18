@@ -205,9 +205,6 @@ public class Game {
             if (getNbFrameValue() >= t.getTempProchaineAttaque())
                 t.attaque();
 
-//            //todo il faut reussir a sortir le modulo 20 du if
-//            if (t instanceof TourSpe tourSpe && getNbFrameValue() % 20 == 0)
-//                tourSpe.appliqueEffet();
         }
     }
 

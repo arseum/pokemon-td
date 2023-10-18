@@ -54,19 +54,4 @@ public class TourPoison extends TourAvecType implements TourSpe {
         ajouteEnnemiEmpoissoner(cible);
     }
 
-    @Override
-    public void appliqueEffet() {
-        //TODO on part du principe que le poison est permanent, c'est peut-etre a revoir ?
-        Ennemi ennemi;
-        for (int i = ennemiEmpoisone.size() - 1; i >= 0; i--) {
-            ennemi = ennemiEmpoisone.get(i);
-            if (ennemi.getHp() > 0 && !ennemi.isEstArrive()) { //si la cible est mort/arrivé entre temps
-                ennemi.diminueHP(degatsPoison);
-                //le poisson etant neutre pas besoin de faire un calcul avec les types
-                ajouteDegats(degatsPoison);
-            }
-            else
-                ennemiEmpoisone.remove(i);
-        }
-    }
 }

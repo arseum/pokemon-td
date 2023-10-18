@@ -8,8 +8,4 @@ public abstract class TourSlow extends TourAvecType implements TourSpe {
         super(t);
     }
 
-    @Override
-    public void appliqueEffet() {
-
-    }
 }

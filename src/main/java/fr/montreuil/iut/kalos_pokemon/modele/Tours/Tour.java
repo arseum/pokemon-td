@@ -24,9 +24,7 @@ public abstract class Tour implements Objet {
     private final String id;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
-    
     protected Game game;
-
     protected Competence myCompetence;
 
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {

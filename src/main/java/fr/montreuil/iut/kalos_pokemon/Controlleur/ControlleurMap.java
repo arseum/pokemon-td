@@ -443,21 +443,6 @@ public class ControlleurMap implements Initializable {
             t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
 
 
-//        //todo adapter ca
-//        if (tour instanceof TourPoison tourPoison){
-//            tourPoison.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
-//                while (change.next()){
-//                    if (change.wasAdded())
-//                        for (Ennemi e : change.getAddedSubList()) {
-//                            ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
-//                            if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
-//                                i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
-//                            }
-//                        }
-//                }
-//            });
-//        }
-
         if (tour instanceof Magneti magneti) {
             magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (t1)
