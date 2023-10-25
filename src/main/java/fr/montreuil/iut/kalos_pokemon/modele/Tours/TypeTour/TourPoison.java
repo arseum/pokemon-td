@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-public class TourPoison extends TourAvecType implements TourSpe {
+public class TourPoison extends TourAvecType {
 
     protected ObservableList<Ennemi> ennemiEmpoisone;
     protected int degatsPoison;
@@ -21,12 +21,7 @@ public class TourPoison extends TourAvecType implements TourSpe {
         ennemiEmpoisone = FXCollections.observableArrayList();
         this.degatsPoison = degatsPoison;
         this.dureePoison = dureePoison;
-        setMyCompetence(new SlowEnnemiEmpoissone(this));
-    }
-
-    @Override
-    protected boolean peutCibler(Ennemi ennemi) {
-        return !ennemiEmpoisone.contains(ennemi) && estADistance(ennemi);
+        myTour.setMyCompetence(new SlowEnnemiEmpoissone(this, t));
     }
 
     public void ajouteEnnemiEmpoissoner(Ennemi e){
@@ -39,9 +34,7 @@ public class TourPoison extends TourAvecType implements TourSpe {
         return ennemiEmpoisone;
     }
 
-    @Override
-    public void amelioreStats() {
-        myTour.amelioreStats();
+    public void ameliorationEffect() {
         degatsPoison += 2; //todo a verfier ct combien jspu
     }
 
@@ -51,9 +44,9 @@ public class TourPoison extends TourAvecType implements TourSpe {
         ajouteEnnemiEmpoissoner(cible);
         //todo il faut que je retire la memorisation des ennemi stocker pour
         //faire en sorte que une tour poison recupere un ennemi qui n'a pas d'effet poison
-        //puis qui recupere l'ennemi empoisoner le + proche si pas le choix
+        //        //puis qui recupere l'ennemi empoisoner le + proche si pas le choix
 
-        super.lanceProjectile(cible,listEffect);
+        myTour.lanceProjectile(cible,listEffect);
     }
 
 }

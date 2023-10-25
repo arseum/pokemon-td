@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ModeDattaque;
 
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -10,6 +11,10 @@ public abstract class Tireur extends ModeAttaque {
 
     public Tireur(Tour myTour) {
         super(myTour);
+    }
+
+    public Tireur(Tour myTour, ArrayList<EffetImpact> myEffects) {
+        super(myTour, myEffects);
     }
 
     public void attaque() {
