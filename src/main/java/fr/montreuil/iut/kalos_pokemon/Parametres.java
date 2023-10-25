@@ -16,6 +16,10 @@ public class Parametres {
     public static final int niveauEvolutionTour = 3;
     public static final double pourcentageRevente = 0.75;
 
+    public static final int argentDepart = 850;
+
+    public static final int argentDepartPourDev = 9999;
+
     // Prix
 
     /*

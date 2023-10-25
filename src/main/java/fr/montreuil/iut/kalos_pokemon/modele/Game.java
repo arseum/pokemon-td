@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Wave;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
@@ -35,22 +36,49 @@ public class Game {
     private final IntegerProperty vie;
     private Wave vague;
     private boolean bossVaincu = false;
+    private static Game uniqueInstanceGame = null;
 
-    public Game(String nomTerrain) {
+    private static String nomTerrain = null;
+
+    private Game(String nomTerrain) {
         terrain = new Terrain(nomTerrain);
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
-        pokedollar = new SimpleIntegerProperty(850);
+        pokedollar = new SimpleIntegerProperty(Parametres.argentDepartPourDev);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
-        vague= new Wave(terrain,this);
+        vague= new Wave(terrain);
         vague.nbFrameProperty().bind(nbFrame);
     }
 
-    public Game() {
+    /*
+    private Game() {
         this("default");
     }
+     */
+
+    //todo : à remodeler (il faut que l'unique accès soit getGame)
+    public static Game getGame(String nomTerrain){
+        if(uniqueInstanceGame == null){
+            Game.nomTerrain = nomTerrain;
+            uniqueInstanceGame = new Game(Game.nomTerrain);
+        }
+        return uniqueInstanceGame;
+    }
+
+    public static Game getGame(){
+        if (nomTerrain != null){
+            Game.nomTerrain = "default";
+        }
+        return getGame(Game.nomTerrain);
+    }
+
+    public static void resetGame(){
+        uniqueInstanceGame = null;
+        nomTerrain = null;
+    }
+
     public Wave getVague() {
         return vague;
     }
@@ -110,7 +138,7 @@ public class Game {
     public void ajouteTour(Tour t) {
         if (tourAchetable(t)) {
             listTour.add(t);
-            t.setGame(this);
+            //t.setGame(this);
             pokedollar.set(pokedollar.get() - t.getPrix());
         }
     }

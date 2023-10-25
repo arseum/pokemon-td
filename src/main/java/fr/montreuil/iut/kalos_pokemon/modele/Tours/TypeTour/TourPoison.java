@@ -4,6 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.Poison;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.SlowEnnemiEmpoissone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -50,7 +51,8 @@ public class TourPoison extends TourAvecType implements TourSpe {
 
     @Override
     protected void lanceProjectile(Ennemi cible) {
-        game.ajouteProjectile(new Projectile(this, cible, game, new Poison(degatsPoison,dureePoison,new Seconde(0.2), this)));
+        //game.ajouteProjectile(new Projectile(this, cible, game, new Poison(degatsPoison,dureePoison,new Seconde(0.2), this)));
+        Game.getGame().ajouteProjectile(new Projectile(this, cible, new Poison(degatsPoison,dureePoison,new Seconde(0.2), this)));
         ajouteEnnemiEmpoissoner(cible);
     }
 

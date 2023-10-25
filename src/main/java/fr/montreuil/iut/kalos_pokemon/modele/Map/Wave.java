@@ -13,15 +13,14 @@ public class Wave {
     private IntegerProperty nbFrame;
     private IntegerProperty cptWave;
     private Terrain terrain;
-    private Game game;
     private BooleanProperty gameGagnee;
 
 
 
-    public Wave(Terrain terrain, Game g) {
+    public Wave(Terrain terrain) {
         nbFrame = new SimpleIntegerProperty(0);
         this.terrain= terrain;
-        this.game = g;
+        //this.game = g;
         gameGagnee = new SimpleBooleanProperty(false);
         cptWave = new SimpleIntegerProperty(1);
     }
@@ -69,26 +68,26 @@ public class Wave {
                 setWave(1);
             }
             if (frameAct%90==0 )
-                game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));  //WAVE 1
+                Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32));  //WAVE 1
 
         }
 
         else if (frameAct>=1500 && frameAct<2400 ) {
             if (frameAct==1500) setWave(getWave()+1);
             if (frameAct%400==0){
-                game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game)); // WAVE 2
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32)); // WAVE 2
 
             }
         }
 
         else if (frameAct>=2700 && frameAct<3300 && frameAct%90==0) {
             if (frameAct==2700) setWave(getWave()+1);
-            game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game)); // WAVE 3 attente de 5s
+            Game.getGame().ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32)); // WAVE 3 attente de 5s
         }
 
         else if (frameAct>=3900 && frameAct<=4500 && frameAct%150==0 ) {
             if (frameAct==3900) setWave(getWave()+1);
-            game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game)); // WAVE4 attente de 5s
+            Game.getGame().ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32)); // WAVE4 attente de 5s
 
         }
 
@@ -96,10 +95,10 @@ public class Wave {
             if (frameAct==6001) setWave(getWave()+1);
 
             if (frameAct%120==0){
-                game.ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32, game)); // WAVE 5 attente de 5s
+                Game.getGame().ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32)); // WAVE 5 attente de 5s
             }
             if (frameAct%90==0) {
-                game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32));
             }
 
         }
@@ -110,11 +109,11 @@ public class Wave {
             if (frameAct == 7501) setWave(getWave() + 1);
 
             if (frameAct % 50 == 0) {
-                game.ajouteEnnemi(new Togepi(caseDepart[0] * 32, caseDepart[1] * 32, game));// WAVE 6
+                Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0] * 32, caseDepart[1] * 32));// WAVE 6
 
             }
             if (frameAct % 100 == 0) {
-                game.ajouteEnnemi(new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32, game));
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32));
             }
         }
 
@@ -122,11 +121,11 @@ public class Wave {
             if (frameAct==8601) setWave(getWave()+1);
 
             if ( frameAct%60==0){
-                game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 7
+                Game.getGame().ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32));// WAVE 7
             }
 
             if (frameAct%120==0) {
-                game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
 
@@ -134,22 +133,22 @@ public class Wave {
             if (frameAct==9801) setWave(getWave()+1);
 
             if ( frameAct%120==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));// WAVE 8
+                Game.getGame().ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32));// WAVE 8
             }
 
             if (frameAct %90==0) {
-                game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
         else if (frameAct > 11000 && getNbFrame()<=11600 ) {            // WAVE 9
             if (frameAct == 11001) setWave(getWave()+1);
 
             if ( frameAct %45==0){
-                game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32));
             }
 
             if (frameAct %90==0) {
-                game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
 
@@ -159,14 +158,14 @@ public class Wave {
             if (frameAct ==12201) setWave(getWave()+1);
 
             if ( frameAct %30==0){
-                game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 10
+                Game.getGame().ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32));// WAVE 10
             }
 
             if (frameAct %90==0) {
-                game.ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32));
             }
             if (getNbFrame()%150==0) {
-                game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
 
@@ -175,11 +174,11 @@ public class Wave {
             if (frameAct==13401) setWave(getWave()+1);
 
             if ( frameAct %25==0){
-                game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 11
+                Game.getGame().ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32));// WAVE 11
             }
 
             if (frameAct %150==0) {
-                game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
 
@@ -187,14 +186,14 @@ public class Wave {
             if (frameAct ==14601) setWave(getWave()+1);
 
             if ( frameAct %45==0){
-                game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 12
+                Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32));// WAVE 12
             }
 
             if (frameAct %80==0) {
-                game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32));
             }
             if (getNbFrame()%130==0) {
-                game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
 
@@ -202,17 +201,17 @@ public class Wave {
             if (frameAct ==15801) setWave(getWave()+1);
 
             if ( frameAct %110==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));// WAVE 13
+                Game.getGame().ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32));// WAVE 13
             }
             if ( frameAct %70==0){
-                game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32));
             }
 
             if (frameAct %100==0) {
-                game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32));
             }
             if (getNbFrame()%120==0) {
-                game.ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
 
@@ -220,47 +219,47 @@ public class Wave {
             if (frameAct == 17001) setWave(getWave() + 1);
 
             if ( frameAct %50==0){
-                game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 14
+                Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32));// WAVE 14
             }
             if ( frameAct %150==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));
+                Game.getGame().ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32));
             }
 
             if (frameAct %90==0) {
-                game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32));
             }
             if (getNbFrame()%130==0) {
-                game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32));
             }
         }
         else if (frameAct >18400 && frameAct<=19400 ) {
             if (frameAct ==18401) setWave(getWave()+1);
 
             if ( frameAct %70==0){
-                game.ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32, game));// WAVE 15
+                Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32));// WAVE 15
             }
             if ( frameAct %180==0){
-                game.ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32, game));
+                Game.getGame().ajouteEnnemi(new Roucool(caseDepart[0]*32, caseDepartYVol()*32));
             }
             if ( frameAct %90==0){
-                game.ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Tiplouf(caseDepart[0]*32, caseDepart[1]*32));
             }
 
             if (frameAct %100==0) {
-                game.ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Fantominus(caseDepart[0]*32, caseDepart[1]*32));
             }
             if (getNbFrame()%110==0) {
-                game.ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Camerupt(caseDepart[0]*32, caseDepart[1]*32));
             }
             if (getNbFrame()%120==0) {
-                game.ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32, game));
+                Game.getGame().ajouteEnnemi(new Ludicolo(caseDepart[0]*32, caseDepart[1]*32));
             }
 
         }
 
         else if (frameAct == 20500){
-            game.ajouteEnnemi(new Boss(caseDepart[0]*32, caseDepart[1]*32,game));
-        } else if (frameAct > 19300 && game.bossEstVaincu()) { setGagne(true); }
+            Game.getGame().ajouteEnnemi(new Boss(caseDepart[0]*32, caseDepart[1]*32));
+        } else if (frameAct > 19300 && Game.getGame().bossEstVaincu()) { setGagne(true); }
 
     }
 

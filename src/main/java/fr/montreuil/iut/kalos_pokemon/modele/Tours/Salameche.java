@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 
@@ -27,7 +28,9 @@ public class Salameche extends Tour {
 
     @Override
     protected void lanceProjectile(Ennemi cible) {
-        game.ajouteProjectile(new bouleDeFeu(this,cible,game));
+
+        //game.ajouteProjectile(new bouleDeFeu(this,cible,game));
+        Game.getGame().ajouteProjectile(new bouleDeFeu(this,cible));
     }
 
     public int getRayonExploxion() {

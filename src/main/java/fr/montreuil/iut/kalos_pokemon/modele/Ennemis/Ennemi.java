@@ -34,7 +34,7 @@ public abstract class Ennemi implements Mobile {
     private final String id;
     private final Map<Integer, Integer> cheminVersArrive;
     private final DoubleProperty hp;
-    protected final Game game;
+    //protected final Game game;
     private int vitesseActuel;
     private int[] infoDeplacement;
     private boolean estTerrestre;
@@ -42,7 +42,8 @@ public abstract class Ennemi implements Mobile {
     protected boolean estArrive;
     protected ObservableList<EffetImpact> effetActif;
 
-    public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
+    //public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
+    public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
         this.hp = new SimpleDoubleProperty(hp);
@@ -54,10 +55,9 @@ public abstract class Ennemi implements Mobile {
         this.y = new SimpleIntegerProperty(y);
         this.recompense = recompense;
         this.nom = pokemon;
-        this.game = game;
         this.estTerrestre = estTerrestre;
         //this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
-        this.cheminVersArrive = BFS.getBFS(this.game.getTerrain()).algoBFS(estTerrestre);
+        this.cheminVersArrive = BFS.getBFS(Game.getGame().getTerrain()).algoBFS(estTerrestre);
         this.estStun = false;
         this.estArrive = false;
         this.effetActif = FXCollections.observableArrayList();;
@@ -68,9 +68,10 @@ public abstract class Ennemi implements Mobile {
         return effetActif;
     }
 
+    /*
     public Game getGame() {
         return game;
-    }
+    }*/
 
     public String getId() {
         return id;
@@ -123,7 +124,8 @@ public abstract class Ennemi implements Mobile {
     }
 
     public void ajouteEffet(EffetImpact e) {
-        e.debutVie(this, game.getNbFrameValue());
+        //e.debutVie(this, game.getNbFrameValue());
+        e.debutVie(this, Game.getGame().getNbFrameValue());
         effetActif.add(e);
     }
 
@@ -135,7 +137,8 @@ public abstract class Ennemi implements Mobile {
         EffetImpact e;
         for (int i = effetActif.size() - 1 ; i >= 0 ; i-- ) {
             e = effetActif.get(i);
-            if (e.peutEtreAppliquer(game.getNbFrameValue()))
+            //if (e.peutEtreAppliquer(game.getNbFrameValue()))
+            if (e.peutEtreAppliquer(Game.getGame().getNbFrameValue()))
                 e.appliqueEffet();
             if(e.finDeVie()) {
                 removeEffet(e);
@@ -157,8 +160,10 @@ public abstract class Ennemi implements Mobile {
 
     private void setInfoDeplacement() {
         int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
-        int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
+        //int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
+        int idCaseSuivante = cheminVersArrive.get(Game.getGame().getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
+        //int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
+        int[] caseSuivante = Game.getGame().getTerrain().coordonneesCaseEnXY(idCaseSuivante);
         this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
 
@@ -200,9 +205,12 @@ public abstract class Ennemi implements Mobile {
             setInfoDeplacement();
         }
 
-        if (infoDeplacement[2]/32 == game.getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == game.getTerrain().getCaseArrivee()[1]/32){
-            game.remove(this);
-            game.perdVie(1);
+        //if (infoDeplacement[2]/32 == game.getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == game.getTerrain().getCaseArrivee()[1]/32){
+        if (infoDeplacement[2]/32 == Game.getGame().getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == Game.getGame().getTerrain().getCaseArrivee()[1]/32){
+            //game.remove(this);
+            //game.perdVie(1);
+            Game.getGame().remove(this);
+            Game.getGame().perdVie(1);
             estArrive = true;
         }
     }
@@ -211,12 +219,14 @@ public abstract class Ennemi implements Mobile {
         hp.set(hp.get() - value);
         if (hp.get() <= 0) {
             meurt();
-            game.ajoutePokedollar(recompense);
+            //this.game.ajoutePokedollar(recompense);
+            Game.getGame().ajoutePokedollar(recompense);
         }
     }
 
     protected void meurt() {
-        game.remove(this);
+        //game.remove(this);
+        Game.getGame().remove(this);
     }
 
     public void stun(int dureeStun) {

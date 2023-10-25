@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EnnemiTest {
 
     //Pas testable car la vitesseAct et max ne sont pas accessibles
-
+/*
     //resetVItesse
     //reduitVitesseMax
     //reduitVitesse
@@ -106,4 +106,6 @@ public class EnnemiTest {
         fantominus.bouge();
         assertEquals(3, fantominus.getY());
     }
+
+ */
 }

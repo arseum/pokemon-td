@@ -4,6 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -29,7 +30,8 @@ public class ExplosionAutourTour extends ClassicCompetence{
     @Override
     public void actif() {
 
-        List<Ennemi> listEnnemi = myTour.getGame().getListEnnemi().stream().toList();
+        //List<Ennemi> listEnnemi = myTour.getGame().getListEnnemi().stream().toList();
+        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
         Ennemi e;
         double damage;
 
@@ -42,7 +44,8 @@ public class ExplosionAutourTour extends ClassicCompetence{
                 myTour.ajouteDegats(damage);
             }
         }
-        tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
+        //tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
+        tempProchainActif.set(Game.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
 
         //permet de provoquer une animation dans la vue
         activation();

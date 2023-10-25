@@ -17,6 +17,8 @@ public class BFS {
         return uniqueInstance;
     }
 
+    public static void resetBFS(){uniqueInstance = null;};
+
     private void ajouteAdjacents(ArrayList adjacents, boolean estTerrestre, int idCase, int hauteur, int largeur){
         int ligneCase = idCase / largeur;
         int colonneCase = idCase % largeur;

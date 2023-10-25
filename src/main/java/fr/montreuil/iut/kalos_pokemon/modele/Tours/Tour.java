@@ -25,7 +25,7 @@ public abstract class Tour implements Objet {
     private final String id;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
-    protected Game game;
+    //protected Game game;
     protected Competence myCompetence;
 
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
@@ -54,9 +54,7 @@ public abstract class Tour implements Objet {
         return portee.get();
     }
 
-    public Game getGame() {
-        return game;
-    }
+    //public Game getGame() {return game;}
 
     public int getTempProchaineAttaque() {
         return tempProchaineAttaque;
@@ -117,9 +115,11 @@ public abstract class Tour implements Objet {
     public IntegerProperty yProperty() {
         return y;
     }
+
+    /*
     public void setGame(Game game) {
         this.game = game;
-    }
+    }*/
     public void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
     public void levelUp(){
         // !! l'ordre est important car il y a des listener qui sont pris en compte
@@ -146,7 +146,8 @@ public abstract class Tour implements Objet {
     protected void evolution(){
         //setNom(Parametres.nomGrandEvolution.get(nom));
         setNom(Pokemon.valueOf(nom).getNomEvolution());
-        myCompetence.setTempProchainActif(game.getNbFrameValue());
+        //myCompetence.setTempProchainActif(game.getNbFrameValue());
+        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
     }
 
     public abstract void amelioreStats();
@@ -157,7 +158,8 @@ public abstract class Tour implements Objet {
 
         if (cible != null) {
             lanceProjectile(cible);
-            tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
+            //tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
+            tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
         }
 
     }
@@ -169,7 +171,8 @@ public abstract class Tour implements Objet {
         Ennemi cible = null;
         int index = 0;
 
-        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+        //List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
 
         //cherche une cible
         while (cible == null && index < listEnnemi.size()) {
@@ -201,7 +204,8 @@ public abstract class Tour implements Objet {
      * utile car toutes les tours ne lancent pas les meme type projectiles
      */
     protected void lanceProjectile(Ennemi cible){
-        game.ajouteProjectile(new Projectile(this, cible, game));
+        //game.ajouteProjectile(new Projectile(this, cible, game));
+        Game.getGame().ajouteProjectile(new Projectile(this, cible));
     }
 
     public int prixRevente(){

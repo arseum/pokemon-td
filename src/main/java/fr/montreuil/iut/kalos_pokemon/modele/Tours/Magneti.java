@@ -25,9 +25,13 @@ public class Magneti extends Tour {
         super(90, 0, Pokemon.magneti.name(), Pokemon.magneti.getPrix(), x, y, Pokemon.magneti.name(), 0,null);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
-        zone = new Zone(this, game);
+        //zone = new Zone(this, game);
+        zone = new Zone(this);
         valeurSlow = 1;
         setMyCompetence(new ImmobilisationZone(this,90));
+
+        //temporaire
+        Game.getGame().ajouteProjectile(zone);
     }
 
     public BooleanProperty actifProperty() {
@@ -42,11 +46,12 @@ public class Magneti extends Tour {
         return zone;
     }
 
+    /*
     @Override
     public void setGame(Game game) {
         super.setGame(game);
         game.ajouteProjectile(zone);
-    }
+    }*/
 
     @Override
     public void amelioreStats() {
@@ -63,8 +68,8 @@ public class Magneti extends Tour {
      */
     @Override
     public void attaque() {
-
-        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+        //List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
 
         updateListCibles();
 
@@ -100,7 +105,8 @@ public class Magneti extends Tour {
      * de retirer les slow sur les ennemi
      */
     public void vendre(){
-        game.remove(zone);
+        //game.remove(zone);
+        Game.getGame().remove(zone);
 
         for (Ennemi e : ennemisCible)
             e.resetVitesse();

@@ -17,20 +17,23 @@ public class Projectile extends Attaque {
     protected double degatToucher;
 
 
-    public Projectile(Tour tour, Ennemi ennemi, Game game, ArrayList<EffetImpact> effetImpacts ) {
-        super(tour, game,effetImpacts);
+    //public Projectile(Tour tour, Ennemi ennemi, Game game, ArrayList<EffetImpact> effetImpacts ) {
+    public Projectile(Tour tour, Ennemi ennemi, ArrayList<EffetImpact> effetImpacts ) {
+        super(tour, effetImpacts);
         cible = ennemi;
         //degatToucher = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
         degatToucher = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
 
-    public Projectile(Tour tour, Ennemi ennemi, Game game) {
-        this(tour, ennemi,game, (ArrayList<EffetImpact>) null); //c moche mais jsp pk je suis obliger de faire ca
+    //public Projectile(Tour tour, Ennemi ennemi, Game game) {
+    public Projectile(Tour tour, Ennemi ennemi) {
+        this(tour, ennemi, (ArrayList<EffetImpact>) null); //c moche mais jsp pk je suis obliger de faire ca
         effetImpacts = new ArrayList<>();
     }
 
-    public Projectile(Tour tour, Ennemi cible, Game game, EffetImpact effet) {
-        this(tour, cible, game);
+    //public Projectile(Tour tour, Ennemi cible, Game game, EffetImpact effet) {
+    public Projectile(Tour tour, Ennemi cible, EffetImpact effet) {
+        this(tour, cible);
         ArrayList<EffetImpact> list = new ArrayList<>();
         list.add(effet);
         this.effetImpacts = list;
@@ -62,7 +65,8 @@ public class Projectile extends Attaque {
             tireur.ajouteDegats(degatToucher);
             ajouteEffet();
         }
-        game.remove(this);
+        //game.remove(this);
+        Game.getGame().remove(this);
     }
 
     private void ajouteEffet() {

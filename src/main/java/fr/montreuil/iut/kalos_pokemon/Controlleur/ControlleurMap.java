@@ -91,7 +91,12 @@ public class ControlleurMap implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        game = new Game(Parametres.map);
+        //game = new Game(Parametres.map);
+        //Game.resetGame();
+        game = Game.getGame(Parametres.map);
+        System.out.println(game);
+        //todo :
+        //Parametre - > String map, set map
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
         pause = new SimpleBooleanProperty(false);

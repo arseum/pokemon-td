@@ -17,8 +17,9 @@ public class Zone extends Attaque {
     private final BooleanProperty actif;
     private final IntegerProperty range;
 
-    public Zone(Magneti tour, Game game) {
-        super(tour, game);
+    public Zone(Magneti tour) {
+        //super(tour, game);
+        super(tour);
         range = new SimpleIntegerProperty(tour.porteeProperty().get());
         range.bind(tour.porteeProperty());
         actif = new SimpleBooleanProperty(false);

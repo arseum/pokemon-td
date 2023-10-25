@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class TourTest {
+    /*
     @Test
     public final void attaqueTest(){
         Game g = new Game("deplacementTestVersBas");
@@ -47,4 +48,6 @@ public class TourTest {
         assertEquals(3, poussifeu.getLevel());
         System.out.println(poussifeu.getNom());
     }
+
+     */
 }

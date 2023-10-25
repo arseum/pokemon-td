@@ -24,7 +24,7 @@ public abstract class Attaque implements Mobile {
     protected Tour tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;
-    protected Game game;
+    //protected Game game;
     /**
      * boolean qui permet de signaler a la vue que l'attaque se deplace
      * il aurait pu etre remplacer par un listener qui ecoute le y et x de l'attaque mais
@@ -33,11 +33,12 @@ public abstract class Attaque implements Mobile {
     protected BooleanProperty bouge;
     protected ArrayList<EffetImpact> effetImpacts;
 
-    public Attaque(Tour tour, Game game, ArrayList<EffetImpact> effetImpacts) {
+    public Attaque(Tour tour, ArrayList<EffetImpact> effetImpacts) {
+    //public Attaque(Tour tour, Game game, ArrayList<EffetImpact> effetImpacts) {
         this.tireur = tour;
         this.id = "Tir_n°" + compteur;
         compteur++;
-        this.game = game;
+        //this.game = game;
         this.bouge = new SimpleBooleanProperty(false);
 
         x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
@@ -45,8 +46,9 @@ public abstract class Attaque implements Mobile {
         this.effetImpacts = effetImpacts;
     }
 
-    public Attaque(Tour tour, Game game) {
-        this(tour, game,null);
+    public Attaque(Tour tour) {
+        //this(tour, game,null);
+        this(tour,null);
         this.effetImpacts = new ArrayList<>();
     }
     public BooleanProperty bougeProperty() {

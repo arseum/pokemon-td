@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 
@@ -26,7 +27,8 @@ public class Poison extends EffetImpact {
     @Override
     public boolean peutEtreAppliquer(int nbFrameValue) {
 
-        return (frameDebutDeVie - victime.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
+        //return (frameDebutDeVie - victime.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
+        return (frameDebutDeVie - Game.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
 
     }
 
@@ -40,7 +42,8 @@ public class Poison extends EffetImpact {
 
     @Override
     public boolean finDeVie() {
-        return victime != null && victime.getGame().getNbFrameValue() > frameDebutDeVie + duree.getTempFrameDouble();
+        //return victime != null && victime.getGame().getNbFrameValue() > frameDebutDeVie + duree.getTempFrameDouble();
+        return victime != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + duree.getTempFrameDouble();
     }
 
     @Override
