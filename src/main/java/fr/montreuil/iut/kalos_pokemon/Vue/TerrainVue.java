@@ -1,16 +1,14 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TerrainVue {
     private final TilePane mapVue;

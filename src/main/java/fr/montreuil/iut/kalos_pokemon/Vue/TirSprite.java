@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
@@ -15,6 +15,7 @@ public class TirSprite {
 
     public TirSprite(Attaque a) {
         idImage = 0;
+        //a.getTireur().
 
         String n = a.getTireur().getNom();
         nomTireur = Parametres.nomPetitEvolution.getOrDefault(n, n);

@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;

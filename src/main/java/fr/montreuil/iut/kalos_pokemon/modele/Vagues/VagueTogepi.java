@@ -1,9 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public class VagueTogepi extends VagueMono{
     public VagueTogepi(Game game, Terrain terrain,int duree,int frequence) {
@@ -16,6 +16,6 @@ public class VagueTogepi extends VagueMono{
 
     @Override
     public Ennemi genereennemi(int[] caseDepart) {
-        System.out.println("genere ennemi");return new Togepi(caseDepart[0]*32, caseDepart[1]*32, game);
+        System.out.println("genere ennemi");return new Togepi(caseDepart[0]*32, caseDepart[1]*32);
     }
 }

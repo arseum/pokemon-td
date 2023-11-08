@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
-        import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public abstract class VagueMono extends Vague {
     protected int duree;
@@ -16,7 +16,6 @@ public abstract class VagueMono extends Vague {
     }
 
     public  Ennemi[] donneMoiUnEnnemi(){
-        System.out.println("donne moi un ennemi");
         Ennemi[] ennemis = new Ennemi[1];
         ennemis[0] = genereennemi(terrain.getCaseDepart());
         return ennemis;

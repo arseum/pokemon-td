@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 import fr.montreuil.iut.kalos_pokemon.modele.Vagues.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -104,7 +105,6 @@ public class GestionnaireVagues {
 
     private boolean vagueDonneEnnemi(){
         if (indexVagueActuelle < listesVagues.size()&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(getNbFrame())){
-            System.out.println("vague donne bien un ennemi");
         }
 
         return (indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(getNbFrame());

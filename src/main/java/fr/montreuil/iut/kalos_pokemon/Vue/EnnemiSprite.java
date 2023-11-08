@@ -1,14 +1,10 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
-import java.io.IOException;
-import java.util.Objects;
 
 public class EnnemiSprite {
 

@@ -1,10 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Zone;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ImmobilisationZone;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -12,20 +13,25 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class Magneti extends TourActif {
+public class Magneti extends Tour {
 
     private final ObservableList<Ennemi> ennemisCible;
     private final BooleanProperty actif;
     private final Zone zone;
     private int valeurSlow;
-    private int dureeStun;
+
 
     public Magneti(int x, int y) {
-        super(90, 0, "neutre", Parametres.prixmagneti, x, y, "magneti", 0);
+        super(90, 0, Pokemon.magneti.name(), Pokemon.magneti.getPrix(), x, y, Pokemon.magneti.name(), 0,null);
         ennemisCible = FXCollections.observableArrayList();
         actif = new SimpleBooleanProperty(false);
-        zone = new Zone(this, game);
+        //zone = new Zone(this, game);
+        zone = new Zone(this);
         valeurSlow = 1;
+        setMyCompetence(new ImmobilisationZone(this,90));
+
+        //temporaire
+        Game.getGame().ajouteProjectile(zone);
     }
 
     public BooleanProperty actifProperty() {
@@ -40,41 +46,30 @@ public class Magneti extends TourActif {
         return zone;
     }
 
+    /*
     @Override
     public void setGame(Game game) {
         super.setGame(game);
         game.ajouteProjectile(zone);
-    }
+    }*/
 
     @Override
-    protected void amelioreStats() {
+    public void amelioreStats() {
         portee.set(portee.get() + (6*level.get()));
         if(level.get() == Parametres.niveauEvolutionTour) {
             valeurSlow = 2;
-            dureeStun = 90; //1,5s
         }
     }
 
-    @Override
-    public void actif() {
 
-        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
-
-        for (Ennemi e : listEnnemi) {
-            if (Parametres.distance(this,e) <= portee.get())
-                e.stun(dureeStun);
-        }
-
-        tempProchainActif.set(game.getNbFrameValue() + (60*18));
-    }
 
     /**
      * il faudrait appeler cette methode le + souvent possible (toute les 4/5 frame de dirais)
      */
     @Override
     public void attaque() {
-
-        List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+        //List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
+        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
 
         updateListCibles();
 
@@ -110,7 +105,8 @@ public class Magneti extends TourActif {
      * de retirer les slow sur les ennemi
      */
     public void vendre(){
-        game.remove(zone);
+        //game.remove(zone);
+        Game.getGame().remove(zone);
 
         for (Ennemi e : ennemisCible)
             e.resetVitesse();

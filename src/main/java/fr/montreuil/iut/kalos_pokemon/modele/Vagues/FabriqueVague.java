@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public  class FabriqueVague {
 

@@ -1,15 +1,15 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public abstract class Vague {
     protected Game game;
     protected Terrain terrain;
     protected int duree;
     protected int frequence;
-    protected FabriquePokemon fab;
+
 
     public Vague(Game game, Terrain terrain,int duree) {
         this.game=game;

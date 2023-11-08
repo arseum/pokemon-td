@@ -1,10 +1,10 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public class VagueFantominus extends VagueMono{
 
@@ -17,6 +17,6 @@ public Boolean peutTuMeDonnerUnEnnemi(int frameActuelle) {return frameActuelle%f
 
     @Override
     public Ennemi genereennemi(int[] caseDepart) {
-        return new Fantominus(caseDepart[0]*32, caseDepart[1]*32, game);
+        return new Fantominus(caseDepart[0]*32, caseDepart[1]*32);
     }
 }

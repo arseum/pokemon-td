@@ -1,8 +1,16 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
+
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourSpe;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -28,25 +36,52 @@ public class Game {
     private final IntegerProperty vie;
     private GestionnaireVagues vague;
     private boolean bossVaincu = false;
+    private static Game uniqueInstanceGame = null;
 
-    public Game(String nomTerrain) {
+    private static String nomTerrain = null;
+
+    private Game(String nomTerrain) {
         terrain = new Terrain(nomTerrain);
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
-        pokedollar = new SimpleIntegerProperty(850);
+        pokedollar = new SimpleIntegerProperty(Parametres.argentDepartPourDev);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
         vague= new GestionnaireVagues(terrain,this);
         vague.nbFrameProperty().bind(nbFrame);
     }
 
-    public Game() {
+    /*
+    private Game() {
         this("default");
-    }
+    }*/
     public GestionnaireVagues getVague() {
         return vague;
     }
+
+    //todo : à remodeler (il faut que l'unique accès soit getGame)
+    public static Game getGame(String nomTerrain){
+        if(uniqueInstanceGame == null){
+            Game.nomTerrain = nomTerrain;
+            uniqueInstanceGame = new Game(Game.nomTerrain);
+        }
+        return uniqueInstanceGame;
+    }
+
+    public static Game getGame(){
+        if (nomTerrain != null){
+            Game.nomTerrain = "default";
+        }
+        return getGame(Game.nomTerrain);
+    }
+
+    public static void resetGame(){
+        uniqueInstanceGame = null;
+        nomTerrain = null;
+    }
+
+
     public Terrain getTerrain() {
         return terrain;
     }
@@ -103,7 +138,7 @@ public class Game {
     public void ajouteTour(Tour t) {
         if (tourAchetable(t)) {
             listTour.add(t);
-            t.setGame(this);
+            //t.setGame(this);
             pokedollar.set(pokedollar.get() - t.getPrix());
         }
     }
@@ -123,7 +158,8 @@ public class Game {
     }
 
     public boolean tourAchetable(String nomTour) {
-        return (Parametres.prixTour(nomTour) != -1) && (Parametres.prixTour(nomTour) <= this.pokedollar.get());
+        //return (Parametres.prixTour(nomTour) != -1) && (Parametres.prixTour(nomTour) <= this.pokedollar.get());
+        return (Pokemon.valueOf(nomTour).getPrix() <= this.pokedollar.get());
     }
 
     public void remove(Attaque p) {
@@ -140,10 +176,25 @@ public class Game {
      */
     public void uneFrame() {
 
-        deplacement(listEnnemi);
         deplacement(listProjectile);
+        gestionEnnemi();
         gestionTour();
 
+    }
+
+    private void gestionEnnemi() {
+
+        Ennemi e;
+
+        for (int i = listEnnemi.size() - 1; i >= 0 ;i --){
+            e = listEnnemi.get(i);
+            if (e.isEstArrive())
+                listEnnemi.remove(e);
+            else
+                e.gereEffet();
+        }
+
+        deplacement(listEnnemi);
     }
 
     public Tour retourneTourAPartirId(String id){
@@ -181,13 +232,9 @@ public class Game {
 
     private void gestionTour() {
         for (Tour t : listTour) {
-            if (getNbFrameValue() >= t.tempProchaineAttaque)
+            if (getNbFrameValue() >= t.getTempProchaineAttaque())
                 t.attaque();
 
-            if (t instanceof Nidoran nidoran && getNbFrameValue() % 20 == 0)
-                nidoran.apliquePoison();
-            else if (t instanceof Magneti magneti && magneti.isActif())
-                magneti.getZone().bouge();
         }
     }
 

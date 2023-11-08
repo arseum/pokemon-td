@@ -6,7 +6,15 @@ import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TourActif;
+
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -28,10 +36,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,6 +56,7 @@ public class ControlleurMap implements Initializable {
     private TerrainVue terrainVue;
     private Game game;
     private BooleanProperty pause;
+    private MediaPlayer media_player;
     private BooleanProperty gameGagnee ;
     @FXML
     private Button buttonMenu;
@@ -69,9 +81,6 @@ public class ControlleurMap implements Initializable {
     @FXML
     private Button pauseButton;
 
-    public ControlleurMap() {
-    }
-
     public void setPause(boolean etat) {
         pause.setValue(etat);
     }
@@ -85,7 +94,12 @@ public class ControlleurMap implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //inevitable debut de initialize
-        game = new Game(Parametres.map);
+        //game = new Game(Parametres.map);
+        //Game.resetGame();
+        game = Game.getGame(Parametres.map);
+        System.out.println(game);
+        //todo :
+        //Parametre - > String map, set map
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);
         pause = new SimpleBooleanProperty(false);
@@ -135,6 +149,11 @@ public class ControlleurMap implements Initializable {
                 clicSurTour.nomTour.set("placeholder");
             }
         });
+
+        //test audio
+        Media media = new Media(new File(Parametres.cheminAudioCintya).toURI().toString());
+        media_player = new MediaPlayer(media);
+        media_player.play();
 
         //init game loop + label utile
         try {
@@ -357,6 +376,33 @@ public class ControlleurMap implements Initializable {
         nouveauEnnemiSprite.getHitBox().xProperty().bind(ennemi.xProperty());
         nouveauEnnemiSprite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(nouveauEnnemiSprite.getSprite());
+
+        //adaptation de leur sprite en fonction des effet
+        ListChangeListener<EffetImpact> listChangeListener = (c -> {
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (EffetImpact effet : c.getAddedSubList()) {
+                        Ennemi e = effet.getVictime();
+                        ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
+                        if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
+                            i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (EffetImpact effet : c.getRemoved()) {
+                        Ennemi e = effet.getVictime();
+                        if (!e.containtEffect(effet)) {
+                            ImageView i = (ImageView) pane.lookup("#hitbox_" + e.getId());
+                            if (i != null) { //un ennemi peut etre dans plusieurs liste donc bug potentiel
+                                i.setImage(Parametres.imagesPokemonMap.get(ennemi.getNom() + ".png"));
+                            }
+                        }
+
+
+                    }
+            }
+        });
+        ennemi.getEffetActif().addListener(listChangeListener);
     }
 
     /**
@@ -386,42 +432,34 @@ public class ControlleurMap implements Initializable {
             if(t1.equals(Parametres.niveauEvolutionTour)){
                 sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
                 obsClicSurTour.nomTour.set(tour.getNom());
+
+                if (tour.tempProchaineActifProperty() != null) {
+                    tour.estPretActifProperty().bind(game.getNbFrame().greaterThan(tour.tempProchaineActifProperty()));
+
+                    tour.estPretActifProperty().addListener((obs, aBoolean, newBool) -> {
+                        if (newBool)
+                            sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + "_ready.png"));
+                        else
+                            sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + tour.getNom() + ".png"));
+                    });
+                }
             }
         }));
 
         //modif pour l'animation de salamehce
-        if (tour instanceof Salameche salameche)
-            salameche.actifProperty().addListener(((observableValue, number, t1) -> creerExploxionSprite(tour,"deflagration.gif")));
+        if (tour.getMyCompetence() instanceof ExplosionAutourTour t)
+            t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
 
-        //Ajout sprite empoisonnée
-        if (tour instanceof Nidoran nidoran){
-            nidoran.getEnnemiEmpoisone().addListener((ListChangeListener<? super Ennemi>) change -> {
-                while (change.next()){
-                    if (change.wasAdded())
-                        for (Ennemi e : change.getAddedSubList()) {
-                            ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
-                            if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
-                                i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
-                            }
-                        }
-                }
+
+        if (tour instanceof Magneti magneti) {
+            magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (t1)
+                    magneti.getZone().bouge();
             });
         }
 
-        //Est actif
-        if(tour instanceof TourActif t){
 
-            t.getEstPretActif().bind(game.getNbFrame().greaterThan(t.getTempProchainActif()));
 
-            t.getEstPretActif().addListener((observableValue, aBoolean, t1) -> {
-                if(t1) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
-                else sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + ".png"));
-            });
-
-            t.levelProperty().addListener((observableValue, number, t1) -> {
-                if(t1.intValue() == Parametres.niveauEvolutionTour) sprite.getSprite().setImage(new Image("file:" + Parametres.cheminSpritePokemon + t.getNom() + "_ready.png"));
-            });
-        }
 
     }
 
@@ -551,6 +589,7 @@ public class ControlleurMap implements Initializable {
 
         non.setOnAction(e ->{
             popup.close();
+            media_player.stop();
             FXMLLoader fxmlNiveau1 = new FXMLLoader(main.class.getResource("acceuil.fxml"));
             Parent p;
             try {

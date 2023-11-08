@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
