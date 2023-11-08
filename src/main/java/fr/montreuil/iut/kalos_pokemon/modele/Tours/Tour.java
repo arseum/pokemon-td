@@ -1,45 +1,39 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
+import fr.montreuil.iut.kalos_pokemon.modele.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 import javafx.beans.property.*;
 
 import java.util.List;
 
-public abstract class Tour implements Objet {
+public abstract class Tour extends Pokemon implements Objet {
     private static int compteurID = 1;
     protected IntegerProperty portee;
     protected int degats;
-    protected final String type;
-    private String nom;
     private final int prix;
-    private final IntegerProperty x;
-    private final IntegerProperty y;
     protected final IntegerProperty level;
     protected final DoubleProperty compteurDegats;
-    private final String id;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
     //protected Game game;
     protected Competence myCompetence;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
+    public Tour(int portee, int degats, Type type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
+        super(pokemon,type,x,y);
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
         this.degats = degats;
-        this.type = type;
         this.prix = prix;
-        this.x = new SimpleIntegerProperty(x);
-        this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
         this.myCompetence = competence;
-        this.nom = pokemon;
         this.attaqueSpeed = attaqueSpeed;
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
@@ -67,15 +61,8 @@ public abstract class Tour implements Objet {
     public void setMyCompetence(Competence myCompetence) {
         this.myCompetence = myCompetence;
     }
-
-    public String getNom() {
-        return nom;
-    }
     public void setNom(String nouveauNom){this.nom = nouveauNom;}
 
-    public String getId() {
-        return id;
-    }
     public IntegerProperty porteeProperty() {
         return portee;
     }
@@ -84,17 +71,8 @@ public abstract class Tour implements Objet {
         return degats;
     }
 
-    public int getX() {
-        return x.get();
-    }
     public int getPrix() {
         return this.prix;
-    }
-
-    public String getType(){return this.type;}
-
-    public IntegerProperty xProperty() {
-        return x;
     }
 
     public int getLevel() {
@@ -109,17 +87,7 @@ public abstract class Tour implements Objet {
     public IntegerProperty levelProperty() {
         return level;
     }
-    public int getY() {
-        return y.get();
-    }
-    public IntegerProperty yProperty() {
-        return y;
-    }
 
-    /*
-    public void setGame(Game game) {
-        this.game = game;
-    }*/
     public void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
     public void levelUp(){
         // !! l'ordre est important car il y a des listener qui sont pris en compte
@@ -145,7 +113,7 @@ public abstract class Tour implements Objet {
 
     protected void evolution(){
         //setNom(Parametres.nomGrandEvolution.get(nom));
-        setNom(Pokemon.valueOf(nom).getNomEvolution());
+        setNom(PokemonEnum.valueOf(nom).getNomEvolution());
         //myCompetence.setTempProchainActif(game.getNbFrameValue());
         myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
     }

@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import javafx.scene.image.Image;
 
@@ -171,12 +171,12 @@ public class Parametres {
         nomPetitEvolution.put(nomEvolutionGrenousse,"grenousse");
 
          */
-        nomPetitEvolution.put(Pokemon.poussifeu.getNomEvolution(), Pokemon.poussifeu.name());
-        nomPetitEvolution.put(Pokemon.granivol.getNomEvolution(), Pokemon.granivol.name());
-        nomPetitEvolution.put(Pokemon.magneti.getNomEvolution(), Pokemon.magneti.name());
-        nomPetitEvolution.put(Pokemon.salameche.getNomEvolution(), Pokemon.salameche.name());
-        nomPetitEvolution.put(Pokemon.nidoran.getNomEvolution(), Pokemon.nidoran.name());
-        nomPetitEvolution.put(Pokemon.grenousse.getNomEvolution(), Pokemon.granivol.name());
+        nomPetitEvolution.put(PokemonEnum.poussifeu.getNomEvolution(), PokemonEnum.poussifeu.name());
+        nomPetitEvolution.put(PokemonEnum.granivol.getNomEvolution(), PokemonEnum.granivol.name());
+        nomPetitEvolution.put(PokemonEnum.magneti.getNomEvolution(), PokemonEnum.magneti.name());
+        nomPetitEvolution.put(PokemonEnum.salameche.getNomEvolution(), PokemonEnum.salameche.name());
+        nomPetitEvolution.put(PokemonEnum.nidoran.getNomEvolution(), PokemonEnum.nidoran.name());
+        nomPetitEvolution.put(PokemonEnum.grenousse.getNomEvolution(), PokemonEnum.granivol.name());
 /*
         //Deprecié
         nomGrandEvolution.put("poussifeu",nomEvolutionPoussifeu);

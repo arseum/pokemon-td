@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
-import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.HBox;
@@ -20,7 +19,7 @@ public class ObsPokedollarMenuAchat implements ChangeListener<Number> {
 
     private void changementCouleurTour(String nom, int argentActuel) {
         //conteneur.lookup("#tourMenuSprite_" + nom + "_normal").setVisible(argentActuel >= Parametres.prixTour(nom));
-        conteneur.lookup("#tourMenuSprite_" + nom + "_normal").setVisible(argentActuel >= Pokemon.valueOf(nom).getPrix());
+        conteneur.lookup("#tourMenuSprite_" + nom + "_normal").setVisible(argentActuel >= PokemonEnum.valueOf(nom).getPrix());
     }
 
     @Override
