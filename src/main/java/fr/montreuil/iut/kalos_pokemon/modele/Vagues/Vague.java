@@ -5,18 +5,19 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Terrain;
 
 public abstract class Vague {
-    protected int duree;
-
-    //todo: Attributs temporaire
     protected Game game;
     protected Terrain terrain;
+    protected int duree;
+    protected int frequence;
+    protected FabriquePokemon fab;
 
-    public Vague(Game game, Terrain terrain) {
-        this.game = game;
-        this.terrain = terrain;
+    public Vague(Game game, Terrain terrain,int duree) {
+        this.game=game;
+        this.terrain=terrain;
+        this.duree =duree;
     }
 
-    public abstract Ennemi donneMoiUnEnnemi();
+    public abstract Ennemi[] donneMoiUnEnnemi();
 
     public abstract Boolean peutTuMeDonnerUnEnnemi(int frameActuelle);
 

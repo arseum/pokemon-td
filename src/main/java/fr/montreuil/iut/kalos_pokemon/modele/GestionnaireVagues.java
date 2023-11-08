@@ -1,9 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Vagues.Vague;
-import fr.montreuil.iut.kalos_pokemon.modele.Vagues.VagueTypeDeux;
-import fr.montreuil.iut.kalos_pokemon.modele.Vagues.VagueTypeUn;
+import fr.montreuil.iut.kalos_pokemon.modele.Vagues.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -11,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
-public class GenerateurVagues {
+public class GestionnaireVagues {
     private IntegerProperty nbFrame;
     private IntegerProperty cptWave;
     private Terrain terrain;
@@ -23,10 +21,11 @@ public class GenerateurVagues {
     private ArrayList<Vague> listesVagues;
     private Vague vagueActuelle;
     private int indexVagueActuelle;
+    private FabriqueVague fabVag;
 
 
 
-    public GenerateurVagues(Terrain terrain, Game g) {
+    public GestionnaireVagues(Terrain terrain, Game g) {
         nbFrame = new SimpleIntegerProperty(0);
         this.terrain= terrain;
         this.game = g;
@@ -36,12 +35,16 @@ public class GenerateurVagues {
         //todo: Nouveaux attributs
         this.compteurFrame = 0;
         this.listesVagues = new ArrayList<>();
-        Vague v1 = new VagueTypeUn(game,terrain);
-        Vague v2 = new VagueTypeDeux(game, terrain);
-        Vague v3 = new VagueTypeUn(game,terrain);
-        listesVagues.add(v1);
-        listesVagues.add(v2);
-        listesVagues.add(v3);
+        this.fabVag= FabriqueVague.getInstance();
+        VagueMono vTipl = fabVag.créeVagueTiplouf(game,terrain,600,50);
+        VagueMono vTog = fabVag.créeVagueTogepi(game, terrain,600,100);
+        VagueMono vLudicolo = fabVag.créeVagueLudicolo(game, terrain,600,50);
+
+        VagueComposee v4 = new VagueComposee(game,terrain, 600,new ArrayList<>(){{add(vTipl);add(vLudicolo);}});
+        //listesVagues.add(vTipl);
+       //listesVagues.add(vLudicolo);
+        //listesVagues.add(vTipl);
+        listesVagues.add(v4);
         vagueActuelle = listesVagues.get(0);
         this.indexVagueActuelle = 0;
     }
@@ -84,10 +87,11 @@ public class GenerateurVagues {
 
     //Todo: Nouvelle
     public void chargeVague() throws InterruptedException{
-        int frameActuelle = getNbFrame();
         if((indexVagueActuelle < listesVagues.size())){
-            if((indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(frameActuelle)){
-                game.ajouteEnnemi(listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi());
+            if(vagueDonneEnnemi()){
+                for (int i=0; i<listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi().length;i++){
+                    game.ajouteEnnemi(listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi()[i]);
+                }
             }
             if(this.compteurFrame > listesVagues.get(indexVagueActuelle).getDuree()){
                 this.compteurFrame = 0;
@@ -98,10 +102,17 @@ public class GenerateurVagues {
         compteurFrame++;
     }
 
+    private boolean vagueDonneEnnemi(){
+        if (indexVagueActuelle < listesVagues.size()&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(getNbFrame())){
+            System.out.println("vague donne bien un ennemi");
+        }
+
+        return (indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(getNbFrame());
+    }
 
 
-    /*
 
+/*
     public void wave() throws InterruptedException {
         int[] caseDepart = terrain.getCaseDepart();
         int frameAct = getNbFrame();

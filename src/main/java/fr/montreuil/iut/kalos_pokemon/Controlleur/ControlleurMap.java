@@ -346,7 +346,7 @@ public class ControlleurMap implements Initializable {
             }
         });
 
-        buttonMenu.setOnAction( e -> partiePerdue("jeu mis en pause"));
+        buttonMenu.setOnAction( e -> Paused("jeu mis en pause"));
     }
 
     /**
@@ -458,6 +458,38 @@ public class ControlleurMap implements Initializable {
         Label msg = new Label(message);
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("on continue quand même");
+        Button non = bouttonRetouracceuil(popup);
+        HBox hbox = new HBox(oui,non);
+        VBox vbox= new VBox(msg,msg2,hbox);
+
+        vbox.setAlignment(Pos.CENTER);
+        hbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(20);hbox.setSpacing(20);
+
+        Scene scene =new Scene(vbox,400,300);
+        popup.setScene(scene);
+
+        oui.setOnAction(e->{
+            popup.close();
+            gameLoop.play();
+        });
+
+        popup.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
+
+        popup.show();
+
+        popup.setOnCloseRequest(e->{
+
+        });
+    }
+    public void Paused(String message){
+        gameLoop.stop();
+        Stage popup = new Stage();
+        popup.setTitle("Jeu mis en pause !");
+
+        Label msg = new Label(message);
+        Label msg2 = new Label("Continuer ?");
+        Button oui = new Button("On reprends");
         Button non = bouttonRetouracceuil(popup);
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);

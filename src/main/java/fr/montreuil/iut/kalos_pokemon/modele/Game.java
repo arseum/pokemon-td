@@ -26,7 +26,7 @@ public class Game {
     private final IntegerProperty pokedollar;
     private IntegerProperty nbFrame;
     private final IntegerProperty vie;
-    private GenerateurVagues vague;
+    private GestionnaireVagues vague;
     private boolean bossVaincu = false;
 
     public Game(String nomTerrain) {
@@ -37,14 +37,14 @@ public class Game {
         pokedollar = new SimpleIntegerProperty(850);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
-        vague= new GenerateurVagues(terrain,this);
+        vague= new GestionnaireVagues(terrain,this);
         vague.nbFrameProperty().bind(nbFrame);
     }
 
     public Game() {
         this("default");
     }
-    public GenerateurVagues getVague() {
+    public GestionnaireVagues getVague() {
         return vague;
     }
     public Terrain getTerrain() {
