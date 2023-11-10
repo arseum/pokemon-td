@@ -15,8 +15,6 @@ public class Wave {
     private Terrain terrain;
     private BooleanProperty gameGagnee;
 
-
-
     public Wave(Terrain terrain) {
         nbFrame = new SimpleIntegerProperty(0);
         this.terrain= terrain;

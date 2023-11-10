@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
@@ -28,6 +29,9 @@ public abstract class Tour implements Objet {
     //protected Game game;
     protected Competence myCompetence;
 
+    //todo DP AJOUTS
+    protected ModeAttaque modeAttaque;
+
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
@@ -44,6 +48,32 @@ public abstract class Tour implements Objet {
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
 
+        //todo DP AJOUTS
+        this.modeAttaque = null;
+
+    }
+
+    //todo DP AJOUTS
+    public void setModeAttaque(ModeAttaque modeAttaque){
+        this.modeAttaque = modeAttaque;
+    }
+
+    /*
+    public void attaque() {
+
+        Ennemi cible = chercheCible();
+
+        if (cible != null) {
+            lanceProjectile(cible);
+            tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
+        }
+
+    }
+
+     */
+    public void attaque(){
+        this.modeAttaque.attaque();
+        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
     }
 
     public int getAttaqueSpeed() {
@@ -152,17 +182,7 @@ public abstract class Tour implements Objet {
 
     public abstract void amelioreStats();
 
-    public void attaque() {
 
-        Ennemi cible = chercheCible();
-
-        if (cible != null) {
-            lanceProjectile(cible);
-            //tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
-            tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
-        }
-
-    }
 
     /**
      * @return un ennemi si il y en a un en portée sinon renvoie null

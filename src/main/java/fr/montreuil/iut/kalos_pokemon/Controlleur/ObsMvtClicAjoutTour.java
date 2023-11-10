@@ -1,9 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -85,7 +87,8 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
             if (this.obsClic.estSelectionnee.getValue() && estPlacable(x, y)) {
                 //TODO forge pour les tours
                 if (this.obsClic.tourSelectionnee.equals("poussifeu")) {
-                    Poussifeu p = new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    //Poussifeu p = new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    TourZonePoison p = new TourZonePoison(200, 3, Type.neutre.name(), 40, x*Parametres.tailleTuile, y*Parametres.tailleTuile,"poussifeu", 400, new NullActif());
                     game.ajouteTour(p);
                 } else if (this.obsClic.tourSelectionnee.equals("salameche")) {
                     game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));

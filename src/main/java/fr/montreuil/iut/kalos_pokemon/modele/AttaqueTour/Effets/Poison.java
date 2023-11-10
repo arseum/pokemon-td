@@ -10,9 +10,9 @@ public class Poison extends EffetImpact {
     private int degat;
     private Seconde duree;
     private Seconde tic;
-    private TourPoison myTourPoison;
+    private Tour myTourPoison;
 
-    public Poison(int degat, Seconde duree, Seconde tic, TourPoison tireur) {
+    public Poison(int degat, Seconde duree, Seconde tic, Tour tireur) {
         super(tireur);
         this.degat = degat;
         this.duree = duree;
@@ -20,9 +20,7 @@ public class Poison extends EffetImpact {
         this.myTourPoison = tireur;
     }
 
-    public TourPoison getMyTourPoison() {
-        return myTourPoison;
-    }
+    //public TourPoison getMyTourPoison() {return myTourPoison;}
 
     @Override
     public boolean peutEtreAppliquer(int nbFrameValue) {
@@ -46,8 +44,6 @@ public class Poison extends EffetImpact {
         return victime != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + duree.getTempFrameDouble();
     }
 
-    @Override
-    public void fin() {
-        myTourPoison.supprimerEnnemiEmpoissoner(victime);
-    }
+    //@Override
+    //public void fin() {myTourPoison.supprimerEnnemiEmpoissoner(victime);}
 }
