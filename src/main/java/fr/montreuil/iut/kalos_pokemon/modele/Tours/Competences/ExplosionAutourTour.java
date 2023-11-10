@@ -39,7 +39,7 @@ public class ExplosionAutourTour extends ClassicCompetence{
             e = listEnnemi.get(i);
             if (myTour.estADistance(e) ) {
                 //damage = Parametres.calculDegats(myTour.getType(),e.getType(),150);
-                damage = Type.calculDegats(myTour.getType(),e.getType(),150);
+                damage = myTour.getType().calculDegats(e.getType(),150);
                 e.diminueHP(damage);
                 myTour.ajouteDegats(damage);
             }

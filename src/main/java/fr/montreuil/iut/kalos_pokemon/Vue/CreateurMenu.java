@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -30,7 +30,7 @@ public class CreateurMenu {
         StackPane spriteTour;
         ImageView i, i_bw;
         //Label prix = new Label(Parametres.prixTour(nom) + " $");
-        Label prix = new Label(Pokemon.valueOf(nom).getPrix() + " $");
+        Label prix = new Label(PokemonEnum.valueOf(nom).getPrix() + " $");
 
         contenantTour.setAlignment(Pos.CENTER);
         contenantTour.setPrefHeight(101);
@@ -39,7 +39,7 @@ public class CreateurMenu {
         i = new ImageView(new Image("file:" + Parametres.cheminSpritePokemon + nom + ".png"));
         i.setId("tourMenuSprite_" + nom + "_normal");
         //i.setVisible(Parametres.prixTour(nom) <= this.argentDisponible);
-        i.setVisible(Pokemon.valueOf(nom).getPrix() <= this.argentDisponible);
+        i.setVisible(PokemonEnum.valueOf(nom).getPrix() <= this.argentDisponible);
         i.setPickOnBounds(true);
 
         i_bw = new ImageView(new Image("file:" + Parametres.cheminSpritePokemon + nom + "_bw.png"));

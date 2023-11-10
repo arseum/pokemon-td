@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
-import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
@@ -12,7 +11,7 @@ public class Salameche extends Tour {
     private int rayonExploxion;
 
     public Salameche(int x, int y) {
-        super(98, 50, Pokemon.salameche.getType(), Pokemon.salameche.getPrix(), x, y, Pokemon.salameche.name(), 40, null);
+        super(98, 50, PokemonEnum.salameche.getType(), PokemonEnum.salameche.getPrix(), x, y, PokemonEnum.salameche.name(), 40, null);
         rayonExploxion = 57;
         setMyCompetence(new ExplosionAutourTour(this));
     }

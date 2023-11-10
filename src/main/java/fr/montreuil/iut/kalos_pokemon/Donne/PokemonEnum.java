@@ -3,7 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.Donne;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Pokemon {
+public enum PokemonEnum {
     poussifeu(Type.feu, 60, "galifeu"),
     granivol(Type.plante, 95, "floravol"),
     grenousse(Type.eau, 155, "croaporal"),
@@ -11,18 +11,18 @@ public enum Pokemon {
     nidoran(Type.neutre, 150, "nidorino"),
     salameche(Type.feu, 130, "reptincel");
 
-    private String type;
+    private Type type;
     private int prix;
     private String nomEvolution;
-    public static Map<String,String> nomPetitEvolution = new HashMap<>();
+//    public static Map<String,String> nomPetitEvolution = new HashMap<>();
 
-    Pokemon(Type type, int prix, String nomEvolution) {
-        this.type = type.name();
+    PokemonEnum(Type type, int prix, String nomEvolution) {
+        this.type = type;
         this.prix = prix;
         this.nomEvolution = nomEvolution;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 

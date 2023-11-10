@@ -22,7 +22,7 @@ public class Projectile extends Attaque {
         super(tour, effetImpacts);
         cible = ennemi;
         //degatToucher = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
-        degatToucher = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
+        degatToucher = tour.getType().calculDegats(ennemi.getType(),tour.getDegats());
     }
 
     //public Projectile(Tour tour, Ennemi ennemi, Game game) {
