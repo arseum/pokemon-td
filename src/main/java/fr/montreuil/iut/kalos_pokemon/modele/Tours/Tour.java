@@ -48,8 +48,6 @@ public abstract class Tour extends Pokemon implements Objet {
         return portee.get();
     }
 
-    //public Game getGame() {return game;}
-
     public int getTempProchaineAttaque() {
         return tempProchaineAttaque;
     }
@@ -112,9 +110,7 @@ public abstract class Tour extends Pokemon implements Objet {
     public IntegerProperty tempProchaineActifProperty() { return myCompetence.tempProchainActifProperty();}
 
     protected void evolution(){
-        //setNom(Parametres.nomGrandEvolution.get(nom));
         setNom(PokemonEnum.valueOf(nom).getNomEvolution());
-        //myCompetence.setTempProchainActif(game.getNbFrameValue());
         myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
     }
 
@@ -126,7 +122,6 @@ public abstract class Tour extends Pokemon implements Objet {
 
         if (cible != null) {
             lanceProjectile(cible);
-            //tempProchaineAttaque = game.getNbFrameValue() + attaqueSpeed;
             tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
         }
 
@@ -139,7 +134,6 @@ public abstract class Tour extends Pokemon implements Objet {
         Ennemi cible = null;
         int index = 0;
 
-        //List<Ennemi> listEnnemi = game.getListEnnemi().stream().toList();
         List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
 
         //cherche une cible

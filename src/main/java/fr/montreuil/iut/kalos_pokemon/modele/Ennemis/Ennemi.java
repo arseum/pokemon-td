@@ -189,7 +189,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
     protected void meurt() {
-        //game.remove(this);
         Game.getGame().remove(this);
     }
 

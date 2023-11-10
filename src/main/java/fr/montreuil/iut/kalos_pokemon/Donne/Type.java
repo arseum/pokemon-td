@@ -8,15 +8,17 @@ public enum Type {
 
     public double calculDegats(Type typeDefenseur, int degats){
 
-        //todo a test
         if (this == typeDefenseur || this == Type.neutre ||
             typeDefenseur == Type.neutre)
             return degats;
 
+
         if (this.compareTo(typeDefenseur) == 1 || this.compareTo(typeDefenseur) == -2)
             return superEfficace * degats;
+
         else
             return peuEfficace * degats;
+
 //
 //        if(typeAttaquant.equals(Type.eau.name())){
 //            if(typeDefenseur.equals(Type.eau.name())||typeDefenseur.equals(Type.plante.name())){
