@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
+package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -9,8 +9,8 @@ public abstract class VagueMono extends Vague {
     protected int frequence;
 
 
-    public VagueMono(Game game, Terrain terrain,int duree, int frequence) {
-        super(game, terrain,duree);
+    public VagueMono(Terrain terrain,int duree, int frequence) {
+        super(terrain,duree);
         this.frequence=frequence;
 
     }

@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
+package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Tiplouf;
@@ -9,8 +9,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 public class VagueTiplouf extends VagueMono{
 
 
-    public VagueTiplouf(Game game, Terrain terrain,int duree, int frequence) {
-        super(game, terrain,duree,frequence);
+    public VagueTiplouf(Terrain terrain,int duree, int frequence) {
+        super(terrain,duree,frequence);
     }
 
 

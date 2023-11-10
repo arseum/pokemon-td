@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
+package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -12,8 +12,8 @@ public class VagueComposee extends Vague{
     protected boolean[] peutCreer ;
     int compte;
 
-    public VagueComposee(Game game, Terrain terrain,int duree,ArrayList<VagueMono> vagues) {
-        super(game, terrain,duree);
+    public VagueComposee(Terrain terrain,int duree,ArrayList<VagueMono> vagues) {
+        super(terrain,duree);
         this.vagues=vagues;
         this.duree=600;
         peutCreer = new boolean[vagues.size()];

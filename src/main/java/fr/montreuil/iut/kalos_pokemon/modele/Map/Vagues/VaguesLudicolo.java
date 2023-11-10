@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
+package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ludicolo;
@@ -6,8 +6,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public class VaguesLudicolo extends VagueMono{
-    public VaguesLudicolo(Game game, Terrain terrain, int duree, int frequence) {
-        super(game, terrain, duree, frequence);
+    public VaguesLudicolo(Terrain terrain, int duree, int frequence) {
+        super(terrain, duree, frequence);
     }
 
     @Override

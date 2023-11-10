@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Vagues;
+package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Togepi;
@@ -6,8 +6,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public class VagueTogepi extends VagueMono{
-    public VagueTogepi(Game game, Terrain terrain,int duree,int frequence) {
-        super(game, terrain,duree,frequence);
+    public VagueTogepi(Terrain terrain,int duree,int frequence) {
+        super(terrain,duree,frequence);
     }
 
     @Override

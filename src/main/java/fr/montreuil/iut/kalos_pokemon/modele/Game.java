@@ -3,14 +3,12 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.GestionnaireVagues;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourSpe;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -48,7 +46,7 @@ public class Game {
         pokedollar = new SimpleIntegerProperty(Parametres.argentDepartPourDev);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
-        vague= new GestionnaireVagues(terrain,this);
+        vague= new GestionnaireVagues(terrain);
         vague.nbFrameProperty().bind(nbFrame);
     }
 
