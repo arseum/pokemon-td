@@ -23,12 +23,12 @@ public class Zone extends ModeAttaque {
                 System.out.println("JATTAQUE TABERNAK");
                 e.ajouteEffet(this.effetAttaque);
                 //Ici, c'est juste pour voir le "projectile" (Peut être en faire un generique ou bien reprendre deja existant)
-                Game.getGame().ajouteProjectile(new Projectile(this.tourCible, e));
+                //Game.getGame().ajouteProjectile(new Projectile(this.tourCible, e));
 
                 //todo: doit prendre en compte le type
                 //Normalement c'est ajout effet qui enleve les degats?
                 //Parce que la c'est un doublon
-                e.diminueHP(this.tourCible.getDegats());
+                //e.diminueHP(this.tourCible.getDegats());
             }
         }
     }

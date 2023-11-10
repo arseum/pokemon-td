@@ -95,7 +95,9 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                     //game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                     game.ajouteTour(s);
                 } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
-                    game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    TourTirContinueSimple m = new TourTirContinueSimple(200, 4, Type.neutre.name(), 40,x*Parametres.tailleTuile,y*Parametres.tailleTuile,"magneti", 300,new NullActif());
+                    game.ajouteTour(m);
+                    //game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 } else if (this.obsClic.tourSelectionnee.equals("nidoran")) {
                     game.ajouteTour(new TourPoison(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile),2,new Seconde(5)));
                 } else if (this.obsClic.tourSelectionnee.equals("grenousse")) {

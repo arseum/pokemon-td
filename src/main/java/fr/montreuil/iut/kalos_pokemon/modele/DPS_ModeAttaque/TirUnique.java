@@ -21,7 +21,7 @@ public class TirUnique extends Tireur{
         if(e != null && !listeEnnemisTouches.contains(e)){
             e.ajouteEffet(this.effetAttaque);
             //Ici, c'est juste pour voir le "projectile" (Peut être en faire un generique ou bien reprendre deja existant)
-            Game.getGame().ajouteProjectile(new Projectile(this.tourCible, e));
+            //Game.getGame().ajouteProjectile(new Projectile(this.tourCible, e));
             listeEnnemisTouches.add(e);
         }
     }

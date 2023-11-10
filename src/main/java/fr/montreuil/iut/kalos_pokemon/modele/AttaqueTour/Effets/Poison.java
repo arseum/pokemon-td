@@ -5,21 +5,16 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 public class Poison extends EffetImpact {
-
     private int degat;
     private Seconde duree;
     private Seconde tic;
-    private Tour myTourPoison;
 
     public Poison(int degat, Seconde duree, Seconde tic, Tour tireur) {
         super(tireur);
         this.degat = degat;
         this.duree = duree;
         this.tic = tic;
-        this.myTourPoison = tireur;
     }
-
-    //public TourPoison getMyTourPoison() {return myTourPoison;}
 
     @Override
     public boolean peutEtreAppliquer(int nbFrameValue) {
