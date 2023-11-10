@@ -17,7 +17,6 @@ import java.util.Map;
 
 
 public abstract class Ennemi implements Mobile {
-
     private static int compteurID = 1;
     private int vitesseMax;
     private final double hpMax;
@@ -168,12 +167,10 @@ public abstract class Ennemi implements Mobile {
     }
 
     public void bouge() {
-
         if (estStun)
             attendre();
         else
             deplacement();
-
     }
 
     /**

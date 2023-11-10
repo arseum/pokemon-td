@@ -91,7 +91,9 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                     TourZonePoison p = new TourZonePoison(200, 3, Type.neutre.name(), 40, x*Parametres.tailleTuile, y*Parametres.tailleTuile,"poussifeu", 400, new NullActif());
                     game.ajouteTour(p);
                 } else if (this.obsClic.tourSelectionnee.equals("salameche")) {
-                    game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    TourTirUniquePoison s = new TourTirUniquePoison(200, 3, Type.neutre.name(), 40, x*Parametres.tailleTuile, y*Parametres.tailleTuile,"salameche", 4, new NullActif());
+                    //game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    game.ajouteTour(s);
                 } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
                     game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 } else if (this.obsClic.tourSelectionnee.equals("nidoran")) {
