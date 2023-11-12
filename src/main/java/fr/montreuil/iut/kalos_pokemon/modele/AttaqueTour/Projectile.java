@@ -7,19 +7,17 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-import java.util.ArrayList;
-
 public class Projectile extends Attaque {
 
     private final Ennemi cible;
 
     //Degat de base = degats sans multiplicateur de type
-    protected double degatDeBase;
+    protected double degatsReel;
 
-    public Projectile(Tour tour, Ennemi ennemi, int degatDeBase, EffetImpact effetImpact) {
+    public Projectile(Tour tour, Ennemi ennemi, EffetImpact effetImpact) {
         super(tour, effetImpact);
         this.cible = ennemi;
-        this.degatDeBase = degatDeBase;
+        this.degatsReel = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
 
 /*
@@ -70,8 +68,8 @@ public class Projectile extends Attaque {
      */
     protected void explotionTir(){
         if (cible.getHp() > 0) {
-            cible.diminueHP(degatDeBase);
-            tireur.ajouteDegats(degatDeBase);
+            cible.diminueHP(degatsReel);
+            tireur.ajouteDegats(degatsReel);
             ajouteEffet();
         }
         //game.remove(this);

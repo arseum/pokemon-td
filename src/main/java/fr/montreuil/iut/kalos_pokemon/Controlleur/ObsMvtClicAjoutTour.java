@@ -99,7 +99,9 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                     game.ajouteTour(m);
                     //game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 } else if (this.obsClic.tourSelectionnee.equals("nidoran")) {
-                    game.ajouteTour(new TourPoison(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile),2,new Seconde(5)));
+                    NewNidoran nidoran = new NewNidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    game.ajouteTour(nidoran);
+                    //game.ajouteTour(new TourPoison(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile),2,new Seconde(5)));
                 } else if (this.obsClic.tourSelectionnee.equals("grenousse")) {
                     game.ajouteTour(new Grenousse(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }/*

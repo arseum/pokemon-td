@@ -20,17 +20,9 @@ public class Zone extends ModeAttaque {
         //Changement mode attaque a tour en attribut (si c'est que distance porte moyen de faire autrement)
         for (Ennemi ennemi : listEnnemi) {
             if (this.tourCible.estADistance(ennemi)) {
-                System.out.println("JATTAQUE TABERNAK");
-                Projectile projectile = new Projectile(this.tourCible, ennemi, 0, this.effetAttaque);
+                Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
+                //C'est le projectile qui a pour responsabilite de faire des degats et d'ajouter les effets
                 Game.getGame().ajouteProjectile(projectile);
-                ennemi.ajouteEffet(this.effetAttaque);
-                //Ici, c'est juste pour voir le "projectile" (Peut être en faire un generique ou bien reprendre deja existant)
-                //Game.getGame().ajouteProjectile(new Projectile(this.tourCible, e));
-
-                //todo: doit prendre en compte le type
-                //Normalement c'est ajout effet qui enleve les degats?
-                //Parce que la c'est un doublon
-                //e.diminueHP(this.tourCible.getDegats());
             }
         }
     }

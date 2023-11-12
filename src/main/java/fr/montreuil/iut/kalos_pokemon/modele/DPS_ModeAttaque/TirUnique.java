@@ -17,12 +17,14 @@ public class TirUnique extends Tireur{
 
     @Override
     public void attaque() {
-        Ennemi e = chercheCible();
-        if(e != null && !listeEnnemisTouches.contains(e)){
-            e.ajouteEffet(this.effetAttaque);
+        Ennemi ennemi = chercheCible();
+        if(ennemi != null && !listeEnnemisTouches.contains(ennemi)){
+            //ennemi.ajouteEffet(this.effetAttaque);
+            Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
+            Game.getGame().ajouteProjectile(projectile);
             //Ici, c'est juste pour voir le "projectile" (Peut être en faire un generique ou bien reprendre deja existant)
             //Game.getGame().ajouteProjectile(new Projectile(this.tourCible, e));
-            listeEnnemisTouches.add(e);
+            listeEnnemisTouches.add(ennemi);
         }
     }
 }

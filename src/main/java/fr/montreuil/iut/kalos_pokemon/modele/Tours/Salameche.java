@@ -26,7 +26,7 @@ public class Salameche extends Tour {
 
 
 
-    @Override
+
     protected void lanceProjectile(Ennemi cible) {
 
         //game.ajouteProjectile(new bouleDeFeu(this,cible,game));

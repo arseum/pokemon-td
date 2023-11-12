@@ -1,11 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.Poison;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.Simple;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.TirEnContinue;
-import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.Zone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 
 public class TourTirContinueSimple extends Tour{
