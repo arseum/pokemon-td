@@ -51,7 +51,8 @@ public class Projectile extends Attaque {
     }
 
     private void ajouteEffet() {
-        cible.ajouteEffet(this.effetImpact);
+        if(!this.cible.estEffecteParEffet(this.effetImpact))
+            cible.ajouteEffet(this.effetImpact);
     }
 
     /**

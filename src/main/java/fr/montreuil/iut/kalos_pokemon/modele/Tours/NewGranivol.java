@@ -13,13 +13,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
 
 public class NewGranivol extends Tour{
     public NewGranivol(int x, int y) {
-        super(160, 5, Pokemon.granivol.getType(), Pokemon.granivol.getPrix(), x, y, Pokemon.granivol.name(), 6, new NullActif());
+        super(160, 1, Pokemon.granivol.getType(), Pokemon.granivol.getPrix(), x, y, Pokemon.granivol.name(), 6, new NullActif());
         //ModeAttaque modeAttaque = new ModeTirEnContinue(new EffetNull(this), this);
         //FIXME le temps de la prochaine attaque ca devrait etre le projectile et non l'effet
         // ok, ca vient de modeTirCon cette condition
         // ennemiCible.estEffecteParEffet(this.effetAttaque)
         // je l'avais implemente pour eviter bug visuel (genre ca attaque mais pas d'effet)
-        ModeAttaque modeAttaque = new ModeTirEnContinue(new EffetPoison(10, new Seconde(4), new Seconde(0.1), this), this);
+        ModeAttaque modeAttaque = new ModeTirEnContinue(new EffetPoison(10, new Seconde(4), new Seconde(3), this), this);
         setModeAttaque(modeAttaque);
     }
 

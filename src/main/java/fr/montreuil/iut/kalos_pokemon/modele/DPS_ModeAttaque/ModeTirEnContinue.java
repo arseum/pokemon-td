@@ -23,7 +23,8 @@ public class ModeTirEnContinue extends ModeTireur {
             this.ennemiCible = chercheCible();
         }
         //Si a trouve et a distance
-        if(ennemiCible!= null && !ennemiCible.estEffecteParEffet(this.effetAttaque)){
+        //if(ennemiCible!= null && !ennemiCible.estEffecteParEffet(this.effetAttaque)){
+        if(ennemiCible!= null && tourCible.estADistance(ennemiCible)){
             Projectile projectile = new Projectile(this.tourCible, ennemiCible, this.effetAttaque);
             Game.getGame().ajouteProjectile(projectile);
         }else {
