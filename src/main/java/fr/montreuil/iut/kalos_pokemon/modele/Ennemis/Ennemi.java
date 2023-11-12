@@ -6,17 +6,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -139,11 +135,11 @@ public abstract class Ennemi implements Mobile {
         EffetImpact effetImpact;
         for (Map.Entry<TypeEffet, EffetImpact> entry : this.listeObsDesDifferentsTypeEffets.entrySet()) {
             effetImpact = entry.getValue();
-            if (effetImpact.peutEtreAppliquer(Game.getGame().getNbFrameValue()))
+            if (effetImpact.peutEtreApplique(Game.getGame().getNbFrameValue()))
                 effetImpact.appliqueEffet();
             if(effetImpact.finDeVie()) {
                 removeEffet(effetImpact);
-                effetImpact.fin();
+                //effetImpact.fin();
             }
         }
 

@@ -14,13 +14,8 @@ public abstract class EffetImpact {
         this.tireur = t;
         initEffetType();
     }
-
     public abstract void initEffetType();
-
     public TypeEffet getTypeEffet(){return typeEffet;}
-    public Ennemi getVictime() {
-        return victime;
-    }
 
     public void setFrameDebutDeVie(int frameDebutDeVie) {
         this.frameDebutDeVie = frameDebutDeVie;
@@ -35,16 +30,11 @@ public abstract class EffetImpact {
         setVictime(victime);
     }
 
-    //public abstract boolean peutEtreAjoute();
-
     //Dans le cas du poison, c'est pas à toutes les frames
-    public abstract boolean peutEtreAppliquer(int nbFrameValue);
+    public abstract boolean peutEtreApplique(int nbFrameValue);
 
     public abstract void appliqueEffet();
 
     public abstract boolean finDeVie();
 
-    public void fin() {
-
-    }
 }

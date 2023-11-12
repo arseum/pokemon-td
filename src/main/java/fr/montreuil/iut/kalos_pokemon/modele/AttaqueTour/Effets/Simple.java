@@ -19,7 +19,7 @@ public class Simple extends EffetImpact{
     }
 
     @Override
-    public boolean peutEtreAppliquer(int nbFrameValue) {
+    public boolean peutEtreApplique(int nbFrameValue) {
         //return (frameDebutDeVie - Game.getGame().getNbFrameValue()) % tic.getTempFrameDouble() == 0;
         return true;
     }

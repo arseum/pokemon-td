@@ -22,7 +22,7 @@ public class EffetPoison extends EffetImpact {
     }
 
     @Override
-    public boolean peutEtreAppliquer(int nbFrameValue) {
+    public boolean peutEtreApplique(int nbFrameValue) {
         //return (frameDebutDeVie - victime.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
         return (frameDebutDeVie - Game.getGame().getNbFrameValue()) % frequencePoison.getTempFrameDouble() == 0;
 
