@@ -37,20 +37,17 @@ public class ControlleurAcceuil implements Initializable {
     }
     @FXML
     public void launchNiveau1() throws IOException {
-        //
         Parametres.setMap("savane");
         changeScene();
     }
 
     @FXML
     public void launchNiveau2() throws IOException {
-        //Game.resetGame();
         Parametres.setMap("neige");
         changeScene();
     }
     @FXML
     public void launchNiveau3() throws IOException {
-        //Game.resetGame();
         Parametres.setMap("eau");
         changeScene();
     }

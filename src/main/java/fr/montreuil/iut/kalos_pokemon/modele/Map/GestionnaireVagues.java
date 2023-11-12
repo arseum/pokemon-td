@@ -84,6 +84,7 @@ public class GestionnaireVagues {
     public void chargeVague() throws InterruptedException{
         if((indexVagueActuelle < listesVagues.size())){
             if(vagueDonneEnnemi()){
+                //un foreach est peut-etre plus comprehensible ici ?
                 for (int i=0; i<listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi().length;i++){
                     Game.getGame().ajouteEnnemi(listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi()[i]);
                 }
