@@ -18,39 +18,41 @@ import java.util.ArrayList;
  * est necessaire pour pouvoir donner un effet speciales a des attaques
  */
 public abstract class Attaque implements Mobile {
-
     private static int compteur = 1;
     private final String id;
     protected Tour tireur;
     protected IntegerProperty x;
     protected IntegerProperty y;
-    //protected Game game;
     /**
      * boolean qui permet de signaler a la vue que l'attaque se deplace
      * il aurait pu etre remplacer par un listener qui ecoute le y et x de l'attaque mais
      * cela est plus 'simple' de rajouter un boleanProperty
      */
     protected BooleanProperty bouge;
-    protected ArrayList<EffetImpact> effetImpacts;
+    //protected ArrayList<EffetImpact> effetImpacts;
+    //FIXME Pour simplifier je dis qu'un projectile ne peut amener qu'un seul effet
+    protected EffetImpact effetImpact;
 
-    public Attaque(Tour tour, ArrayList<EffetImpact> effetImpacts) {
+    public Attaque(Tour tour, EffetImpact effetImpacts) {
     //public Attaque(Tour tour, Game game, ArrayList<EffetImpact> effetImpacts) {
         this.tireur = tour;
         this.id = "Tir_n°" + compteur;
         compteur++;
-        //this.game = game;
         this.bouge = new SimpleBooleanProperty(false);
 
         x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
         y = new SimpleIntegerProperty(tour.getY() + 22 - Parametres.offsetYTour);
-        this.effetImpacts = effetImpacts;
+        this.effetImpact = effetImpacts;
     }
 
+    /*
     public Attaque(Tour tour) {
         //this(tour, game,null);
         this(tour,null);
         this.effetImpacts = new ArrayList<>();
     }
+
+     */
     public BooleanProperty bougeProperty() {
         return bouge;
     }

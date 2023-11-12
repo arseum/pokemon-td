@@ -54,7 +54,7 @@ public abstract class Tour implements Objet {
     }
 
     //todo DP AJOUTS
-    public void setModeAttaque(ModeAttaque modeAttaque){
+    public void setModeAttaque(ModeAttaque modeAttaque) {
         this.modeAttaque = modeAttaque;
     }
 
@@ -71,7 +71,7 @@ public abstract class Tour implements Objet {
     }
 
      */
-    public void attaque(){
+    public void attaque() {
         this.modeAttaque.attaque();
         tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
     }
@@ -101,11 +101,15 @@ public abstract class Tour implements Objet {
     public String getNom() {
         return nom;
     }
-    public void setNom(String nouveauNom){this.nom = nouveauNom;}
+
+    public void setNom(String nouveauNom) {
+        this.nom = nouveauNom;
+    }
 
     public String getId() {
         return id;
     }
+
     public IntegerProperty porteeProperty() {
         return portee;
     }
@@ -117,11 +121,14 @@ public abstract class Tour implements Objet {
     public int getX() {
         return x.get();
     }
+
     public int getPrix() {
         return this.prix;
     }
 
-    public String getType(){return this.type;}
+    public String getType() {
+        return this.type;
+    }
 
     public IntegerProperty xProperty() {
         return x;
@@ -130,18 +137,23 @@ public abstract class Tour implements Objet {
     public int getLevel() {
         return level.get();
     }
+
     public double getCompteurDegats() {
         return compteurDegats.get();
     }
+
     public DoubleProperty compteurDegatsProperty() {
         return compteurDegats;
     }
+
     public IntegerProperty levelProperty() {
         return level;
     }
+
     public int getY() {
         return y.get();
     }
+
     public IntegerProperty yProperty() {
         return y;
     }
@@ -150,18 +162,23 @@ public abstract class Tour implements Objet {
     public void setGame(Game game) {
         this.game = game;
     }*/
-    public void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
-    public void levelUp(){
+    public void ajouteDegats(double value) {
+        compteurDegats.set(compteurDegats.get() + value);
+    }
+
+    public void levelUp() {
         // !! l'ordre est important car il y a des listener qui sont pris en compte
         if (level.get() + 1 == Parametres.niveauEvolutionTour)
             evolution();
 
-        this.level.set(level.get()+1);
+        this.level.set(level.get() + 1);
 
         amelioreStats();
-    };
+    }
 
-    public void actif(){
+    ;
+
+    public void actif() {
         myCompetence.actif();
     }
 
@@ -169,11 +186,15 @@ public abstract class Tour implements Objet {
         return myCompetence.isEstPretActif();
     }
 
-    public BooleanProperty estPretActifProperty() { return myCompetence.estPretActifProperty();}
+    public BooleanProperty estPretActifProperty() {
+        return myCompetence.estPretActifProperty();
+    }
 
-    public IntegerProperty tempProchaineActifProperty() { return myCompetence.tempProchainActifProperty();}
+    public IntegerProperty tempProchaineActifProperty() {
+        return myCompetence.tempProchainActifProperty();
+    }
 
-    protected void evolution(){
+    protected void evolution() {
         //setNom(Parametres.nomGrandEvolution.get(nom));
         setNom(Pokemon.valueOf(nom).getNomEvolution());
         //myCompetence.setTempProchainActif(game.getNbFrameValue());
@@ -181,7 +202,6 @@ public abstract class Tour implements Objet {
     }
 
     public abstract void amelioreStats();
-
 
 
     /**
@@ -217,26 +237,26 @@ public abstract class Tour implements Objet {
      * @return true si l'ennemi est a une distance inferieur a la portée de la tour
      */
     public boolean estADistance(Ennemi ennemi) {
-        return Parametres.distance(this,ennemi) <= portee.get();
+        return Parametres.distance(this, ennemi) <= portee.get();
     }
 
     /**
      * utile car toutes les tours ne lancent pas les meme type projectiles
      */
-    protected void lanceProjectile(Ennemi cible){
+    protected void lanceProjectile(Ennemi cible) {
         //game.ajouteProjectile(new Projectile(this, cible, game));
-        Game.getGame().ajouteProjectile(new Projectile(this, cible));
+        //Game.getGame().ajouteProjectile(new Projectile(this, cible));
     }
 
-    public int prixRevente(){
+    public int prixRevente() {
         int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
-        return (int)( (this.prix + this.prix * (this.level.get() - 1 + sommeCumulee/10.0)) * Parametres.pourcentageRevente);
+        return (int) ((this.prix + this.prix * (this.level.get() - 1 + sommeCumulee / 10.0)) * Parametres.pourcentageRevente);
     }
 
     /**
-     *Chaque amélioration coute 10% plus cher
+     * Chaque amélioration coute 10% plus cher
      */
-    public int prixAmelioration(){
-        return (int)(this.prix * (1 + 0.1 * this.level.get() ) );
+    public int prixAmelioration() {
+        return (int) (this.prix * (1 + 0.1 * this.level.get()));
     }
 }

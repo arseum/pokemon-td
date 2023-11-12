@@ -13,7 +13,9 @@ public class bouleDeFeu extends Projectile {
 
     public bouleDeFeu(Salameche salameche, Ennemi ennemi) {
         //super(salameche, ennemi, game);
-        super(salameche, ennemi);
+        //super(salameche, ennemi);
+        //FIXME temporaire
+        super(null,null,0,null);
         rayonExploxion = salameche.getRayonExploxion();
     }
 
@@ -24,8 +26,8 @@ public class bouleDeFeu extends Projectile {
 
         for (int i = listEnnemi.size() - 1 ; i >= 0 ; i--)
             if (Parametres.distance(this,listEnnemi.get(i)) <= rayonExploxion && listEnnemi.get(i).getHp() > 0) {
-                listEnnemi.get(i).diminueHP(degatToucher);
-                tireur.ajouteDegats(degatToucher);
+                listEnnemi.get(i).diminueHP(degatDeBase);
+                tireur.ajouteDegats(degatDeBase);
             }
         //game.remove(this);
         Game.getGame().remove(this);

@@ -52,7 +52,7 @@ public class TourPoison extends TourAvecType implements TourSpe {
     @Override
     protected void lanceProjectile(Ennemi cible) {
         //game.ajouteProjectile(new Projectile(this, cible, game, new Poison(degatsPoison,dureePoison,new Seconde(0.2), this)));
-        Game.getGame().ajouteProjectile(new Projectile(this, cible, new Poison(degatsPoison,dureePoison,new Seconde(0.2), this)));
+        //Game.getGame().ajouteProjectile(new Projectile(this, cible, new Poison(degatsPoison,dureePoison,new Seconde(0.2), this)));
         ajouteEnnemiEmpoissoner(cible);
     }
 

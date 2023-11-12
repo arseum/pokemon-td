@@ -19,7 +19,9 @@ public class Zone extends Attaque {
 
     public Zone(Magneti tour) {
         //super(tour, game);
-        super(tour);
+        //super(tour);
+        //FIXME temporaire
+        super(null,null);
         range = new SimpleIntegerProperty(tour.porteeProperty().get());
         range.bind(tour.porteeProperty());
         actif = new SimpleBooleanProperty(false);

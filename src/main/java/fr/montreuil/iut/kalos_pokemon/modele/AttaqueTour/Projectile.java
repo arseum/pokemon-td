@@ -3,26 +3,32 @@ package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.Poison;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 
 import java.util.ArrayList;
 
 public class Projectile extends Attaque {
 
     private final Ennemi cible;
-    protected double degatToucher;
 
+    //Degat de base = degats sans multiplicateur de type
+    protected double degatDeBase;
 
+    public Projectile(Tour tour, Ennemi ennemi, int degatDeBase, EffetImpact effetImpact) {
+        super(tour, effetImpact);
+        this.cible = ennemi;
+        this.degatDeBase = degatDeBase;
+    }
+
+/*
     //public Projectile(Tour tour, Ennemi ennemi, Game game, ArrayList<EffetImpact> effetImpacts ) {
     public Projectile(Tour tour, Ennemi ennemi, ArrayList<EffetImpact> effetImpacts ) {
         super(tour, effetImpacts);
         cible = ennemi;
         //degatToucher = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
-        degatToucher = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
+        degatDeBase = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
 
     //public Projectile(Tour tour, Ennemi ennemi, Game game) {
@@ -38,6 +44,9 @@ public class Projectile extends Attaque {
         list.add(effet);
         this.effetImpacts = list;
     }
+
+ */
+
 
     /**
      * methode qui permet de simuler un deplacement simple des projectiles
@@ -61,8 +70,8 @@ public class Projectile extends Attaque {
      */
     protected void explotionTir(){
         if (cible.getHp() > 0) {
-            cible.diminueHP(degatToucher);
-            tireur.ajouteDegats(degatToucher);
+            cible.diminueHP(degatDeBase);
+            tireur.ajouteDegats(degatDeBase);
             ajouteEffet();
         }
         //game.remove(this);
@@ -70,9 +79,12 @@ public class Projectile extends Attaque {
     }
 
     private void ajouteEffet() {
+        cible.ajouteEffet(this.effetImpact);
+        /*
         for (EffetImpact e : effetImpacts)
             cible.ajouteEffet(e);
 
+         */
     }
 
     /**

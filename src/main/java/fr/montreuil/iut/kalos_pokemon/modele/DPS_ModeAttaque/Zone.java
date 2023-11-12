@@ -18,10 +18,12 @@ public class Zone extends ModeAttaque {
         List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
 
         //Changement mode attaque a tour en attribut (si c'est que distance porte moyen de faire autrement)
-        for (Ennemi e : listEnnemi) {
-            if (this.tourCible.estADistance(e)) {
+        for (Ennemi ennemi : listEnnemi) {
+            if (this.tourCible.estADistance(ennemi)) {
                 System.out.println("JATTAQUE TABERNAK");
-                e.ajouteEffet(this.effetAttaque);
+                Projectile projectile = new Projectile(this.tourCible, ennemi, 0, this.effetAttaque);
+                Game.getGame().ajouteProjectile(projectile);
+                ennemi.ajouteEffet(this.effetAttaque);
                 //Ici, c'est juste pour voir le "projectile" (Peut être en faire un generique ou bien reprendre deja existant)
                 //Game.getGame().ajouteProjectile(new Projectile(this.tourCible, e));
 
