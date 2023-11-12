@@ -11,7 +11,7 @@ public class Projectile extends Attaque {
 
     private final Ennemi cible;
 
-    //Degat de base = degats sans multiplicateur de type
+    //Degat reel = degats avec multiplicateur de type
     protected double degatsReel;
 
     public Projectile(Tour tour, Ennemi ennemi, EffetImpact effetImpact) {
@@ -19,32 +19,6 @@ public class Projectile extends Attaque {
         this.cible = ennemi;
         this.degatsReel = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
-
-/*
-    //public Projectile(Tour tour, Ennemi ennemi, Game game, ArrayList<EffetImpact> effetImpacts ) {
-    public Projectile(Tour tour, Ennemi ennemi, ArrayList<EffetImpact> effetImpacts ) {
-        super(tour, effetImpacts);
-        cible = ennemi;
-        //degatToucher = Parametres.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
-        degatDeBase = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
-    }
-
-    //public Projectile(Tour tour, Ennemi ennemi, Game game) {
-    public Projectile(Tour tour, Ennemi ennemi) {
-        this(tour, ennemi, (ArrayList<EffetImpact>) null); //c moche mais jsp pk je suis obliger de faire ca
-        effetImpacts = new ArrayList<>();
-    }
-
-    //public Projectile(Tour tour, Ennemi cible, Game game, EffetImpact effet) {
-    public Projectile(Tour tour, Ennemi cible, EffetImpact effet) {
-        this(tour, cible);
-        ArrayList<EffetImpact> list = new ArrayList<>();
-        list.add(effet);
-        this.effetImpacts = list;
-    }
-
- */
-
 
     /**
      * methode qui permet de simuler un deplacement simple des projectiles
@@ -77,13 +51,7 @@ public class Projectile extends Attaque {
     }
 
     private void ajouteEffet() {
-        //if(this.effetImpact.peutEtreAjoute())
-            cible.ajouteEffet(this.effetImpact);
-        /*
-        for (EffetImpact e : effetImpacts)
-            cible.ajouteEffet(e);
-
-         */
+        cible.ajouteEffet(this.effetImpact);
     }
 
     /**

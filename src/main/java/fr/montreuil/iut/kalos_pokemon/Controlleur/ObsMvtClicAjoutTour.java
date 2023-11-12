@@ -108,7 +108,9 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                 else if (this.obsClic.tourSelectionnee.equals("electrode")) {
                     game.ajouteTour(new Electrode(x * Parametres.tailleTuile, y * Parametres.tailleTuile, game));
                 }*/ else if (this.obsClic.tourSelectionnee.equals("granivol")) {
-                    game.ajouteTour(new Granivol(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    NewGranivol granivol = new NewGranivol(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    game.ajouteTour(granivol);
+                    //game.ajouteTour(new Granivol(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }
                 this.obsClic.supprimeImage();
                 //this.obsClic.estSelectionnee = false;

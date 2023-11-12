@@ -146,7 +146,9 @@ public abstract class Ennemi implements Mobile {
     }
 
     public boolean estEffecteParEffet(EffetImpact effetImpact){
-        return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
+        //return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
+        if(effetImpact.getTypeEffet() == TypeEffet.Null) return false;
+        else return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
     }
 
     public void reduitVitesseMax(int value){
