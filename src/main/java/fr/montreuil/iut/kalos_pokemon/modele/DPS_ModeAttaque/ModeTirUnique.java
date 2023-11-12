@@ -8,9 +8,9 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 import java.util.ArrayList;
 
-public class TirUnique extends Tireur{
+public class ModeTirUnique extends ModeTireur {
     private ArrayList<Ennemi> listeEnnemisTouches;
-    public TirUnique(EffetImpact effetAttaque, Tour tourCible) {
+    public ModeTirUnique(EffetImpact effetAttaque, Tour tourCible) {
         super(effetAttaque, tourCible);
         this.listeEnnemisTouches = new ArrayList<>();
     }

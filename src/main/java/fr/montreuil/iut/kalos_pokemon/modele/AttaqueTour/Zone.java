@@ -1,7 +1,5 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
-import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -21,7 +19,7 @@ public class Zone extends Attaque {
         //super(tour, game);
         //super(tour);
         //FIXME temporaire
-        super(null,null);
+        super(null, null);
         range = new SimpleIntegerProperty(tour.porteeProperty().get());
         range.bind(tour.porteeProperty());
         actif = new SimpleBooleanProperty(false);

@@ -7,8 +7,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 import java.util.List;
 
-public abstract class Tireur extends ModeAttaque {
-    public Tireur(EffetImpact effetAttaque, Tour tourCible) {
+public abstract class ModeTireur extends ModeAttaque {
+    public ModeTireur(EffetImpact effetAttaque, Tour tourCible) {
         super(effetAttaque, tourCible);
     }
 
