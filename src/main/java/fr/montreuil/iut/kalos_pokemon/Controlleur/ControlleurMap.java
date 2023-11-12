@@ -6,6 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
@@ -20,6 +21,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -374,32 +376,23 @@ public class ControlleurMap implements Initializable {
         nouveauEnnemiSprite.getHitBox().yProperty().bind(ennemi.yProperty());
         pane.getChildren().add(nouveauEnnemiSprite.getSprite());
 
-        //adaptation de leur sprite en fonction des effet
-        ListChangeListener<EffetImpact> listChangeListener = (c -> {
-            while (c.next()) {
-                if (c.wasAdded())
-                    for (EffetImpact effet : c.getAddedSubList()) {
-                        Ennemi e = effet.getVictime();
-                        ImageView i = (ImageView)pane.lookup("#hitbox_" + e.getId());
-                        if(i != null){ //un ennemi peut etre dans plusieurs liste donc bug potentiel
-                            i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + e.getNom() + "_poison.png"));
-                        }
-                    }
-                else if (c.wasRemoved())
-                    for (EffetImpact effet : c.getRemoved()) {
-                        Ennemi e = effet.getVictime();
-                        if (!e.containtEffect(effet)) {
-                            ImageView i = (ImageView) pane.lookup("#hitbox_" + e.getId());
-                            if (i != null) { //un ennemi peut etre dans plusieurs liste donc bug potentiel
-                                i.setImage(Parametres.imagesPokemonMap.get(ennemi.getNom() + ".png"));
-                            }
-                        }
-
-
-                    }
+        //Adaptation de leur sprite en fonction des effets
+        ennemi.getListeObsDesDifferentsTypeEffets().addListener((MapChangeListener<? super TypeEffet, ? super EffetImpact>) c -> {
+            if (c.wasAdded()) {
+                ImageView i = (ImageView)pane.lookup("#hitbox_" + ennemi.getId());
+                //Le seul cas ou ca peut etre null c'est si c'est l'ennemi arrive à la case d'arrivee
+                //Sans que le projectile l'atteigne
+                if(i != null){
+                    String nomEffet = c.getValueAdded().getTypeEffet().name().toLowerCase();
+                    i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + ennemi.getNom() + "_" + nomEffet +".png"));
+                }
+            } else if (c.wasRemoved()) {
+                ImageView i = (ImageView)pane.lookup("#hitbox_" + ennemi.getId());
+                if(i != null){
+                    i.setImage(Parametres.imagesPokemonMap.get(ennemi.getNom() + ".png"));
+                }
             }
         });
-        ennemi.getEffetActif().addListener(listChangeListener);
     }
 
     /**

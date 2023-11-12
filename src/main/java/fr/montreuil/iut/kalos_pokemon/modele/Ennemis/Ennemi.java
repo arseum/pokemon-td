@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,8 +43,8 @@ public abstract class Ennemi implements Mobile {
     private boolean estTerrestre;
     private int dureeStun;
     protected boolean estArrive;
-    protected ObservableList<EffetImpact> effetActif;
-    protected HashMap<TypeEffet, EffetImpact> listeDesDifferentsTypeEffets;
+    //HashMap pour empecher le stack d'effet du même type
+    protected ObservableMap<TypeEffet, EffetImpact> listeObsDesDifferentsTypeEffets;
 
     //public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
@@ -63,31 +64,12 @@ public abstract class Ennemi implements Mobile {
         this.cheminVersArrive = BFS.getBFS(Game.getGame().getTerrain()).algoBFS(estTerrestre);
         this.estStun = false;
         this.estArrive = false;
-        this.effetActif = FXCollections.observableArrayList();;
-        this.listeDesDifferentsTypeEffets = new HashMap<>();
+        this.listeObsDesDifferentsTypeEffets = FXCollections.observableHashMap();
         setInfoDeplacement();
     }
-
-    public ObservableList<EffetImpact> getEffetActif() {
-        return effetActif;
+    public ObservableMap<TypeEffet, EffetImpact> getListeObsDesDifferentsTypeEffets(){
+        return this.listeObsDesDifferentsTypeEffets;
     }
-
-    /*
-    public Game getGame() {
-        return game;
-    }*/
-
-    //FIXME temporaire
-    public boolean estAffecteParEffet(TypeEffet typeEffet){
-        return this.listeDesDifferentsTypeEffets.containsKey(typeEffet);
-    }
-
-    /*
-    public Tour tourAyantLanceEffet(TypeEffet typeEffet){
-        return this.listeDesDifferentsTypeEffets.get(typeEffet);
-    }
-
-     */
 
     public String getId() {
         return id;
@@ -140,20 +122,23 @@ public abstract class Ennemi implements Mobile {
     }
 
     public void ajouteEffet(EffetImpact effetImpact) {
-        //e.debutVie(this, game.getNbFrameValue());
         effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
-        effetActif.add(effetImpact);
+        TypeEffet typeEffet = effetImpact.getTypeEffet();
+        if(listeObsDesDifferentsTypeEffets.containsKey(typeEffet)){
+            listeObsDesDifferentsTypeEffets.replace(typeEffet, effetImpact);
+        }else {
+            listeObsDesDifferentsTypeEffets.put(typeEffet, effetImpact);
+        }
     }
 
     public void removeEffet(EffetImpact e) {
-        effetActif.remove(e);
+        listeObsDesDifferentsTypeEffets.remove(e.getTypeEffet());
     }
 
     public void gereEffet() {
         EffetImpact effetImpact;
-        for (int i = effetActif.size() - 1 ; i >= 0 ; i-- ) {
-            effetImpact = effetActif.get(i);
-            //if (e.peutEtreAppliquer(game.getNbFrameValue()))
+        for (Map.Entry<TypeEffet, EffetImpact> entry : this.listeObsDesDifferentsTypeEffets.entrySet()) {
+            effetImpact = entry.getValue();
             if (effetImpact.peutEtreAppliquer(Game.getGame().getNbFrameValue()))
                 effetImpact.appliqueEffet();
             if(effetImpact.finDeVie()) {
@@ -162,6 +147,10 @@ public abstract class Ennemi implements Mobile {
             }
         }
 
+    }
+
+    public boolean estEffecteParEffet(EffetImpact effetImpact){
+        return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
     }
 
     public void reduitVitesseMax(int value){
@@ -247,12 +236,5 @@ public abstract class Ennemi implements Mobile {
         estStun = true;
         compteurTour = 0;
         this.dureeStun = dureeStun;
-    }
-
-    public boolean containtEffect(EffetImpact effet) {
-        for (EffetImpact e : effetActif)
-            if (e.getClass() == effet.getClass())
-                return true;
-        return false;
     }
 }

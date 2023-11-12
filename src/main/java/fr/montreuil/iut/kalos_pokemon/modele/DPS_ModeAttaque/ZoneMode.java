@@ -8,8 +8,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 import java.util.List;
 
-public class Zone extends ModeAttaque {
-    public Zone(EffetImpact effetAttaque, Tour tourCible) {
+public class ZoneMode extends ModeAttaque {
+    public ZoneMode(EffetImpact effetAttaque, Tour tourCible) {
         super(effetAttaque, tourCible);
     }
 
@@ -19,7 +19,7 @@ public class Zone extends ModeAttaque {
 
         //Changement mode attaque a tour en attribut (si c'est que distance porte moyen de faire autrement)
         for (Ennemi ennemi : listEnnemi) {
-            if (this.tourCible.estADistance(ennemi)) {
+            if (this.tourCible.estADistance(ennemi) && !ennemi.estEffecteParEffet(this.effetAttaque)) {
                 Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
                 //C'est le projectile qui a pour responsabilite de faire des degats et d'ajouter les effets
                 Game.getGame().ajouteProjectile(projectile);
