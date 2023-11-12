@@ -31,7 +31,7 @@ public abstract class EffetImpact {
     }
 
     //Dans le cas du poison, c'est pas à toutes les frames
-    public abstract boolean peutEtreApplique(int nbFrameValue);
+    public abstract boolean peutEtreApplique();
 
     public abstract void appliqueEffet();
 

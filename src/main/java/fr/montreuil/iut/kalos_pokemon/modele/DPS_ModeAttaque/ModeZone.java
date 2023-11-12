@@ -7,7 +7,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 import java.util.List;
-
+//FIXME Revoir projectile (genre il y a des projectile qui applique des effets)
+// et des zone qui applique aussi effet?
 public class ModeZone extends ModeAttaque {
     public ModeZone(EffetImpact effetAttaque, Tour tourCible) {
         super(effetAttaque, tourCible);
@@ -31,9 +32,17 @@ public class ModeZone extends ModeAttaque {
          */
         for (Ennemi ennemi : chercheCibles()){
             if (this.tourCible.estADistance(ennemi)) {
+                /*
                 Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
                 //C'est le projectile qui a pour responsabilite de faire des degats et d'ajouter les effets
                 Game.getGame().ajouteProjectile(projectile);
+
+                 */
+                //FIXME ici c'est le meme putain d'objet qui est passé en ref
+                if(!ennemi.estEffecteParEffet(this.effetAttaque)){
+                    ennemi.ajouteEffet(this.effetAttaque);
+                }
+
             }
         }
     }

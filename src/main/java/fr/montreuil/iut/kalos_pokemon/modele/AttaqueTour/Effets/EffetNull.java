@@ -13,7 +13,7 @@ public class EffetNull extends EffetImpact{
     }
 
     @Override
-    public boolean peutEtreApplique(int nbFrameValue) {
+    public boolean peutEtreApplique() {
         return false;
     }
 

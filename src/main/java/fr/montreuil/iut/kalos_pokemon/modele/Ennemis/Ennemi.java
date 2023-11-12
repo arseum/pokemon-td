@@ -13,9 +13,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
-
+//TODO clean ennemi, effetImpact, etc.. (comme tour)
 public abstract class Ennemi implements Mobile {
     private static int compteurID = 1;
     private int vitesseMax;
@@ -133,13 +136,35 @@ public abstract class Ennemi implements Mobile {
 
     public void gereEffet() {
         EffetImpact effetImpact;
+        ArrayList<EffetImpact> listeASup = new ArrayList<>();
+        /*
+        //FIXME faire une simple list (pb dans iteration)
         for (Map.Entry<TypeEffet, EffetImpact> entry : this.listeObsDesDifferentsTypeEffets.entrySet()) {
             effetImpact = entry.getValue();
-            if (effetImpact.peutEtreApplique(Game.getGame().getNbFrameValue()))
+            if (effetImpact.peutEtreApplique())
                 effetImpact.appliqueEffet();
             if(effetImpact.finDeVie()) {
+                //FIXME il se passe des trucs bizarres
+                // Il devrait pas y avoir 5000 sysouts
                 removeEffet(effetImpact);
+                listeASup.add(entry.getValue());
                 //effetImpact.fin();
+            }
+        }
+
+         */
+        Set<Map.Entry<TypeEffet, EffetImpact>> set = listeObsDesDifferentsTypeEffets.entrySet();
+        Iterator<Map.Entry<TypeEffet, EffetImpact>> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<TypeEffet, EffetImpact> entry = iterator.next();
+            effetImpact = entry.getValue();
+            if (effetImpact.peutEtreApplique())
+                effetImpact.appliqueEffet();
+            if (effetImpact.finDeVie()) {
+                //FIXME temp fix de ConcurrentModificationException
+                //removeEffet(effetImpact);
+                iterator.remove();
+                listeASup.add(entry.getValue());
             }
         }
 
@@ -234,5 +259,13 @@ public abstract class Ennemi implements Mobile {
         estStun = true;
         compteurTour = 0;
         this.dureeStun = dureeStun;
+    }
+
+    public int getVitesseMax() {
+        return vitesseMax;
+    }
+
+    public int getVitesseActuel() {
+        return vitesseActuel;
     }
 }

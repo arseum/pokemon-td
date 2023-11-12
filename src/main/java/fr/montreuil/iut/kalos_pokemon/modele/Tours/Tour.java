@@ -24,7 +24,6 @@ public abstract class Tour implements Objet {
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
     protected Competence myCompetence;
-    //todo DP AJOUTS
     protected ModeAttaque modeAttaque;
 
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
@@ -42,8 +41,6 @@ public abstract class Tour implements Objet {
         this.attaqueSpeed = attaqueSpeed;
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
-
-        //todo DP AJOUTS
         this.modeAttaque = null;
     }
 

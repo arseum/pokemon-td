@@ -4,6 +4,10 @@ import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
+/**
+ * Un ennemi empoisonné perde des points de vie à une certaine fréquence
+ * pendant une certaine durée.
+ */
 public class EffetPoison extends EffetImpact {
     private int degatPoison;
     private Seconde dureePoison;
@@ -22,7 +26,7 @@ public class EffetPoison extends EffetImpact {
     }
 
     @Override
-    public boolean peutEtreApplique(int nbFrameValue) {
+    public boolean peutEtreApplique() {
         //return (frameDebutDeVie - victime.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
         return (frameDebutDeVie - Game.getGame().getNbFrameValue()) % frequencePoison.getTempFrameDouble() == 0;
 

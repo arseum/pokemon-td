@@ -60,12 +60,18 @@ public class Wave {
     public void wave() throws InterruptedException {
         int[] caseDepart = terrain.getCaseDepart();
         int frameAct = getNbFrame();
-
+/*
         if ( frameAct>=300 && frameAct<900){
             if (frameAct==600){
                 setWave(1);
             }
             if (frameAct%90==0 )
+                Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32));  //WAVE 1
+
+        }
+
+ */
+        if ( frameAct==300){
                 Game.getGame().ajouteEnnemi(new Togepi(caseDepart[0]*32, caseDepart[1]*32));  //WAVE 1
 
         }

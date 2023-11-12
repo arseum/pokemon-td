@@ -52,12 +52,6 @@ public class Game {
         vague.nbFrameProperty().bind(nbFrame);
     }
 
-    /*
-    private Game() {
-        this("default");
-    }
-     */
-
     //todo : à remodeler (il faut que l'unique accès soit getGame)
     public static Game getGame(String nomTerrain){
         if(uniqueInstanceGame == null){
@@ -205,7 +199,7 @@ public class Game {
     }
 
     /**
-     * supprime une tour de la liste et rajoute un peu d'argent en contre-partit
+     * supprime une tour de la liste et rajoute un peu d'argent en contre-parti
      */
     public void vendreTour(Tour t){
         this.listTour.remove(t);
