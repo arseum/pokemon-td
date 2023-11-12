@@ -2,19 +2,14 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
-import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.TirUnique;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.Zone;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
 
 public class NewNidoran extends Tour{
-    //private int degatsPoison;
-    //private int dureePoison;
-
     private EffetPoison effetPoison;
     public NewNidoran(int x, int y) {
         super(115, 0, Pokemon.nidoran.getType(), Pokemon.nidoran.getPrix(), x, y, Pokemon.nidoran.name(), 100, new NullActif());
@@ -31,6 +26,5 @@ public class NewNidoran extends Tour{
             ModeAttaque zone = new Zone(this.effetPoison, this);
             setModeAttaque(zone);
         }
-
     }
 }

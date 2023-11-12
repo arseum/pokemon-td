@@ -8,11 +8,16 @@ public abstract class EffetImpact {
     protected Ennemi victime;
     //Doit avoir cet attribut à cause du compteur de dégats
     protected Tour tireur;
+    protected TypeEffet typeEffet;
 
     public EffetImpact(Tour t) {
         this.tireur = t;
+        initEffetType();
     }
 
+    public abstract void initEffetType();
+
+    public TypeEffet getTypeEffet(){return typeEffet;}
     public Ennemi getVictime() {
         return victime;
     }
@@ -29,6 +34,8 @@ public abstract class EffetImpact {
         setFrameDebutDeVie(frameDebutDeVie);
         setVictime(victime);
     }
+
+    //public abstract boolean peutEtreAjoute();
 
     //Dans le cas du poison, c'est pas à toutes les frames
     public abstract boolean peutEtreAppliquer(int nbFrameValue);

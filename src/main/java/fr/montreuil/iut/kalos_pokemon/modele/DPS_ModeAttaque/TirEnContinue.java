@@ -9,6 +9,8 @@ public class TirEnContinue extends Tireur{
         super(effetAttaque, tourCible);
     }
 
+
+    //TODO doit cibler le meme a changer
     @Override
     public void attaque() {
         Ennemi e = chercheCible();

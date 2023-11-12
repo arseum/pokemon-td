@@ -17,6 +17,11 @@ public class EffetPoison extends EffetImpact {
     }
 
     @Override
+    public void initEffetType() {
+        this.typeEffet = TypeEffet.Poison;
+    }
+
+    @Override
     public boolean peutEtreAppliquer(int nbFrameValue) {
         //return (frameDebutDeVie - victime.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
         return (frameDebutDeVie - Game.getGame().getNbFrameValue()) % frequencePoison.getTempFrameDouble() == 0;
@@ -36,12 +41,8 @@ public class EffetPoison extends EffetImpact {
     }
 
     //SETTERS
-
-    public void amelioreEffet(int boostDegats, double boostDuree){
+    public void amelioreEffet(int boostDegats, double boostDuree) {
         this.degatPoison = this.degatPoison + boostDegats;
         this.dureePoison = new Seconde(this.dureePoison.getTemp() + boostDuree);
     }
-
-    //@Override
-    //public void fin() {myTourPoison.supprimerEnnemiEmpoissoner(victime);}
 }

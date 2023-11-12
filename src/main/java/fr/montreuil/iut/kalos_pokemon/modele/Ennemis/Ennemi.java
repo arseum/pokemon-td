@@ -2,9 +2,11 @@ package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -13,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -40,6 +43,7 @@ public abstract class Ennemi implements Mobile {
     private int dureeStun;
     protected boolean estArrive;
     protected ObservableList<EffetImpact> effetActif;
+    protected HashMap<TypeEffet, EffetImpact> listeDesDifferentsTypeEffets;
 
     //public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
     public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
@@ -60,6 +64,7 @@ public abstract class Ennemi implements Mobile {
         this.estStun = false;
         this.estArrive = false;
         this.effetActif = FXCollections.observableArrayList();;
+        this.listeDesDifferentsTypeEffets = new HashMap<>();
         setInfoDeplacement();
     }
 
@@ -71,6 +76,18 @@ public abstract class Ennemi implements Mobile {
     public Game getGame() {
         return game;
     }*/
+
+    //FIXME temporaire
+    public boolean estAffecteParEffet(TypeEffet typeEffet){
+        return this.listeDesDifferentsTypeEffets.containsKey(typeEffet);
+    }
+
+    /*
+    public Tour tourAyantLanceEffet(TypeEffet typeEffet){
+        return this.listeDesDifferentsTypeEffets.get(typeEffet);
+    }
+
+     */
 
     public String getId() {
         return id;
@@ -122,10 +139,10 @@ public abstract class Ennemi implements Mobile {
         return y;
     }
 
-    public void ajouteEffet(EffetImpact e) {
+    public void ajouteEffet(EffetImpact effetImpact) {
         //e.debutVie(this, game.getNbFrameValue());
-        e.debutVie(this, Game.getGame().getNbFrameValue());
-        effetActif.add(e);
+        effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
+        effetActif.add(effetImpact);
     }
 
     public void removeEffet(EffetImpact e) {
@@ -133,15 +150,15 @@ public abstract class Ennemi implements Mobile {
     }
 
     public void gereEffet() {
-        EffetImpact e;
+        EffetImpact effetImpact;
         for (int i = effetActif.size() - 1 ; i >= 0 ; i-- ) {
-            e = effetActif.get(i);
+            effetImpact = effetActif.get(i);
             //if (e.peutEtreAppliquer(game.getNbFrameValue()))
-            if (e.peutEtreAppliquer(Game.getGame().getNbFrameValue()))
-                e.appliqueEffet();
-            if(e.finDeVie()) {
-                removeEffet(e);
-                e.fin();
+            if (effetImpact.peutEtreAppliquer(Game.getGame().getNbFrameValue()))
+                effetImpact.appliqueEffet();
+            if(effetImpact.finDeVie()) {
+                removeEffet(effetImpact);
+                effetImpact.fin();
             }
         }
 

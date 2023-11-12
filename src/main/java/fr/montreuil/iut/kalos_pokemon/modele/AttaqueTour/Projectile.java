@@ -77,7 +77,8 @@ public class Projectile extends Attaque {
     }
 
     private void ajouteEffet() {
-        cible.ajouteEffet(this.effetImpact);
+        //if(this.effetImpact.peutEtreAjoute())
+            cible.ajouteEffet(this.effetImpact);
         /*
         for (EffetImpact e : effetImpacts)
             cible.ajouteEffet(e);
