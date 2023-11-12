@@ -15,11 +15,21 @@ public class ModeZone extends ModeAttaque {
 
     @Override
     public void attaque() {
+        /*
         List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
 
         for (Ennemi ennemi : listEnnemi) {
             //FIXME on va avoir un pb avoir les sans effets
             //if (this.tourCible.estADistance(ennemi) && !ennemi.estEffecteParEffet(this.effetAttaque)) {
+            if (this.tourCible.estADistance(ennemi)) {
+                Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
+                //C'est le projectile qui a pour responsabilite de faire des degats et d'ajouter les effets
+                Game.getGame().ajouteProjectile(projectile);
+            }
+        }
+
+         */
+        for (Ennemi ennemi : chercheCibles()){
             if (this.tourCible.estADistance(ennemi)) {
                 Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
                 //C'est le projectile qui a pour responsabilite de faire des degats et d'ajouter les effets

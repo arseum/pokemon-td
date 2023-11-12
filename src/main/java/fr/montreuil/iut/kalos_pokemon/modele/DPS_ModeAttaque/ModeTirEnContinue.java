@@ -10,12 +10,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
  * Dans ce mode, la tour cible un ennemi
  * et attaque que lui jusqu'à les HP de l'ennemi soit à zero ou bien qu'il soit hors de portée
  */
-public class ModeTirEnContinue extends ModeTireur {
+public class ModeTirEnContinue extends ModeAttaque {
     private Ennemi ennemiCible;
     //private boolean
     public ModeTirEnContinue(EffetImpact effetAttaque, Tour tourCible) {
         super(effetAttaque, tourCible);
     }
+
     @Override
     public void attaque() {
         //Si pas d'ennemi ou ennemi est mort, on cherche un

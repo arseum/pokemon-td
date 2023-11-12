@@ -7,24 +7,23 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
- * Dans ce mode, la tour ne cible qu'une seule fois un ennemi
+ * Dans ce mode, le tir cible un ennemi à portée de manière aléatoire
  */
-public class ModeTirUnique extends ModeAttaque {
-    private ArrayList<Ennemi> listeEnnemisTouches;
-    public ModeTirUnique(EffetImpact effetAttaque, Tour tourCible) {
+public class ModeTirAleatoire extends ModeAttaque{
+    public ModeTirAleatoire(EffetImpact effetAttaque, Tour tourCible) {
         super(effetAttaque, tourCible);
-        this.listeEnnemisTouches = new ArrayList<>();
     }
-
     @Override
     public void attaque() {
-        Ennemi ennemi = chercheCible();
-        if(ennemi != null && !listeEnnemisTouches.contains(ennemi)){
-            Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
+        ArrayList<Ennemi> listeEnnemis = chercheCibles();
+        if(listeEnnemis.size() != 0){
+            Random random = new Random();
+            int index = random.nextInt(chercheCibles().size());
+            Projectile projectile = new Projectile(this.tourCible, chercheCibles().get(index), this.effetAttaque);
             Game.getGame().ajouteProjectile(projectile);
-            listeEnnemisTouches.add(ennemi);
         }
     }
 }

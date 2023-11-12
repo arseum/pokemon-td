@@ -1,7 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque;
 
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Une tour ne peut avoir qu'un mode attaque. Ce mode peut être amené à changer
@@ -19,4 +24,26 @@ public abstract class ModeAttaque {
     }
 
     public abstract void attaque();
+
+    protected Ennemi chercheCible() {
+        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
+
+        for (int i = 0; i < listEnnemi.size(); i++){
+            if(this.tourCible.estADistance(listEnnemi.get(i)))
+                return listEnnemi.get(i);
+        }
+        return null;
+    }
+
+    protected ArrayList<Ennemi> chercheCibles(){
+        ArrayList<Ennemi> listeCibles = new ArrayList<>();
+        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
+
+        for (Ennemi ennemi : listEnnemi) {
+            if (this.tourCible.estADistance(ennemi)) {
+                listeCibles.add(ennemi);
+            }
+        }
+        return listeCibles;
+    }
 }
