@@ -382,7 +382,7 @@ public class ControlleurMap implements Initializable {
                 ImageView i = (ImageView)pane.lookup("#hitbox_" + ennemi.getId());
                 //Le seul cas ou ca peut etre null c'est si c'est l'ennemi arrive à la case d'arrivee
                 //Sans que le projectile l'atteigne
-                if(i != null){
+                if(i != null && c.getValueAdded().getTypeEffet() != TypeEffet.Null){
                     String nomEffet = c.getValueAdded().getTypeEffet().name().toLowerCase();
                     i.setImage(new Image("file:" + Parametres.cheminSpritePokemon + ennemi.getNom() + "_" + nomEffet +".png"));
                 }

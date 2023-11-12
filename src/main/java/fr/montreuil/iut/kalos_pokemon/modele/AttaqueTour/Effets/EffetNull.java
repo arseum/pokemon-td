@@ -9,7 +9,7 @@ public class EffetNull extends EffetImpact{
 
     @Override
     public void initEffetType() {
-
+        this.typeEffet = TypeEffet.Null;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class EffetNull extends EffetImpact{
 
     @Override
     public void appliqueEffet() {
-
+        //Ne fais rien
     }
 
     @Override
