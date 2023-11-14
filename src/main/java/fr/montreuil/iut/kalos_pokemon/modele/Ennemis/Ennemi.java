@@ -158,9 +158,9 @@ public abstract class Ennemi implements Mobile {
         while (iterator.hasNext()) {
             Map.Entry<TypeEffet, EffetImpact> entry = iterator.next();
             effetImpact = entry.getValue();
-            if (effetImpact.peutEtreApplique())
-                effetImpact.appliqueEffet();
-            if (effetImpact.finDeVie()) {
+            if (effetImpact.peutEtreApplique(this))
+                effetImpact.appliqueEffet(this);
+            if (effetImpact.finDeVie(this)) {
                 //FIXME temp fix de ConcurrentModificationException
                 //removeEffet(effetImpact);
                 iterator.remove();

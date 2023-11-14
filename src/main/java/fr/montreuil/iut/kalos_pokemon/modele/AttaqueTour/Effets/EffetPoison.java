@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -26,22 +27,22 @@ public class EffetPoison extends EffetImpact {
     }
 
     @Override
-    public boolean peutEtreApplique() {
+    public boolean peutEtreApplique(Ennemi ennemi) {
         //return (frameDebutDeVie - victime.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
         return (frameDebutDeVie - Game.getGame().getNbFrameValue()) % frequencePoison.getTempFrameDouble() == 0;
 
     }
 
     @Override
-    public void appliqueEffet() {
-        victime.diminueHP(degatPoison);
+    public void appliqueEffet(Ennemi ennemi) {
+        ennemi.diminueHP(degatPoison);
         tireur.ajouteDegats(degatPoison);
     }
 
     @Override
-    public boolean finDeVie() {
+    public boolean finDeVie(Ennemi ennemi) {
         //return victime != null && victime.getGame().getNbFrameValue() > frameDebutDeVie + duree.getTempFrameDouble();
-        return victime != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + dureePoison.getTempFrameDouble();
+        return ennemi != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + dureePoison.getTempFrameDouble();
     }
 
     //SETTERS

@@ -41,6 +41,8 @@ public class ModeZone extends ModeAttaque {
                 //FIXME ici c'est le meme putain d'objet qui est passé en ref
                 if(!ennemi.estEffecteParEffet(this.effetAttaque)){
                     ennemi.ajouteEffet(this.effetAttaque);
+                    //Todo calcul degats
+                    ennemi.diminueHP(tourCible.getDegats());
                 }
 
             }

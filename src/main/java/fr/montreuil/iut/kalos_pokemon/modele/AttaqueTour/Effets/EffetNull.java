@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets;
 
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 public class EffetNull extends EffetImpact{
@@ -13,17 +14,17 @@ public class EffetNull extends EffetImpact{
     }
 
     @Override
-    public boolean peutEtreApplique() {
+    public boolean peutEtreApplique(Ennemi ennemi) {
         return false;
     }
 
     @Override
-    public void appliqueEffet() {
+    public void appliqueEffet(Ennemi ennemi) {
         //Ne fais rien
     }
 
     @Override
-    public boolean finDeVie() {
+    public boolean finDeVie(Ennemi ennemi) {
         return false;
     }
 }
