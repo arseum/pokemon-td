@@ -40,11 +40,13 @@ public class GestionnaireVagues {
         VagueMono vTipl = fabVag.créeVagueTiplouf(terrain,600,50);
         VagueMono vTog = fabVag.créeVagueTogepi(terrain,600,100);
         VagueMono vLudicolo = fabVag.créeVagueLudicolo(terrain,600,50);
+        VagueMono vRoucoul = fabVag.créeVagueRoucoul(terrain,600,50);
 
         VagueComposee v4 = new VagueComposee(terrain, 600,new ArrayList<>(){{add(vTipl);add(vLudicolo);}});
         //listesVagues.add(vTipl);
        //listesVagues.add(vLudicolo);
         //listesVagues.add(vTipl);
+        listesVagues.add(vRoucoul);
         listesVagues.add(v4);
         vagueActuelle = listesVagues.get(0);
         this.indexVagueActuelle = 0;
@@ -75,15 +77,7 @@ public class GestionnaireVagues {
     public final IntegerProperty cptWaveProperty(){return cptWave;}
 
 
-    private int caseDepartYVol(){
-        int delta = 2;
-        int min = delta;
-        int max = (terrain.getHauteurTerrain()/Parametres.tailleTuile - 1) - delta;
-        return min + (int)(Math.random() * ((max - min) + 1));
-        //return  1 + (int)(Math.random() * ((terrain.getHauteurTerrain()/Parametres.tailleTuile - 1 - 1) + 1));
 
-        //return (int)(Math.random() * terrain.getHauteurTerrain()/ Parametres.tailleTuile);
-    }
 
 
     //Todo: Nouvelle
@@ -95,6 +89,7 @@ public class GestionnaireVagues {
                 }
             }
             if(this.compteurFrame > listesVagues.get(indexVagueActuelle).getDuree()){
+                System.out.println("nvelle wave !");
                 this.compteurFrame = 0;
                 this.setWave(this.getWave() + 1);
                 this.indexVagueActuelle++;
@@ -104,10 +99,8 @@ public class GestionnaireVagues {
     }
 
     private boolean vagueDonneEnnemi(){
-        if (indexVagueActuelle < listesVagues.size()&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(getNbFrame())){
-        }
 
-        return (indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(getNbFrame());
+        return (indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(this.compteurFrame);
     }
 
 

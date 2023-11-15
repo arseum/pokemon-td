@@ -21,9 +21,9 @@ public class VagueComposee extends Vague{
 
     @Override
     public Ennemi[] donneMoiUnEnnemi() {
-
-        Ennemi[] ennemisCreer = new Ennemi[compte];
         int j = 0;
+        Ennemi[] ennemisCreer = new Ennemi[compte];
+
 
         for (VagueMono v : vagues) {
             if (peutCreer[vagues.indexOf(v)]) {

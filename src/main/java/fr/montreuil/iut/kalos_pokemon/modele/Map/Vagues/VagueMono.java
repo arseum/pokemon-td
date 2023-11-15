@@ -25,7 +25,4 @@ public abstract class VagueMono extends Vague {
 
     public abstract Ennemi genereennemi(int [] caseDepart);
 
-    public int getDuree() {
-        return duree;
-    }
 }

@@ -13,8 +13,8 @@ public  class FabriqueVague {
             uniqueInstance = new FabriqueVague();}
         return uniqueInstance;
     }
-    private FabriqueVague( ){
-    }
+
+    private FabriqueVague( ){ } //constructeur vide
 
 
     public VagueMono créeVagueTogepi(Terrain terrain, int duree, int freq){
@@ -33,4 +33,7 @@ public  class FabriqueVague {
         return new VaguesLudicolo(terrain,duree,freq);
     }
 
+    public VagueMono créeVagueRoucoul(Terrain terrain, int duree, int freq){
+        return new VagueRoucoul(terrain,duree,freq);
+    }
 }
