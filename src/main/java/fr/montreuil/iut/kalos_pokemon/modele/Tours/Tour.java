@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.SpecialClassePourTour.ForgeEffectImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -25,8 +26,10 @@ public abstract class Tour implements Objet {
     protected int tempProchaineAttaque;
     protected Competence myCompetence;
     protected ModeAttaque modeAttaque;
+    private ForgeEffectImpact myForgeEffectImpact;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
+    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed,
+                Competence competence, ForgeEffectImpact myForgeEffectImpact) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -42,26 +45,10 @@ public abstract class Tour implements Objet {
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
         this.modeAttaque = null;
+        this.myForgeEffectImpact = myForgeEffectImpact;
     }
 
-    public void attaque() {
-        this.modeAttaque.attaque();
-        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
-    }
-
-    public void ajouteDegats(double value) {
-        compteurDegats.set(compteurDegats.get() + value);
-    }
-
-    public void levelUp() {
-        // !! l'ordre est important car il y a des listener qui sont pris en compte
-        if (level.get() + 1 == Parametres.niveauEvolutionTour)
-            evolution();
-
-        this.level.set(level.get() + 1);
-
-        amelioreStats();
-    }
+    /** GETTER + SETTER */
 
     public void actif() {
         myCompetence.actif();
@@ -71,33 +58,6 @@ public abstract class Tour implements Objet {
         return myCompetence.isEstPretActif();
     }
 
-    protected void evolution() {
-        setNom(Pokemon.valueOf(nom).getNomEvolution());
-        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
-    }
-
-    public abstract void amelioreStats();
-
-    /**
-     * @return true si l'ennemi est a une distance inferieur a la portée de la tour
-     */
-    public boolean estADistance(Ennemi ennemi) {
-        return Parametres.distance(this, ennemi) <= portee.get();
-    }
-
-    public int prixRevente() {
-        int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
-        return (int) ((this.prix + this.prix * (this.level.get() - 1 + sommeCumulee / 10.0)) * Parametres.pourcentageRevente);
-    }
-
-    /**
-     * Chaque amélioration coute 10% plus cher
-     */
-    public int prixAmelioration() {
-        return (int) (this.prix * (1 + 0.1 * this.level.get()));
-    }
-
-    //PROPERTIES
     public IntegerProperty porteeProperty() {
         return portee;
     }
@@ -139,7 +99,6 @@ public abstract class Tour implements Objet {
         this.nom = nouveauNom;
     }
 
-    //GETERS
     public int getAttaqueSpeed() {
         return attaqueSpeed;
     }
@@ -191,4 +150,57 @@ public abstract class Tour implements Objet {
     public int getY() {
         return y.get();
     }
+
+    /** methode abstract */
+
+    public abstract void amelioreStats();
+
+    /** methode public */
+
+    public void attaque() {
+        this.modeAttaque.attaque();
+        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
+    }
+
+    public void ajouteDegats(double value) {
+        compteurDegats.set(compteurDegats.get() + value);
+    }
+
+    public void levelUp() {
+        // !! l'ordre est important car il y a des listener qui sont pris en compte
+        if (level.get() + 1 == Parametres.niveauEvolutionTour)
+            evolution();
+
+        this.level.set(level.get() + 1);
+
+        amelioreStats();
+    }
+
+    /**
+     * @return true si l'ennemi est a une distance inferieur a la portée de la tour
+     */
+    public boolean estADistance(Ennemi ennemi) {
+        return Parametres.distance(this, ennemi) <= portee.get();
+    }
+
+    public int prixRevente() {
+        int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
+        return (int) ((this.prix + this.prix * (this.level.get() - 1 + sommeCumulee / 10.0)) * Parametres.pourcentageRevente);
+    }
+
+    /**
+     * Chaque amélioration coute 10% plus cher
+     */
+    public int prixAmelioration() {
+        return (int) (this.prix * (1 + 0.1 * this.level.get()));
+    }
+
+    /** methode private */
+
+    protected void evolution() {
+        setNom(Pokemon.valueOf(nom).getNomEvolution());
+        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
+    }
+
+
 }

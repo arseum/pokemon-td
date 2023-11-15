@@ -37,4 +37,7 @@ public abstract class EffetImpact {
 
     public abstract boolean finDeVie();
 
+    public Tour getTireur() {
+        return tireur;
+    }
 }

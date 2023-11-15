@@ -5,6 +5,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 //TODO Ne marche pas quand ennemi va trop vite (logique car condition est sorti de "zone")
 // Revoir la condition (Après tout ça reste un projectile)
 // FIXME une maniere serait de dire que un projectile a une vitesse
+// ceci est l'effet coresondant a un rallentissement de zone
 public class EffetRalentissement extends EffetImpact{
     private int xTour;
     private int yTour;
