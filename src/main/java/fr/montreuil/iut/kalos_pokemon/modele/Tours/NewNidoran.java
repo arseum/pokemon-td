@@ -5,15 +5,20 @@ import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgePoisson;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeRalentissement;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaqueDirect;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeBouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeProjectile;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeTirAleatoire;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeTirUnique;
+import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.SlowEnnemiEmpoissone;
 
 public class NewNidoran extends Tour{
     public NewNidoran(int x, int y) {
-        super(115, 0, PokemonEnum.nidoran.getType(),
+        super(350, 0, PokemonEnum.nidoran.getType(),
                 PokemonEnum.nidoran.getPrix(), x, y, PokemonEnum.nidoran.name(),
                 30, new NullActif());
 
@@ -30,9 +35,19 @@ public class NewNidoran extends Tour{
     public void amelioreStats() {
 //        this.effetPoison.amelioreEffet(10,0);
         if (level.get() == Parametres.niveauEvolutionTour){
-            portee.set(portee.get()+400);
+//            portee.set(portee.get()+400);
+            setModeAttaque(new ModeZone(this));
+            setMyForgeAttaque(new ForgeBouleDeFeu(100));
+            setMyForgeEffectImpact(new ForgePoisson(5,new Seconde(2),new Seconde(0.1),this));
+            degats = 0;
 //            ModeAttaque zone = new ModeZone(this.effetPoison, this);
 //            setModeAttaque(zone);
+        }
+        else{
+            setModeAttaque(new ModeTirAleatoire(this));
+            setMyForgeEffectImpact(new ForgeRalentissement(this,3));
+            setMyForgeAttaque(new ForgeAttaqueDirect());
+            degats = 45;
         }
     }
 }
