@@ -3,7 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.GestionnaireVagues;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
@@ -175,14 +175,17 @@ public class Game {
     public void uneFrame() {
 
         deplacement(listProjectile);
-        gestionEnnemi();
         gestionTour();
+        gestionEnnemi();
+
 
     }
 
     private void gestionEnnemi() {
 
         Ennemi e;
+
+        deplacement(listEnnemi);
 
         for (int i = listEnnemi.size() - 1; i >= 0 ;i --){
             e = listEnnemi.get(i);
@@ -192,7 +195,7 @@ public class Game {
                 e.gereEffet();
         }
 
-        deplacement(listEnnemi);
+
     }
 
     public Tour retourneTourAPartirId(String id){
@@ -207,8 +210,6 @@ public class Game {
      */
     public void vendreTour(Tour t){
         this.listTour.remove(t);
-        if (t instanceof Magneti magneti)
-            magneti.vendre();
         ajoutePokedollar(t.prixRevente());
     }
 

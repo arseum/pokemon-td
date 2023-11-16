@@ -3,17 +3,15 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.SpecialClassePourTour.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 import javafx.beans.property.*;
-
-import java.util.List;
 
 public abstract class Tour extends Pokemon implements Objet {
     private static int compteurID = 1;
@@ -27,8 +25,10 @@ public abstract class Tour extends Pokemon implements Objet {
     protected Competence myCompetence;
     protected ModeAttaque modeAttaque;
     private ForgeEffectImpact myForgeEffectImpact;
+    private ForgeAttaque myForgeAttaque;
 
-    public Tour(int portee, int degats, Type type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
+    public Tour(int portee, int degats, Type type, int prix, int x, int y, String pokemon,
+                int attaqueSpeed, Competence competence) {
         super(pokemon,type,x,y);
         this.id = "Tour_n°" + compteurID;
         compteurID++;
@@ -42,28 +42,13 @@ public abstract class Tour extends Pokemon implements Objet {
         tempProchaineAttaque = 0;
         this.modeAttaque = null;
         this.myForgeEffectImpact = null;
+        this.myForgeAttaque = null;
     }
 
     /** GETTER + SETTER */
 
-    public void actif() {
-        myCompetence.actif();
-    }
-
-    public boolean actifPret() {
-        return myCompetence.isEstPretActif();
-    }
-
     public IntegerProperty porteeProperty() {
         return portee;
-    }
-
-    public IntegerProperty xProperty() {
-        return x;
-    }
-
-    public DoubleProperty compteurDegatsProperty() {
-        return compteurDegats;
     }
 
     public ForgeEffectImpact getMyForgeEffectImpact() {
@@ -74,20 +59,8 @@ public abstract class Tour extends Pokemon implements Objet {
         this.myForgeEffectImpact = myForgeEffectImpact;
     }
 
-    public IntegerProperty levelProperty() {
-        return level;
-    }
-
-    public IntegerProperty yProperty() {
-        return y;
-    }
-
-    public BooleanProperty estPretActifProperty() {
-        return myCompetence.estPretActifProperty();
-    }
-
-    public IntegerProperty tempProchaineActifProperty() {
-        return myCompetence.tempProchainActifProperty();
+    public void setMyForgeAttaque(ForgeAttaque myForgeAttaque) {
+        this.myForgeAttaque = myForgeAttaque;
     }
 
     //SETERS
@@ -103,10 +76,6 @@ public abstract class Tour extends Pokemon implements Objet {
         this.nom = nouveauNom;
     }
 
-    public int getAttaqueSpeed() {
-        return attaqueSpeed;
-    }
-
     public int getPortee() {
         return portee.get();
     }
@@ -117,15 +86,6 @@ public abstract class Tour extends Pokemon implements Objet {
 
     public Competence getMyCompetence() {
         return myCompetence;
-    }
-
-    public void setMyCompetence(Competence myCompetence) {
-        this.myCompetence = myCompetence;
-    }
-    public void setNom(String nouveauNom){this.nom = nouveauNom;}
-
-    public IntegerProperty porteeProperty() {
-        return portee;
     }
 
     public int getDegats() {
@@ -144,9 +104,6 @@ public abstract class Tour extends Pokemon implements Objet {
         return compteurDegats.get();
     }
 
-    public String getType() {
-        return this.type;
-    }
     public IntegerProperty levelProperty() {
         return level;
     }
@@ -174,50 +131,11 @@ public abstract class Tour extends Pokemon implements Objet {
 
     public IntegerProperty tempProchaineActifProperty() { return myCompetence.tempProchainActifProperty();}
 
-    protected void evolution(){
-        setNom(PokemonEnum.valueOf(nom).getNomEvolution());
-        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
-    }
-
     public abstract void amelioreStats();
 
     public void attaque() {
-
-        Ennemi cible = chercheCible();
-
-        if (cible != null) {
-            lanceProjectile(cible);
-            tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
-        }
-
-    }
-
-    /**
-     * @return un ennemi si il y en a un en portée sinon renvoie null
-     */
-    protected Ennemi chercheCible() {
-        Ennemi cible = null;
-        int index = 0;
-
-        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
-
-        //cherche une cible
-        while (cible == null && index < listEnnemi.size()) {
-
-            if (peutCibler(listEnnemi.get(index)))
-                cible = listEnnemi.get(index);
-            else
-                index++;
-
-        }
-        return cible;
-    }
-
-    /**
-     * methode qui est utile car il y a des tours qui ont des conditions supplementaires pour le ciblage
-     */
-    protected boolean peutCibler(Ennemi ennemi) {
-        return estADistance(ennemi);
+        modeAttaque.attaque(degats,myForgeEffectImpact,myForgeAttaque);
+        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
     }
 
     /**
@@ -242,7 +160,7 @@ public abstract class Tour extends Pokemon implements Objet {
     /** methode private */
 
     protected void evolution() {
-        setNom(Pokemon.valueOf(nom).getNomEvolution());
+        setNom(PokemonEnum.valueOf(nom).getNomEvolution());
         myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
     }
 

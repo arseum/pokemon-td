@@ -1,6 +1,9 @@
 package fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque;
 
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeProjectile;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -18,22 +21,17 @@ public class ModeTirEnContinue extends ModeAttaque {
     }
 
     @Override
-    public void attaque() {
+    public void attaque(int degats, ForgeEffectImpact forgeEffet, ForgeAttaque forgeAttaque) {
         //Si pas d'ennemi ou ennemi est mort, on cherche un
         if(ennemiCible == null || !Game.getGame().getListEnnemi().contains(ennemiCible)){
             this.ennemiCible = chercheCible();
         }
         //Si a trouve et a distance
         //if(ennemiCible!= null && !ennemiCible.estEffecteParEffet(this.effetAttaque)){
-        if(ennemiCible!= null && tourCible.estADistance(ennemiCible)){
-            Projectile projectile = new Projectile(
-                    this.tourCible,
-                    ennemiCible,
-                    this.tourCible.getMyForgeEffectImpact().genereEffect()
-            );
-            Game.getGame().ajouteProjectile(projectile);
-        }else {
+        if(ennemiCible!= null && tourCible.estADistance(ennemiCible))
+            lanceProjectile(forgeAttaque,forgeEffet,degats,ennemiCible);
+        else
             this.ennemiCible = null;
-        }
+
     }
 }

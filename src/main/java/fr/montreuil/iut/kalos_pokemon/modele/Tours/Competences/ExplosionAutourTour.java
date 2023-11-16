@@ -3,6 +3,11 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences;
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaqueDirect;
+import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -11,44 +16,37 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.List;
 
-public class ExplosionAutourTour extends ClassicCompetence{
+public class ExplosionAutourTour extends CompetenceSelonModeAttaque{
 
-    private BooleanProperty actif;
-    public ExplosionAutourTour(Tour myTour) {
-        super(myTour, new Seconde(22));
-        actif = new SimpleBooleanProperty(false);
+//    private BooleanProperty actif;
+
+
+    public ExplosionAutourTour(Tour myTour, int degats,
+                               ForgeEffectImpact forgeEffectImpact) {
+        super(myTour, new Seconde(20), null, degats, null, forgeEffectImpact);
+
+        setMyModeAttaque(new ModeZone(myTour));
+        setMyForgeAttaque(new ForgeAttaqueDirect());
+
+        //ici on force le faite que une explotion fase des degat direct dans la zone de
+        //portee de la tour mais on laisse la possiblite de rajouter des effet a l'impact
+        //a la competence
+        //j'ai aussi forcé le fait que le cooldown est definie par defaut
+        //FIXME j'ai retirer tout les elements de la vue
     }
 
-    public BooleanProperty actifProperty() {
-        return actif;
-    }
+//    public BooleanProperty actifProperty() {
+//        return actif;
+//    }
+//
+//    public void activation(){
+//        actif.set(!actif.get());
+//    }
 
-    public void activation(){
-        actif.set(!actif.get());
-    }
-
-    @Override
-    public void actif() {
-
-        //List<Ennemi> listEnnemi = myTour.getGame().getListEnnemi().stream().toList();
-        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
-        Ennemi e;
-        double damage;
-
-        for (int i = listEnnemi.size() - 1; i >= 0; i--) {
-            e = listEnnemi.get(i);
-            if (myTour.estADistance(e) ) {
-                //damage = Parametres.calculDegats(myTour.getType(),e.getType(),150);
-                damage = myTour.getType().calculDegats(e.getType(),150);
-                e.diminueHP(damage);
-                myTour.ajouteDegats(damage);
-            }
-        }
-        //tempProchainActif.set(myTour.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
-        tempProchainActif.set(Game.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
-
-        //permet de provoquer une animation dans la vue
-        activation();
-
-    }
+//    @Override
+//    public void actif() {
+//        //permet de provoquer une animation dans la vue
+//        activation();
+//
+//    }
 }

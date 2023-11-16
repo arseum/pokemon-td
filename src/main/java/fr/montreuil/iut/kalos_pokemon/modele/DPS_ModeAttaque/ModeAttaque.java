@@ -1,15 +1,14 @@
 package fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque;
 
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.SpecialClassePourTour.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeProjectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Une tour ne peut avoir qu'un mode attaque. Ce mode peut être amené à changer
@@ -27,10 +26,10 @@ public abstract class ModeAttaque {
         this.tourCible = tourCible;
     }
 
-    public abstract void attaque(int degats, ForgeEffectImpact forgeEffet);
+    public abstract void attaque(int degats, ForgeEffectImpact forgeEffet, ForgeAttaque forgeAttaque);
 
     protected Ennemi chercheCible() {
-        return chercheCibles().get(0);
+        return chercheCibles().isEmpty()? null : chercheCibles().get(0);
 //        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
 //
 //        for (Ennemi ennemi : listEnnemi) {
@@ -41,16 +40,16 @@ public abstract class ModeAttaque {
     }
 
     protected List<Ennemi> chercheCibles(){
-        return Game.getGame().getListEnnemi().stream().map(e -> tourCible.estADistance(e) ? e : null).toList();
-//        ArrayList<Ennemi> listeCibles = new ArrayList<>();
-//        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
-//
-//        for (Ennemi ennemi : listEnnemi) {
-//            if (this.tourCible.estADistance(ennemi)) {
-//                listeCibles.add(ennemi);
-//            }
-//        }
-//
-//        return listeCibles;
+        List<Ennemi> ennemisAPortee = new ArrayList<>();
+        Game.getGame().getListEnnemi().forEach(e -> {
+            if (tourCible.estADistance(e))
+                ennemisAPortee.add(e);
+        });
+        return ennemisAPortee;
+
+    }
+
+    protected void lanceProjectile(ForgeAttaque forgeAttaque,ForgeEffectImpact forgeEffet, int degat,Ennemi e){
+        Game.getGame().ajouteProjectile(forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e));
     }
 }

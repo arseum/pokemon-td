@@ -57,7 +57,7 @@ public class EffetRalentissement extends EffetImpact{
 
          */
         if(!tireur.estADistance(victime)){
-            System.out.println(victime + " " + "resetVitesse");
+//            System.out.println(victime + " " + "resetVitesse");
             victime.resetVitesse();
             return true;
         }

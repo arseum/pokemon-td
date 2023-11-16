@@ -6,7 +6,7 @@ public enum Type {
     private static double superEfficace = 1.3;
 
 
-    public double calculDegats(Type typeDefenseur, int degats){
+    public double calculDegats(Type typeDefenseur, double degats){
 
         if (this == typeDefenseur || this == Type.neutre ||
             typeDefenseur == Type.neutre)

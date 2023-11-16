@@ -91,8 +91,9 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                     NewPoussifeu poussifeu = new NewPoussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
                     game.ajouteTour(poussifeu);
                 } else if (this.obsClic.tourSelectionnee.equals("salameche")) {
-                    TourTirUniquePoison s = new TourTirUniquePoison(200, 3, Type.neutre.name(), 40, x*Parametres.tailleTuile, y*Parametres.tailleTuile,"salameche", 4, new NullActif());
+//                    TourTirUniquePoison s = new TourTirUniquePoison(200, 3, Type.neutre.name(), 40, x*Parametres.tailleTuile, y*Parametres.tailleTuile,"salameche", 4, new NullActif());
                     //game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    Salameche s = new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
                     game.ajouteTour(s);
                 } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
                     //TourTirContinueSimple m = new TourTirContinueSimple(200, 4, Type.neutre.name(), 40,x*Parametres.tailleTuile,y*Parametres.tailleTuile,"magneti", 300,new NullActif());

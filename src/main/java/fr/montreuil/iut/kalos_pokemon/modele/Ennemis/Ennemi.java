@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;

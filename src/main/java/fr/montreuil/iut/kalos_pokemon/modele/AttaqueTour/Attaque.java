@@ -1,18 +1,14 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-
-import java.util.ArrayList;
 
 
 /**
@@ -33,11 +29,11 @@ public abstract class Attaque implements Mobile {
     protected BooleanProperty bouge;
     //protected ArrayList<EffetImpact> effetImpacts;
     //FIXME Pour simplifier je dis qu'un projectile ne peut amener qu'un seul effet
-    protected EffetImpact effetImpact;
+    protected ForgeEffectImpact forgeEffectImpact;
 
     protected double degats;
 
-    public Attaque(Tour tour, EffetImpact effetImpacts, double degats) {
+    public Attaque(Tour tour, ForgeEffectImpact effetImpacts, double degats) {
     //public Attaque(Tour tour, Game game, ArrayList<EffetImpact> effetImpacts) {
         this.tireur = tour;
         this.id = "Tir_n°" + compteur;
@@ -46,7 +42,8 @@ public abstract class Attaque implements Mobile {
 
         x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
         y = new SimpleIntegerProperty(tour.getY() + 22 - Parametres.offsetYTour);
-        this.effetImpact = effetImpacts;
+        this.forgeEffectImpact = effetImpacts;
+        this.degats = degats;
     }
 
     /*
@@ -92,7 +89,7 @@ public abstract class Attaque implements Mobile {
     }
 
     protected double getDegatsFinale(Ennemi cible){
-        return Type.calculDegats()
+        return tireur.getType().calculDegats(cible.getType(),degats);
     }
 
 }

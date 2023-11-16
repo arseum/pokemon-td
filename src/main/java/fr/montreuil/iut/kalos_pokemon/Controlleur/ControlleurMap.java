@@ -4,13 +4,10 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Salameche;
-
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
@@ -315,10 +312,12 @@ public class ControlleurMap implements Initializable {
             while (c.next()) {
                 if (c.wasAdded())
                     for (Attaque a : c.getAddedSubList()) {
-                        try {
-                            creerTirSprite(a);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        if (a instanceof Projectile) {
+                            try {
+                                creerTirSprite(a);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 else if (c.wasRemoved())
@@ -439,16 +438,16 @@ public class ControlleurMap implements Initializable {
         }));
 
         //modif pour l'animation de salamehce
-        if (tour.getMyCompetence() instanceof ExplosionAutourTour t)
-            t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
+//        if (tour.getMyCompetence() instanceof ExplosionAutourTour t)
+//            t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
 
 
-        if (tour instanceof Magneti magneti) {
-            magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (t1)
-                    magneti.getZone().bouge();
-            });
-        }
+//        if (tour instanceof Magneti magneti) {
+//            magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
+//                if (t1)
+//                    magneti.getZone().bouge();
+//            });
+//        }
 
 
 
@@ -457,17 +456,17 @@ public class ControlleurMap implements Initializable {
 
     private void creerTirSprite(Attaque a) throws IOException {
         TirSprite sprite = new TirSprite(a);
-        if (a instanceof Zone zone) {
-            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
-            sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
-            sprite.getHitBox().visibleProperty().bind(zone.actifProperty());
-            sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
-            sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
-            sprite.getHitBox().getStyleClass().add("magneti_zone");
-        } else {
+//        if (a instanceof Zone zone) {
+//            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
+//            sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
+//            sprite.getHitBox().visibleProperty().bind(zone.actifProperty());
+//            sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
+//            sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
+//            sprite.getHitBox().getStyleClass().add("magneti_zone");
+//        } else {
             sprite.getHitBox().xProperty().bind(a.xProperty());
             sprite.getHitBox().yProperty().bind(a.yProperty());
-        }
+//        }
         a.bougeProperty().addListener((observableValue, aBoolean, nouvelleValeur) -> {
             if (nouvelleValeur) {
                 try {
