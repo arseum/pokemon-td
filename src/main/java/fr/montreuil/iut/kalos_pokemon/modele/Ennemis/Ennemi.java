@@ -1,11 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
+import fr.montreuil.iut.kalos_pokemon.modele.Pokemon;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -20,21 +21,18 @@ import java.util.Map;
 import java.util.Set;
 
 //TODO clean ennemi, effetImpact, etc.. (comme tour)
-public abstract class Ennemi implements Mobile {
+public abstract class Ennemi extends Pokemon implements Mobile {
+
     private static int compteurID = 1;
     private int vitesseMax;
     private final double hpMax;
-    private final String type;
-    protected final IntegerProperty x;
-    protected final IntegerProperty y;
     private final int recompense;
     private boolean estStun;
     /**
      * compteur de frame utile pour compter le nombre de frames que le pokemon ne peut pas bouger
      */
     private int compteurTour;
-    private final String nom;
-    private final String id;
+
     private final Map<Integer, Integer> cheminVersArrive;
     private final DoubleProperty hp;
     //protected final Game game;
@@ -47,18 +45,16 @@ public abstract class Ennemi implements Mobile {
     protected ObservableMap<TypeEffet, EffetImpact> listeObsDesDifferentsTypeEffets;
 
     //public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
-    public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
+    public Ennemi(int vitesseMax, int hp, Type type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
+        super(pokemon,type,x,y);
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
+
         this.hp = new SimpleDoubleProperty(hp);
         this.hpMax = hp;
         this.vitesseMax = vitesseMax;
         this.vitesseActuel = vitesseMax;
-        this.type = type;
-        this.x = new SimpleIntegerProperty(x);
-        this.y = new SimpleIntegerProperty(y);
         this.recompense = recompense;
-        this.nom = pokemon;
         this.estTerrestre = estTerrestre;
         //this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
         this.cheminVersArrive = BFS.getBFS(Game.getGame().getTerrain()).algoBFS(estTerrestre);
@@ -69,14 +65,6 @@ public abstract class Ennemi implements Mobile {
     }
     public ObservableMap<TypeEffet, EffetImpact> getListeObsDesDifferentsTypeEffets(){
         return this.listeObsDesDifferentsTypeEffets;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getNom() {
-        return nom;
     }
 
     public boolean isEstArrive() {
@@ -99,25 +87,6 @@ public abstract class Ennemi implements Mobile {
         return hpMax;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public int getX() {
-        return x.get();
-    }
-
-    public IntegerProperty xProperty() {
-        return x;
-    }
-
-    public int getY() {
-        return y.get();
-    }
-
-    public IntegerProperty yProperty() {
-        return y;
-    }
 
     public void ajouteEffet(EffetImpact effetImpact) {
         effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
@@ -258,7 +227,6 @@ public abstract class Ennemi implements Mobile {
     }
 
     protected void meurt() {
-        //game.remove(this);
         Game.getGame().remove(this);
     }
 
