@@ -1,59 +1,115 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
+import fr.montreuil.iut.kalos_pokemon.modele.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 import javafx.beans.property.*;
 
-public abstract class Tour implements Objet {
+public abstract class Tour extends Pokemon implements Objet {
     private static int compteurID = 1;
     protected IntegerProperty portee;
     protected int degats;
-    protected final String type;
-    private String nom;
     private final int prix;
-    private final IntegerProperty x;
-    private final IntegerProperty y;
     protected final IntegerProperty level;
     protected final DoubleProperty compteurDegats;
-    private final String id;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
     protected Competence myCompetence;
     protected ModeAttaque modeAttaque;
+    private ForgeEffectImpact myForgeEffectImpact;
+    private ForgeAttaque myForgeAttaque;
 
-    public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
+    public Tour(int portee, int degats, Type type, int prix, int x, int y, String pokemon,
+                int attaqueSpeed, Competence competence) {
+        super(pokemon,type,x,y);
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
         this.degats = degats;
-        this.type = type;
         this.prix = prix;
-        this.x = new SimpleIntegerProperty(x);
-        this.y = new SimpleIntegerProperty(y);
         this.level = new SimpleIntegerProperty(1);
         this.myCompetence = competence;
-        this.nom = pokemon;
         this.attaqueSpeed = attaqueSpeed;
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
         this.modeAttaque = null;
+        this.myForgeEffectImpact = null;
+        this.myForgeAttaque = null;
     }
 
-    public void attaque() {
-        this.modeAttaque.attaque();
-        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
+    /** GETTER + SETTER */
+
+    public IntegerProperty porteeProperty() {
+        return portee;
     }
 
-    public void ajouteDegats(double value) {
-        compteurDegats.set(compteurDegats.get() + value);
+    public ForgeEffectImpact getMyForgeEffectImpact() {
+        return myForgeEffectImpact;
     }
 
-    public void levelUp() {
+    public void setMyForgeEffectImpact(ForgeEffectImpact myForgeEffectImpact) {
+        this.myForgeEffectImpact = myForgeEffectImpact;
+    }
+
+    public void setMyForgeAttaque(ForgeAttaque myForgeAttaque) {
+        this.myForgeAttaque = myForgeAttaque;
+    }
+
+    //SETERS
+    public void setModeAttaque(ModeAttaque modeAttaque) {
+        this.modeAttaque = modeAttaque;
+    }
+
+    public void setMyCompetence(Competence myCompetence) {
+        this.myCompetence = myCompetence;
+    }
+
+    public void setNom(String nouveauNom) {
+        this.nom = nouveauNom;
+    }
+
+    public int getPortee() {
+        return portee.get();
+    }
+
+    public int getTempProchaineAttaque() {
+        return tempProchaineAttaque;
+    }
+
+    public Competence getMyCompetence() {
+        return myCompetence;
+    }
+
+    public int getDegats() {
+        return degats;
+    }
+
+    public int getPrix() {
+        return this.prix;
+    }
+
+    public int getLevel() {
+        return level.get();
+    }
+
+    public double getCompteurDegats() {
+        return compteurDegats.get();
+    }
+
+    public IntegerProperty levelProperty() {
+        return level;
+    }
+
+    public void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
+    public void levelUp(){
         // !! l'ordre est important car il y a des listener qui sont pris en compte
         if (level.get() + 1 == Parametres.niveauEvolutionTour)
             evolution();
@@ -61,9 +117,9 @@ public abstract class Tour implements Objet {
         this.level.set(level.get() + 1);
 
         amelioreStats();
-    }
+    };
 
-    public void actif() {
+    public void actif(){
         myCompetence.actif();
     }
 
@@ -71,12 +127,16 @@ public abstract class Tour implements Objet {
         return myCompetence.isEstPretActif();
     }
 
-    protected void evolution() {
-        setNom(Pokemon.valueOf(nom).getNomEvolution());
-        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
-    }
+    public BooleanProperty estPretActifProperty() { return myCompetence.estPretActifProperty();}
+
+    public IntegerProperty tempProchaineActifProperty() { return myCompetence.tempProchainActifProperty();}
 
     public abstract void amelioreStats();
+
+    public void attaque() {
+        modeAttaque.attaque(degats,myForgeEffectImpact,myForgeAttaque);
+        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
+    }
 
     /**
      * @return true si l'ennemi est a une distance inferieur a la portée de la tour
@@ -97,98 +157,12 @@ public abstract class Tour implements Objet {
         return (int) (this.prix * (1 + 0.1 * this.level.get()));
     }
 
-    //PROPERTIES
-    public IntegerProperty porteeProperty() {
-        return portee;
+    /** methode private */
+
+    protected void evolution() {
+        setNom(PokemonEnum.valueOf(nom).getNomEvolution());
+        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
     }
 
-    public IntegerProperty xProperty() {
-        return x;
-    }
 
-    public DoubleProperty compteurDegatsProperty() {
-        return compteurDegats;
-    }
-
-    public IntegerProperty levelProperty() {
-        return level;
-    }
-
-    public IntegerProperty yProperty() {
-        return y;
-    }
-
-    public BooleanProperty estPretActifProperty() {
-        return myCompetence.estPretActifProperty();
-    }
-
-    public IntegerProperty tempProchaineActifProperty() {
-        return myCompetence.tempProchainActifProperty();
-    }
-
-    //SETERS
-    public void setModeAttaque(ModeAttaque modeAttaque) {
-        this.modeAttaque = modeAttaque;
-    }
-
-    public void setMyCompetence(Competence myCompetence) {
-        this.myCompetence = myCompetence;
-    }
-
-    public void setNom(String nouveauNom) {
-        this.nom = nouveauNom;
-    }
-
-    //GETERS
-    public int getAttaqueSpeed() {
-        return attaqueSpeed;
-    }
-
-    public int getPortee() {
-        return portee.get();
-    }
-
-    public int getTempProchaineAttaque() {
-        return tempProchaineAttaque;
-    }
-
-    public Competence getMyCompetence() {
-        return myCompetence;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public int getDegats() {
-        return degats;
-    }
-
-    public int getX() {
-        return x.get();
-    }
-
-    public int getPrix() {
-        return this.prix;
-    }
-
-    public int getLevel() {
-        return level.get();
-    }
-
-    public double getCompteurDegats() {
-        return compteurDegats.get();
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public int getY() {
-        return y.get();
-    }
 }

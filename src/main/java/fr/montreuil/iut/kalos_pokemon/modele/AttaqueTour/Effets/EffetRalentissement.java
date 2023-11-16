@@ -1,11 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 //TODO Ne marche pas quand ennemi va trop vite (logique car condition est sorti de "zone")
 // Revoir la condition (Après tout ça reste un projectile)
 // FIXME une maniere serait de dire que un projectile a une vitesse
+// ceci est l'effet coresondant a un rallentissement de zone
 public class EffetRalentissement extends EffetImpact{
     private int xTour;
     private int yTour;
@@ -27,7 +27,7 @@ public class EffetRalentissement extends EffetImpact{
     }
 
     @Override
-    public boolean peutEtreApplique(Ennemi ennemi) {
+    public boolean peutEtreApplique() {
         /*
         if(this.aEteApplique)
             return false;
@@ -37,16 +37,16 @@ public class EffetRalentissement extends EffetImpact{
         }
 
          */
-        return ennemi.getVitesseMax()==ennemi.getVitesseActuel();
+        return victime.getVitesseMax()==victime.getVitesseActuel();
     }
 
     @Override
-    public void appliqueEffet(Ennemi ennemi) {
-        ennemi.reduitVitese(this.reductionVitesse);
+    public void appliqueEffet() {
+        victime.reduitVitese(this.reductionVitesse);
     }
 
     @Override
-    public boolean finDeVie(Ennemi ennemi) {
+    public boolean finDeVie() {
         /*
         //Cas de vente
         //FIXME à tester
@@ -56,9 +56,9 @@ public class EffetRalentissement extends EffetImpact{
             return !tireur.estADistance(victime);
 
          */
-        if(!tireur.estADistance(ennemi)){
-            System.out.println(ennemi + " " + "resetVitesse");
-            ennemi.resetVitesse();
+        if(!tireur.estADistance(victime)){
+//            System.out.println(victime + " " + "resetVitesse");
+            victime.resetVitesse();
             return true;
         }
         return false;

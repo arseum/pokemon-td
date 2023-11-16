@@ -1,16 +1,14 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.GestionnaireVagues;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.Wave;
+
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourSpe;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -34,7 +32,7 @@ public class Game {
     private final IntegerProperty pokedollar;
     private IntegerProperty nbFrame;
     private final IntegerProperty vie;
-    private Wave vague;
+    private GestionnaireVagues vague;
     private boolean bossVaincu = false;
     private static Game uniqueInstanceGame = null;
 
@@ -48,8 +46,16 @@ public class Game {
         pokedollar = new SimpleIntegerProperty(Parametres.argentDepartPourDev);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
-        vague= new Wave(terrain);
+        vague= new GestionnaireVagues(terrain);
         vague.nbFrameProperty().bind(nbFrame);
+    }
+
+    /*
+    private Game() {
+        this("default");
+    }*/
+    public GestionnaireVagues getVague() {
+        return vague;
     }
 
     //todo : à remodeler (il faut que l'unique accès soit getGame)
@@ -73,9 +79,7 @@ public class Game {
         nomTerrain = null;
     }
 
-    public Wave getVague() {
-        return vague;
-    }
+
     public Terrain getTerrain() {
         return terrain;
     }
@@ -153,7 +157,7 @@ public class Game {
 
     public boolean tourAchetable(String nomTour) {
         //return (Parametres.prixTour(nomTour) != -1) && (Parametres.prixTour(nomTour) <= this.pokedollar.get());
-        return (Pokemon.valueOf(nomTour).getPrix() <= this.pokedollar.get());
+        return (PokemonEnum.valueOf(nomTour).getPrix() <= this.pokedollar.get());
     }
 
     public void remove(Attaque p) {
@@ -171,14 +175,17 @@ public class Game {
     public void uneFrame() {
 
         deplacement(listProjectile);
-        gestionEnnemi();
         gestionTour();
+        gestionEnnemi();
+
 
     }
 
     private void gestionEnnemi() {
 
         Ennemi e;
+
+        deplacement(listEnnemi);
 
         for (int i = listEnnemi.size() - 1; i >= 0 ;i --){
             e = listEnnemi.get(i);
@@ -188,7 +195,7 @@ public class Game {
                 e.gereEffet();
         }
 
-        deplacement(listEnnemi);
+
     }
 
     public Tour retourneTourAPartirId(String id){
@@ -199,12 +206,10 @@ public class Game {
     }
 
     /**
-     * supprime une tour de la liste et rajoute un peu d'argent en contre-parti
+     * supprime une tour de la liste et rajoute un peu d'argent en contre-partit
      */
     public void vendreTour(Tour t){
         this.listTour.remove(t);
-        if (t instanceof Magneti magneti)
-            magneti.vendre();
         ajoutePokedollar(t.prixRevente());
     }
 

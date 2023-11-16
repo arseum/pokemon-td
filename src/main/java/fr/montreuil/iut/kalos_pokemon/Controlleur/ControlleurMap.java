@@ -7,12 +7,11 @@ import fr.montreuil.iut.kalos_pokemon.modele.*;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -195,7 +194,7 @@ public class ControlleurMap implements Initializable {
 
                     game.uneFrame();
                     try {
-                        game.getVague().wave();
+                        game.getVague().chargeVague();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -313,10 +312,12 @@ public class ControlleurMap implements Initializable {
             while (c.next()) {
                 if (c.wasAdded())
                     for (Attaque a : c.getAddedSubList()) {
-                        try {
-                            creerTirSprite(a);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        if (a instanceof Projectile) {
+                            try {
+                                creerTirSprite(a);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 else if (c.wasRemoved())
@@ -364,7 +365,7 @@ public class ControlleurMap implements Initializable {
             }
         });
 
-        buttonMenu.setOnAction( e -> partiePerdue("jeu mis en pause"));
+        buttonMenu.setOnAction( e -> Paused("jeu mis en pause"));
     }
 
     /**
@@ -437,16 +438,16 @@ public class ControlleurMap implements Initializable {
         }));
 
         //modif pour l'animation de salamehce
-        if (tour.getMyCompetence() instanceof ExplosionAutourTour t)
-            t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
+//        if (tour.getMyCompetence() instanceof ExplosionAutourTour t)
+//            t.actifProperty().addListener((observableValue, aBoolean, t1) -> creerExploxionSprite(tour,"deflagration.gif"));
 
 
-        if (tour instanceof Magneti magneti) {
-            magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (t1)
-                    magneti.getZone().bouge();
-            });
-        }
+//        if (tour instanceof Magneti magneti) {
+//            magneti.actifProperty().addListener((observableValue, aBoolean, t1) -> {
+//                if (t1)
+//                    magneti.getZone().bouge();
+//            });
+//        }
 
 
 
@@ -455,17 +456,17 @@ public class ControlleurMap implements Initializable {
 
     private void creerTirSprite(Attaque a) throws IOException {
         TirSprite sprite = new TirSprite(a);
-        if (a instanceof Zone zone) {
-            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
-            sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
-            sprite.getHitBox().visibleProperty().bind(zone.actifProperty());
-            sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
-            sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
-            sprite.getHitBox().getStyleClass().add("magneti_zone");
-        } else {
+//        if (a instanceof Zone zone) {
+//            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
+//            sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
+//            sprite.getHitBox().visibleProperty().bind(zone.actifProperty());
+//            sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
+//            sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
+//            sprite.getHitBox().getStyleClass().add("magneti_zone");
+//        } else {
             sprite.getHitBox().xProperty().bind(a.xProperty());
             sprite.getHitBox().yProperty().bind(a.yProperty());
-        }
+//        }
         a.bougeProperty().addListener((observableValue, aBoolean, nouvelleValeur) -> {
             if (nouvelleValeur) {
                 try {
@@ -486,6 +487,38 @@ public class ControlleurMap implements Initializable {
         Label msg = new Label(message);
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("on continue quand même");
+        Button non = bouttonRetouracceuil(popup);
+        HBox hbox = new HBox(oui,non);
+        VBox vbox= new VBox(msg,msg2,hbox);
+
+        vbox.setAlignment(Pos.CENTER);
+        hbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(20);hbox.setSpacing(20);
+
+        Scene scene =new Scene(vbox,400,300);
+        popup.setScene(scene);
+
+        oui.setOnAction(e->{
+            popup.close();
+            gameLoop.play();
+        });
+
+        popup.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
+
+        popup.show();
+
+        popup.setOnCloseRequest(e->{
+
+        });
+    }
+    public void Paused(String message){
+        gameLoop.stop();
+        Stage popup = new Stage();
+        popup.setTitle("Jeu mis en pause !");
+
+        Label msg = new Label(message);
+        Label msg2 = new Label("Continuer ?");
+        Button oui = new Button("On reprends");
         Button non = bouttonRetouracceuil(popup);
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);

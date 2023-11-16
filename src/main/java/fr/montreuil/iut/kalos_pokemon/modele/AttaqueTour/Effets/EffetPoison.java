@@ -21,6 +21,10 @@ public class EffetPoison extends EffetImpact {
         this.frequencePoison = frequencePoison;
     }
 
+    public EffetPoison generateEffect(){
+        return new EffetPoison(degatPoison,dureePoison,frequencePoison,tireur);
+    }
+
     @Override
     public void initEffetType() {
         this.typeEffet = TypeEffet.Poison;

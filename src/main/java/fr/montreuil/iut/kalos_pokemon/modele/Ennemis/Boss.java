@@ -1,10 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Boss extends Ennemi {
     public Boss( int x, int y) {
-        super(2, 10545, "neutre", x, y, 0, "rayquaza", true);
+        super(2, 10545, Type.neutre, x, y, 0, "rayquaza", true);
     }
 
     @Override

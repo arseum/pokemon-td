@@ -40,4 +40,7 @@ public abstract class EffetImpact {
 
     public abstract boolean finDeVie(Ennemi ennemi);
 
+    public Tour getTireur() {
+        return tireur;
+    }
 }
