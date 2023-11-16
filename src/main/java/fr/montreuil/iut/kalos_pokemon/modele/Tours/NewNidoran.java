@@ -40,6 +40,7 @@ public class NewNidoran extends Tour{
             setMyForgeAttaque(new ForgeBouleDeFeu(100));
             setMyForgeEffectImpact(new ForgePoisson(5,new Seconde(2),new Seconde(0.1),this));
             degats = 0;
+            attaqueSpeed = 110;
 //            ModeAttaque zone = new ModeZone(this.effetPoison, this);
 //            setModeAttaque(zone);
         }
@@ -48,6 +49,7 @@ public class NewNidoran extends Tour{
             setMyForgeEffectImpact(new ForgeRalentissement(this,3));
             setMyForgeAttaque(new ForgeAttaqueDirect());
             degats = 45;
+            attaqueSpeed = 60;
         }
     }
 }
