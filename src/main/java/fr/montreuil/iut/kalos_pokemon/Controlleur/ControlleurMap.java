@@ -12,7 +12,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;

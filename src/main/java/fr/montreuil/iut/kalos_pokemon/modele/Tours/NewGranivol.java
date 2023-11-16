@@ -5,6 +5,7 @@ import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetNull;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetPoison;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.SpecialClassePourTour.ForgeEffetNull;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeTirEnContinue;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeTirUnique;
@@ -19,8 +20,9 @@ public class NewGranivol extends Tour{
         // ok, ca vient de modeTirCon cette condition
         // ennemiCible.estEffecteParEffet(this.effetAttaque)
         // je l'avais implemente pour eviter bug visuel (genre ca attaque mais pas d'effet)
-        ModeAttaque modeAttaque = new ModeTirEnContinue(new EffetPoison(10, new Seconde(4), new Seconde(3), this), this);
+        ModeAttaque modeAttaque = new ModeTirEnContinue( this);
         setModeAttaque(modeAttaque);
+        setMyForgeEffectImpact(new ForgeEffetNull(this));
     }
 
     @Override

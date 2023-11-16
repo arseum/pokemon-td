@@ -13,8 +13,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 public class ModeTirEnContinue extends ModeAttaque {
     private Ennemi ennemiCible;
     //private boolean
-    public ModeTirEnContinue(EffetImpact effetAttaque, Tour tourCible) {
-        super(effetAttaque, tourCible);
+    public ModeTirEnContinue(Tour tourCible) {
+        super(tourCible);
     }
 
     @Override
@@ -26,7 +26,11 @@ public class ModeTirEnContinue extends ModeAttaque {
         //Si a trouve et a distance
         //if(ennemiCible!= null && !ennemiCible.estEffecteParEffet(this.effetAttaque)){
         if(ennemiCible!= null && tourCible.estADistance(ennemiCible)){
-            Projectile projectile = new Projectile(this.tourCible, ennemiCible, this.effetAttaque);
+            Projectile projectile = new Projectile(
+                    this.tourCible,
+                    ennemiCible,
+                    this.tourCible.getMyForgeEffectImpact().genereEffect()
+            );
             Game.getGame().ajouteProjectile(projectile);
         }else {
             this.ennemiCible = null;

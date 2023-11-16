@@ -11,13 +11,9 @@ public class Projectile extends Attaque {
 
     private final Ennemi cible;
 
-    //Degat reel = degats avec multiplicateur de type
-    protected double degatsReel;
-
-    public Projectile(Tour tour, Ennemi ennemi, EffetImpact effetImpact) {
-        super(tour, effetImpact);
+    public Projectile(Tour tour, Ennemi ennemi, EffetImpact effetImpact, double degats) {
+        super(tour, effetImpact,degats);
         this.cible = ennemi;
-        this.degatsReel = Type.calculDegats(tour.getType(),ennemi.getType(),tour.getDegats());
     }
 
     /**

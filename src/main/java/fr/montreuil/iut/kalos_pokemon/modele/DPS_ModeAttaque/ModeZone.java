@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
@@ -10,8 +11,8 @@ import java.util.List;
 //FIXME Revoir projectile (genre il y a des projectile qui applique des effets)
 // et des zone qui applique aussi effet?
 public class ModeZone extends ModeAttaque {
-    public ModeZone(EffetImpact effetAttaque, Tour tourCible) {
-        super(effetAttaque, tourCible);
+    public ModeZone(Tour tourCible) {
+        super(tourCible);
     }
 
     @Override
@@ -39,9 +40,10 @@ public class ModeZone extends ModeAttaque {
 
                  */
                 //FIXME ici c'est le meme putain d'objet qui est passé en ref
-                if(!ennemi.estEffecteParEffet(this.effetAttaque)){
-                    ennemi.ajouteEffet(this.effetAttaque);
-                }
+
+                ennemi.ajouteEffet(this.tourCible.getMyForgeEffectImpact().genereEffect());
+                ennemi.diminueHP(tourCible.getDegats()); //todo calcul type
+
 
             }
         }

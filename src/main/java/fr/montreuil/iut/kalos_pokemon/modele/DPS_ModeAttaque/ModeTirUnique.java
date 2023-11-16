@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class ModeTirUnique extends ModeAttaque {
     private ArrayList<Ennemi> listeEnnemisTouches;
-    public ModeTirUnique(EffetImpact effetAttaque, Tour tourCible) {
-        super(effetAttaque, tourCible);
+    public ModeTirUnique(Tour tourCible) {
+        super(tourCible);
         this.listeEnnemisTouches = new ArrayList<>();
     }
 
@@ -22,7 +22,10 @@ public class ModeTirUnique extends ModeAttaque {
     public void attaque() {
         Ennemi ennemi = chercheCible();
         if(ennemi != null && !listeEnnemisTouches.contains(ennemi)){
-            Projectile projectile = new Projectile(this.tourCible, ennemi, this.effetAttaque);
+            Projectile projectile = new Projectile(
+                    this.tourCible,
+                    ennemi,
+                    this.tourCible.getMyForgeEffectImpact().genereEffect());
             Game.getGame().ajouteProjectile(projectile);
             listeEnnemisTouches.add(ennemi);
         }

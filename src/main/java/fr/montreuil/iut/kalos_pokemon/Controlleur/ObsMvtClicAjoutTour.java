@@ -6,7 +6,6 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;

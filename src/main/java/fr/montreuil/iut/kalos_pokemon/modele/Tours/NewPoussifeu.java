@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetNull;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.SpecialClassePourTour.ForgeEffetNull;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeTirAleatoire;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
@@ -12,6 +13,7 @@ public class NewPoussifeu extends Tour{
         super(100, 30, Pokemon.poussifeu.getType(), Pokemon.poussifeu.getPrix(), x, y, Pokemon.poussifeu.name(), 50, new NullActif());
         ModeAttaque tirAleatoire = new ModeTirAleatoire(new EffetNull(this),this);
         setModeAttaque(tirAleatoire);
+        setMyForgeEffectImpact(new ForgeEffetNull(this));
     }
 
     @Override

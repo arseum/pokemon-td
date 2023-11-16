@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -92,9 +93,7 @@ public abstract class Ennemi implements Mobile {
         return hp.get();
     }
 
-    public DoubleProperty hpProperty() {
-        return hp;
-    }
+    public DoubleProperty hpProperty() {return hp;}
 
     public double getHpMax() {
         return hpMax;
@@ -132,6 +131,10 @@ public abstract class Ennemi implements Mobile {
 
     public void removeEffet(EffetImpact e) {
         listeObsDesDifferentsTypeEffets.remove(e.getTypeEffet());
+    }
+
+    public EffetImpact getEffectSelonType(TypeEffet typeEffet){
+        return listeObsDesDifferentsTypeEffets.get(typeEffet);
     }
 
     public void gereEffet() {
@@ -174,6 +177,10 @@ public abstract class Ennemi implements Mobile {
         //return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
         if(effetImpact.getTypeEffet() == TypeEffet.Null) return false;
         else return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
+    }
+
+    public boolean estAffecterParEffet(TypeEffet typeEffet){
+        return listeObsDesDifferentsTypeEffets.containsKey(typeEffet);
     }
 
     public void reduitVitesseMax(int value){

@@ -29,7 +29,7 @@ public abstract class Tour implements Objet {
     private ForgeEffectImpact myForgeEffectImpact;
 
     public Tour(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed,
-                Competence competence, ForgeEffectImpact myForgeEffectImpact) {
+                Competence competence) {
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -45,7 +45,7 @@ public abstract class Tour implements Objet {
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
         this.modeAttaque = null;
-        this.myForgeEffectImpact = myForgeEffectImpact;
+        this.myForgeEffectImpact = null;
     }
 
     /** GETTER + SETTER */
@@ -68,6 +68,14 @@ public abstract class Tour implements Objet {
 
     public DoubleProperty compteurDegatsProperty() {
         return compteurDegats;
+    }
+
+    public ForgeEffectImpact getMyForgeEffectImpact() {
+        return myForgeEffectImpact;
+    }
+
+    public void setMyForgeEffectImpact(ForgeEffectImpact myForgeEffectImpact) {
+        this.myForgeEffectImpact = myForgeEffectImpact;
     }
 
     public IntegerProperty levelProperty() {

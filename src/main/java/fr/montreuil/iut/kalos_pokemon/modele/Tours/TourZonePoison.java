@@ -9,8 +9,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.Competence;
 public class TourZonePoison extends Tour{
     public TourZonePoison(int portee, int degats, String type, int prix, int x, int y, String pokemon, int attaqueSpeed, Competence competence) {
         super(portee, degats, type, prix, x, y, pokemon, attaqueSpeed, competence);
-        ModeAttaque m = new ModeZone(new EffetPoison(2,new Seconde(10),new Seconde(0.2), this),this);
-        setModeAttaque(m);
+//        ModeAttaque m = new ModeZone(new EffetPoison(2,new Seconde(10),new Seconde(0.2), this),this);
+//        setModeAttaque(m);
     }
 
     @Override
