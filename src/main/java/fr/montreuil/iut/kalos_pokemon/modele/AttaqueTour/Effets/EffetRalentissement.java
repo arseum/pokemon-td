@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets;
 
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 //TODO Ne marche pas quand ennemi va trop vite (logique car condition est sorti de "zone")
@@ -27,40 +28,17 @@ public class EffetRalentissement extends EffetImpact{
     }
 
     @Override
-    public boolean peutEtreApplique() {
-        /*
-        if(this.aEteApplique)
-            return false;
-        else{
-            this.aEteApplique = true;
-            return true;
-        }
-
-         */
-        return victime.getVitesseMax()==victime.getVitesseActuel();
+    public boolean peutEtreApplique(Ennemi ennemi) {
+        return false;
     }
 
     @Override
-    public void appliqueEffet() {
-        victime.reduitVitese(this.reductionVitesse);
+    public void appliqueEffet(Ennemi ennemi) {
+
     }
 
     @Override
-    public boolean finDeVie() {
-        /*
-        //Cas de vente
-        //FIXME à tester
-        if(tireur == null)
-            return true;
-        else
-            return !tireur.estADistance(victime);
-
-         */
-        if(!tireur.estADistance(victime)){
-//            System.out.println(victime + " " + "resetVitesse");
-            victime.resetVitesse();
-            return true;
-        }
+    public boolean finDeVie(Ennemi ennemi) {
         return false;
     }
 }
