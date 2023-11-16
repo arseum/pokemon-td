@@ -32,7 +32,8 @@ public class ExplosionAutourTour extends CompetenceSelonModeAttaque{
         //portee de la tour mais on laisse la possiblite de rajouter des effet a l'impact
         //a la competence
         //j'ai aussi forcé le fait que le cooldown est definie par defaut
-        //FIXME j'ai retirer tout les elements de la vue
+        //FIXME MAJEUR (ars)
+        // j'ai retirer tout les elements de la vue
     }
 
 //    public BooleanProperty actifProperty() {

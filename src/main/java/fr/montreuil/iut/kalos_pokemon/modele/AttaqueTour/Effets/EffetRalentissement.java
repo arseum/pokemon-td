@@ -3,9 +3,8 @@ package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-//TODO Ne marche pas quand ennemi va trop vite (logique car condition est sorti de "zone")
-// Revoir la condition (Après tout ça reste un projectile)
-// FIXME une maniere serait de dire que un projectile a une vitesse
+//TODO MAJEUR
+// Implementer effet ralentissement
 // ceci est l'effet coresondant a un rallentissement de zone
 public class EffetRalentissement extends EffetImpact{
     private int xTour;

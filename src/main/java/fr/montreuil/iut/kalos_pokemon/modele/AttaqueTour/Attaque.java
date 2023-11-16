@@ -27,8 +27,6 @@ public abstract class Attaque implements Mobile {
      * cela est plus 'simple' de rajouter un boleanProperty
      */
     protected BooleanProperty bouge;
-    //protected ArrayList<EffetImpact> effetImpacts;
-    //FIXME Pour simplifier je dis qu'un projectile ne peut amener qu'un seul effet
     protected ForgeEffectImpact forgeEffectImpact;
 
     protected double degats;

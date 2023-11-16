@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-//TODO clean ennemi, effetImpact, etc.. (comme tour)
 public abstract class Ennemi extends Pokemon implements Mobile {
 
     private static int compteurID = 1;
@@ -110,22 +109,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     public void gereEffet() {
         EffetImpact effetImpact;
         ArrayList<EffetImpact> listeASup = new ArrayList<>();
-        /*
-        //FIXME faire une simple list (pb dans iteration)
-        for (Map.Entry<TypeEffet, EffetImpact> entry : this.listeObsDesDifferentsTypeEffets.entrySet()) {
-            effetImpact = entry.getValue();
-            if (effetImpact.peutEtreApplique())
-                effetImpact.appliqueEffet();
-            if(effetImpact.finDeVie()) {
-                //FIXME il se passe des trucs bizarres
-                // Il devrait pas y avoir 5000 sysouts
-                removeEffet(effetImpact);
-                listeASup.add(entry.getValue());
-                //effetImpact.fin();
-            }
-        }
 
-         */
         Set<Map.Entry<TypeEffet, EffetImpact>> set = listeObsDesDifferentsTypeEffets.entrySet();
         Iterator<Map.Entry<TypeEffet, EffetImpact>> iterator = set.iterator();
         while (iterator.hasNext()) {
@@ -134,8 +118,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
             if (effetImpact.peutEtreApplique(this))
                 effetImpact.appliqueEffet(this);
             if (effetImpact.finDeVie(this)) {
-                //FIXME temp fix de ConcurrentModificationException
-                //removeEffet(effetImpact);
                 iterator.remove();
                 listeASup.add(entry.getValue());
             }

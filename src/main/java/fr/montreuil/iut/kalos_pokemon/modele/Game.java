@@ -58,7 +58,8 @@ public class Game {
         return vague;
     }
 
-    //todo : à remodeler (il faut que l'unique accès soit getGame)
+    //todo mineur
+    // : à remodeler (il faut que l'unique accès soit getGame)
     public static Game getGame(String nomTerrain){
         if(uniqueInstanceGame == null){
             Game.nomTerrain = nomTerrain;

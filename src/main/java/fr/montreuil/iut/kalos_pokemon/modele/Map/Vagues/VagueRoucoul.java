@@ -32,7 +32,7 @@ public class VagueRoucoul extends VagueMono{
 
     @Override
     public Ennemi genereennemi(int[] caseDepart) {
-        return new Roucool(caseDepart[0]*32, caseDepartYVol()*32); //TODO random y
+        return new Roucool(caseDepart[0]*32, caseDepartYVol()*32);
     }
 }
 

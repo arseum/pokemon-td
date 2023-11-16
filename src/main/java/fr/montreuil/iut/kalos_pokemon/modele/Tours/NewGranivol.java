@@ -14,11 +14,6 @@ public class NewGranivol extends Tour{
         super(160, 1, PokemonEnum.granivol.getType(),
                 PokemonEnum.granivol.getPrix(), x, y, PokemonEnum.granivol.name(),
                 6, new NullActif());
-        //ModeAttaque modeAttaque = new ModeTirEnContinue(new EffetNull(this), this);
-        //FIXME le temps de la prochaine attaque ca devrait etre le projectile et non l'effet
-        // ok, ca vient de modeTirCon cette condition
-        // ennemiCible.estEffecteParEffet(this.effetAttaque)
-        // je l'avais implemente pour eviter bug visuel (genre ca attaque mais pas d'effet)
         ModeAttaque modeAttaque = new ModeTirEnContinue( this);
         setModeAttaque(modeAttaque);
         setMyForgeEffectImpact(new ForgeEffetNull(this));

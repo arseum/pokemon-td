@@ -9,10 +9,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-
-import java.util.List;
-//FIXME Revoir projectile (genre il y a des projectile qui applique des effets)
-// et des zone qui applique aussi effet?
 public class ModeZone extends ModeAttaque {
     public ModeZone(Tour tourCible) {
         super(tourCible);

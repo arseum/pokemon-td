@@ -18,8 +18,6 @@ public class GestionnaireVagues {
     private IntegerProperty cptWave;
     private Terrain terrain;
     private BooleanProperty gameGagnee;
-
-    //todo: Nouveaux attributs
     private int compteurFrame;
     private ArrayList<Vague> listesVagues;
     private Vague vagueActuelle;
@@ -33,7 +31,6 @@ public class GestionnaireVagues {
         gameGagnee = new SimpleBooleanProperty(false);
         cptWave = new SimpleIntegerProperty(1);
 
-        //todo: Nouveaux attributs
         this.compteurFrame = 0;
         this.listesVagues = new ArrayList<>();
         FabriqueVague fabVag= FabriqueVague.getInstance();
@@ -77,10 +74,6 @@ public class GestionnaireVagues {
     public final IntegerProperty cptWaveProperty(){return cptWave;}
 
 
-
-
-
-    //Todo: Nouvelle
     public void chargeVague() throws InterruptedException{
         if((indexVagueActuelle < listesVagues.size())){
             if(vagueDonneEnnemi()){
