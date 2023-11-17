@@ -41,10 +41,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     //HashMap pour empecher le stack d'effet du même type
     protected ObservableMap<TypeEffet, EffetImpact> listeObsDesDifferentsTypeEffets;
 
-    //protected ObservableList<EffetImpact> effetImpactObservableList;
-    protected ArrayList<EffetImpact> effetImpactObservableList;
-
-    //public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
     public Ennemi(int vitesseMax, int hp, Type type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
         super(pokemon,type,x,y);
         this.id = "Ennemi_n°" + compteurID;
@@ -62,7 +58,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         this.estArrive = false;
         this.listeObsDesDifferentsTypeEffets = FXCollections.observableHashMap();
         //this.effetImpactObservableList = FXCollections.observableArrayList();
-        this.effetImpactObservableList = new ArrayList<>();
         setInfoDeplacement();
     }
     public ObservableMap<TypeEffet, EffetImpact> getListeObsDesDifferentsTypeEffets(){
@@ -102,21 +97,17 @@ public abstract class Ennemi extends Pokemon implements Mobile {
 
     public void gereEffet() {
         EffetImpact effetImpact;
-        ArrayList<EffetImpact> listeASup = new ArrayList<>();
 
         Set<Map.Entry<TypeEffet, EffetImpact>> set = listeObsDesDifferentsTypeEffets.entrySet();
         Iterator<Map.Entry<TypeEffet, EffetImpact>> iterator = set.iterator();
         while (iterator.hasNext()) {
             Map.Entry<TypeEffet, EffetImpact> entry = iterator.next();
             effetImpact = entry.getValue();
-            //System.out.println(effetImpact);
             if (effetImpact.peutEtreApplique(this)){
-                System.out.println("Je peux etre app");
                 effetImpact.appliqueEffet(this);
             }
             if (effetImpact.finEffet(this)) {
                 iterator.remove();
-                listeASup.add(entry.getValue());
             }
         }
 
@@ -124,60 +115,12 @@ public abstract class Ennemi extends Pokemon implements Mobile {
 
     public void ajouteEffet(EffetImpact effetImpact) {
         TypeEffet typeEffet = effetImpact.getTypeEffet();
-
-        if(listeObsDesDifferentsTypeEffets.containsKey(typeEffet)){
-            listeObsDesDifferentsTypeEffets.replace(typeEffet, effetImpact);
-        }else {
-            listeObsDesDifferentsTypeEffets.put(typeEffet, effetImpact);
-        }
+        listeObsDesDifferentsTypeEffets.put(typeEffet,effetImpact);
     }
 
-
-
-/*
-    public void gereEffet(){
-        EffetImpact effetImpact;
-        for (int i = (effetImpactObservableList.size() - 1); i >= 0; i--){
-            effetImpact = effetImpactObservableList.get(i);
-            if (effetImpact.peutEtreApplique(this)){
-                System.out.println("Je peux etre app");
-                effetImpact.appliqueEffet(this);
-            }
-            if (effetImpact.finEffet(this)) {
-                effetImpactObservableList.remove(effetImpact);
-            }
-        }
-    }
-
-
-    public void ajouteEffet(EffetImpact effetImpact) {
-        TypeEffet typeEffet = effetImpact.getTypeEffet();
-        boolean peutEtreAjoute = true;
-        for(EffetImpact e : effetImpactObservableList){
-            if(e.getTypeEffet() == effetImpact.getTypeEffet()){
-                peutEtreAjoute = false;
-            }
-        }
-        if(peutEtreAjoute){
-            effetImpactObservableList.add(effetImpact);
-            //effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
-        }
-    }
-*/
-
-
-    public ArrayList<EffetImpact> getEffetImpactObservableList() {
-        return effetImpactObservableList;
-    }
 
     public void setVitesseActuel(int v){
         this.vitesseActuel = v;
-    }
-
-    public boolean estEffecteParEffet(EffetImpact effetImpact){
-        //return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
-        if(effetImpact.getTypeEffet() == TypeEffet.Null) return false;
-        else return listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet());
     }
 
     public boolean estAffecterParEffet(TypeEffet typeEffet){

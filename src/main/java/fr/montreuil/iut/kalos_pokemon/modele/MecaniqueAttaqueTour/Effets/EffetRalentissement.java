@@ -22,7 +22,7 @@ public class EffetRalentissement extends EffetImpact{
     @Override
     public void initEffetType() {
         //TODO temp
-        this.typeEffet = TypeEffet.RalentissementDeTemps;
+        this.typeEffet = TypeEffet.Ralentissement;
     }
 
     @Override
