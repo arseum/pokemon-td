@@ -3,7 +3,6 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgePoisson;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeRalentissement;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaqueDirect;

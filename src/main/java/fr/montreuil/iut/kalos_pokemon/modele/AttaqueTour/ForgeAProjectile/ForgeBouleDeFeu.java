@@ -8,8 +8,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 public class ForgeBouleDeFeu extends ForgeProjectile{
-
-
     private int rayon;
 
     public ForgeBouleDeFeu(int rayon) {

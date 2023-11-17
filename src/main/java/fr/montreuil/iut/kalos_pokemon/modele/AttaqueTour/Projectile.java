@@ -44,7 +44,9 @@ public class Projectile extends Attaque {
         if (doitBouger()) {
             y.set(getY() < cible.getY() ? getY() + 4 : getY() - 4);
             x.set(getX() < cible.getX() ? getX() + 4 : getX() - 4);
-            //super.bouge();
+            //Pour éviter de gros changements sur la vue
+            bouge.set(true);
+            bouge.set(false);
         } else
             toucheCible();
 
@@ -99,6 +101,7 @@ public class Projectile extends Attaque {
     public void traitementEntiteDommage() {
         //Game.getGame().ajouteProjectile(this);
         Game.getGame().ajouteVraiProjectile(this);
+        //permet de faire bouger la vue
     }
 
     @Override

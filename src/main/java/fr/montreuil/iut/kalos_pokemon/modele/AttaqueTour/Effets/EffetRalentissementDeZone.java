@@ -6,13 +6,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 //TODO MAJEUR
 // Implementer effet ralentissement
 // ceci est l'effet coresondant a un rallentissement de zone
-public class EffetRalentissement extends EffetImpact{
+public class EffetRalentissementDeZone extends EffetImpact{
     private int xTour;
     private int yTour;
     private int porteeTour;
     private int reductionVitesse;
     private boolean aEteApplique;
-    public EffetRalentissement(Tour t, int reductionVitesse) {
+    public EffetRalentissementDeZone(Tour t, int reductionVitesse) {
         super(t);
         this.xTour = t.getX();
         this.yTour = t.getY();
