@@ -20,6 +20,9 @@ public class ConstructeurParNiveau {
 
     }
 
+    /**
+     * duree : 10min
+     */
     private static ArrayList<Vague> mapSavane(Terrain niveau){
         FabriqueVague fabVag= FabriqueVague.getInstance();
         ArrayList<Vague> list = new ArrayList<>();
