@@ -10,7 +10,7 @@ public class Poussifeu extends Tour {
 
     @Override
     public void amelioreStats() {
-        this.degats *= 1.5;
+        this.degats *= 1.3;
         this.attaqueSpeed -= 6* (getLevel()-1);
         portee.set(portee.get()+(3* getLevel()));
     }

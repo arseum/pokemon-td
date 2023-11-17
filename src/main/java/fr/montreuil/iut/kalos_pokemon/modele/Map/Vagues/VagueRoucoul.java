@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
@@ -13,7 +14,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 public class VagueRoucoul extends VagueMono{
 
 
-    public VagueRoucoul(Terrain terrain, int duree, int frequence) {
+    public VagueRoucoul(Terrain terrain, Seconde duree, Seconde frequence) {
         super(terrain,duree,frequence);
     }
 
@@ -28,11 +29,8 @@ public class VagueRoucoul extends VagueMono{
     }
 
     @Override
-    public Boolean peutTuMeDonnerUnEnnemi(int frameActuelle) {return frameActuelle%frequence==0; }
-
-    @Override
     public Ennemi genereennemi(int[] caseDepart) {
-        return new Roucool(caseDepart[0]*32, caseDepartYVol()*32); //TODO random y
+        return new Roucool(caseDepart[0]*32, caseDepartYVol()*32);
     }
 }
 

@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
@@ -12,10 +13,10 @@ public class VagueComposee extends Vague{
     protected boolean[] peutCreer ;
     int compte;
 
-    public VagueComposee(Terrain terrain,int duree,ArrayList<VagueMono> vagues) {
+    public VagueComposee(Terrain terrain, Seconde duree, ArrayList<VagueMono> vagues) {
         super(terrain,duree);
         this.vagues=vagues;
-        this.duree=600;
+//        this.duree=600;
         peutCreer = new boolean[vagues.size()];
     }
 

@@ -1,16 +1,16 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues;
 
+import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
 public abstract class Vague {
+
     protected Terrain terrain;
-    protected int duree;
-    protected int frequence;
+    protected Seconde duree;
 
-
-    public Vague(Terrain terrain,int duree) {
+    public Vague(Terrain terrain, Seconde duree) {
         this.terrain=terrain;
         this.duree =duree;
     }
@@ -19,7 +19,7 @@ public abstract class Vague {
 
     public abstract Boolean peutTuMeDonnerUnEnnemi(int frameActuelle);
 
-    public int getDuree() {
+    public Seconde getDuree() {
         return duree;
     }
 }

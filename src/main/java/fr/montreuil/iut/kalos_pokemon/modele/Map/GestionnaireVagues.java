@@ -1,11 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Map;
 
-import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues.FabriqueVague;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues.Vague;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues.VagueComposee;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues.VagueMono;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,39 +12,21 @@ import java.util.ArrayList;
 public class GestionnaireVagues {
     private IntegerProperty nbFrame;
     private IntegerProperty cptWave;
-    private Terrain terrain;
     private BooleanProperty gameGagnee;
-
-    //todo: Nouveaux attributs
-    private int compteurFrame;
+    private int compteurFrameParWave;
     private ArrayList<Vague> listesVagues;
-    private Vague vagueActuelle;
     private int indexVagueActuelle;
 
 
 
     public GestionnaireVagues(Terrain terrain) {
         nbFrame = new SimpleIntegerProperty(0);
-        this.terrain= terrain;
         gameGagnee = new SimpleBooleanProperty(false);
         cptWave = new SimpleIntegerProperty(1);
 
-        //todo: Nouveaux attributs
-        this.compteurFrame = 0;
-        this.listesVagues = new ArrayList<>();
-        FabriqueVague fabVag= FabriqueVague.getInstance();
-        VagueMono vTipl = fabVag.créeVagueTiplouf(terrain,600,50);
-        VagueMono vTog = fabVag.créeVagueTogepi(terrain,600,100);
-        VagueMono vLudicolo = fabVag.créeVagueLudicolo(terrain,600,50);
-        VagueMono vRoucoul = fabVag.créeVagueRoucoul(terrain,600,50);
+        this.compteurFrameParWave = 0;
+        this.listesVagues = ConstructeurParNiveau.getTouteWaveNiveau(terrain);
 
-        VagueComposee v4 = new VagueComposee(terrain, 600,new ArrayList<>(){{add(vTipl);add(vLudicolo);}});
-        //listesVagues.add(vTipl);
-       //listesVagues.add(vLudicolo);
-        //listesVagues.add(vTipl);
-        listesVagues.add(vRoucoul);
-        listesVagues.add(v4);
-        vagueActuelle = listesVagues.get(0);
         this.indexVagueActuelle = 0;
     }
 
@@ -76,10 +54,6 @@ public class GestionnaireVagues {
     public final void setWave(int i){cptWave.setValue(i);}
     public final IntegerProperty cptWaveProperty(){return cptWave;}
 
-
-
-
-
     //Todo: Nouvelle
     public void chargeVague() throws InterruptedException{
         if((indexVagueActuelle < listesVagues.size())){
@@ -89,19 +63,18 @@ public class GestionnaireVagues {
                     Game.getGame().ajouteEnnemi(listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi()[i]);
                 }
             }
-            if(this.compteurFrame > listesVagues.get(indexVagueActuelle).getDuree()){
-                System.out.println("nvelle wave !");
-                this.compteurFrame = 0;
+            if(this.compteurFrameParWave > listesVagues.get(indexVagueActuelle).getDuree().getTempFrameInt()){
+//                System.out.println("nvelle wave !");
+                this.compteurFrameParWave = 0;
                 this.setWave(this.getWave() + 1);
                 this.indexVagueActuelle++;
             }
         }
-        compteurFrame++;
+        compteurFrameParWave++;
     }
 
     private boolean vagueDonneEnnemi(){
-
-        return (indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(this.compteurFrame);
+        return (indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(this.compteurFrameParWave);
     }
 
 

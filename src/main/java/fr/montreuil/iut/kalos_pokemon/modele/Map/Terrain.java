@@ -13,12 +13,14 @@ public class Terrain {
     private int[] caseDepart;
     private int idArrivee;
     private int[] caseArrivee;
+    private String nom;
 
     public Terrain() {
         this("default");
     }
 
     public Terrain(String nomTerrain) {
+        this.nom = nomTerrain;
         arrierePlan = chargerCSV(nomTerrain);
         decor = chargerCSV(nomTerrain + "_decor");
         initCaseDepart();
@@ -33,6 +35,9 @@ public class Terrain {
         return decor;
     }
 
+    public String getNom() {
+        return nom;
+    }
 
     /**
      * Vérifie si une case est un chemin

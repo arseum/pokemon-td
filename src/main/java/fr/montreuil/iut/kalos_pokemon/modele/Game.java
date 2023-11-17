@@ -43,7 +43,7 @@ public class Game {
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
-        pokedollar = new SimpleIntegerProperty(Parametres.argentDepartPourDev);
+        pokedollar = new SimpleIntegerProperty(Parametres.argentDepart);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
         vague= new GestionnaireVagues(terrain);
