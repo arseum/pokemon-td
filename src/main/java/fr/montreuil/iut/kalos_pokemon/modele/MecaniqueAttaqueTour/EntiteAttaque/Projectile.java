@@ -10,7 +10,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Projectile extends EntiteAttaque {
+public abstract class Projectile extends EntiteAttaque {
 
     private static int compteur = 1;
     private final String id;
@@ -35,12 +35,9 @@ public class Projectile extends EntiteAttaque {
 
     }
 
-    /**
-     * methode qui permet de simuler un deplacement simple des projectiles
-     * ils suivent la cible jusqu'a etre assez proche pour exploser
-     */
-    public void bouge() {
+    public abstract void gestionTir();
 
+    public void bouge() {
         if (doitBouger()) {
             y.set(getY() < cible.getY() ? getY() + 4 : getY() - 4);
             x.set(getX() < cible.getX() ? getX() + 4 : getX() - 4);
@@ -48,85 +45,44 @@ public class Projectile extends EntiteAttaque {
             bouge.set(true);
             bouge.set(false);
         } else
-            toucheCible();
-
+            gestionTir();
     }
 
+    @Override
+    public void gestionEntiteAttaque() {
+        Game.getGame().ajouteVraiProjectile(this);
+    }
 
-
-    /**
-     * methode a executer a la fin de vie du projectiles
-     * permet de faire subir des degats a la cible puis disparait
-     */
-
-
-//    private void ajouteEffet() {
-//        if(!this.cible.estEffecteParEffet(this.effetImpact))
-//            cible.ajouteEffet(this.effetImpact);
-//    }
+    protected void finTir() {
+        Game.getGame().removeProjectile(this);
+    }
 
     /**
      * on estime que le projectile est arrivé lorsqu'il est a 15 pixel de la cible
      */
     private boolean doitBouger(){
-        //return Parametres.distance((Objet) this,cible) > 15;
-        return distanceIci() > 15;
+        return Parametres.distance(this.getX(), this.getY(), this.cible.getX(), this.cible.getY()) > 15;
+    }
+
+    public int getY() {
+        return y.get();
+    }
+    public String getId() {
+        return id;
+    }
+    public int getX() {
+        return x.get();
     }
 
     public BooleanProperty bougeProperty() {
         return bouge;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public int getX() {
-        return x.get();
-    }
-
     public IntegerProperty xProperty() {
         return x;
-    }
-
-    public int getY() {
-        return y.get();
     }
 
     public IntegerProperty yProperty() {
         return y;
     }
-
-    @Override
-    public void traitementEntiteDommage() {
-        //Game.getGame().ajouteProjectile(this);
-        Game.getGame().ajouteVraiProjectile(this);
-        //permet de faire bouger la vue
-    }
-
-    @Override
-    public void finEntiteDommage() {
-        Game.getGame().removeProjectile(this);
-    }
-
-    //Todo z a changer
-    public int distanceIci(){
-        int super_x;
-        int super_y;
-
-        super_x = Math.abs(this.getX() - this.cible.getX());
-        super_y = Math.abs(this.getY() - this.cible.getY());
-
-        return (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
-    }
-
-    /*
-    public void bouge(){
-        //permet de faire bouger la vue
-        bouge.set(true);
-        bouge.set(false);
-    }
-
-     */
-
 }

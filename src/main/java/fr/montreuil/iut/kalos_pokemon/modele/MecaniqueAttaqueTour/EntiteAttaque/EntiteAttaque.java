@@ -15,44 +15,27 @@ public abstract class EntiteAttaque {
     protected double degats;
     protected final Ennemi cible;
 
-    public EntiteAttaque(Tour tour, ForgeEffetImpact effetImpacts, double degats, Ennemi ennemi) {
+    public EntiteAttaque(Tour tour, ForgeEffetImpact effetImpact, double degatsDeBase, Ennemi ennemi) {
         this.tireur = tour;
-        this.forgeEffetImpact = effetImpacts;
-        this.degats = degats;
+        this.forgeEffetImpact = effetImpact;
+        this.degats = degatsDeBase;
         this.cible = ennemi;
     }
-
-    //todo Z : nom var
-    public abstract void traitementEntiteDommage();
-    public abstract void finEntiteDommage();
-
+    public abstract void gestionEntiteAttaque();
+    public Tour getTireur() {
+        return tireur;
+    }
     protected double getDegatsFinaux(Ennemi cible) {
         return tireur.getType().calculDegats(cible.getType(), degats);
     }
 
-    protected void toucheCible() {
-        double degatsReel = getDegatsFinaux(cible);
-        explotionTir(degatsReel);
-        //todo z a sup (pas bien)
-        finEntiteDommage();
-    }
-
-    protected void explotionTir(double degatsReel) {
-        affecteSiPossible(cible, degatsReel);
-    }
-
-    protected boolean estToucherParExplotion(Ennemi e) {
-        return e.getHp() > 0;
-    }
-    protected void affecteSiPossible(Ennemi e, double degatsReel) {
-        if (estToucherParExplotion(e)) {
-            e.diminueHP(degatsReel);
-            tireur.ajouteDegats(degatsReel);
-            e.ajouteEffet(this.forgeEffetImpact.genereEffect());
+    protected void appliqueAttaque(Ennemi ennemi){
+        if(ennemi.getHp() > 0){
+            double degatsReels = getDegatsFinaux(ennemi);
+            ennemi.diminueHP(degatsReels);
+            tireur.ajouteDegats(degatsReels);
+            ennemi.ajouteEffet(this.forgeEffetImpact.genereEffect());
         }
-    }
-    public Tour getTireur() {
-        return tireur;
     }
 
 }

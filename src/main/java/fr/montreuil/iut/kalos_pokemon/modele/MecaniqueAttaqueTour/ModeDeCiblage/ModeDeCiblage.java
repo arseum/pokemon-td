@@ -53,6 +53,6 @@ public abstract class ModeDeCiblage {
     protected void lanceProjectile(ForgeEntiteDommage forgeEntiteDommage, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
         //Game.getGame().ajouteProjectile(forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e));
         EntiteAttaque a = forgeEntiteDommage.genereAttaque(tourCible,forgeEffet,degat,e);
-        a.traitementEntiteDommage();
+        a.gestionEntiteAttaque();
     }
 }

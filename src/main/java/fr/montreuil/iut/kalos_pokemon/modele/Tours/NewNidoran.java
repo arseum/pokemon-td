@@ -6,8 +6,8 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeRalentissement;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommageInstantane;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectileExplosif;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectile;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectileSimpleExplosif;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectileSimple;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageAleatoire;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblesUniques;
@@ -26,7 +26,7 @@ public class NewNidoran extends Tour{
         setModeAttaque(tirUniqueParEnnemi);
 
         setMyForgeEffectImpact(new ForgeEffetPoison(2, new Seconde(3),new Seconde(0.2),this));
-        setMyForgeAttaque(new ForgeProjectile());
+        setMyForgeAttaque(new ForgeProjectileSimple());
         setMyCompetence(new SlowEnnemiEmpoissone(this));
     }
 
@@ -36,7 +36,7 @@ public class NewNidoran extends Tour{
         if (level.get() == Parametres.niveauEvolutionTour){
 //            portee.set(portee.get()+400);
             setModeAttaque(new ModeCiblageZone(this));
-            setMyForgeAttaque(new ForgeProjectileExplosif(100));
+            setMyForgeAttaque(new ForgeProjectileSimpleExplosif(100));
             setMyForgeEffectImpact(new ForgeEffetPoison(5,new Seconde(2),new Seconde(0.1),this));
             degats = 0;
             attaqueSpeed = 110;

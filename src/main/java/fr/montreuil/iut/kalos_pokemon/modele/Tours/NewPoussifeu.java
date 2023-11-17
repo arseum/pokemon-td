@@ -2,7 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetNull;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectile;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectileSimple;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageAleatoire;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
@@ -15,7 +15,7 @@ public class NewPoussifeu extends Tour{
         ModeDeCiblage tirAleatoire = new ModeCiblageAleatoire(this);
         setModeAttaque(tirAleatoire);
         setMyForgeEffectImpact(new ForgeEffetNull(this));
-        setMyForgeAttaque(new ForgeProjectile());
+        setMyForgeAttaque(new ForgeProjectileSimple());
     }
 
     @Override
