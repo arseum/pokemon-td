@@ -12,7 +12,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
  */
 public class ModeCiblagePrioritaire extends ModeDeCiblage {
     private Ennemi ennemiCible;
-    //private boolean
+
     public ModeCiblagePrioritaire(Tour tourCible) {
         super(tourCible);
     }
@@ -20,12 +20,12 @@ public class ModeCiblagePrioritaire extends ModeDeCiblage {
     @Override
     public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteAttaque forgeEntiteAttaque) {
         //Si pas d'ennemi ou ennemi est mort, on cherche un
-        if(ennemiCible == null || !Game.getGame().getListEnnemi().contains(ennemiCible)){
+        if (ennemiCible == null || !Game.getGame().getListEnnemi().contains(ennemiCible)) {
             this.ennemiCible = chercheCible();
         }
         //Si a trouve et a distance
-        if(ennemiCible!= null && tour.estADistance(ennemiCible))
-            lanceEntiteAttaque(forgeEntiteAttaque,forgeEffet,degats,ennemiCible);
+        if (ennemiCible != null && tour.estADistance(ennemiCible))
+            lanceEntiteAttaque(forgeEntiteAttaque, forgeEffet, degats, ennemiCible);
         else
             this.ennemiCible = null;
 

@@ -15,6 +15,6 @@ public class ForgeProjectileExplosif extends ForgeProjectileSimple {
 
     @Override
     public Projectile genereAttaque(Tour t, ForgeEffetImpact forgeEffet, int degats, Ennemi e) {
-        return new ProjectileExplosif(t,e,forgeEffet,degats,rayon);
+        return new ProjectileExplosif(t, e, forgeEffet, degats, rayon);
     }
 }

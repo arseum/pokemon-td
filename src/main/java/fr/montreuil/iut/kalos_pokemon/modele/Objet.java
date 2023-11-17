@@ -5,8 +5,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
  * utile pour faire les calculs de distances entre ennemi-tour-projectile
  */
 public interface Objet {
-
     int getX();
-    int getY();
 
+    int getY();
 }

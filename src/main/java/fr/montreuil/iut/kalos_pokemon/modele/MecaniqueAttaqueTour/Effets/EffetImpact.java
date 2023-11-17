@@ -25,6 +25,8 @@ public abstract class EffetImpact {
 
     public abstract boolean finEffet(Ennemi ennemi);
 
+    //SETTERS, GETTERS & PROPERTIES
+
     public Tour getTireur() {
         return tireur;
     }

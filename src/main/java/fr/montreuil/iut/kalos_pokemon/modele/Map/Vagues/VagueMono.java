@@ -9,20 +9,20 @@ public abstract class VagueMono extends Vague {
     protected Seconde frequence;
 
     public VagueMono(Terrain terrain, Seconde duree, Seconde frequence) {
-        super(terrain,duree);
-        this.frequence=frequence;
+        super(terrain, duree);
+        this.frequence = frequence;
     }
 
-    public Ennemi[] donneMoiUnEnnemi(){
+    public Ennemi[] donneMoiUnEnnemi() {
         Ennemi[] ennemis = new Ennemi[1];
-        ennemis[0] = genereennemi(terrain.getCaseDepart());
+        ennemis[0] = genereEnnemi(terrain.getCaseDepart());
         return ennemis;
     }
 
-    public Boolean peutTuMeDonnerUnEnnemi(int frameActuelle){
+    public Boolean peutTuMeDonnerUnEnnemi(int frameActuelle) {
         return frameActuelle % frequence.getTempFrameDouble() == 0;
     }
 
-    public abstract Ennemi genereennemi(int [] caseDepart);
+    public abstract Ennemi genereEnnemi(int[] caseDepart);
 
 }

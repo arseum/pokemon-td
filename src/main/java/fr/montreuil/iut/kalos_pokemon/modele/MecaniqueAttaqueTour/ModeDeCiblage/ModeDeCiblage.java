@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //TODO À changer (trop de repetition de for each)
+
 /**
  * Une tour ne peut avoir qu'un mode attaque. Ce mode peut être amené à changer
  * Cette classe a pour responsabilité de definir la manière dont la tour va cibler.
@@ -30,10 +31,10 @@ public abstract class ModeDeCiblage {
     public abstract void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteAttaque forgeEntiteAttaque);
 
     protected Ennemi chercheCible() {
-        return chercheCibles().isEmpty()? null : chercheCibles().get(0);
+        return chercheCibles().isEmpty() ? null : chercheCibles().get(0);
     }
 
-    protected List<Ennemi> chercheCibles(){
+    protected List<Ennemi> chercheCibles() {
         List<Ennemi> ennemisAPortee = new ArrayList<>();
         Game.getGame().getListEnnemi().forEach(e -> {
             if (tour.estADistance(e))
@@ -42,8 +43,9 @@ public abstract class ModeDeCiblage {
         return ennemisAPortee;
 
     }
-    protected void lanceEntiteAttaque(ForgeEntiteAttaque forgeEntiteAttaque, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
-        EntiteAttaque a = forgeEntiteAttaque.genereAttaque(tour,forgeEffet,degat,e);
+
+    protected void lanceEntiteAttaque(ForgeEntiteAttaque forgeEntiteAttaque, ForgeEffetImpact forgeEffet, int degat, Ennemi e) {
+        EntiteAttaque a = forgeEntiteAttaque.genereAttaque(tour, forgeEffet, degat, e);
         a.gestionEntiteAttaque();
     }
 }

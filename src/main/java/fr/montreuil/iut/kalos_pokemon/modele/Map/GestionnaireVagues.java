@@ -17,8 +17,6 @@ public class GestionnaireVagues {
     private ArrayList<Vague> listesVagues;
     private int indexVagueActuelle;
 
-
-
     public GestionnaireVagues(Terrain terrain) {
         nbFrame = new SimpleIntegerProperty(0);
         gameGagnee = new SimpleBooleanProperty(false);
@@ -30,40 +28,16 @@ public class GestionnaireVagues {
         this.indexVagueActuelle = 0;
     }
 
-    public void setGagne(boolean gagne) {
-        this.gameGagnee.set(gagne);
-    }
-
-    public boolean gameGagnee() {
-        return gameGagnee.get();
-    }
-
-    public BooleanProperty gagneProperty() {
-        return gameGagnee;
-    }
-
-    public IntegerProperty nbFrameProperty() {
-        return nbFrame;
-    }
-
-    public int getNbFrame() {
-        return nbFrame.get();
-    }
-
-    public final int getWave(){return cptWave.getValue();}
-    public final void setWave(int i){cptWave.setValue(i);}
-    public final IntegerProperty cptWaveProperty(){return cptWave;}
-
-    //Todo: Nouvelle
-    public void chargeVague() throws InterruptedException{
-        if((indexVagueActuelle < listesVagues.size())){
-            if(vagueDonneEnnemi()){
-                //un foreach est peut-etre plus comprehensible ici ?
-                for (int i=0; i<listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi().length;i++){
+    public void chargeVague() throws InterruptedException {
+        if ((indexVagueActuelle < listesVagues.size())) {
+            if (vagueDonneEnnemi()) {
+                //TODO
+                // un foreach est peut-etre plus comprehensible ici ?
+                for (int i = 0; i < listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi().length; i++) {
                     Game.getGame().ajouteEnnemi(listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi()[i]);
                 }
             }
-            if(this.compteurFrameParWave > listesVagues.get(indexVagueActuelle).getDuree().getTempFrameDouble()){
+            if (this.compteurFrameParWave > listesVagues.get(indexVagueActuelle).getDuree().getTempFrameDouble()) {
                 this.compteurFrameParWave = 0;
                 this.setWave(this.getWave() + 1);
                 this.indexVagueActuelle++;
@@ -72,8 +46,29 @@ public class GestionnaireVagues {
         compteurFrameParWave++;
     }
 
-    private boolean vagueDonneEnnemi(){
-        return (indexVagueActuelle < listesVagues.size())&&listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(this.compteurFrameParWave);
+    private boolean vagueDonneEnnemi() {
+        return (indexVagueActuelle < listesVagues.size()) && listesVagues.get(indexVagueActuelle).peutTuMeDonnerUnEnnemi(this.compteurFrameParWave);
+    }
+
+    /*** SETTERS, GETTERS & PROPERTIES ***/
+    public BooleanProperty gagneProperty() {
+        return gameGagnee;
+    }
+
+    public IntegerProperty nbFrameProperty() {
+        return nbFrame;
+    }
+
+    public final int getWave() {
+        return cptWave.getValue();
+    }
+
+    public final void setWave(int i) {
+        cptWave.setValue(i);
+    }
+
+    public final IntegerProperty cptWaveProperty() {
+        return cptWave;
     }
 
 

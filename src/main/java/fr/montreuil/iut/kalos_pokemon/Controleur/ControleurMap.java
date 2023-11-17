@@ -43,7 +43,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControlleurMap implements Initializable {
+public class ControleurMap implements Initializable {
 
     @FXML
     private Pane pane;
@@ -162,7 +162,8 @@ public class ControlleurMap implements Initializable {
 
         game.vieProperty().addListener((obs,old,nouv)-> {
             if ((int)nouv==0)
-                partiePerdue("Vous Perdez La Partie (loser)");
+                //partiePerdue("Vous Perdez La Partie (loser)");
+                partiePerdue("Vous avez perdu");
         });
 
         gameGagnee.addListener((obs,old,nouv)-> {
@@ -350,7 +351,7 @@ public class ControlleurMap implements Initializable {
             }
         });
         //game.getListProjectile().addListener(listenProjectiles);
-        game.getListeVraiProjectile().addListener(listenProjectiles);
+        game.getListeProjectile().addListener(listenProjectiles);
     }
 
     private void bindProprietesPourEncartTour(ObsClicSurTour clicSurTour){
@@ -387,7 +388,7 @@ public class ControlleurMap implements Initializable {
             }
         });
 
-        buttonMenu.setOnAction( e -> Paused("jeu mis en pause"));
+        buttonMenu.setOnAction( e -> Paused("Jeu mis en pause"));
     }
 
     /**
@@ -476,7 +477,6 @@ public class ControlleurMap implements Initializable {
 
     }
 
-    //todo Z
     /*
     private void creerTirSprite(Ennemi a) throws IOException {
         TirSprite sprite = new TirSprite(a);
@@ -536,8 +536,9 @@ public class ControlleurMap implements Initializable {
         popup.setTitle("Partie Terminée !");
 
         Label msg = new Label(message);
-        Label msg2 = new Label("Continuer ?");
-        Button oui = new Button("on continue quand même");
+        Label msg2 = new Label("Souhaites-tu continuer la partie ? (Compteur de vie illimité)");
+        Button oui = new Button("On continue quand même");
+        oui.getStyleClass().add(".boutonStyle");
         Button non = bouttonRetouracceuil(popup);
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
@@ -570,6 +571,7 @@ public class ControlleurMap implements Initializable {
         Label msg = new Label(message);
         Label msg2 = new Label("Continuer ?");
         Button oui = new Button("On reprends");
+
         Button non = bouttonRetouracceuil(popup);
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
@@ -579,6 +581,14 @@ public class ControlleurMap implements Initializable {
         vbox.setSpacing(20);hbox.setSpacing(20);
 
         Scene scene =new Scene(vbox,400,300);
+        /*
+        //Tentative css
+        scene.getStylesheets().add(getClass().getResource("style_general.css").toExternalForm());
+        oui.getStyleClass().add(".boutonStyle");
+        non.getStyleClass().add(".boutonStyle");
+
+         */
+
         popup.setScene(scene);
 
         oui.setOnAction(e->{
@@ -599,10 +609,11 @@ public class ControlleurMap implements Initializable {
         Stage popup = new Stage();
         popup.setTitle("Partie Terminée !");
 
-        Label msg = new Label("Vous Gagnez La Partie (tricheur)");
+        //Label msg = new Label("Vous Gagnez La Partie (tricheur)");
+        Label msg = new Label("La partie a été gagnée !");
         Label msg2 = new Label("Rejouer ?");
         Button oui = bouttonRetouracceuil(popup);
-        Button non = new Button("on quitte ");
+        Button non = new Button("On quitte ");
         HBox hbox = new HBox(oui,non);
         VBox vbox= new VBox(msg,msg2,hbox);
 
@@ -627,7 +638,7 @@ public class ControlleurMap implements Initializable {
     }
 
     private Button bouttonRetouracceuil(Stage popup) {
-        Button non = new Button("retour acceuil");
+        Button non = new Button("Retour acceuil");
 
         non.setOnAction(e ->{
             popup.close();
@@ -647,7 +658,6 @@ public class ControlleurMap implements Initializable {
 
         return non;
     }
-    //todo z
     //private void creerExploxionSprite(Objet a, String nameFile) {
     private void creerExploxionSprite(Projectile a, String nameFile) {
         ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));

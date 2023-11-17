@@ -11,7 +11,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public abstract class NewCompetence implements Competence{
+public abstract class NewCompetence implements Competence {
     protected ModeDeCiblage myModeDeCiblage;
     protected int degats;
     protected ForgeEffetImpact myForgeEffetImpact;
@@ -34,9 +34,9 @@ public abstract class NewCompetence implements Competence{
         this.myForgeEffetImpact = forgeEffetImpact;
     }
 
-    public void actif(){
+    public void activerCompetence() {
         myModeDeCiblage.attaque(degats, myForgeEffetImpact, myForgeEntiteAttaque);
-        tempProchainActif.set(Game.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
+        tempProchainActif.set(Game.getGame().getNbFrameValue() + cooldown.getTempFrameInt());
     }
 
     public void setTempProchainActif(int t) {

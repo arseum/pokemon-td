@@ -5,9 +5,10 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Boss;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
-public class VagueBoss extends Vague{
+public class VagueBoss extends Vague {
 
     private boolean estApparu;
+
     public VagueBoss(Terrain terrain, Seconde duree) {
         super(terrain, duree);
         estApparu = false;

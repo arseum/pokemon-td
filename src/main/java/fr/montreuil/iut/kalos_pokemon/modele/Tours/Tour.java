@@ -12,7 +12,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import fr.montreuil.iut.kalos_pokemon.modele.Pokemon;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.Competence;
 import javafx.beans.property.*;
-
+//TODO FAIRE TOUTES LES SOUS CLASSES
 public abstract class Tour extends Pokemon implements Objet {
     private static int compteurID = 1;
     protected IntegerProperty portee;
@@ -22,7 +22,6 @@ public abstract class Tour extends Pokemon implements Objet {
     protected final DoubleProperty compteurDegats;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
-
     protected Competence myCompetence;
     protected ModeDeCiblage modeDeCiblage;
     private ForgeEffetImpact myForgeEffetImpact;
@@ -30,7 +29,7 @@ public abstract class Tour extends Pokemon implements Objet {
 
     public Tour(int portee, int degats, Type type, int prix, int x, int y, String pokemon,
                 int attaqueSpeed, Competence competence) {
-        super(pokemon,type,x,y);
+        super(pokemon, type, x, y);
         this.id = "Tour_n°" + compteurID;
         compteurID++;
         this.portee = new SimpleIntegerProperty(portee);
@@ -46,14 +45,61 @@ public abstract class Tour extends Pokemon implements Objet {
         this.myForgeEntiteAttaque = null;
     }
 
-    /** GETTER + SETTER */
+    public abstract void amelioreStats();
+
+    public void attaque() {
+        modeDeCiblage.attaque(degats, myForgeEffetImpact, myForgeEntiteAttaque);
+        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
+    }
+
+    /**
+     * @return true si l'ennemi est a une distance inferieur a la portée de la tour
+     */
+    public boolean estADistance(Ennemi ennemi) {
+        return Parametres.distance(this.getX(), this.getY(), ennemi.getX(), ennemi.getY()) <= portee.get();
+    }
+
+    public int prixRevente() {
+        int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
+        return (int) ((this.prix + this.prix * (this.level.get() - 1 + sommeCumulee / 10.0)) * Parametres.pourcentageRevente);
+    }
+
+    protected void evolution() {
+        setNom(PokemonEnum.valueOf(nom).getNomEvolution());
+        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
+    }
+
+    public void ajouteDegats(double value) {
+        compteurDegats.set(compteurDegats.get() + value);
+    }
+
+    public void levelUp() {
+        // !! l'ordre est important car il y a des listener qui sont pris en compte
+        if (level.get() + 1 == Parametres.niveauEvolutionTour)
+            evolution();
+
+        this.level.set(level.get() + 1);
+
+        amelioreStats();
+    }
+
+    public void activerCompetence() {
+        myCompetence.activerCompetence();
+    }
+
+    /**
+     * Chaque amélioration coute 10% plus cher
+     */
+    public int prixAmelioration() {
+        return (int) (this.prix * (1 + 0.1 * this.level.get()));
+    }
+
+    /**
+     * GETTER + SETTER
+     */
 
     public IntegerProperty porteeProperty() {
         return portee;
-    }
-
-    public ForgeEffetImpact getMyForgeEffectImpact() {
-        return myForgeEffetImpact;
     }
 
     public void setMyForgeEffectImpact(ForgeEffetImpact myForgeEffetImpact) {
@@ -64,7 +110,6 @@ public abstract class Tour extends Pokemon implements Objet {
         this.myForgeEntiteAttaque = myForgeEntiteAttaque;
     }
 
-    //SETERS
     public void setModeAttaque(ModeDeCiblage modeDeCiblage) {
         this.modeDeCiblage = modeDeCiblage;
     }
@@ -77,16 +122,8 @@ public abstract class Tour extends Pokemon implements Objet {
         this.nom = nouveauNom;
     }
 
-    public int getPortee() {
-        return portee.get();
-    }
-
     public int getTempProchaineAttaque() {
         return tempProchaineAttaque;
-    }
-
-    public Competence getMyCompetence() {
-        return myCompetence;
     }
 
     public int getDegats() {
@@ -109,60 +146,16 @@ public abstract class Tour extends Pokemon implements Objet {
         return level;
     }
 
-    public void ajouteDegats(double value) { compteurDegats.set(compteurDegats.get() + value);}
-    public void levelUp(){
-        // !! l'ordre est important car il y a des listener qui sont pris en compte
-        if (level.get() + 1 == Parametres.niveauEvolutionTour)
-            evolution();
-
-        this.level.set(level.get() + 1);
-
-        amelioreStats();
-    };
-
-    public void actif(){
-        myCompetence.actif();
-    }
-
     public boolean actifPret() {
         return myCompetence.isEstPretActif();
     }
 
-    public BooleanProperty estPretActifProperty() { return myCompetence.estPretActifProperty();}
-
-    public IntegerProperty tempProchaineActifProperty() { return myCompetence.tempProchainActifProperty();}
-
-    public abstract void amelioreStats();
-
-    public void attaque() {
-        modeDeCiblage.attaque(degats, myForgeEffetImpact, myForgeEntiteAttaque);
-        tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
+    public BooleanProperty estPretActifProperty() {
+        return myCompetence.estPretActifProperty();
     }
 
-    /**
-     * @return true si l'ennemi est a une distance inferieur a la portée de la tour
-     */
-    public boolean estADistance(Ennemi ennemi) {
-        return Parametres.distance(this, ennemi) <= portee.get();
-    }
-
-    public int prixRevente() {
-        int sommeCumulee = (this.level.get() - 1) * this.level.get() / 2;
-        return (int) ((this.prix + this.prix * (this.level.get() - 1 + sommeCumulee / 10.0)) * Parametres.pourcentageRevente);
-    }
-
-    /**
-     * Chaque amélioration coute 10% plus cher
-     */
-    public int prixAmelioration() {
-        return (int) (this.prix * (1 + 0.1 * this.level.get()));
-    }
-
-    /** methode private */
-
-    protected void evolution() {
-        setNom(PokemonEnum.valueOf(nom).getNomEvolution());
-        myCompetence.setTempProchainActif(Game.getGame().getNbFrameValue());
+    public IntegerProperty tempProchaineActifProperty() {
+        return myCompetence.tempProchainActifProperty();
     }
 
 

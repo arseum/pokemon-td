@@ -8,18 +8,25 @@ public class BFS {
 
     private static BFS uniqueInstance = null;
     private Terrain terrain;
-    private BFS(Terrain terrain){
+
+    private BFS(Terrain terrain) {
         this.terrain = terrain;
     }
 
-    public static BFS getBFS(Terrain terrain){
-        if(uniqueInstance == null){uniqueInstance = new BFS(terrain);}
+    public static BFS getBFS(Terrain terrain) {
+        if (uniqueInstance == null) {
+            uniqueInstance = new BFS(terrain);
+        }
         return uniqueInstance;
     }
 
-    public static void resetBFS(){uniqueInstance = null;};
+    public static void resetBFS() {
+        uniqueInstance = null;
+    }
 
-    private void ajouteAdjacents(ArrayList adjacents, boolean estTerrestre, int idCase, int hauteur, int largeur){
+    ;
+
+    private void ajouteAdjacents(ArrayList adjacents, boolean estTerrestre, int idCase, int hauteur, int largeur) {
         int ligneCase = idCase / largeur;
         int colonneCase = idCase % largeur;
 
@@ -31,14 +38,11 @@ public class BFS {
             boolean ligneDsBords = (0 <= nouvelleLigne) && (nouvelleLigne <= hauteur - 1);
             boolean colonneDsBords = (0 <= nouvelleColonne) && (nouvelleColonne <= largeur - 1);
 
-            if(ligneDsBords && colonneDsBords ){
-                if(estTerrestre && this.terrain.estChemin(nouvelleLigne, nouvelleColonne)){
-                    //adjacents.add(this.arrierePlan.get(0).size() * nouvelleLigne + nouvelleColonne);
-                    adjacents.add((this.terrain.getLargeurTerrain()/Parametres.tailleTuile)  * nouvelleLigne + nouvelleColonne);
-                }
-                else if(!estTerrestre) {
-                    //adjacents.add(this.arrierePlan.get(0).size() * nouvelleLigne + nouvelleColonne);
-                    adjacents.add((this.terrain.getLargeurTerrain()/Parametres.tailleTuile)  * nouvelleLigne + nouvelleColonne);
+            if (ligneDsBords && colonneDsBords) {
+                if (estTerrestre && this.terrain.estChemin(nouvelleLigne, nouvelleColonne)) {
+                    adjacents.add((this.terrain.getLargeurTerrain() / Parametres.tailleTuile) * nouvelleLigne + nouvelleColonne);
+                } else if (!estTerrestre) {
+                    adjacents.add((this.terrain.getLargeurTerrain() / Parametres.tailleTuile) * nouvelleLigne + nouvelleColonne);
                 }
             }
         }
@@ -53,19 +57,16 @@ public class BFS {
     private ArrayList<Integer> adjacents(int idCase, boolean estTerrestre) {
         ArrayList<Integer> adjacents = new ArrayList<>();
 
-        //int largeur = this.arrierePlan.get(0).size();
-        int largeur = this.terrain.getLargeurTerrain()/Parametres.tailleTuile;
-        //int hauteur = this.arrierePlan.size();
-        int hauteur = this.terrain.getHauteurTerrain()/Parametres.tailleTuile;
+        int largeur = this.terrain.getLargeurTerrain() / Parametres.tailleTuile;
+        int hauteur = this.terrain.getHauteurTerrain() / Parametres.tailleTuile;
 
         int ligneCase = idCase / largeur;
         int colonneCase = idCase % largeur;
 
         if (this.terrain.estChemin(ligneCase, colonneCase) && estTerrestre) {
-            ajouteAdjacents(adjacents,true, idCase, hauteur, largeur);
-        }
-        else {
-            ajouteAdjacents(adjacents,false, idCase, hauteur, largeur);
+            ajouteAdjacents(adjacents, true, idCase, hauteur, largeur);
+        } else {
+            ajouteAdjacents(adjacents, false, idCase, hauteur, largeur);
         }
 
         return adjacents;
@@ -82,10 +83,6 @@ public class BFS {
 
         ArrayList<Integer> parcours = new ArrayList<>();
         LinkedList<Integer> fifo = new LinkedList<>();
-
-        //arbreCouvrant.put(idArrivee, null);
-        //fifo.addLast(idArrivee);
-        //parcours.add(idArrivee);
 
         arbreCouvrant.put(this.terrain.getIdArrivee(), null);
         fifo.addLast(this.terrain.getIdArrivee());

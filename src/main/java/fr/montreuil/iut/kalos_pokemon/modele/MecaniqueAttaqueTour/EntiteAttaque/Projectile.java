@@ -25,7 +25,7 @@ public abstract class Projectile extends EntiteAttaque {
     protected BooleanProperty bouge;
 
     public Projectile(Tour tour, Ennemi ennemi, ForgeEffetImpact forgeEffetImpact, double degats) {
-        super(tour, forgeEffetImpact,degats,ennemi);
+        super(tour, forgeEffetImpact, degats, ennemi);
         this.id = "Tir_n°" + compteur;
         compteur++;
         this.bouge = new SimpleBooleanProperty(false);
@@ -50,7 +50,7 @@ public abstract class Projectile extends EntiteAttaque {
 
     @Override
     public void gestionEntiteAttaque() {
-        Game.getGame().ajouteVraiProjectile(this);
+        Game.getGame().ajouteProjectile(this);
     }
 
     protected void finTir() {
@@ -60,16 +60,18 @@ public abstract class Projectile extends EntiteAttaque {
     /**
      * on estime que le projectile est arrivé lorsqu'il est a 15 pixel de la cible
      */
-    private boolean doitBouger(){
+    private boolean doitBouger() {
         return Parametres.distance(this.getX(), this.getY(), this.cible.getX(), this.cible.getY()) > 15;
     }
 
     public int getY() {
         return y.get();
     }
+
     public String getId() {
         return id;
     }
+
     public int getX() {
         return x.get();
     }

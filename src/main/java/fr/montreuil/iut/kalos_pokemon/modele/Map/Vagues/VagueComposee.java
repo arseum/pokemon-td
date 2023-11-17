@@ -7,14 +7,14 @@ import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class VagueComposee extends Vague{
+public class VagueComposee extends Vague {
     protected ArrayList<VagueMono> vagues;
-    protected boolean[] peutCreer ;
+    protected boolean[] peutCreer;
     int compte;
 
     public VagueComposee(Terrain terrain, Seconde duree, ArrayList<VagueMono> vagues) {
-        super(terrain,duree);
-        this.vagues=vagues;
+        super(terrain, duree);
+        this.vagues = vagues;
         peutCreer = new boolean[vagues.size()];
     }
 
@@ -39,9 +39,9 @@ public class VagueComposee extends Vague{
         Arrays.fill(peutCreer, false);
 
         boolean auMoinsUn = false;
-        compte=0;
+        compte = 0;
 
-        for (VagueMono v:vagues) {
+        for (VagueMono v : vagues) {
             if (v.peutTuMeDonnerUnEnnemi(frameActuelle) && frameActuelle <= v.getDuree().getTempFrameDouble()) {
                 peutCreer[vagues.indexOf(v)] = true;
                 compte++;

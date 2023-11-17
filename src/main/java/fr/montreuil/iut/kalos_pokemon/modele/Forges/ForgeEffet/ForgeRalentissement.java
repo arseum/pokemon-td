@@ -17,7 +17,6 @@ public class ForgeRalentissement implements ForgeEffetImpact {
         this.dureeDeRalentissement = dureeDeRalentissement;
     }
 
-    /** methode public */
     @Override
     public EffetImpact genereEffect() {
         return new EffetRalentissement(tireur, tauxDeReductionVitesse, dureeDeRalentissement);

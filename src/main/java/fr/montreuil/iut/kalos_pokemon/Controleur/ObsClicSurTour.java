@@ -50,7 +50,7 @@ public class ObsClicSurTour implements EventHandler<MouseEvent> {
         }else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
             Tour t = game.retourneTourAPartirId(idTour);
             if (t.actifPret())
-                t.actif();
+                t.activerCompetence();
         }
     }
 }

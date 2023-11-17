@@ -11,6 +11,6 @@ public class ForgeEntiteAttaqueInstantane implements ForgeEntiteAttaque {
     @Override
     public EntiteAttaque genereAttaque(Tour t, ForgeEffetImpact forgeEffet,
                                        int degats, Ennemi e) {
-        return new AttaqueInstantanee(t,forgeEffet,degats,e);
+        return new AttaqueInstantanee(t, forgeEffet, degats, e);
     }
 }

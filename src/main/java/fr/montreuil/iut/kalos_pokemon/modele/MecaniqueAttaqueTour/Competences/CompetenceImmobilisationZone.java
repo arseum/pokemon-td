@@ -6,7 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEnti
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-public class CompetenceImmobilisationZone extends NewCompetence{
+public class CompetenceImmobilisationZone extends NewCompetence {
     public CompetenceImmobilisationZone(Tour myTour, Seconde cooldown, Seconde dureeImmobilisation) {
         super(
                 myTour,

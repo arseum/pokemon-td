@@ -20,12 +20,10 @@ public class ModeCiblageAleatoire extends ModeDeCiblage {
     public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteAttaque forgeEntiteAttaque) {
         List<Ennemi> listeEnnemis = chercheCibles();
 
-        if(!listeEnnemis.isEmpty()){
+        if (!listeEnnemis.isEmpty()) {
             Random random = new Random();
             int index = random.nextInt(chercheCibles().size());
-            //listeEnnemis.get(index).diminueHP(50);
-            //listeEnnemis.get(index).reduitVitese(10);
-            lanceEntiteAttaque(forgeEntiteAttaque,forgeEffet,degats,listeEnnemis.get(index));
+            lanceEntiteAttaque(forgeEntiteAttaque, forgeEffet, degats, listeEnnemis.get(index));
         }
     }
 

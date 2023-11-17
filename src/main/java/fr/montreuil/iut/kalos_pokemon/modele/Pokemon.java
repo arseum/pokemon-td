@@ -30,7 +30,6 @@ public abstract class Pokemon {
         return type;
     }
 
-
     public int getX() {
         return x.get();
     }

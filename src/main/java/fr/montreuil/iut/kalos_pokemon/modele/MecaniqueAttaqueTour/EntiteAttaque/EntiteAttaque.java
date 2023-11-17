@@ -23,25 +23,28 @@ public abstract class EntiteAttaque {
         this.degats = degatsDeBase;
         this.cible = ennemi;
     }
-    public abstract void gestionEntiteAttaque();
-    public Tour getTireur() {
-        return tireur;
-    }
-    protected double getDegatsFinaux(Ennemi cible) {
-        return tireur.getType().calculDegats(cible.getType(), degats);
-    }
 
-    protected void appliqueAttaque(Ennemi ennemi){
-        if(ennemi.getHp() > 0){
+    public abstract void gestionEntiteAttaque();
+
+    protected void appliqueAttaque(Ennemi ennemi) {
+        if (ennemi.getHp() > 0) {
             double degatsReels = getDegatsFinaux(ennemi);
             ennemi.diminueHP(degatsReels);
             tireur.ajouteDegats(degatsReels);
             EffetImpact effetImpact = this.forgeEffetImpact.genereEffect();
             effetImpact.initialiserDebutEffet(Game.getGame().getNbFrameValue());
-            if(ennemi.effetPeutEtreAjoute(effetImpact)){
+            if (ennemi.effetPeutEtreAjoute(effetImpact)) {
                 ennemi.ajouteEffet(effetImpact);
             }
         }
+    }
+
+    public Tour getTireur() {
+        return tireur;
+    }
+
+    protected double getDegatsFinaux(Ennemi cible) {
+        return tireur.getType().calculDegats(cible.getType(), degats);
     }
 
 }

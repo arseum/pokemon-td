@@ -27,11 +27,11 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     private int vitesseActuel;
     private int[] infoDeplacement;
     protected boolean estArrive;
-    //HashMap pour empecher le stack d'effet du même type
+    //HashMap pour gerer le stack d'effet du même type et utile pour la vue
     protected ObservableMap<TypeEffet, EffetImpact> listeObsDesDifferentsTypeEffets;
 
     public Ennemi(int vitesseMax, int hp, Type type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
-        super(pokemon,type,x,y);
+        super(pokemon, type, x, y);
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
 
@@ -45,22 +45,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         this.listeObsDesDifferentsTypeEffets = FXCollections.observableHashMap();
         setInfoDeplacement();
     }
-    public ObservableMap<TypeEffet, EffetImpact> getListeObsDesDifferentsTypeEffets(){
-        return this.listeObsDesDifferentsTypeEffets;
-    }
-
-    public boolean isEstArrive() {
-        return estArrive;
-    }
-    public double getHp() {
-        return hp.get();
-    }
-
-    public DoubleProperty hpProperty() {return hp;}
-
-    public double getHpMax() {
-        return hpMax;
-    }
 
     public void gereEffet() {
         EffetImpact effetImpact;
@@ -70,7 +54,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         while (iterator.hasNext()) {
             Map.Entry<TypeEffet, EffetImpact> entry = iterator.next();
             effetImpact = entry.getValue();
-            if (effetImpact.peutEtreApplique(this)){
+            if (effetImpact.peutEtreApplique(this)) {
                 effetImpact.appliqueEffet(this);
             }
             if (effetImpact.finEffet(this)) {
@@ -82,19 +66,19 @@ public abstract class Ennemi extends Pokemon implements Mobile {
 
     public void ajouteEffet(EffetImpact effetImpact) {
         TypeEffet typeEffet = effetImpact.getTypeEffet();
-        listeObsDesDifferentsTypeEffets.put(typeEffet,effetImpact);
+        listeObsDesDifferentsTypeEffets.put(typeEffet, effetImpact);
     }
 
-    public boolean effetPeutEtreAjoute(EffetImpact effetImpact){
-        if(listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet())){
-            switch (effetImpact.getTypeEffet()){
+    public boolean effetPeutEtreAjoute(EffetImpact effetImpact) {
+        if (listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet())) {
+            switch (effetImpact.getTypeEffet()) {
                 case Null -> {
                     return true;
                 }
                 case Ralentissement -> {
                     //Si le nouveau ralentissement à un taux de reduction de vitesse supérieur à 90%
                     //et est supérieur à l'ancien, il le remplace
-                    if(effetImpact.getPuissanceEffet() > 90 && effetImpact.getPuissanceEffet() > listeObsDesDifferentsTypeEffets.get(TypeEffet.Ralentissement).getPuissanceEffet())
+                    if (effetImpact.getPuissanceEffet() > 90 && effetImpact.getPuissanceEffet() > listeObsDesDifferentsTypeEffets.get(TypeEffet.Ralentissement).getPuissanceEffet())
                         return true;
                 }
                 default -> {
@@ -105,30 +89,27 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         return true;
     }
 
-    public void setVitesseActuel(int v){
-        this.vitesseActuel = v;
+    public void diminueHP(double value) {
+        hp.set(hp.get() - value);
+        if (hp.get() <= 0) {
+            meurt();
+            Game.getGame().ajoutePokedollar(recompense);
+        }
     }
 
-    private void setInfoDeplacement() {
-        int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
-        //int idCaseSuivante = cheminVersArrive.get(this.game.getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
-        int idCaseSuivante = cheminVersArrive.get(Game.getGame().getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
-        //int[] caseSuivante = this.game.getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        int[] caseSuivante = Game.getGame().getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
+    protected void meurt() {
+        Game.getGame().removeEnnemi(this);
     }
 
     public void bouge() {
         deplacement();
     }
 
-    private void deplacement(){
+    private void deplacement() {
         int nouveauX, nouveauY;
-
 
         nouveauX = this.getX() + vitesseActuel * infoDeplacement[0];
         nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
-
 
         boolean arriveX = (infoDeplacement[2] <= nouveauX) && (nouveauX <= (infoDeplacement[2] + this.vitesseMax - 1));
         boolean arriveY = (infoDeplacement[3] <= nouveauY) && (nouveauY <= (infoDeplacement[3] + this.vitesseMax - 1));
@@ -142,29 +123,51 @@ public abstract class Ennemi extends Pokemon implements Mobile {
             setInfoDeplacement();
         }
 
-        //if (infoDeplacement[2]/32 == game.getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == game.getTerrain().getCaseArrivee()[1]/32){
-        if (infoDeplacement[2]/32 == Game.getGame().getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == Game.getGame().getTerrain().getCaseArrivee()[1]/32){
-            //game.remove(this);
-            //game.perdVie(1);
-            Game.getGame().remove(this);
+        if (estArrive()) {
+            Game.getGame().removeEnnemi(this);
             Game.getGame().perdVie(1);
-            estArrive = true;
         }
     }
 
-    public void diminueHP(double value) {
-        hp.set(hp.get() - value);
-        if (hp.get() <= 0) {
-            meurt();
-            Game.getGame().ajoutePokedollar(recompense);
-        }
+    private boolean estArrive() {
+        return infoDeplacement[2] / 32 == Game.getGame().getTerrain().getCaseArrivee()[0] / 32 &&
+                infoDeplacement[3] / 32 == Game.getGame().getTerrain().getCaseArrivee()[1] / 32;
     }
 
-    protected void meurt() {
-        Game.getGame().remove(this);
+    private void setInfoDeplacement() {
+        int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
+        int idCaseSuivante = cheminVersArrive.get(Game.getGame().getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
+        int[] caseSuivante = Game.getGame().getTerrain().coordonneesCaseEnXY(idCaseSuivante);
+        this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
     }
+
+    /** SETTERS, GETTERS & PROPERTIES **/
 
     public int getVitesseMax() {
         return vitesseMax;
+    }
+
+    public boolean isEstArrive() {
+        return estArrive;
+    }
+
+    public double getHp() {
+        return hp.get();
+    }
+
+    public DoubleProperty hpProperty() {
+        return hp;
+    }
+
+    public double getHpMax() {
+        return hpMax;
+    }
+
+    public void setVitesseActuel(int v) {
+        this.vitesseActuel = v;
+    }
+
+    public ObservableMap<TypeEffet, EffetImpact> getListeObsDesDifferentsTypeEffets() {
+        return this.listeObsDesDifferentsTypeEffets;
     }
 }

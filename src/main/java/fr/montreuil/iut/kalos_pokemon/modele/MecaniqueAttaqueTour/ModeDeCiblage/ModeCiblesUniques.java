@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class ModeCiblesUniques extends ModeDeCiblage {
     private ArrayList<Ennemi> listeEnnemisTouches;
+
     public ModeCiblesUniques(Tour tourCible) {
         super(tourCible);
         this.listeEnnemisTouches = new ArrayList<>();
@@ -24,10 +25,10 @@ public class ModeCiblesUniques extends ModeDeCiblage {
         int index = 0;
         Ennemi cibleFinal = null;
 
-        while (cibleFinal == null && index <= list.size() - 1){
-            if (!listeEnnemisTouches.contains(list.get(index))){
+        while (cibleFinal == null && index <= list.size() - 1) {
+            if (!listeEnnemisTouches.contains(list.get(index))) {
                 cibleFinal = list.get(index);
-                lanceEntiteAttaque(forgeEntiteAttaque,forgeEffet,degats,cibleFinal);
+                lanceEntiteAttaque(forgeEntiteAttaque, forgeEffet, degats, cibleFinal);
                 listeEnnemisTouches.add(cibleFinal);
             }
             index++;

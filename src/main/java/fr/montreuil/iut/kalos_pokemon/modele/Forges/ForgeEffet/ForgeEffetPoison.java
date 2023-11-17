@@ -6,7 +6,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetPo
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 public class ForgeEffetPoison implements ForgeEffetImpact {
-
     private int degatPoison;
     private Seconde dureePoison;
     private Seconde frequencePoison;
@@ -19,23 +18,9 @@ public class ForgeEffetPoison implements ForgeEffetImpact {
         this.tireur = tireur;
     }
 
-    /** GETTER + SETTER */
-    public void setDegatPoison(int degatPoison) {
-        this.degatPoison = degatPoison;
-    }
-
-    public void setDureePoison(Seconde dureePoison) {
-        this.dureePoison = dureePoison;
-    }
-
-    public void setFrequencePoison(Seconde frequencePoison) {
-        this.frequencePoison = frequencePoison;
-    }
-
-    /** methode public */
     @Override
     public EffetImpact genereEffect() {
-        return new EffetPoison(degatPoison,dureePoison,frequencePoison,tireur);
+        return new EffetPoison(degatPoison, dureePoison, frequencePoison, tireur);
     }
 
 

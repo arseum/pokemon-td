@@ -8,7 +8,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 public class ForgeProjectileSimple implements ForgeEntiteAttaque {
 
-    public EntiteAttaque genereAttaque(Tour t, ForgeEffetImpact forgeEffet, int degats, Ennemi e){
-        return new ProjectileSimple(t,e,forgeEffet,degats);
+    public EntiteAttaque genereAttaque(Tour t, ForgeEffetImpact forgeEffet, int degats, Ennemi e) {
+        return new ProjectileSimple(t, e, forgeEffet, degats);
     }
 }

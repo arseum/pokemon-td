@@ -5,13 +5,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Camerupt;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
-public class VagueCamerupt extends VagueMono{
+public class VagueCamerupt extends VagueMono {
     public VagueCamerupt(Terrain terrain, Seconde duree, Seconde frequence) {
         super(terrain, duree, frequence);
     }
 
     @Override
-    public Ennemi genereennemi(int[] caseDepart) {
-        return new Camerupt(caseDepart[0]*32, caseDepart[1]*32);
+    public Ennemi genereEnnemi(int[] caseDepart) {
+        return new Camerupt(caseDepart[0] * 32, caseDepart[1] * 32);
     }
 }

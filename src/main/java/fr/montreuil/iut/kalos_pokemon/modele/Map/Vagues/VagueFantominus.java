@@ -6,14 +6,14 @@ import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Fantominus;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
-public class VagueFantominus extends VagueMono{
+public class VagueFantominus extends VagueMono {
 
     public VagueFantominus(Terrain terrain, Seconde duree, Seconde frequence) {
         super(terrain, duree, frequence);
     }
 
     @Override
-    public Ennemi genereennemi(int[] caseDepart) {
-        return new Fantominus(caseDepart[0]*32, caseDepart[1]*32);
+    public Ennemi genereEnnemi(int[] caseDepart) {
+        return new Fantominus(caseDepart[0] * 32, caseDepart[1] * 32);
     }
 }

@@ -10,8 +10,8 @@ public abstract class Vague {
     protected Seconde duree;
 
     public Vague(Terrain terrain, Seconde duree) {
-        this.terrain=terrain;
-        this.duree =duree;
+        this.terrain = terrain;
+        this.duree = duree;
     }
 
     public abstract Ennemi[] donneMoiUnEnnemi();

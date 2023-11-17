@@ -120,7 +120,6 @@ public class Terrain {
         for (int ligne = 0; ligne < this.arrierePlan.size(); ligne++) {
             for (int colonne = 0; colonne < this.arrierePlan.get(0).size(); colonne++) {
                 if (this.arrierePlan.get(ligne).get(colonne) % Parametres.nbTuilesLargueur == Parametres.colonneZoneDepartTileSet) {
-                    //return this.arrierePlan.get(0).size() * ligne + colonne;
                     caseDepart = new int[]{colonne, ligne};
                 }
             }
@@ -143,10 +142,8 @@ public class Terrain {
         return this.arrierePlan.get(0).size() * Parametres.tailleTuile;
     }
 
-    public int getIdArrivee() {return idArrivee;}
-
-    //public int getNbLigneTerrain() {return this.arrierePlan.size() * Parametres.tailleTuile;}
-
-    //public int getLargeurTerrain() {return this.arrierePlan.get(0).size() * Parametres.tailleTuile;}
+    public int getIdArrivee() {
+        return idArrivee;
+    }
 
 }

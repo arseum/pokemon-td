@@ -9,8 +9,6 @@ public class Magneti extends Tour {
         super(90, 0, PokemonEnum.magneti.getType(),
                 PokemonEnum.magneti.getPrix(), x, y, PokemonEnum.magneti.name(),
                 100,null);
-
-        //todo a faire
         //setMyCompetence(new ImmobilisationZone(this,90));
         //setMyCompetence(new);
 
