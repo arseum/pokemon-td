@@ -6,13 +6,12 @@ import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Boss extends Ennemi {
     public Boss( int x, int y) {
-        super(2, 10545, Type.neutre, x, y, 0, "rayquaza", true);
+        super(2, 14545, Type.neutre, x, y, 0, "rayquaza", true);
     }
 
     @Override
     protected void meurt() {
         super.meurt();
-        //game.setBossVaincu(true);
         Game.getGame().setBossVaincu(true);
     }
 }

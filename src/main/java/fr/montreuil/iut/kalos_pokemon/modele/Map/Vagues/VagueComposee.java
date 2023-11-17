@@ -16,7 +16,6 @@ public class VagueComposee extends Vague{
     public VagueComposee(Terrain terrain, Seconde duree, ArrayList<VagueMono> vagues) {
         super(terrain,duree);
         this.vagues=vagues;
-//        this.duree=600;
         peutCreer = new boolean[vagues.size()];
     }
 
@@ -44,7 +43,7 @@ public class VagueComposee extends Vague{
         compte=0;
 
         for (VagueMono v:vagues) {
-            if (v.peutTuMeDonnerUnEnnemi(frameActuelle)) {
+            if (v.peutTuMeDonnerUnEnnemi(frameActuelle) && frameActuelle <= v.getDuree().getTempFrameDouble()) {
                 peutCreer[vagues.indexOf(v)] = true;
                 compte++;
                 auMoinsUn = true;

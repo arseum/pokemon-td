@@ -21,7 +21,7 @@ public abstract class VagueMono extends Vague {
     }
 
     public Boolean peutTuMeDonnerUnEnnemi(int frameActuelle){
-        return frameActuelle % frequence.getTempFrameInt() == 0;
+        return frameActuelle % frequence.getTempFrameDouble() == 0;
     }
 
     public abstract Ennemi genereennemi(int [] caseDepart);

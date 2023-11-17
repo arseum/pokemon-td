@@ -6,7 +6,7 @@ import javafx.beans.property.IntegerProperty;
 public class NullActif implements Competence{
     @Override
     public void actif() {
-        System.out.println("dodo");
+
     }
 
     @Override

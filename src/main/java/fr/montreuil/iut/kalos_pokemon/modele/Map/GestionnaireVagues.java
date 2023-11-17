@@ -63,8 +63,7 @@ public class GestionnaireVagues {
                     Game.getGame().ajouteEnnemi(listesVagues.get(indexVagueActuelle).donneMoiUnEnnemi()[i]);
                 }
             }
-            if(this.compteurFrameParWave > listesVagues.get(indexVagueActuelle).getDuree().getTempFrameInt()){
-//                System.out.println("nvelle wave !");
+            if(this.compteurFrameParWave > listesVagues.get(indexVagueActuelle).getDuree().getTempFrameDouble()){
                 this.compteurFrameParWave = 0;
                 this.setWave(this.getWave() + 1);
                 this.indexVagueActuelle++;

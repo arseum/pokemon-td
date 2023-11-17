@@ -64,10 +64,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         return effetActif;
     }
 
-    public boolean isEstArrive() {
-        return estArrive;
-    }
-
     public void reduitVitese(int v) {
         vitesseActuel = vitesseMax - v;
         if (vitesseActuel <= 0)
@@ -133,6 +129,8 @@ public abstract class Ennemi extends Pokemon implements Mobile {
 
     public void bouge() {
 
+        gereEffet();
+
         if (estStun)
             attendre();
         else
@@ -169,13 +167,9 @@ public abstract class Ennemi extends Pokemon implements Mobile {
             setInfoDeplacement();
         }
 
-        //if (infoDeplacement[2]/32 == game.getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == game.getTerrain().getCaseArrivee()[1]/32){
-        if (infoDeplacement[2]/32 == Game.getGame().getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == Game.getGame().getTerrain().getCaseArrivee()[1]/32){
-            //game.remove(this);
-            //game.perdVie(1);
+        if (estArrive()){
             Game.getGame().remove(this);
             Game.getGame().perdVie(1);
-            estArrive = true;
         }
     }
 
@@ -204,4 +198,10 @@ public abstract class Ennemi extends Pokemon implements Mobile {
                 return true;
         return false;
     }
+
+    private boolean estArrive(){
+        return infoDeplacement[2]/32 == Game.getGame().getTerrain().getCaseArrivee()[0]/32 &&
+                infoDeplacement[3]/32 == Game.getGame().getTerrain().getCaseArrivee()[1]/32;
+    }
+
 }
