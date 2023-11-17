@@ -5,6 +5,7 @@ import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NewCompetence;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -22,6 +23,7 @@ public abstract class Tour extends Pokemon implements Objet {
     protected final DoubleProperty compteurDegats;
     protected int attaqueSpeed;
     protected int tempProchaineAttaque;
+
     protected Competence myCompetence;
     protected ModeDeCiblage modeDeCiblage;
     private ForgeEffetImpact myForgeEffetImpact;

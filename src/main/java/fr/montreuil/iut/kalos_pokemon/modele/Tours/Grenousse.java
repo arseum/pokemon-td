@@ -1,11 +1,13 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceNull;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NewCompetence;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
 
 public class Grenousse extends Tour {
     public Grenousse(int x, int y) {
-        super(160, 70, PokemonEnum.grenousse.getType(), PokemonEnum.grenousse.getPrix(), x, y, PokemonEnum.grenousse.name(), 90, new NullActif());
+        super(160, 70, PokemonEnum.grenousse.getType(), PokemonEnum.grenousse.getPrix(), x, y, PokemonEnum.grenousse.name(), 90, new CompetenceNull());
     }
 
     @Override

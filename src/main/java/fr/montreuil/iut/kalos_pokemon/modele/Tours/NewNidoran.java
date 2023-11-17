@@ -8,6 +8,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeRalentisseme
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaqueInstantane;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimpleExplosif;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimple;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceNull;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceRalentissementEnnemiPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageAleatoire;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblesUniques;
@@ -19,7 +21,7 @@ public class NewNidoran extends Tour{
     public NewNidoran(int x, int y) {
         super(350, 0, PokemonEnum.nidoran.getType(),
                 PokemonEnum.nidoran.getPrix(), x, y, PokemonEnum.nidoran.name(),
-                30, new NullActif());
+                30, new CompetenceNull());
 
 //        this.effetPoison = new EffetPoison(2, new Seconde(3), new Seconde(0.2), this);
         /*
@@ -33,13 +35,15 @@ public class NewNidoran extends Tour{
          */
         ModeDeCiblage modeDeCiblage = new ModeCiblageAleatoire(this);
         setModeAttaque(modeDeCiblage);
-        setMyForgeEffectImpact(new ForgeEffetPoison(50, new Seconde(1),new Seconde(0.2),this));
+        setMyForgeEffectImpact(new ForgeEffetPoison(2, new Seconde(100),new Seconde(0.2),this));
         setMyForgeAttaque(new ForgeProjectileSimple());
+        setMyCompetence(new CompetenceRalentissementEnnemiPoison(this, new Seconde(10)));
     }
 
     @Override
     public void amelioreStats() {
 //        this.effetPoison.amelioreEffet(10,0);
+        /*
         if (level.get() == Parametres.niveauEvolutionTour){
 //            portee.set(portee.get()+400);
             setModeAttaque(new ModeCiblageZone(this));
@@ -57,5 +61,7 @@ public class NewNidoran extends Tour{
             degats = 45;
             attaqueSpeed = 60;
         }
+
+         */
     }
 }

@@ -2,12 +2,13 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceNull;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
 
 public class Granivol extends Tour {
 
     public Granivol(int x, int y) {
-        super(160, 5, PokemonEnum.granivol.getType(), PokemonEnum.granivol.getPrix(), x, y, PokemonEnum.granivol.name(), 6, new NullActif());
+        super(160, 5, PokemonEnum.granivol.getType(), PokemonEnum.granivol.getPrix(), x, y, PokemonEnum.granivol.name(), 6, new CompetenceNull());
     }
 
     @Override

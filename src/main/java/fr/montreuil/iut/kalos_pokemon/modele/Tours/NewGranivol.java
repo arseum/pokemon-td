@@ -4,6 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetNull;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimple;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceNull;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblagePrioritaire;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
@@ -13,7 +14,7 @@ public class NewGranivol extends Tour{
 
         super(160, 1, PokemonEnum.granivol.getType(),
                 PokemonEnum.granivol.getPrix(), x, y, PokemonEnum.granivol.name(),
-                6, new NullActif());
+                6, new CompetenceNull());
         ModeDeCiblage modeDeCiblage = new ModeCiblagePrioritaire( this);
         setModeAttaque(modeDeCiblage);
         setMyForgeEffectImpact(new ForgeEffetNull(this));

@@ -12,7 +12,8 @@ public class Salameche extends Tour {
         super(300, 50, PokemonEnum.salameche.getType(), PokemonEnum.salameche.getPrix(),
                 x, y, PokemonEnum.salameche.name(), 40, null);
 
-        setMyCompetence(new ExplosionAutourTour(this,150,new ForgeEffetNull(this)));
+        //todo a faire
+        //setMyCompetence(new ExplosionAutourTour(this,150,new ForgeEffetNull(this)));
         setModeAttaque(new ModeCiblageAleatoire(this));
         setMyForgeAttaque(new ForgeProjectileSimpleExplosif(57));
         setMyForgeEffectImpact(new ForgeEffetNull(this));
