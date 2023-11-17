@@ -32,4 +32,6 @@ public abstract class EffetImpact {
     public TypeEffet getTypeEffet() {
         return typeEffet;
     }
+
+    public abstract int getPuissanceEffet();
 }

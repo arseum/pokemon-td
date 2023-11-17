@@ -38,7 +38,9 @@ public abstract class EntiteAttaque {
             tireur.ajouteDegats(degatsReels);
             EffetImpact effetImpact = this.forgeEffetImpact.genereEffect();
             effetImpact.initialiserDebutEffet(Game.getGame().getNbFrameValue());
-            ennemi.ajouteEffet(effetImpact);
+            if(ennemi.effetPeutEtreAjoute(effetImpact)){
+                ennemi.ajouteEffet(effetImpact);
+            }
         }
     }
 

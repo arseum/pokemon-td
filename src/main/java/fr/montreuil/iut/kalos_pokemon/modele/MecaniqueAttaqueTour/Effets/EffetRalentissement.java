@@ -48,4 +48,11 @@ public class EffetRalentissement extends EffetImpact{
         }
         return finEffet;
     }
+
+    @Override
+    public int getPuissanceEffet() {
+        return this.tauxDeReductionVitesse;
+    }
+
+
 }

@@ -27,4 +27,9 @@ public class EffetNull extends EffetImpact{
     public boolean finEffet(Ennemi ennemi) {
         return false;
     }
+
+    @Override
+    public int getPuissanceEffet() {
+        return 0;
+    }
 }

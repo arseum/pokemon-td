@@ -118,6 +118,26 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         listeObsDesDifferentsTypeEffets.put(typeEffet,effetImpact);
     }
 
+    public boolean effetPeutEtreAjoute(EffetImpact effetImpact){
+        if(listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet())){
+            switch (effetImpact.getTypeEffet()){
+                case Null -> {
+                    return true;
+                }
+                case Ralentissement -> {
+                    //Si le nouveau ralentissement à un taux de reduction de vitesse supérieur à 90%
+                    //et est supérieur à l'ancien, il le remplace
+                    if(effetImpact.getPuissanceEffet() > 90 && effetImpact.getPuissanceEffet() > listeObsDesDifferentsTypeEffets.get(TypeEffet.Ralentissement).getPuissanceEffet())
+                        return true;
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     public void setVitesseActuel(int v){
         this.vitesseActuel = v;

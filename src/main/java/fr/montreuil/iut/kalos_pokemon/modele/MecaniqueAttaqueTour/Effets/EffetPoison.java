@@ -43,6 +43,11 @@ public class EffetPoison extends EffetImpact {
         return ennemi != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + dureePoison.getTempFrameDouble();
     }
 
+    @Override
+    public int getPuissanceEffet() {
+        return this.degatPoison;
+    }
+
     //SETTERS
     public void amelioreEffet(int boostDegats, double boostDuree) {
         this.degatPoison = this.degatPoison + boostDegats;
