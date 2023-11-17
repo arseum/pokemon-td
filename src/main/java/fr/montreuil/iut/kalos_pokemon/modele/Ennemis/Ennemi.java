@@ -18,24 +18,14 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class Ennemi extends Pokemon implements Mobile {
-
     private static int compteurID = 1;
     private int vitesseMax;
     private final double hpMax;
     private final int recompense;
-    private boolean estStun;
-    /**
-     * compteur de frame utile pour compter le nombre de frames que le pokemon ne peut pas bouger
-     */
-    private int compteurTour;
-
     private final Map<Integer, Integer> cheminVersArrive;
     private final DoubleProperty hp;
-    //protected final Game game;
     private int vitesseActuel;
     private int[] infoDeplacement;
-    private boolean estTerrestre;
-    private int dureeStun;
     protected boolean estArrive;
     //HashMap pour empecher le stack d'effet du même type
     protected ObservableMap<TypeEffet, EffetImpact> listeObsDesDifferentsTypeEffets;
@@ -50,13 +40,9 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         this.vitesseMax = vitesseMax;
         this.vitesseActuel = vitesseMax;
         this.recompense = recompense;
-        this.estTerrestre = estTerrestre;
-        //this.cheminVersArrive = this.game.getTerrain().algoBFS(estTerrestre);
         this.cheminVersArrive = BFS.getBFS(Game.getGame().getTerrain()).algoBFS(estTerrestre);
-        this.estStun = false;
         this.estArrive = false;
         this.listeObsDesDifferentsTypeEffets = FXCollections.observableHashMap();
-        //this.effetImpactObservableList = FXCollections.observableArrayList();
         setInfoDeplacement();
     }
     public ObservableMap<TypeEffet, EffetImpact> getListeObsDesDifferentsTypeEffets(){
@@ -66,13 +52,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     public boolean isEstArrive() {
         return estArrive;
     }
-
-    public void reduitVitese(int v) {
-        vitesseActuel = vitesseMax - v;
-        if (vitesseActuel <= 0)
-            vitesseActuel = 1;
-    }
-
     public double getHp() {
         return hp.get();
     }
@@ -82,17 +61,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     public double getHpMax() {
         return hpMax;
     }
-
-
-    public void removeEffet(EffetImpact e) {
-        listeObsDesDifferentsTypeEffets.remove(e.getTypeEffet());
-    }
-
-    public EffetImpact getEffectSelonType(TypeEffet typeEffet){
-        return listeObsDesDifferentsTypeEffets.get(typeEffet);
-    }
-
-
 
     public void gereEffet() {
         EffetImpact effetImpact;
@@ -137,23 +105,8 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         return true;
     }
 
-
     public void setVitesseActuel(int v){
         this.vitesseActuel = v;
-    }
-
-    public boolean estAffecterParEffet(TypeEffet typeEffet){
-        return listeObsDesDifferentsTypeEffets.containsKey(typeEffet);
-    }
-
-    public void reduitVitesseMax(int value){
-        //il faut empecher l'accumulation de slow qui pourront mettre la vitesse a 0
-        vitesseMax = vitesseMax - value > 0 ? vitesseMax - value : 1;
-        vitesseActuel = vitesseMax;
-    }
-
-    public void resetVitesse() {
-        vitesseActuel = vitesseMax;
     }
 
     private void setInfoDeplacement() {
@@ -166,19 +119,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
     public void bouge() {
-        if (estStun)
-            attendre();
-        else
-            deplacement();
-    }
-
-    /**
-     * methode a executer lorsque l'ennemi est immobile
-     */
-    private void attendre() {
-        compteurTour++;
-        if (compteurTour == dureeStun)
-            estStun = false;
+        deplacement();
     }
 
     private void deplacement(){
@@ -215,7 +156,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         hp.set(hp.get() - value);
         if (hp.get() <= 0) {
             meurt();
-            //this.game.ajoutePokedollar(recompense);
             Game.getGame().ajoutePokedollar(recompense);
         }
     }
@@ -224,17 +164,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         Game.getGame().remove(this);
     }
 
-    public void stun(int dureeStun) {
-        estStun = true;
-        compteurTour = 0;
-        this.dureeStun = dureeStun;
-    }
-
     public int getVitesseMax() {
         return vitesseMax;
-    }
-
-    public int getVitesseActuel() {
-        return vitesseActuel;
     }
 }
