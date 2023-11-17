@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeRalentissement;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaqueInstantane;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageEnnemisEmpoisonnes;

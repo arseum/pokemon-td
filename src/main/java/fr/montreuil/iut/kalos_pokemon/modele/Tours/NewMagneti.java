@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
-import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
+import fr.montreuil.iut.kalos_pokemon.Donnees.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeRalentissement;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimple;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceImmobilisationZone;

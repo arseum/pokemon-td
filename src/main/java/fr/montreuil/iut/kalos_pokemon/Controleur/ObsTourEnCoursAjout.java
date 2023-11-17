@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.Controlleur;
+package fr.montreuil.iut.kalos_pokemon.Controleur;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

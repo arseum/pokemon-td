@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donnees.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

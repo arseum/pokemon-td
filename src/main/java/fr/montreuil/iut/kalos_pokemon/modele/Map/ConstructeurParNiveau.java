@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Map;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues.FabriqueVague;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues.Vague;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Vagues.VagueBoss;

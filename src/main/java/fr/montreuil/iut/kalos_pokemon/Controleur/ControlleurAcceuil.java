@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.Controlleur;
+package fr.montreuil.iut.kalos_pokemon.Controleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.main;

@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Type;
-import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Type;
 
 public class Camerupt extends Ennemi {
     public Camerupt(int x, int y) {

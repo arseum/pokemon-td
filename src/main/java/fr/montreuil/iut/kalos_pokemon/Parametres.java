@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donnees.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import javafx.scene.image.Image;
 

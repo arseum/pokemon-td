@@ -1,7 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
-import fr.montreuil.iut.kalos_pokemon.Donne.Type;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Type;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 
 public class Boss extends Ennemi {

@@ -1,6 +1,6 @@
-package fr.montreuil.iut.kalos_pokemon.Controlleur;
+package fr.montreuil.iut.kalos_pokemon.Controleur;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donnees.PokemonEnum;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.HBox;

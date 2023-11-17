@@ -1,10 +1,9 @@
-package fr.montreuil.iut.kalos_pokemon.Donne;
+package fr.montreuil.iut.kalos_pokemon.Donnees;
 
 /**
  * classe qui permet d'inserer facilement des secondes grace a des methode de conversion
  */
 public class Seconde {
-
     private double temp;
 
     public Seconde(double temp) {
@@ -20,10 +19,10 @@ public class Seconde {
     }
 
     public int getTempFrameInt() {
-        return (int) temp*60;
+        return (int) temp * 60;
     }
 
     public double getTempFrameDouble() {
-        return temp * 60 ;
+        return temp * 60;
     }
 }

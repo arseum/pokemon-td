@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;

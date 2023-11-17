@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.Controlleur;
+package fr.montreuil.iut.kalos_pokemon.Controleur;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.value.ChangeListener;

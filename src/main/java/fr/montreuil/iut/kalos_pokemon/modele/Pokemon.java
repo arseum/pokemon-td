@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Type;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Type;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 

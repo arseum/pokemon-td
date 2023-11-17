@@ -151,7 +151,7 @@
                               <String fx:value="boutonStyle" />
                               <String fx:value="policePokemon" />
                            </styleClass></Button>
-                        <Button fx:id="ameliorerTourMenu" alignment="CENTER" contentDisplay="TOP" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="125.0" text="Améliorer">
+                        <Button fx:id="ameliorerTourMenu" alignment="CENTER" contentDisplay="TOP" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="145.0" text="Améliorer">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
