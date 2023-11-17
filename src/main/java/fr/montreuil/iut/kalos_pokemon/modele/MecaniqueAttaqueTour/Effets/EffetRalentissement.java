@@ -49,7 +49,7 @@ public class EffetRalentissement extends EffetImpact{
     }
 
     @Override
-    public boolean finDeVie(Ennemi ennemi) {
+    public boolean finEffet(Ennemi ennemi) {
         boolean finEffet = ennemi != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + dureeDeRalentissement.getTempFrameDouble();
         if(finEffet){
             ennemi.setVitesseActuel(ennemi.getVitesseMax());

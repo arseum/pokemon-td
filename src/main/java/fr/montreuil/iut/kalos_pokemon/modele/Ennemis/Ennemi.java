@@ -11,14 +11,10 @@ import fr.montreuil.iut.kalos_pokemon.modele.Pokemon;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public abstract class Ennemi extends Pokemon implements Mobile {
 
@@ -146,7 +142,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
                 System.out.println("Je peux etre app");
                 effetImpact.appliqueEffet(this);
             }
-            if (effetImpact.finDeVie(this)) {
+            if (effetImpact.finEffet(this)) {
                 effetImpactObservableList.remove(effetImpact);
             }
         }
@@ -163,7 +159,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         }
         if(peutEtreAjoute){
             effetImpactObservableList.add(effetImpact);
-            effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
+            //effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
         }
     }
 

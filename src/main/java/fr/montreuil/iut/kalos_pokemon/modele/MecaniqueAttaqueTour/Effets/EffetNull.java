@@ -24,7 +24,7 @@ public class EffetNull extends EffetImpact{
     }
 
     @Override
-    public boolean finDeVie(Ennemi ennemi) {
+    public boolean finEffet(Ennemi ennemi) {
         return false;
     }
 }

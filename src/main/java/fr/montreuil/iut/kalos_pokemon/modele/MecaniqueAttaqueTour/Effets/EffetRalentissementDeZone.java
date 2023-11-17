@@ -39,7 +39,7 @@ public class EffetRalentissementDeZone extends EffetImpact{
         //System.out.println(", " + ennemi.getVitesseActuel());
     }
     @Override
-    public boolean finDeVie(Ennemi ennemi) {
+    public boolean finEffet(Ennemi ennemi) {
         if(!Game.getGame().getListEnnemi().contains(tireur) || !tireur.estADistance(ennemi)){
             //System.out.println(ennemi + " " + "resetVitesse");
             ennemi.resetVitesse();

@@ -2,6 +2,8 @@ package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque
 
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 
@@ -34,7 +36,9 @@ public abstract class EntiteAttaque {
             double degatsReels = getDegatsFinaux(ennemi);
             ennemi.diminueHP(degatsReels);
             tireur.ajouteDegats(degatsReels);
-            ennemi.ajouteEffet(this.forgeEffetImpact.genereEffect());
+            EffetImpact effetImpact = this.forgeEffetImpact.genereEffect();
+            effetImpact.initialiserDebutEffet(Game.getGame().getNbFrameValue());
+            ennemi.ajouteEffet(effetImpact);
         }
     }
 

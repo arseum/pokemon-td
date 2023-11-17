@@ -49,7 +49,7 @@ public class EffetPoison extends EffetImpact {
     }
 
     @Override
-    public boolean finDeVie(Ennemi ennemi) {
+    public boolean finEffet(Ennemi ennemi) {
         //return victime != null && victime.getGame().getNbFrameValue() > frameDebutDeVie + duree.getTempFrameDouble();
         return ennemi != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + dureePoison.getTempFrameDouble();
     }
