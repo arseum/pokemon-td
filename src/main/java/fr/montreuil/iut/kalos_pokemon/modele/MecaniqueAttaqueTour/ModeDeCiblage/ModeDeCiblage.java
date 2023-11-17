@@ -10,6 +10,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO À changer (trop de repetition de for each)
 /**
  * Une tour ne peut avoir qu'un mode attaque. Ce mode peut être amené à changer
  * Cette classe a pour responsabilité de definir la manière dont la tour va cibler.
@@ -30,13 +31,6 @@ public abstract class ModeDeCiblage {
 
     protected Ennemi chercheCible() {
         return chercheCibles().isEmpty()? null : chercheCibles().get(0);
-//        List<Ennemi> listEnnemi = Game.getGame().getListEnnemi().stream().toList();
-//
-//        for (Ennemi ennemi : listEnnemi) {
-//            if (this.tourCible.estADistance(ennemi))
-//                return ennemi;
-//        }
-//        return null;
     }
 
     protected List<Ennemi> chercheCibles(){
@@ -48,10 +42,7 @@ public abstract class ModeDeCiblage {
         return ennemisAPortee;
 
     }
-
-    //todo z renommer
-    protected void lanceProjectile(ForgeEntiteDommage forgeEntiteDommage, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
-        //Game.getGame().ajouteProjectile(forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e));
+    protected void lanceEntiteAttaque(ForgeEntiteDommage forgeEntiteDommage, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
         EntiteAttaque a = forgeEntiteDommage.genereAttaque(tourCible,forgeEffet,degat,e);
         a.gestionEntiteAttaque();
     }

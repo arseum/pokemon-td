@@ -23,7 +23,7 @@ public class ModeCiblageAleatoire extends ModeDeCiblage {
         if(!listeEnnemis.isEmpty()){
             Random random = new Random();
             int index = random.nextInt(chercheCibles().size());
-            lanceProjectile(forgeEntiteDommage,forgeEffet,degats,listeEnnemis.get(index));
+            lanceEntiteAttaque(forgeEntiteDommage,forgeEffet,degats,listeEnnemis.get(index));
         }
     }
 

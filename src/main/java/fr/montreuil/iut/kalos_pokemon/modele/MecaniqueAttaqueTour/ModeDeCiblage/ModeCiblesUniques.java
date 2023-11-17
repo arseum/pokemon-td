@@ -20,12 +20,6 @@ public class ModeCiblesUniques extends ModeDeCiblage {
 
     @Override
     public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteDommage forgeEntiteDommage) {
-//        Ennemi ennemi = chercheCible();
-//        if(ennemi != null && !listeEnnemisTouches.contains(ennemi)){
-//            lanceProjectile(forgeAttaque,forgeEffet,degats,ennemi);
-//            listeEnnemisTouches.add(ennemi);
-//        }
-//         probleme le nidoran attaque bizarement je fix ca
         List<Ennemi> list = chercheCibles();
         int index = 0;
         Ennemi cibleFinal = null;
@@ -33,7 +27,7 @@ public class ModeCiblesUniques extends ModeDeCiblage {
         while (cibleFinal == null && index <= list.size() - 1){
             if (!listeEnnemisTouches.contains(list.get(index))){
                 cibleFinal = list.get(index);
-                lanceProjectile(forgeEntiteDommage,forgeEffet,degats,cibleFinal);
+                lanceEntiteAttaque(forgeEntiteDommage,forgeEffet,degats,cibleFinal);
                 listeEnnemisTouches.add(cibleFinal);
             }
             index++;

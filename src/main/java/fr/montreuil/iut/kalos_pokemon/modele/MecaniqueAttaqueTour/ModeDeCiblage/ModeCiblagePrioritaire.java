@@ -24,9 +24,8 @@ public class ModeCiblagePrioritaire extends ModeDeCiblage {
             this.ennemiCible = chercheCible();
         }
         //Si a trouve et a distance
-        //if(ennemiCible!= null && !ennemiCible.estEffecteParEffet(this.effetAttaque)){
         if(ennemiCible!= null && tourCible.estADistance(ennemiCible))
-            lanceProjectile(forgeEntiteDommage,forgeEffet,degats,ennemiCible);
+            lanceEntiteAttaque(forgeEntiteDommage,forgeEffet,degats,ennemiCible);
         else
             this.ennemiCible = null;
 
