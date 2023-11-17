@@ -4,7 +4,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 
 public interface Competence {
-
     void actif();
     BooleanProperty estPretActifProperty();
     IntegerProperty tempProchainActifProperty();

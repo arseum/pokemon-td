@@ -11,7 +11,7 @@ public class ModeCiblageZone extends ModeDeCiblage {
     @Override
     public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteAttaque forgeEntiteAttaque) {
         chercheCibles().forEach(ennemie -> {
-            if (tourCible.estADistance(ennemie))
+            if (tour.estADistance(ennemie))
                 lanceEntiteAttaque(forgeEntiteAttaque,forgeEffet,degats,ennemie);
         });
     }

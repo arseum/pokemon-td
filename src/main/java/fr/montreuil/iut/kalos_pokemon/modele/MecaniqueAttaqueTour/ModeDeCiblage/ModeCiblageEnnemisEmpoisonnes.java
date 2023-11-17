@@ -13,7 +13,7 @@ public class ModeCiblageEnnemisEmpoisonnes extends ModeDeCiblage{
     @Override
     public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteAttaque forgeEntiteAttaque) {
         Game.getGame().getListEnnemi().forEach(e -> {
-            if (e.getListeObsDesDifferentsTypeEffets().containsKey(TypeEffet.Poison))
+            if (e.getListeObsDesDifferentsTypeEffets().containsKey(TypeEffet.Poison) && e.getListeObsDesDifferentsTypeEffets().get(TypeEffet.Poison).getTireur() == this.tour)
                 lanceEntiteAttaque(forgeEntiteAttaque,forgeEffet,degats,e);
         });
     }

@@ -21,10 +21,10 @@ public abstract class ModeDeCiblage {
     /**
      * un mode d'attaque est forcement lié a une tour (compteur degats...)
      */
-    protected Tour tourCible;
+    protected Tour tour;
 
-    public ModeDeCiblage(Tour tourCible) {
-        this.tourCible = tourCible;
+    public ModeDeCiblage(Tour tour) {
+        this.tour = tour;
     }
 
     public abstract void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteAttaque forgeEntiteAttaque);
@@ -36,14 +36,14 @@ public abstract class ModeDeCiblage {
     protected List<Ennemi> chercheCibles(){
         List<Ennemi> ennemisAPortee = new ArrayList<>();
         Game.getGame().getListEnnemi().forEach(e -> {
-            if (tourCible.estADistance(e))
+            if (tour.estADistance(e))
                 ennemisAPortee.add(e);
         });
         return ennemisAPortee;
 
     }
     protected void lanceEntiteAttaque(ForgeEntiteAttaque forgeEntiteAttaque, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
-        EntiteAttaque a = forgeEntiteAttaque.genereAttaque(tourCible,forgeEffet,degat,e);
+        EntiteAttaque a = forgeEntiteAttaque.genereAttaque(tour,forgeEffet,degat,e);
         a.gestionEntiteAttaque();
     }
 }
