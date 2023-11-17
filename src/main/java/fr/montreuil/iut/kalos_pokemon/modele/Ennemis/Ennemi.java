@@ -91,6 +91,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     public void ajouteEffet(EffetImpact effetImpact) {
         effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
         TypeEffet typeEffet = effetImpact.getTypeEffet();
+
         if(listeObsDesDifferentsTypeEffets.containsKey(typeEffet)){
             listeObsDesDifferentsTypeEffets.replace(typeEffet, effetImpact);
         }else {

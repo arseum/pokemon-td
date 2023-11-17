@@ -50,6 +50,7 @@ public abstract class ModeAttaque {
 
     }
 
+    //todo z renommer
     protected void lanceProjectile(ForgeAttaque forgeAttaque,ForgeEffectImpact forgeEffet, int degat,Ennemi e){
         //Game.getGame().ajouteProjectile(forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e));
         Attaque a = forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e);
