@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage;
 
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.EntiteAttaque;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -27,7 +27,7 @@ public abstract class ModeDeCiblage {
         this.tourCible = tourCible;
     }
 
-    public abstract void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteDommage forgeEntiteDommage);
+    public abstract void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteAttaque forgeEntiteAttaque);
 
     protected Ennemi chercheCible() {
         return chercheCibles().isEmpty()? null : chercheCibles().get(0);
@@ -42,8 +42,8 @@ public abstract class ModeDeCiblage {
         return ennemisAPortee;
 
     }
-    protected void lanceEntiteAttaque(ForgeEntiteDommage forgeEntiteDommage, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
-        EntiteAttaque a = forgeEntiteDommage.genereAttaque(tourCible,forgeEffet,degat,e);
+    protected void lanceEntiteAttaque(ForgeEntiteAttaque forgeEntiteAttaque, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
+        EntiteAttaque a = forgeEntiteAttaque.genereAttaque(tourCible,forgeEffet,degat,e);
         a.gestionEntiteAttaque();
     }
 }

@@ -1,9 +1,8 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet;
+package fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetRalentissement;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetRalentissementDeZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 public class ForgeRalentissement implements ForgeEffetImpact {
@@ -21,7 +20,9 @@ public class ForgeRalentissement implements ForgeEffetImpact {
     /** methode public */
     @Override
     public EffetImpact genereEffect() {
-        return new EffetRalentissement(tireur, tauxDeReductionVitesse, dureeDeRalentissement);
+        EffetImpact e = new EffetRalentissement(tireur, tauxDeReductionVitesse, dureeDeRalentissement);
+        System.out.println(e);
+        return e;
     }
 
 }

@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -12,15 +12,15 @@ public abstract class CompetenceSelonModeAttaque extends ClassicCompetence {
     protected ModeDeCiblage myModeDeCiblage;
     protected int degats;
     protected ForgeEffetImpact myForgeEffetImpact;
-    protected ForgeEntiteDommage myForgeEntiteDommage;
+    protected ForgeEntiteAttaque myForgeEntiteAttaque;
 
     public CompetenceSelonModeAttaque(Tour myTour, Seconde cooldown,
                                       ModeDeCiblage modeDeCiblage, int degats,
-                                      ForgeEntiteDommage forgeEntiteDommage, ForgeEffetImpact forgeEffetImpact) {
+                                      ForgeEntiteAttaque forgeEntiteAttaque, ForgeEffetImpact forgeEffetImpact) {
         super(myTour, cooldown);
         this.myModeDeCiblage = modeDeCiblage;
         this.degats = degats;
-        this.myForgeEntiteDommage = forgeEntiteDommage;
+        this.myForgeEntiteAttaque = forgeEntiteAttaque;
         this.myForgeEffetImpact = forgeEffetImpact;
     }
 
@@ -36,14 +36,14 @@ public abstract class CompetenceSelonModeAttaque extends ClassicCompetence {
         this.myForgeEffetImpact = myForgeEffetImpact;
     }
 
-    public void setMyForgeAttaque(ForgeEntiteDommage myForgeEntiteDommage) {
-        this.myForgeEntiteDommage = myForgeEntiteDommage;
+    public void setMyForgeAttaque(ForgeEntiteAttaque myForgeEntiteAttaque) {
+        this.myForgeEntiteAttaque = myForgeEntiteAttaque;
     }
 
     @Override
     public void actif() {
         System.out.println("BOUMMMMMMM");
-        myModeDeCiblage.attaque(degats, myForgeEffetImpact, myForgeEntiteDommage);
+        myModeDeCiblage.attaque(degats, myForgeEffetImpact, myForgeEntiteAttaque);
         tempProchainActif.set(Game.getGame().getNbFrameValue() + cooldown.getTempFrameInt()) ;
     }
 }

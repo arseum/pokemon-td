@@ -1,6 +1,6 @@
-package fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile;
+package fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.ProjectileExplosif;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;

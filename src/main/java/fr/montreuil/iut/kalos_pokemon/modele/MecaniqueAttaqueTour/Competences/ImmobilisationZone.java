@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetNull;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommageInstantane;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetNull;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaqueInstantane;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -11,7 +11,7 @@ public class ImmobilisationZone extends CompetenceSelonModeAttaque {
     public ImmobilisationZone(Tour myTour, int dureeStun) {
         super(myTour,new Seconde(18),null,0,null,null);
 
-        setMyForgeAttaque(new ForgeEntiteDommageInstantane());
+        setMyForgeAttaque(new ForgeEntiteAttaqueInstantane());
         setMyModeAttaque(new ModeCiblageZone(myTour));
         setMyForgeEffectImpact(new ForgeEffetNull(myTour));
 //        setMyForgeEffectImpact(new ForgeEffetImmobilisation(mytour,dureeStun));

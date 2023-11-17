@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommageInstantane;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaqueInstantane;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -16,7 +16,7 @@ public class ExplosionAutourTour extends CompetenceSelonModeAttaque{
         super(myTour, new Seconde(20), null, degats, null, forgeEffetImpact);
 
         setMyModeAttaque(new ModeCiblageZone(myTour));
-        setMyForgeAttaque(new ForgeEntiteDommageInstantane());
+        setMyForgeAttaque(new ForgeEntiteAttaqueInstantane());
 
         //ici on force le faite que une explotion fase des degat direct dans la zone de
         //portee de la tour mais on laisse la possiblite de rajouter des effet a l'impact
