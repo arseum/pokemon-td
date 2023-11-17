@@ -4,7 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetIm
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetRalentissementDeZone;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-public class ForgeRalentissement implements ForgeEffectImpact {
+public class ForgeRalentissement implements ForgeEffetImpact {
 
     private final Tour tireur;
     private int reductionVitesse;

@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -11,13 +11,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
  */
 public abstract class EntiteDeDommage {
     protected Tour tireur;
-    protected ForgeEffectImpact forgeEffectImpact;
+    protected ForgeEffetImpact forgeEffetImpact;
     protected double degats;
     protected final Ennemi cible;
 
-    public EntiteDeDommage(Tour tour, ForgeEffectImpact effetImpacts, double degats, Ennemi ennemi) {
+    public EntiteDeDommage(Tour tour, ForgeEffetImpact effetImpacts, double degats, Ennemi ennemi) {
         this.tireur = tour;
-        this.forgeEffectImpact = effetImpacts;
+        this.forgeEffetImpact = effetImpacts;
         this.degats = degats;
         this.cible = ennemi;
     }
@@ -48,7 +48,7 @@ public abstract class EntiteDeDommage {
         if (estToucherParExplotion(e)) {
             e.diminueHP(degatsReel);
             tireur.ajouteDegats(degatsReel);
-            e.ajouteEffet(this.forgeEffectImpact.genereEffect());
+            e.ajouteEffet(this.forgeEffetImpact.genereEffect());
         }
     }
     public Tour getTireur() {

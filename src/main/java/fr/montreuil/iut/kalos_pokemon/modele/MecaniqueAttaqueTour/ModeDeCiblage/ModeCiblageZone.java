@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 public class ModeCiblageZone extends ModeDeCiblage {
     public ModeCiblageZone(Tour tourCible) {
@@ -9,10 +9,10 @@ public class ModeCiblageZone extends ModeDeCiblage {
     }
 
     @Override
-    public void attaque(int degats, ForgeEffectImpact forgeEffet, ForgeAttaque forgeAttaque) {
+    public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteDommage forgeEntiteDommage) {
         chercheCibles().forEach(ennemie -> {
             if (tourCible.estADistance(ennemie))
-                lanceProjectile(forgeAttaque,forgeEffet,degats,ennemie);
+                lanceProjectile(forgeEntiteDommage,forgeEffet,degats,ennemie);
         });
     }
 }

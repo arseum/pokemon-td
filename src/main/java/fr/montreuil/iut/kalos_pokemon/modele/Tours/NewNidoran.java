@@ -3,10 +3,10 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgePoisson;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeRalentissement;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeAttaqueDirect;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeBouleDeFeu;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommageInstantane;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectileExplosif;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectile;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageAleatoire;
@@ -25,7 +25,7 @@ public class NewNidoran extends Tour{
         ModeDeCiblage tirUniqueParEnnemi = new ModeCiblesUniques(this);
         setModeAttaque(tirUniqueParEnnemi);
 
-        setMyForgeEffectImpact(new ForgePoisson(2, new Seconde(3),new Seconde(0.2),this));
+        setMyForgeEffectImpact(new ForgeEffetPoison(2, new Seconde(3),new Seconde(0.2),this));
         setMyForgeAttaque(new ForgeProjectile());
         setMyCompetence(new SlowEnnemiEmpoissone(this));
     }
@@ -36,8 +36,8 @@ public class NewNidoran extends Tour{
         if (level.get() == Parametres.niveauEvolutionTour){
 //            portee.set(portee.get()+400);
             setModeAttaque(new ModeCiblageZone(this));
-            setMyForgeAttaque(new ForgeBouleDeFeu(100));
-            setMyForgeEffectImpact(new ForgePoisson(5,new Seconde(2),new Seconde(0.1),this));
+            setMyForgeAttaque(new ForgeProjectileExplosif(100));
+            setMyForgeEffectImpact(new ForgeEffetPoison(5,new Seconde(2),new Seconde(0.1),this));
             degats = 0;
             attaqueSpeed = 110;
 //            ModeAttaque zone = new ModeZone(this.effetPoison, this);
@@ -46,7 +46,7 @@ public class NewNidoran extends Tour{
         else{
             setModeAttaque(new ModeCiblageAleatoire(this));
             setMyForgeEffectImpact(new ForgeRalentissement(this,3));
-            setMyForgeAttaque(new ForgeAttaqueDirect());
+            setMyForgeAttaque(new ForgeEntiteDommageInstantane());
             degats = 45;
             attaqueSpeed = 60;
         }

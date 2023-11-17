@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -24,8 +24,8 @@ public class Projectile extends EntiteDeDommage {
      */
     protected BooleanProperty bouge;
 
-    public Projectile(Tour tour, Ennemi ennemi, ForgeEffectImpact forgeEffectImpact, double degats) {
-        super(tour, forgeEffectImpact,degats,ennemi);
+    public Projectile(Tour tour, Ennemi ennemi, ForgeEffetImpact forgeEffetImpact, double degats) {
+        super(tour, forgeEffetImpact,degats,ennemi);
         this.id = "Tir_n°" + compteur;
         compteur++;
         this.bouge = new SimpleBooleanProperty(false);

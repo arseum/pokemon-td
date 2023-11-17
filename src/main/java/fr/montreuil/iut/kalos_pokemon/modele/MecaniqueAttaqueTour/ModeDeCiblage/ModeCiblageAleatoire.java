@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -17,13 +17,13 @@ public class ModeCiblageAleatoire extends ModeDeCiblage {
     }
 
     @Override
-    public void attaque(int degats, ForgeEffectImpact forgeEffet, ForgeAttaque forgeAttaque) {
+    public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteDommage forgeEntiteDommage) {
         List<Ennemi> listeEnnemis = chercheCibles();
 
         if(!listeEnnemis.isEmpty()){
             Random random = new Random();
             int index = random.nextInt(chercheCibles().size());
-            lanceProjectile(forgeAttaque,forgeEffet,degats,listeEnnemis.get(index));
+            lanceProjectile(forgeEntiteDommage,forgeEffet,degats,listeEnnemis.get(index));
         }
     }
 

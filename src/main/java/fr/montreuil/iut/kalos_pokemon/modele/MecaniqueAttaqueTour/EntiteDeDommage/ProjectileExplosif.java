@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -11,8 +11,8 @@ public class ProjectileExplosif extends Projectile {
 
     private final int rayonExploxion;
 
-    public ProjectileExplosif(Tour tour, Ennemi ennemi, ForgeEffectImpact forgeEffectImpact, double degats, int rayonExploxion) {
-        super(tour,ennemi,forgeEffectImpact,degats);
+    public ProjectileExplosif(Tour tour, Ennemi ennemi, ForgeEffetImpact forgeEffetImpact, double degats, int rayonExploxion) {
+        super(tour,ennemi, forgeEffetImpact,degats);
         this.rayonExploxion = rayonExploxion;
     }
 

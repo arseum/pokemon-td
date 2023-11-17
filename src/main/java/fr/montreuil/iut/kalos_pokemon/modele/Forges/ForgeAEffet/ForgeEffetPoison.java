@@ -5,14 +5,14 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetIm
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-public class ForgePoisson implements ForgeEffectImpact{
+public class ForgeEffetPoison implements ForgeEffetImpact {
 
     private int degatPoison;
     private Seconde dureePoison;
     private Seconde frequencePoison;
     private final Tour tireur;
 
-    public ForgePoisson(int degatPoison, Seconde dureePoison, Seconde frequencePoison, Tour tireur) {
+    public ForgeEffetPoison(int degatPoison, Seconde dureePoison, Seconde frequencePoison, Tour tireur) {
         this.degatPoison = degatPoison;
         this.dureePoison = dureePoison;
         this.frequencePoison = frequencePoison;

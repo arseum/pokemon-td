@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -19,7 +19,7 @@ public class ModeCiblesUniques extends ModeDeCiblage {
     }
 
     @Override
-    public void attaque(int degats, ForgeEffectImpact forgeEffet, ForgeAttaque forgeAttaque) {
+    public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteDommage forgeEntiteDommage) {
 //        Ennemi ennemi = chercheCible();
 //        if(ennemi != null && !listeEnnemisTouches.contains(ennemi)){
 //            lanceProjectile(forgeAttaque,forgeEffet,degats,ennemi);
@@ -33,7 +33,7 @@ public class ModeCiblesUniques extends ModeDeCiblage {
         while (cibleFinal == null && index <= list.size() - 1){
             if (!listeEnnemisTouches.contains(list.get(index))){
                 cibleFinal = list.get(index);
-                lanceProjectile(forgeAttaque,forgeEffet,degats,cibleFinal);
+                lanceProjectile(forgeEntiteDommage,forgeEffet,degats,cibleFinal);
                 listeEnnemisTouches.add(cibleFinal);
             }
             index++;

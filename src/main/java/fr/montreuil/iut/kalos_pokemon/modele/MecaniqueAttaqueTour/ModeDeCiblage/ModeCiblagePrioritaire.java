@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
@@ -18,7 +18,7 @@ public class ModeCiblagePrioritaire extends ModeDeCiblage {
     }
 
     @Override
-    public void attaque(int degats, ForgeEffectImpact forgeEffet, ForgeAttaque forgeAttaque) {
+    public void attaque(int degats, ForgeEffetImpact forgeEffet, ForgeEntiteDommage forgeEntiteDommage) {
         //Si pas d'ennemi ou ennemi est mort, on cherche un
         if(ennemiCible == null || !Game.getGame().getListEnnemi().contains(ennemiCible)){
             this.ennemiCible = chercheCible();
@@ -26,7 +26,7 @@ public class ModeCiblagePrioritaire extends ModeDeCiblage {
         //Si a trouve et a distance
         //if(ennemiCible!= null && !ennemiCible.estEffecteParEffet(this.effetAttaque)){
         if(ennemiCible!= null && tourCible.estADistance(ennemiCible))
-            lanceProjectile(forgeAttaque,forgeEffet,degats,ennemiCible);
+            lanceProjectile(forgeEntiteDommage,forgeEffet,degats,ennemiCible);
         else
             this.ennemiCible = null;
 

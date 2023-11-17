@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
@@ -9,7 +9,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
  * il n'y pas un temp de mouvement contrairement au projectile
  */
 public class DommageInstantane extends EntiteDeDommage {
-    public DommageInstantane(Tour tour, ForgeEffectImpact effetImpacts, double degats, Ennemi cible) {
+    public DommageInstantane(Tour tour, ForgeEffetImpact effetImpacts, double degats, Ennemi cible) {
         super(tour, effetImpacts, degats, cible);
     }
 

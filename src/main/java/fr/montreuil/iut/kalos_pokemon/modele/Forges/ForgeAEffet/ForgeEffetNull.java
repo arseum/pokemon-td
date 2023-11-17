@@ -4,7 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetIm
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetNull;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-public class ForgeEffetNull implements ForgeEffectImpact{
+public class ForgeEffetNull implements ForgeEffetImpact {
 
     private Tour myTour;
 

@@ -3,8 +3,8 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffectImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
@@ -24,8 +24,8 @@ public abstract class Tour extends Pokemon implements Objet {
     protected int tempProchaineAttaque;
     protected Competence myCompetence;
     protected ModeDeCiblage modeDeCiblage;
-    private ForgeEffectImpact myForgeEffectImpact;
-    private ForgeAttaque myForgeAttaque;
+    private ForgeEffetImpact myForgeEffetImpact;
+    private ForgeEntiteDommage myForgeEntiteDommage;
 
     public Tour(int portee, int degats, Type type, int prix, int x, int y, String pokemon,
                 int attaqueSpeed, Competence competence) {
@@ -41,8 +41,8 @@ public abstract class Tour extends Pokemon implements Objet {
         this.compteurDegats = new SimpleDoubleProperty(0);
         tempProchaineAttaque = 0;
         this.modeDeCiblage = null;
-        this.myForgeEffectImpact = null;
-        this.myForgeAttaque = null;
+        this.myForgeEffetImpact = null;
+        this.myForgeEntiteDommage = null;
     }
 
     /** GETTER + SETTER */
@@ -51,16 +51,16 @@ public abstract class Tour extends Pokemon implements Objet {
         return portee;
     }
 
-    public ForgeEffectImpact getMyForgeEffectImpact() {
-        return myForgeEffectImpact;
+    public ForgeEffetImpact getMyForgeEffectImpact() {
+        return myForgeEffetImpact;
     }
 
-    public void setMyForgeEffectImpact(ForgeEffectImpact myForgeEffectImpact) {
-        this.myForgeEffectImpact = myForgeEffectImpact;
+    public void setMyForgeEffectImpact(ForgeEffetImpact myForgeEffetImpact) {
+        this.myForgeEffetImpact = myForgeEffetImpact;
     }
 
-    public void setMyForgeAttaque(ForgeAttaque myForgeAttaque) {
-        this.myForgeAttaque = myForgeAttaque;
+    public void setMyForgeAttaque(ForgeEntiteDommage myForgeEntiteDommage) {
+        this.myForgeEntiteDommage = myForgeEntiteDommage;
     }
 
     //SETERS
@@ -134,7 +134,7 @@ public abstract class Tour extends Pokemon implements Objet {
     public abstract void amelioreStats();
 
     public void attaque() {
-        modeDeCiblage.attaque(degats,myForgeEffectImpact,myForgeAttaque);
+        modeDeCiblage.attaque(degats, myForgeEffetImpact, myForgeEntiteDommage);
         tempProchaineAttaque = Game.getGame().getNbFrameValue() + attaqueSpeed;
     }
 
