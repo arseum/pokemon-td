@@ -1,6 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage;
 
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage.EntiteDeDommage;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.EntiteAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeEntiteDommage;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
@@ -52,7 +52,7 @@ public abstract class ModeDeCiblage {
     //todo z renommer
     protected void lanceProjectile(ForgeEntiteDommage forgeEntiteDommage, ForgeEffetImpact forgeEffet, int degat, Ennemi e){
         //Game.getGame().ajouteProjectile(forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e));
-        EntiteDeDommage a = forgeEntiteDommage.genereAttaque(tourCible,forgeEffet,degat,e);
+        EntiteAttaque a = forgeEntiteDommage.genereAttaque(tourCible,forgeEffet,degat,e);
         a.traitementEntiteDommage();
     }
 }

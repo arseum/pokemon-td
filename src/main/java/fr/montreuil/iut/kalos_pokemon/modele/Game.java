@@ -1,8 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage.EntiteDeDommage;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage.Projectile;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.EntiteAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.GestionnaireVagues;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
@@ -24,7 +24,7 @@ public class Game {
     /**
      * contient tout les projectiles qui sont en train de se diriger vers un ennemie
      */
-    private final ObservableList<EntiteDeDommage> listProjectile;
+    private final ObservableList<EntiteAttaque> listProjectile;
 
     //todo z
     private final ObservableList<Projectile> listeVraiProjectile;
@@ -123,7 +123,7 @@ public class Game {
         return listTour;
     }
 
-    public ObservableList<EntiteDeDommage> getListProjectile() {
+    public ObservableList<EntiteAttaque> getListProjectile() {
         return listProjectile;
     }
 
@@ -134,7 +134,7 @@ public class Game {
     public void ajoutePokedollar(int value) {
         pokedollar.setValue(pokedollar.get() + value);
     }
-    public void ajouteProjectile(EntiteDeDommage a) {
+    public void ajouteProjectile(EntiteAttaque a) {
         listProjectile.add(a);
     }
     public void ajouteVraiProjectile(Projectile p){
@@ -170,7 +170,7 @@ public class Game {
         return (PokemonEnum.valueOf(nomTour).getPrix() <= this.pokedollar.get());
     }
 
-    public void remove(EntiteDeDommage p) {
+    public void remove(EntiteAttaque p) {
         listProjectile.remove(p);
     }
 

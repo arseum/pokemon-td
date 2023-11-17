@@ -1,4 +1,4 @@
-package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage;
+package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
@@ -9,13 +9,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
  * super-classe qui regroupe les differents type d'attaque des tours
  * est necessaire pour pouvoir donner un effet speciales a des attaques
  */
-public abstract class EntiteDeDommage {
+public abstract class EntiteAttaque {
     protected Tour tireur;
     protected ForgeEffetImpact forgeEffetImpact;
     protected double degats;
     protected final Ennemi cible;
 
-    public EntiteDeDommage(Tour tour, ForgeEffetImpact effetImpacts, double degats, Ennemi ennemi) {
+    public EntiteAttaque(Tour tour, ForgeEffetImpact effetImpacts, double degats, Ennemi ennemi) {
         this.tireur = tour;
         this.forgeEffetImpact = effetImpacts;
         this.degats = degats;
