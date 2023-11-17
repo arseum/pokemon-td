@@ -2,11 +2,11 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffetNull;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeProjectile;
-import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
-import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeTirEnContinue;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeEffetNull;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeProjectile;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblagePrioritaire;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
 
 public class NewGranivol extends Tour{
     public NewGranivol(int x, int y) {
@@ -14,8 +14,8 @@ public class NewGranivol extends Tour{
         super(160, 1, PokemonEnum.granivol.getType(),
                 PokemonEnum.granivol.getPrix(), x, y, PokemonEnum.granivol.name(),
                 6, new NullActif());
-        ModeAttaque modeAttaque = new ModeTirEnContinue( this);
-        setModeAttaque(modeAttaque);
+        ModeDeCiblage modeDeCiblage = new ModeCiblagePrioritaire( this);
+        setModeAttaque(modeDeCiblage);
         setMyForgeEffectImpact(new ForgeEffetNull(this));
         setMyForgeAttaque(new ForgeProjectile());
     }

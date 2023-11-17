@@ -1,13 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage.EntiteDeDommage;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.GestionnaireVagues;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.IntegerProperty;
@@ -25,7 +24,7 @@ public class Game {
     /**
      * contient tout les projectiles qui sont en train de se diriger vers un ennemie
      */
-    private final ObservableList<Attaque> listProjectile;
+    private final ObservableList<EntiteDeDommage> listProjectile;
 
     //todo z
     private final ObservableList<Projectile> listeVraiProjectile;
@@ -124,7 +123,7 @@ public class Game {
         return listTour;
     }
 
-    public ObservableList<Attaque> getListProjectile() {
+    public ObservableList<EntiteDeDommage> getListProjectile() {
         return listProjectile;
     }
 
@@ -135,7 +134,7 @@ public class Game {
     public void ajoutePokedollar(int value) {
         pokedollar.setValue(pokedollar.get() + value);
     }
-    public void ajouteProjectile(Attaque a) {
+    public void ajouteProjectile(EntiteDeDommage a) {
         listProjectile.add(a);
     }
     public void ajouteVraiProjectile(Projectile p){
@@ -171,7 +170,7 @@ public class Game {
         return (PokemonEnum.valueOf(nomTour).getPrix() <= this.pokedollar.get());
     }
 
-    public void remove(Attaque p) {
+    public void remove(EntiteDeDommage p) {
         listProjectile.remove(p);
     }
 

@@ -1,13 +1,11 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeRalentissement;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaqueDirect;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeProjectile;
-import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeAttaque;
-import fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque.ModeZone;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ImmobilisationZone;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAEffet.ForgeRalentissement;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeAProjectile.ForgeAttaqueDirect;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageZone;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
 
 public class NewMagneti extends Tour{
     public NewMagneti(int x, int y) {
@@ -24,8 +22,8 @@ public class NewMagneti extends Tour{
         setMyCompetence(new ImmobilisationZone(this,2));
 
          */
-        ModeAttaque modeAttaque = new ModeZone(this);
-        setModeAttaque(modeAttaque);
+        ModeDeCiblage modeDeCiblage = new ModeCiblageZone(this);
+        setModeAttaque(modeDeCiblage);
         setMyForgeEffectImpact(new ForgeRalentissement(this,20));
         setMyForgeAttaque(new ForgeAttaqueDirect());
     }

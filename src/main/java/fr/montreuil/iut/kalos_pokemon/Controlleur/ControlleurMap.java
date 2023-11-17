@@ -4,14 +4,12 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.TypeEffet;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.TypeEffet;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage.Projectile;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteDeDommage.ProjectileExplosif;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -347,7 +345,7 @@ public class ControlleurMap implements Initializable {
                 else if (c.wasRemoved())
                     for (Projectile a : c.getRemoved()) {
                         pane.getChildren().remove(pane.lookup("#" + a.getId()));
-                        if (a instanceof bouleDeFeu)
+                        if (a instanceof ProjectileExplosif)
                             creerExploxionSprite(a,"salameche_exploxion.gif");
                     }
             }
@@ -655,9 +653,9 @@ public class ControlleurMap implements Initializable {
     private void creerExploxionSprite(Projectile a, String nameFile) {
         ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));
 
-        if (a instanceof bouleDeFeu bouleDeFeu){
-            gifImageView.setFitHeight(bouleDeFeu.getRayonExploxion());
-            gifImageView.setFitWidth(bouleDeFeu.getRayonExploxion());
+        if (a instanceof ProjectileExplosif ProjectileExplosif){
+            gifImageView.setFitHeight(ProjectileExplosif.getRayonExploxion());
+            gifImageView.setFitWidth(ProjectileExplosif.getRayonExploxion());
         }
         gifImageView.setX(a.getX() - (gifImageView.getImage().getWidth() / 2) );
         gifImageView.setY(a.getY() - (gifImageView.getImage().getHeight() / 2) );
