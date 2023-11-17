@@ -22,12 +22,19 @@ public class NewNidoran extends Tour{
                 30, new NullActif());
 
 //        this.effetPoison = new EffetPoison(2, new Seconde(3), new Seconde(0.2), this);
+        /*
         ModeDeCiblage tirUniqueParEnnemi = new ModeCiblesUniques(this);
         setModeAttaque(tirUniqueParEnnemi);
 
-        setMyForgeEffectImpact(new ForgeEffetPoison(2, new Seconde(3),new Seconde(0.2),this));
+        setMyForgeEffectImpact(new ForgeEffetPoison(50, new Seconde(1),new Seconde(0.2),this));
         setMyForgeAttaque(new ForgeProjectileSimple());
         setMyCompetence(new SlowEnnemiEmpoissone(this));
+
+         */
+        ModeDeCiblage modeDeCiblage = new ModeCiblageAleatoire(this);
+        setModeAttaque(modeDeCiblage);
+        setMyForgeEffectImpact(new ForgeEffetPoison(50, new Seconde(1),new Seconde(0.2),this));
+        setMyForgeAttaque(new ForgeProjectileSimple());
     }
 
     @Override

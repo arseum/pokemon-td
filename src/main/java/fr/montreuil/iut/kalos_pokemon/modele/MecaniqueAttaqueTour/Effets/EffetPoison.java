@@ -41,6 +41,10 @@ public class EffetPoison extends EffetImpact {
     public void appliqueEffet(Ennemi ennemi) {
         ennemi.diminueHP(degatPoison);
         tireur.ajouteDegats(degatPoison);
+        System.out.print(Game.getGame().getListEnnemi().contains(ennemi));
+        System.out.print(" ,@appliqueEffet() " + ennemi + ", " + ennemi.getHp());
+        System.out.println("contien effec: " + ennemi.getEffetImpactObservableList().contains(this));
+        //System.out.println("reduction vitesse?" + ennemi);
         //System.out.println("efetposion");
     }
 

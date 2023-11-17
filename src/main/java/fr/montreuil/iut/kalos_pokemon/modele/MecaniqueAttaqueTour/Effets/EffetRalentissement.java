@@ -37,9 +37,13 @@ public class EffetRalentissement extends EffetImpact{
 
     @Override
     public void appliqueEffet(Ennemi ennemi) {
-        int reductionVitesse = ennemi.getVitesseMax() * tauxDeReductionVitesse;
+        //int reductionVitesse = ennemi.getVitesseMax() * tauxDeReductionVitesse;
+        int vitesseReduite = ennemi.getVitesseMax() * (100 - tauxDeReductionVitesse)/100;
         //ennemi.reduitVitese(reductionVitesse);
-        ennemi.setVitesseActuel(0);
+        ennemi.setVitesseActuel(vitesseReduite);
+        System.out.print(Game.getGame().getListEnnemi().contains(ennemi));
+        System.out.println(" ,@appliqueEffet() " + ennemi + ", " + ennemi.getVitesseActuel());
+        System.out.print("contien effec: " + ennemi.getEffetImpactObservableList().contains(this));
         //System.out.println("reduction vitesse?" + ennemi);
         this.aEteApplique = true;
     }

@@ -14,7 +14,7 @@ public class NewMagneti extends Tour{
 
         super(150, 0, PokemonEnum.magneti.getType(),
                 PokemonEnum.magneti.getPrix(), x, y, PokemonEnum.magneti.name(),
-                30, new NullActif());
+                200, new NullActif());
 
         /*
         ModeAttaque modeZone = new ModeZone( this);
@@ -26,7 +26,7 @@ public class NewMagneti extends Tour{
          */
         ModeDeCiblage modeDeCiblage = new ModeCiblageAleatoire(this);
         setModeAttaque(modeDeCiblage);
-        setMyForgeEffectImpact(new ForgeRalentissement(this,100, new Seconde(10)));
+        setMyForgeEffectImpact(new ForgeRalentissement(this,50, new Seconde(1)));
         setMyForgeAttaque(new ForgeProjectileSimple());
     }
 

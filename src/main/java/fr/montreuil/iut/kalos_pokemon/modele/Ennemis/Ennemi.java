@@ -101,7 +101,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
 
-    /*
+
     public void gereEffet() {
         EffetImpact effetImpact;
         ArrayList<EffetImpact> listeASup = new ArrayList<>();
@@ -111,7 +111,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         while (iterator.hasNext()) {
             Map.Entry<TypeEffet, EffetImpact> entry = iterator.next();
             effetImpact = entry.getValue();
-            System.out.println(effetImpact);
+            //System.out.println(effetImpact);
             if (effetImpact.peutEtreApplique(this)){
                 System.out.println("Je peux etre app");
                 effetImpact.appliqueEffet(this);
@@ -135,9 +135,9 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         }
     }
 
-     */
 
 
+/*
     public void gereEffet(){
         EffetImpact effetImpact;
         for (int i = (effetImpactObservableList.size() - 1); i >= 0; i--){
@@ -165,6 +165,11 @@ public abstract class Ennemi extends Pokemon implements Mobile {
             effetImpactObservableList.add(effetImpact);
     }
 
+ */
+
+    public ArrayList<EffetImpact> getEffetImpactObservableList() {
+        return effetImpactObservableList;
+    }
 
     public void setVitesseActuel(int v){
         this.vitesseActuel = v;
