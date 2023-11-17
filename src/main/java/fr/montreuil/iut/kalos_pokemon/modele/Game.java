@@ -1,12 +1,12 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.EntiteAttaque;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.GestionnaireVagues;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.IntegerProperty;
@@ -24,7 +24,10 @@ public class Game {
     /**
      * contient tout les projectiles qui sont en train de se diriger vers un ennemie
      */
-    private final ObservableList<Attaque> listProjectile;
+    private final ObservableList<EntiteAttaque> listProjectile;
+
+    //todo z
+    private final ObservableList<Projectile> listeVraiProjectile;
     /**
      * contient toutes les tours qui sont posé
      */
@@ -33,7 +36,7 @@ public class Game {
     private IntegerProperty nbFrame;
     private final IntegerProperty vie;
     private GestionnaireVagues vague;
-    private boolean bossVaincu;
+    private boolean bossVaincu = false;
     private static Game uniqueInstanceGame = null;
 
     private static String nomTerrain = null;
@@ -43,23 +46,26 @@ public class Game {
         listEnnemi = FXCollections.observableArrayList();
         listTour = FXCollections.observableArrayList();
         listProjectile = FXCollections.observableArrayList();
-        pokedollar = new SimpleIntegerProperty(Parametres.argentDepart);
+        pokedollar = new SimpleIntegerProperty(Parametres.argentDepartPourDev);
         nbFrame = new SimpleIntegerProperty(0);
         vie = new SimpleIntegerProperty(15);
         vague= new GestionnaireVagues(terrain);
         vague.nbFrameProperty().bind(nbFrame);
-        bossVaincu = false;
+
+        //todo Z
+        listeVraiProjectile = FXCollections.observableArrayList();
     }
 
-    /***
-     * GETTER / SETTER
-     */
-
+    /*
+    private Game() {
+        this("default");
+    }*/
     public GestionnaireVagues getVague() {
         return vague;
     }
 
-    //todo : à remodeler (il faut que l'unique accès soit getGame)
+    //todo mineur
+    // : à remodeler (il faut que l'unique accès soit getGame)
     public static Game getGame(String nomTerrain){
         if(uniqueInstanceGame == null){
             Game.nomTerrain = nomTerrain;
@@ -80,6 +86,7 @@ public class Game {
         nomTerrain = null;
     }
 
+
     public Terrain getTerrain() {
         return terrain;
     }
@@ -89,6 +96,9 @@ public class Game {
 
     public void setBossVaincu(boolean bossVaincu) {
         this.bossVaincu = bossVaincu;
+    }
+    public boolean bossEstVaincu() {
+        return bossVaincu;
     }
 
     public IntegerProperty vieProperty() {
@@ -113,23 +123,22 @@ public class Game {
         return listTour;
     }
 
-    public ObservableList<Attaque> getListProjectile() {
+    public ObservableList<EntiteAttaque> getListProjectile() {
         return listProjectile;
     }
+
     public IntegerProperty getNbFrame(){return  nbFrame;}
-
-    /***
-     * methode ajout (setter avancé)
-     */
-
     public void perdVie(int value) {
         vie.set(vie.get() - value);
     }
     public void ajoutePokedollar(int value) {
         pokedollar.setValue(pokedollar.get() + value);
     }
-    public void ajouteProjectile(Attaque a) {
+    public void ajouteProjectile(EntiteAttaque a) {
         listProjectile.add(a);
+    }
+    public void ajouteVraiProjectile(Projectile p){
+        listeVraiProjectile.add(p);
     }
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
@@ -139,44 +148,6 @@ public class Game {
             listTour.add(t);
             //t.setGame(this);
             pokedollar.set(pokedollar.get() - t.getPrix());
-        }
-    }
-
-    public void remove(Attaque p) {
-        listProjectile.remove(p);
-    }
-
-    public void remove(Ennemi e) {
-        listEnnemi.remove(e);
-    }
-
-    /***
-     * methode public
-     */
-
-    /**
-     * methode appelée a chaque frame
-     * utilisé notament pour les deplacements et la gestion des tours
-     */
-    public void uneFrame() {
-
-        deplacement(listProjectile);
-        deplacement(listEnnemi);
-        gestionTour();
-
-    }
-
-    public void vendreTour(Tour t){
-        this.listTour.remove(t);
-        if (t instanceof Magneti magneti)
-            magneti.vendre();
-        ajoutePokedollar(t.prixRevente());
-    }
-
-    public void ameliorerTour(Tour t){
-        if(peutEtreAmeliorer(t)){
-            ajoutePokedollar(-t.prixAmelioration());
-            t.levelUp();
         }
     }
 
@@ -199,23 +170,81 @@ public class Game {
         return (PokemonEnum.valueOf(nomTour).getPrix() <= this.pokedollar.get());
     }
 
+    public void remove(EntiteAttaque p) {
+        listProjectile.remove(p);
+    }
+
+    public void removeProjectile(Projectile p) {
+        listeVraiProjectile.remove(p);
+    }
+
+    public void remove(Ennemi e) {
+        listEnnemi.remove(e);
+    }
+
+    /**
+     * methode appelée a chaque frame
+     * utilisé notament pour les deplacements et la gestion des tours
+     */
+    public void uneFrame() {
+
+        //deplacement(listProjectile);
+        deplacementProjectile(listeVraiProjectile);
+        gestionTour();
+        gestionEnnemi();
+
+
+    }
+
+    private void gestionEnnemi() {
+
+        Ennemi e;
+
+        deplacement(listEnnemi);
+
+        for (int i = listEnnemi.size() - 1; i >= 0 ;i --){
+            e = listEnnemi.get(i);
+            if (e.isEstArrive())
+                listEnnemi.remove(e);
+            else
+                e.gereEffet();
+        }
+
+
+    }
+
     public Tour retourneTourAPartirId(String id){
         for (Tour t : this.listTour){
-            if(t.getId().equals(id))
-                return t;
+            if(t.getId().equals(id)) return t;
         }
         return null;
     }
 
-    /***
-     * methode private
+    /**
+     * supprime une tour de la liste et rajoute un peu d'argent en contre-partit
      */
+    public void vendreTour(Tour t){
+        this.listTour.remove(t);
+        ajoutePokedollar(t.prixRevente());
+    }
+
+    public void ameliorerTour(Tour t){
+        if(peutEtreAmeliorer(t)){
+            ajoutePokedollar(-t.prixAmelioration());
+            t.levelUp();
+        }
+    }
 
     private boolean peutEtreAmeliorer(Tour tour) {
         return this.pokedollar.getValue() - tour.prixAmelioration() >= 0 && tour.getLevel() < Parametres.niveauEvolutionTour;
     }
 
     private void deplacement(ObservableList<? extends Mobile> list){
+        for (int i = list.size() - 1; i >= 0; i--)
+            list.get(i).bouge();
+    }
+
+    private void deplacementProjectile(ObservableList<? extends Projectile> list){
         for (int i = list.size() - 1; i >= 0; i--)
             list.get(i).bouge();
     }
@@ -232,4 +261,7 @@ public class Game {
         return t.getX() / Parametres.tailleTuile == x / Parametres.tailleTuile && t.getY() / Parametres.tailleTuile == y / Parametres.tailleTuile;
     }
 
+    public ObservableList<Projectile> getListeVraiProjectile() {
+        return listeVraiProjectile;
+    }
 }

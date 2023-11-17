@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 
+
 public class Nidoran extends Tour {
 
     public Nidoran(int x, int y) {

@@ -2,21 +2,21 @@ package fr.montreuil.iut.kalos_pokemon.modele.Ennemis;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.Type;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetImpact;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.TypeEffet;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.BFS;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
 import fr.montreuil.iut.kalos_pokemon.modele.Pokemon;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
-
+import java.util.Set;
 
 public abstract class Ennemi extends Pokemon implements Mobile {
 
@@ -38,9 +38,9 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     private boolean estTerrestre;
     private int dureeStun;
     protected boolean estArrive;
-    protected ObservableList<EffetImpact> effetActif;
+    //HashMap pour empecher le stack d'effet du même type
+    protected ObservableMap<TypeEffet, EffetImpact> listeObsDesDifferentsTypeEffets;
 
-    //public Ennemi(int vitesseMax, int hp, String type, int x, int y, int recompense, String pokemon, Game game, boolean estTerrestre) {
     public Ennemi(int vitesseMax, int hp, Type type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
         super(pokemon,type,x,y);
         this.id = "Ennemi_n°" + compteurID;
@@ -56,12 +56,16 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         this.cheminVersArrive = BFS.getBFS(Game.getGame().getTerrain()).algoBFS(estTerrestre);
         this.estStun = false;
         this.estArrive = false;
-        this.effetActif = FXCollections.observableArrayList();;
+        this.listeObsDesDifferentsTypeEffets = FXCollections.observableHashMap();
+        //this.effetImpactObservableList = FXCollections.observableArrayList();
         setInfoDeplacement();
     }
+    public ObservableMap<TypeEffet, EffetImpact> getListeObsDesDifferentsTypeEffets(){
+        return this.listeObsDesDifferentsTypeEffets;
+    }
 
-    public ObservableList<EffetImpact> getEffetActif() {
-        return effetActif;
+    public boolean isEstArrive() {
+        return estArrive;
     }
 
     public void reduitVitese(int v) {
@@ -74,38 +78,73 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         return hp.get();
     }
 
-    public DoubleProperty hpProperty() {
-        return hp;
-    }
+    public DoubleProperty hpProperty() {return hp;}
 
     public double getHpMax() {
         return hpMax;
     }
 
 
-    public void ajouteEffet(EffetImpact e) {
-        //e.debutVie(this, game.getNbFrameValue());
-        e.debutVie(this, Game.getGame().getNbFrameValue());
-        effetActif.add(e);
+    public void removeEffet(EffetImpact e) {
+        listeObsDesDifferentsTypeEffets.remove(e.getTypeEffet());
     }
 
-    public void removeEffet(EffetImpact e) {
-        effetActif.remove(e);
+    public EffetImpact getEffectSelonType(TypeEffet typeEffet){
+        return listeObsDesDifferentsTypeEffets.get(typeEffet);
     }
+
+
 
     public void gereEffet() {
-        EffetImpact e;
-        for (int i = effetActif.size() - 1 ; i >= 0 ; i-- ) {
-            e = effetActif.get(i);
-            //if (e.peutEtreAppliquer(game.getNbFrameValue()))
-            if (e.peutEtreAppliquer(Game.getGame().getNbFrameValue()))
-                e.appliqueEffet();
-            if(e.finDeVie()) {
-                removeEffet(e);
-                e.fin();
+        EffetImpact effetImpact;
+
+        Set<Map.Entry<TypeEffet, EffetImpact>> set = listeObsDesDifferentsTypeEffets.entrySet();
+        Iterator<Map.Entry<TypeEffet, EffetImpact>> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<TypeEffet, EffetImpact> entry = iterator.next();
+            effetImpact = entry.getValue();
+            if (effetImpact.peutEtreApplique(this)){
+                effetImpact.appliqueEffet(this);
+            }
+            if (effetImpact.finEffet(this)) {
+                iterator.remove();
             }
         }
 
+    }
+
+    public void ajouteEffet(EffetImpact effetImpact) {
+        TypeEffet typeEffet = effetImpact.getTypeEffet();
+        listeObsDesDifferentsTypeEffets.put(typeEffet,effetImpact);
+    }
+
+    public boolean effetPeutEtreAjoute(EffetImpact effetImpact){
+        if(listeObsDesDifferentsTypeEffets.containsKey(effetImpact.getTypeEffet())){
+            switch (effetImpact.getTypeEffet()){
+                case Null -> {
+                    return true;
+                }
+                case Ralentissement -> {
+                    //Si le nouveau ralentissement à un taux de reduction de vitesse supérieur à 90%
+                    //et est supérieur à l'ancien, il le remplace
+                    if(effetImpact.getPuissanceEffet() > 90 && effetImpact.getPuissanceEffet() > listeObsDesDifferentsTypeEffets.get(TypeEffet.Ralentissement).getPuissanceEffet())
+                        return true;
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+    public void setVitesseActuel(int v){
+        this.vitesseActuel = v;
+    }
+
+    public boolean estAffecterParEffet(TypeEffet typeEffet){
+        return listeObsDesDifferentsTypeEffets.containsKey(typeEffet);
     }
 
     public void reduitVitesseMax(int value){
@@ -128,14 +167,10 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
     public void bouge() {
-
-        gereEffet();
-
         if (estStun)
             attendre();
         else
             deplacement();
-
     }
 
     /**
@@ -167,9 +202,13 @@ public abstract class Ennemi extends Pokemon implements Mobile {
             setInfoDeplacement();
         }
 
-        if (estArrive()){
+        //if (infoDeplacement[2]/32 == game.getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == game.getTerrain().getCaseArrivee()[1]/32){
+        if (infoDeplacement[2]/32 == Game.getGame().getTerrain().getCaseArrivee()[0]/32 && infoDeplacement[3]/32 == Game.getGame().getTerrain().getCaseArrivee()[1]/32){
+            //game.remove(this);
+            //game.perdVie(1);
             Game.getGame().remove(this);
             Game.getGame().perdVie(1);
+            estArrive = true;
         }
     }
 
@@ -192,16 +231,11 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         this.dureeStun = dureeStun;
     }
 
-    public boolean containtEffect(EffetImpact effet) {
-        for (EffetImpact e : effetActif)
-            if (e.getClass() == effet.getClass())
-                return true;
-        return false;
+    public int getVitesseMax() {
+        return vitesseMax;
     }
 
-    private boolean estArrive(){
-        return infoDeplacement[2]/32 == Game.getGame().getTerrain().getCaseArrivee()[0]/32 &&
-                infoDeplacement[3]/32 == Game.getGame().getTerrain().getCaseArrivee()[1]/32;
+    public int getVitesseActuel() {
+        return vitesseActuel;
     }
-
 }

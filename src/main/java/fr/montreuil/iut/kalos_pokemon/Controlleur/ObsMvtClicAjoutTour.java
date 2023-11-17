@@ -1,10 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
-import fr.montreuil.iut.kalos_pokemon.Donne.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
@@ -79,26 +77,41 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
             }
         }
         if (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED) {
+            //todo mineur
+            // il faudrait faire une classe pour les division et tout le tralala
             int x = divisionEuclidienne(xTour.get() - Parametres.tailleTourX / 2);
             int y = divisionEuclidienne(yTour.get() - Parametres.tailleTourY / 2);
             if (this.obsClic.estSelectionnee.getValue() && estPlacable(x, y)) {
-                //TODO forge pour les tours
+                //todo mineur
+                // forge pour les tours
                 if (this.obsClic.tourSelectionnee.equals("poussifeu")) {
-                    Poussifeu p = new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
-                    game.ajouteTour(p);
+                    //Poussifeu p = new Poussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    //TourZonePoison p = new TourZonePoison(200, 3, Type.neutre.name(), 40, x*Parametres.tailleTuile, y*Parametres.tailleTuile,"poussifeu", 400, new NullActif());
+                    NewPoussifeu poussifeu = new NewPoussifeu(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    game.ajouteTour(poussifeu);
                 } else if (this.obsClic.tourSelectionnee.equals("salameche")) {
-                    game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+//                    TourTirUniquePoison s = new TourTirUniquePoison(200, 3, Type.neutre.name(), 40, x*Parametres.tailleTuile, y*Parametres.tailleTuile,"salameche", 4, new NullActif());
+                    //game.ajouteTour(new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    Salameche s = new Salameche(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    game.ajouteTour(s);
                 } else if (this.obsClic.tourSelectionnee.equals("magneti")) {
-                    game.ajouteTour(new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    //TourTirContinueSimple m = new TourTirContinueSimple(200, 4, Type.neutre.name(), 40,x*Parametres.tailleTuile,y*Parametres.tailleTuile,"magneti", 300,new NullActif());
+                    //game.ajouteTour(m);
+                    NewMagneti magneti = new NewMagneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    game.ajouteTour(magneti);
                 } else if (this.obsClic.tourSelectionnee.equals("nidoran")) {
-                    game.ajouteTour(new TourPoison(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile),2,new Seconde(5)));
+                    NewNidoran nidoran = new NewNidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    game.ajouteTour(nidoran);
+                    //game.ajouteTour(new TourPoison(new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile),2,new Seconde(5)));
                 } else if (this.obsClic.tourSelectionnee.equals("grenousse")) {
                     game.ajouteTour(new Grenousse(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }/*
                 else if (this.obsClic.tourSelectionnee.equals("electrode")) {
                     game.ajouteTour(new Electrode(x * Parametres.tailleTuile, y * Parametres.tailleTuile, game));
                 }*/ else if (this.obsClic.tourSelectionnee.equals("granivol")) {
-                    game.ajouteTour(new Granivol(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
+                    NewGranivol granivol = new NewGranivol(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
+                    game.ajouteTour(granivol);
+                    //game.ajouteTour(new Granivol(x * Parametres.tailleTuile, y * Parametres.tailleTuile));
                 }
                 this.obsClic.supprimeImage();
                 //this.obsClic.estSelectionnee = false;

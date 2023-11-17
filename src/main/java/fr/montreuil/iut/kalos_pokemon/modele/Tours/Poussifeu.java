@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.NullActif;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
 
 public class Poussifeu extends Tour {
     public Poussifeu(int x, int y) {

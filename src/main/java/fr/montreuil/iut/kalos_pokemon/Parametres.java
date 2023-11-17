@@ -199,4 +199,10 @@ public class Parametres {
         return (int) Math.sqrt((super_x * super_x) + (super_y * super_y));
     }
 
+    public static int distance(int x1, int y1, int x2, int y2){
+        int delta_x = Math.abs(x1 - x2);
+        int delta_y = Math.abs(y1 - y2);
+        return (int) Math.sqrt((delta_x * delta_x) + (delta_y * delta_y));
+    }
+
 }

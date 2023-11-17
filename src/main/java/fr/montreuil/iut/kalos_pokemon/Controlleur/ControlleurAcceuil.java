@@ -53,7 +53,8 @@ public class ControlleurAcceuil implements Initializable {
     }
 
     private void changeScene() throws IOException {
-        //todo : à voir si reset bfs et game separe
+        //todo mineur
+        // A voir si reset bfs et game separe
         //Peut etre que bfs sera un attribut
         BFS.resetBFS();
         Game.resetGame();

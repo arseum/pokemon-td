@@ -1,7 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Vue;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.Projectile;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
@@ -13,7 +13,9 @@ public class TirSprite {
     private int idImage;
 
 
-    public TirSprite(Attaque a) {
+    //todo z
+    //public TirSprite(Attaque a) {
+    public TirSprite(Projectile a) {
         idImage = 0;
         //a.getTireur().
 
