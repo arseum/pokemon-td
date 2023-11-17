@@ -34,9 +34,9 @@ public class EffetRalentissementDeZone extends EffetImpact{
 
     @Override
     public void appliqueEffet(Ennemi ennemi) {
-        System.out.print(ennemi.getVitesseActuel());
+        //System.out.print(ennemi.getVitesseActuel());
         ennemi.reduitVitese(this.reductionVitesse);
-        System.out.println(", " + ennemi.getVitesseActuel());
+        //System.out.println(", " + ennemi.getVitesseActuel());
     }
     @Override
     public boolean finDeVie(Ennemi ennemi) {

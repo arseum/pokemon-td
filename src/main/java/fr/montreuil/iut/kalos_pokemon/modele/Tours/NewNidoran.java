@@ -37,7 +37,7 @@ public class NewNidoran extends Tour{
 //            portee.set(portee.get()+400);
             setModeAttaque(new ModeCiblageZone(this));
             setMyForgeAttaque(new ForgeProjectileSimpleExplosif(100));
-            setMyForgeEffectImpact(new ForgeEffetPoison(5,new Seconde(2),new Seconde(0.1),this));
+            setMyForgeEffectImpact(new ForgeEffetPoison(50,new Seconde(2),new Seconde(0.1),this));
             degats = 0;
             attaqueSpeed = 110;
 //            ModeAttaque zone = new ModeZone(this.effetPoison, this);

@@ -40,7 +40,7 @@ public class EffetRalentissement extends EffetImpact{
         int reductionVitesse = ennemi.getVitesseMax() * tauxDeReductionVitesse;
         //ennemi.reduitVitese(reductionVitesse);
         ennemi.setVitesseActuel(0);
-        System.out.println("reduction vitesse?" + ennemi);
+        //System.out.println("reduction vitesse?" + ennemi);
         this.aEteApplique = true;
     }
 

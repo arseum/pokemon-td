@@ -41,7 +41,7 @@ public class EffetPoison extends EffetImpact {
     public void appliqueEffet(Ennemi ennemi) {
         ennemi.diminueHP(degatPoison);
         tireur.ajouteDegats(degatPoison);
-        System.out.println("efetposion");
+        //System.out.println("efetposion");
     }
 
     @Override

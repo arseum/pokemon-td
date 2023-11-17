@@ -93,7 +93,6 @@ public class ControlleurMap implements Initializable {
         //game = new Game(Parametres.map);
         //Game.resetGame();
         game = Game.getGame(Parametres.map);
-        System.out.println(game);
         //Parametre - > String map, set map
         terrainVue = new TerrainVue();
         frame = new SimpleIntegerProperty(0);

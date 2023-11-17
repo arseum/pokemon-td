@@ -20,9 +20,7 @@ public class ForgeRalentissement implements ForgeEffetImpact {
     /** methode public */
     @Override
     public EffetImpact genereEffect() {
-        EffetImpact e = new EffetRalentissement(tireur, tauxDeReductionVitesse, dureeDeRalentissement);
-        System.out.println(e);
-        return e;
+        return new EffetRalentissement(tireur, tauxDeReductionVitesse, dureeDeRalentissement);
     }
 
 }
