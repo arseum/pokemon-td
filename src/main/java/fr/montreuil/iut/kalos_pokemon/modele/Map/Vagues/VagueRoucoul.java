@@ -27,8 +27,13 @@ public class VagueRoucoul extends VagueMono{
         //return (int)(Math.random() * terrain.getHauteurTerrain()/ Parametres.tailleTuile);
     }
 
+    //modif
     @Override
-    public Boolean peutTuMeDonnerUnEnnemi(int frameActuelle) {return frameActuelle%frequence==0; }
+    public Boolean peutTuMeDonnerUnEnnemi(int frameActuelle) {
+        //todo A ENELVER
+        //return frameActuelle%frequence==0;
+        return frameActuelle==0;
+    }
 
     @Override
     public Ennemi genereennemi(int[] caseDepart) {

@@ -45,7 +45,7 @@ public class NewNidoran extends Tour{
         }
         else{
             setModeAttaque(new ModeCiblageAleatoire(this));
-            setMyForgeEffectImpact(new ForgeRalentissement(this,3));
+            setMyForgeEffectImpact(new ForgeRalentissement(this,100, new Seconde(2)));
             setMyForgeAttaque(new ForgeEntiteDommageInstantane());
             degats = 45;
             attaqueSpeed = 60;
