@@ -8,11 +8,19 @@ import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
  * une attaque dite 'direct' est une attaque ciblé qui touche l'ennemie directement
  * il n'y pas un temp de mouvement contrairement au projectile
  */
-public class AttaqueDirect extends AttaqueCible{
-    public AttaqueDirect(Tour tour, ForgeEffectImpact effetImpacts,
-                         double degats, Ennemi cible) {
+public class AttaqueDirect extends Attaque{
+    public AttaqueDirect(Tour tour, ForgeEffectImpact effetImpacts, double degats, Ennemi cible) {
         super(tour, effetImpacts, degats, cible);
+    }
+
+    @Override
+    public void traitementEntiteDommage() {
         toucheCible();
+    }
+
+    @Override
+    public void finEntiteDommage() {
+        //Enlevé par ramasse miette
     }
 
 }

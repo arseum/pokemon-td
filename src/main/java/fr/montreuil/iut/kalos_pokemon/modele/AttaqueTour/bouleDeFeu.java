@@ -4,6 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Objet;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class bouleDeFeu extends Projectile {
     }
     @Override
     protected boolean estToucherParExplotion(Ennemi e){
-        return Parametres.distance(this,e) <= rayonExploxion && e.getHp() > 0;
+        //return Parametres.distance((Objet) this,e) <= rayonExploxion && e.getHp() > 0;
+        return distanceIci() <= rayonExploxion && e.getHp() > 0;
     }
 }

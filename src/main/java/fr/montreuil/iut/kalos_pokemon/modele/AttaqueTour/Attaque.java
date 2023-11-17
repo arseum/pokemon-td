@@ -3,6 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Game;
 import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 import javafx.beans.property.BooleanProperty;
@@ -15,79 +16,59 @@ import javafx.beans.property.SimpleIntegerProperty;
  * super-classe qui regroupe les differents type d'attaque des tours
  * est necessaire pour pouvoir donner un effet speciales a des attaques
  */
-public abstract class Attaque implements Mobile {
-    private static int compteur = 1;
-    private final String id;
+public abstract class Attaque {
     protected Tour tireur;
-    protected IntegerProperty x;
-    protected IntegerProperty y;
-    /**
-     * boolean qui permet de signaler a la vue que l'attaque se deplace
-     * il aurait pu etre remplacer par un listener qui ecoute le y et x de l'attaque mais
-     * cela est plus 'simple' de rajouter un boleanProperty
-     */
-    protected BooleanProperty bouge;
     protected ForgeEffectImpact forgeEffectImpact;
-
     protected double degats;
+    protected final Ennemi cible;
 
-    public Attaque(Tour tour, ForgeEffectImpact effetImpacts, double degats) {
-    //public Attaque(Tour tour, Game game, ArrayList<EffetImpact> effetImpacts) {
+    public Attaque(Tour tour, ForgeEffectImpact effetImpacts, double degats, Ennemi ennemi) {
         this.tireur = tour;
-        this.id = "Tir_n°" + compteur;
-        compteur++;
-        this.bouge = new SimpleBooleanProperty(false);
-
-        x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
-        y = new SimpleIntegerProperty(tour.getY() + 22 - Parametres.offsetYTour);
         this.forgeEffectImpact = effetImpacts;
         this.degats = degats;
+        this.cible = ennemi;
     }
 
+    protected double getDegatsFinale(Ennemi cible) {
+        return tireur.getType().calculDegats(cible.getType(), degats);
+    }
+
+    //Attaque cible
     /*
-    public Attaque(Tour tour) {
-        //this(tour, game,null);
-        this(tour,null);
-        this.effetImpacts = new ArrayList<>();
+    public AttaqueCible(Tour tour, ForgeEffectImpact effetImpacts,
+                        double degats, Ennemi cible) {
+        super(tour, effetImpacts, degats);
+        this.cible = cible;
+    }*/
+    protected void toucheCible() {
+        double degatsReel = getDegatsFinale(cible);
+        explotionTir(degatsReel);
+        //todo z a sup (pas bien)
+        finEntiteDommage();
     }
 
-     */
-    public BooleanProperty bougeProperty() {
-        return bouge;
+    protected void explotionTir(double degatsReel) {
+        affecteSiPossible(cible, degatsReel);
+    }
+
+    protected boolean estToucherParExplotion(Ennemi e) {
+        return e.getHp() > 0;
+    }
+
+    protected void affecteSiPossible(Ennemi e, double degatsReel) {
+        if (estToucherParExplotion(e)) {
+            e.diminueHP(degatsReel);
+            tireur.ajouteDegats(degatsReel);
+            e.ajouteEffet(this.forgeEffectImpact.genereEffect());
+        }
     }
 
     public Tour getTireur() {
         return tireur;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public int getX() {
-        return x.get();
-    }
-
-    public IntegerProperty xProperty() {
-        return x;
-    }
-
-    public int getY() {
-        return y.get();
-    }
-
-    public IntegerProperty yProperty() {
-        return y;
-    }
-
-    public void bouge(){
-        //permet de faire bouger la vue
-        bouge.set(true);
-        bouge.set(false);
-    }
-
-    protected double getDegatsFinale(Ennemi cible){
-        return tireur.getType().calculDegats(cible.getType(),degats);
-    }
+    //todo Z : nom var
+    public abstract void traitementEntiteDommage();
+    public abstract void finEntiteDommage();
 
 }

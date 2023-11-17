@@ -306,7 +306,9 @@ public class ControlleurMap implements Initializable {
         });
         game.getListTour().addListener(listenTour);
 
+
         //de meme pour les projectiles
+        /*
         ListChangeListener<Attaque> listenProjectiles = (c -> {
             while (c.next()) {
                 if (c.wasAdded())
@@ -328,6 +330,30 @@ public class ControlleurMap implements Initializable {
             }
         });
         game.getListProjectile().addListener(listenProjectiles);
+
+         */
+        ListChangeListener<Projectile> listenProjectiles = (c -> {
+            while (c.next()) {
+                if (c.wasAdded())
+                    for (Projectile a : c.getAddedSubList()) {
+                        if (a instanceof Projectile) {
+                            try {
+                                creerTirSprite(a);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                else if (c.wasRemoved())
+                    for (Projectile a : c.getRemoved()) {
+                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        if (a instanceof bouleDeFeu)
+                            creerExploxionSprite(a,"salameche_exploxion.gif");
+                    }
+            }
+        });
+        //game.getListProjectile().addListener(listenProjectiles);
+        game.getListeVraiProjectile().addListener(listenProjectiles);
     }
 
     private void bindProprietesPourEncartTour(ObsClicSurTour clicSurTour){
@@ -453,7 +479,9 @@ public class ControlleurMap implements Initializable {
 
     }
 
-    private void creerTirSprite(Attaque a) throws IOException {
+    //todo Z
+    /*
+    private void creerTirSprite(Ennemi a) throws IOException {
         TirSprite sprite = new TirSprite(a);
 //        if (a instanceof Zone zone) {
 //            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
@@ -465,6 +493,33 @@ public class ControlleurMap implements Initializable {
 //        } else {
             sprite.getHitBox().xProperty().bind(a.xProperty());
             sprite.getHitBox().yProperty().bind(a.yProperty());
+//        }
+        a.bougeProperty().addListener((observableValue, aBoolean, nouvelleValeur) -> {
+            if (nouvelleValeur) {
+                try {
+                    sprite.updateImage();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        pane.getChildren().add(sprite.getHitBox());
+    }
+
+     */
+
+    private void creerTirSprite(Projectile a) throws IOException {
+        TirSprite sprite = new TirSprite(a);
+//        if (a instanceof Zone zone) {
+//            sprite.getHitBox().fitHeightProperty().bind(zone.rangeProperty().multiply(2));
+//            sprite.getHitBox().fitWidthProperty().bind(zone.rangeProperty().multiply(2));
+//            sprite.getHitBox().visibleProperty().bind(zone.actifProperty());
+//            sprite.getHitBox().xProperty().bind(sprite.getHitBox().fitHeightProperty().divide(2).multiply(-1).add(a.xProperty()));
+//            sprite.getHitBox().yProperty().bind(sprite.getHitBox().fitWidthProperty().divide(2).multiply(-1).add(a.yProperty()));
+//            sprite.getHitBox().getStyleClass().add("magneti_zone");
+//        } else {
+        sprite.getHitBox().xProperty().bind(a.xProperty());
+        sprite.getHitBox().yProperty().bind(a.yProperty());
 //        }
         a.bougeProperty().addListener((observableValue, aBoolean, nouvelleValeur) -> {
             if (nouvelleValeur) {
@@ -595,7 +650,9 @@ public class ControlleurMap implements Initializable {
 
         return non;
     }
-    private void creerExploxionSprite(Objet a, String nameFile) {
+    //todo z
+    //private void creerExploxionSprite(Objet a, String nameFile) {
+    private void creerExploxionSprite(Projectile a, String nameFile) {
         ImageView gifImageView = new ImageView(new Image("file:" + Parametres.cheminTirSprite + nameFile));
 
         if (a instanceof bouleDeFeu bouleDeFeu){

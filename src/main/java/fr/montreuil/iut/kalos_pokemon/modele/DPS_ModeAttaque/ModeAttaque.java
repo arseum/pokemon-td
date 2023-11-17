@@ -1,5 +1,6 @@
 package fr.montreuil.iut.kalos_pokemon.modele.DPS_ModeAttaque;
 
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAEffet.ForgeEffectImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeAttaque;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.ForgeAProjectile.ForgeProjectile;
@@ -50,6 +51,8 @@ public abstract class ModeAttaque {
     }
 
     protected void lanceProjectile(ForgeAttaque forgeAttaque,ForgeEffectImpact forgeEffet, int degat,Ennemi e){
-        Game.getGame().ajouteProjectile(forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e));
+        //Game.getGame().ajouteProjectile(forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e));
+        Attaque a = forgeAttaque.genereAttaque(tourCible,forgeEffet,degat,e);
+        a.traitementEntiteDommage();
     }
 }

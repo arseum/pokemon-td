@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Projectile;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.GestionnaireVagues;
 import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
@@ -25,6 +26,9 @@ public class Game {
      * contient tout les projectiles qui sont en train de se diriger vers un ennemie
      */
     private final ObservableList<Attaque> listProjectile;
+
+    //todo z
+    private final ObservableList<Projectile> listeVraiProjectile;
     /**
      * contient toutes les tours qui sont posé
      */
@@ -48,6 +52,9 @@ public class Game {
         vie = new SimpleIntegerProperty(15);
         vague= new GestionnaireVagues(terrain);
         vague.nbFrameProperty().bind(nbFrame);
+
+        //todo Z
+        listeVraiProjectile = FXCollections.observableArrayList();
     }
 
     /*
@@ -131,6 +138,9 @@ public class Game {
     public void ajouteProjectile(Attaque a) {
         listProjectile.add(a);
     }
+    public void ajouteVraiProjectile(Projectile p){
+        listeVraiProjectile.add(p);
+    }
     public void ajouteEnnemi(Ennemi e) {
         this.listEnnemi.add(e);
     }
@@ -165,6 +175,10 @@ public class Game {
         listProjectile.remove(p);
     }
 
+    public void removeProjectile(Projectile p) {
+        listeVraiProjectile.remove(p);
+    }
+
     public void remove(Ennemi e) {
         listEnnemi.remove(e);
     }
@@ -175,7 +189,8 @@ public class Game {
      */
     public void uneFrame() {
 
-        deplacement(listProjectile);
+        //deplacement(listProjectile);
+        deplacementProjectile(listeVraiProjectile);
         gestionTour();
         gestionEnnemi();
 
@@ -230,6 +245,11 @@ public class Game {
             list.get(i).bouge();
     }
 
+    private void deplacementProjectile(ObservableList<? extends Projectile> list){
+        for (int i = list.size() - 1; i >= 0; i--)
+            list.get(i).bouge();
+    }
+
     private void gestionTour() {
         for (Tour t : listTour) {
             if (getNbFrameValue() >= t.getTempProchaineAttaque())
@@ -242,4 +262,7 @@ public class Game {
         return t.getX() / Parametres.tailleTuile == x / Parametres.tailleTuile && t.getY() / Parametres.tailleTuile == y / Parametres.tailleTuile;
     }
 
+    public ObservableList<Projectile> getListeVraiProjectile() {
+        return listeVraiProjectile;
+    }
 }
