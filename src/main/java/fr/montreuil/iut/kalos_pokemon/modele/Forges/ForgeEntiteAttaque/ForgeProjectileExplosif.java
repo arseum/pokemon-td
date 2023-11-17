@@ -6,10 +6,10 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.EntiteAttaque.
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-public class ForgeProjectileSimpleExplosif extends ForgeProjectileSimple {
+public class ForgeProjectileExplosif extends ForgeProjectileSimple {
     private int rayon;
 
-    public ForgeProjectileSimpleExplosif(int rayon) {
+    public ForgeProjectileExplosif(int rayon) {
         this.rayon = rayon;
     }
 

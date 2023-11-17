@@ -2,9 +2,8 @@ package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donne.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetNull;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimpleExplosif;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileExplosif;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageAleatoire;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.ExplosionAutourTour;
 
 public class Salameche extends Tour {
 
@@ -15,7 +14,7 @@ public class Salameche extends Tour {
         //todo a faire
         //setMyCompetence(new ExplosionAutourTour(this,150,new ForgeEffetNull(this)));
         setModeAttaque(new ModeCiblageAleatoire(this));
-        setMyForgeAttaque(new ForgeProjectileSimpleExplosif(57));
+        setMyForgeAttaque(new ForgeProjectileExplosif(57));
         setMyForgeEffectImpact(new ForgeEffetNull(this));
     }
 
