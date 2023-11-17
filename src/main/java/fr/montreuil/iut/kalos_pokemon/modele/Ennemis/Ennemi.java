@@ -14,7 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class Ennemi extends Pokemon implements Mobile {
 
@@ -97,7 +99,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
 
-/*
+
     public void gereEffet() {
         EffetImpact effetImpact;
         ArrayList<EffetImpact> listeASup = new ArrayList<>();
@@ -112,7 +114,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
                 System.out.println("Je peux etre app");
                 effetImpact.appliqueEffet(this);
             }
-            if (effetImpact.finDeVie(this)) {
+            if (effetImpact.finEffet(this)) {
                 iterator.remove();
                 listeASup.add(entry.getValue());
             }
@@ -121,7 +123,6 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
     public void ajouteEffet(EffetImpact effetImpact) {
-        effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
         TypeEffet typeEffet = effetImpact.getTypeEffet();
 
         if(listeObsDesDifferentsTypeEffets.containsKey(typeEffet)){
@@ -131,9 +132,9 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         }
     }
 
-*/
 
 
+/*
     public void gereEffet(){
         EffetImpact effetImpact;
         for (int i = (effetImpactObservableList.size() - 1); i >= 0; i--){
@@ -162,7 +163,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
             //effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
         }
     }
-
+*/
 
 
     public ArrayList<EffetImpact> getEffetImpactObservableList() {

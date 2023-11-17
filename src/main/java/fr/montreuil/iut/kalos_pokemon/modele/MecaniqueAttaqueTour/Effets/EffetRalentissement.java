@@ -27,24 +27,16 @@ public class EffetRalentissement extends EffetImpact{
 
     @Override
     public boolean peutEtreApplique(Ennemi ennemi) {
-        //System.out.println("val : " + aEteApplique);
         if(this.aEteApplique == false){
             return true;
         }
         return false;
-        //return !this.aEteApplique;
     }
 
     @Override
     public void appliqueEffet(Ennemi ennemi) {
-        //int reductionVitesse = ennemi.getVitesseMax() * tauxDeReductionVitesse;
         int vitesseReduite = ennemi.getVitesseMax() * (100 - tauxDeReductionVitesse)/100;
-        //ennemi.reduitVitese(reductionVitesse);
         ennemi.setVitesseActuel(vitesseReduite);
-        System.out.print(Game.getGame().getListEnnemi().contains(ennemi));
-        System.out.println(" ,@appliqueEffet() " + ennemi + ", " + ennemi.getVitesseActuel());
-        System.out.print("contien effec: " + ennemi.getEffetImpactObservableList().contains(this));
-        //System.out.println("reduction vitesse?" + ennemi);
         this.aEteApplique = true;
     }
 
@@ -55,6 +47,5 @@ public class EffetRalentissement extends EffetImpact{
             ennemi.setVitesseActuel(ennemi.getVitesseMax());
         }
         return finEffet;
-        //return ennemi != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + dureeDeRalentissement.getTempFrameDouble();
     }
 }

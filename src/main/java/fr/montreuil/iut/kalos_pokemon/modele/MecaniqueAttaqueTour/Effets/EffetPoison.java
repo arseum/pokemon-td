@@ -21,10 +21,6 @@ public class EffetPoison extends EffetImpact {
         this.frequencePoison = frequencePoison;
     }
 
-    public EffetPoison generateEffect(){
-        return new EffetPoison(degatPoison,dureePoison,frequencePoison,tireur);
-    }
-
     @Override
     public void initEffetType() {
         this.typeEffet = TypeEffet.Poison;
@@ -32,7 +28,6 @@ public class EffetPoison extends EffetImpact {
 
     @Override
     public boolean peutEtreApplique(Ennemi ennemi) {
-        //return (frameDebutDeVie - victime.getGame().getNbFrameValue() ) % tic.getTempFrameDouble() == 0 ;
         return (frameDebutDeVie - Game.getGame().getNbFrameValue()) % frequencePoison.getTempFrameDouble() == 0;
 
     }
@@ -41,16 +36,10 @@ public class EffetPoison extends EffetImpact {
     public void appliqueEffet(Ennemi ennemi) {
         ennemi.diminueHP(degatPoison);
         tireur.ajouteDegats(degatPoison);
-        System.out.print(Game.getGame().getListEnnemi().contains(ennemi));
-        System.out.print(" ,@appliqueEffet() " + ennemi + ", " + ennemi.getHp());
-        System.out.println("contien effec: " + ennemi.getEffetImpactObservableList().contains(this));
-        //System.out.println("reduction vitesse?" + ennemi);
-        //System.out.println("efetposion");
     }
 
     @Override
     public boolean finEffet(Ennemi ennemi) {
-        //return victime != null && victime.getGame().getNbFrameValue() > frameDebutDeVie + duree.getTempFrameDouble();
         return ennemi != null && Game.getGame().getNbFrameValue() > frameDebutDeVie + dureePoison.getTempFrameDouble();
     }
 
