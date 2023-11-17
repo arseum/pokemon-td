@@ -101,7 +101,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
 
-
+/*
     public void gereEffet() {
         EffetImpact effetImpact;
         ArrayList<EffetImpact> listeASup = new ArrayList<>();
@@ -135,9 +135,9 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         }
     }
 
+*/
 
 
-/*
     public void gereEffet(){
         EffetImpact effetImpact;
         for (int i = (effetImpactObservableList.size() - 1); i >= 0; i--){
@@ -161,11 +161,13 @@ public abstract class Ennemi extends Pokemon implements Mobile {
                 peutEtreAjoute = false;
             }
         }
-        if(peutEtreAjoute)
+        if(peutEtreAjoute){
             effetImpactObservableList.add(effetImpact);
+            effetImpact.debutVie(this, Game.getGame().getNbFrameValue());
+        }
     }
 
- */
+
 
     public ArrayList<EffetImpact> getEffetImpactObservableList() {
         return effetImpactObservableList;
