@@ -11,7 +11,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.
 public class Salameche extends Tour {
 
     public Salameche(int x, int y) {
-        super(100, 60, PokemonEnum.salameche.getType(), PokemonEnum.salameche.getPrix(),
+        super(100, 15, PokemonEnum.salameche.getType(), PokemonEnum.salameche.getPrix(),
                 x, y, PokemonEnum.salameche.name(), 50, new CompetenceNull());
         setModeCiblage(new ModeCiblageAleatoire(this));
         setMyForgeEntiteAttaque(new ForgeProjectileSimple());
