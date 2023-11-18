@@ -11,7 +11,7 @@ public class ForgeEffetPoison implements ForgeEffetImpact {
     private Seconde frequencePoison;
     private final Tour tireur;
 
-    public ForgeEffetPoison(int degatPoison, Seconde dureePoison, Seconde frequencePoison, Tour tireur) {
+    public ForgeEffetPoison(Tour tireur,int degatPoison, Seconde dureePoison, Seconde frequencePoison ) {
         this.degatPoison = degatPoison;
         this.dureePoison = dureePoison;
         this.frequencePoison = frequencePoison;

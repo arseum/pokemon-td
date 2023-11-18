@@ -24,7 +24,7 @@ public abstract class Tour extends Pokemon implements Objet {
     protected int tempProchaineAttaque;
     protected Competence myCompetence;
     protected ModeDeCiblage modeDeCiblage;
-    private ForgeEffetImpact myForgeEffetImpact;
+    protected ForgeEffetImpact myForgeEffetImpact;
     private ForgeEntiteAttaque myForgeEntiteAttaque;
 
     public Tour(int portee, int degats, Type type, int prix, int x, int y, String pokemon,
