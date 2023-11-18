@@ -15,9 +15,9 @@ public class NewGranivol extends Tour{
                 PokemonEnum.granivol.getPrix(), x, y, PokemonEnum.granivol.name(),
                 6, new NullActif());
         ModeDeCiblage modeDeCiblage = new ModeCiblagePrioritaire( this);
-        setModeAttaque(modeDeCiblage);
+        setModeCiblage(modeDeCiblage);
         setMyForgeEffectImpact(new ForgeEffetNull(this));
-        setMyForgeAttaque(new ForgeProjectileSimple());
+        setMyForgeEntiteAttaque(new ForgeProjectileSimple());
     }
 
     @Override

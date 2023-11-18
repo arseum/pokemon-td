@@ -106,11 +106,11 @@ public abstract class Tour extends Pokemon implements Objet {
         this.myForgeEffetImpact = myForgeEffetImpact;
     }
 
-    public void setMyForgeAttaque(ForgeEntiteAttaque myForgeEntiteAttaque) {
+    public void setMyForgeEntiteAttaque(ForgeEntiteAttaque myForgeEntiteAttaque) {
         this.myForgeEntiteAttaque = myForgeEntiteAttaque;
     }
 
-    public void setModeAttaque(ModeDeCiblage modeDeCiblage) {
+    public void setModeCiblage(ModeDeCiblage modeDeCiblage) {
         this.modeDeCiblage = modeDeCiblage;
     }
 

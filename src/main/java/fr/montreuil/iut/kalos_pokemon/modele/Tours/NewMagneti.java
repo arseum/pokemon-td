@@ -25,9 +25,9 @@ public class NewMagneti extends Tour{
 
          */
         ModeDeCiblage modeDeCiblage = new ModeCiblageAleatoire(this);
-        setModeAttaque(modeDeCiblage);
+        setModeCiblage(modeDeCiblage);
         setMyForgeEffectImpact(new ForgeRalentissement(this,50, new Seconde(5)));
-        setMyForgeAttaque(new ForgeProjectileSimple());
+        setMyForgeEntiteAttaque(new ForgeProjectileSimple());
         setMyCompetence(new CompetenceImmobilisationZone(this, new Seconde(5), new Seconde(3)));
     }
 

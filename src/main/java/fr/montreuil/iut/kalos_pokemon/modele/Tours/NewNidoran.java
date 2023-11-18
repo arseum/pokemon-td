@@ -26,9 +26,9 @@ public class NewNidoran extends Tour{
 
          */
         ModeDeCiblage modeDeCiblage = new ModeCiblageAleatoire(this);
-        setModeAttaque(modeDeCiblage);
+        setModeCiblage(modeDeCiblage);
         setMyForgeEffectImpact(new ForgeEffetPoison(2, new Seconde(100),new Seconde(0.2),this));
-        setMyForgeAttaque(new ForgeProjectileSimple());
+        setMyForgeEntiteAttaque(new ForgeProjectileSimple());
         setMyCompetence(new CompetenceRalentissementEnnemiPoison(this, new Seconde(10)));
     }
 

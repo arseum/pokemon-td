@@ -7,13 +7,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 public class CompetenceExplosionZone extends NewCompetence {
-    public CompetenceExplosionZone(Tour myTour, Seconde cooldown) {
+    public CompetenceExplosionZone(Tour myTour, Seconde cooldown, int rayon) {
         super(
                 myTour,
                 cooldown,
                 new ModeCiblageZone(myTour),
                 0,
-                new ForgeProjectileExplosif(50),
+                new ForgeProjectileExplosif(rayon),
                 new ForgeEffetNull(myTour));
     }
 }

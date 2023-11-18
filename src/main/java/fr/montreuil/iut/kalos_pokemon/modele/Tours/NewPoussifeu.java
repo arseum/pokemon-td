@@ -13,9 +13,9 @@ public class NewPoussifeu extends Tour{
                 PokemonEnum.poussifeu.getPrix(), x, y, PokemonEnum.poussifeu.name(),
                 50, new NullActif());
         ModeDeCiblage tirAleatoire = new ModeCiblageAleatoire(this);
-        setModeAttaque(tirAleatoire);
+        setModeCiblage(tirAleatoire);
         setMyForgeEffectImpact(new ForgeEffetNull(this));
-        setMyForgeAttaque(new ForgeProjectileSimple());
+        setMyForgeEntiteAttaque(new ForgeProjectileSimple());
     }
 
     @Override

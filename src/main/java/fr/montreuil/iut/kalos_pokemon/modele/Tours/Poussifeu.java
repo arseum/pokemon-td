@@ -1,11 +1,24 @@
 package fr.montreuil.iut.kalos_pokemon.modele.Tours;
 
 import fr.montreuil.iut.kalos_pokemon.Donnees.PokemonEnum;
+import fr.montreuil.iut.kalos_pokemon.Donnees.Seconde;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetNull;
+import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimple;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceExplosionZone;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblagePrioritaire;
 
 public class Poussifeu extends Tour {
     public Poussifeu(int x, int y) {
-        super(100, 30, PokemonEnum.poussifeu.getType(), PokemonEnum.poussifeu.getPrix(), x, y, PokemonEnum.poussifeu.name(), 50, new NullActif());
+        //super(100, 30, PokemonEnum.poussifeu.getType(), PokemonEnum.poussifeu.getPrix(), x, y, PokemonEnum.poussifeu.name(), 50, new NullActif());
+        super(100, 30,
+                PokemonEnum.poussifeu.getType(),
+                PokemonEnum.poussifeu.getPrix(), x, y,
+                PokemonEnum.poussifeu.name(), 50, new NullActif());
+
+        setMyForgeEffectImpact(new ForgeEffetNull(this));
+        setModeCiblage(new ModeCiblagePrioritaire(this));
+        setMyForgeEntiteAttaque(new ForgeProjectileSimple());
     }
 
     @Override
@@ -13,5 +26,11 @@ public class Poussifeu extends Tour {
         this.degats *= 1.3;
         this.attaqueSpeed -= 6* (getLevel()-1);
         portee.set(portee.get()+(3* getLevel()));
+        /*
+        this.degats *= 1.3;
+        this.attaqueSpeed -= 6* (getLevel()-1);
+        portee.set(portee.get()+(3* getLevel()));
+
+         */
     }
 }
