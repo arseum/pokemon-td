@@ -3,6 +3,8 @@ package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
+/** EffetImpact a pour principale responsabilite de fournir les methodes definisant comment et quand les les effets s'appliquent
+ */
 public abstract class EffetImpact {
     protected int frameDebutDeVie;
     protected Tour tireur;

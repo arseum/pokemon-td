@@ -4,11 +4,9 @@ import fr.montreuil.iut.kalos_pokemon.Donnees.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Donnees.Seconde;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeRalentissement;
-import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEntiteAttaqueInstantane;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimple;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceImmobilisationZone;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageAleatoire;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceNull;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageZone;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeDeCiblage;
 
@@ -17,7 +15,7 @@ public class Magneti extends Tour {
     public Magneti(int x, int y) {
         super(150, 0, PokemonEnum.magneti.getType(),
                 PokemonEnum.magneti.getPrix(), x, y, PokemonEnum.magneti.name(),
-                200, new NullActif());
+                200, new CompetenceNull());
 
         ModeDeCiblage modeDeCiblage = new ModeCiblageZone(this);
         setModeCiblage(modeDeCiblage);

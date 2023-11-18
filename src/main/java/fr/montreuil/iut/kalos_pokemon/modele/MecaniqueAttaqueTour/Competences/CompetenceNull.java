@@ -3,7 +3,7 @@ package fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 
-public class NullActif implements Competence {
+public class CompetenceNull implements Competence {
     @Override
     public void activerCompetence() {
         //Néant

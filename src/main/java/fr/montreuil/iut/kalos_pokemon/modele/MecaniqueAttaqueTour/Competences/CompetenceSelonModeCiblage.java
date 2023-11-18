@@ -11,7 +11,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public abstract class NewCompetence implements Competence {
+public abstract class CompetenceSelonModeCiblage implements Competence {
     protected ModeDeCiblage myModeDeCiblage;
     protected int degats;
     protected ForgeEffetImpact myForgeEffetImpact;
@@ -21,9 +21,9 @@ public abstract class NewCompetence implements Competence {
     protected Seconde cooldown;
     protected Tour myTour;
 
-    public NewCompetence(Tour myTour, Seconde cooldown,
-                         ModeDeCiblage modeDeCiblage, int degats,
-                         ForgeEntiteAttaque forgeEntiteAttaque, ForgeEffetImpact forgeEffetImpact) {
+    public CompetenceSelonModeCiblage(Tour myTour, Seconde cooldown,
+                                      ModeDeCiblage modeDeCiblage, int degats,
+                                      ForgeEntiteAttaque forgeEntiteAttaque, ForgeEffetImpact forgeEffetImpact) {
         this.myTour = myTour;
         tempProchainActif = null;
         estPretActif = new SimpleBooleanProperty(false);

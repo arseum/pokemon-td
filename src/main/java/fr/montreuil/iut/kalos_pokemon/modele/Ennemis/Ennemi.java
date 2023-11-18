@@ -17,6 +17,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/** Ennemi a pour responsabilité principale :
+ * Deplacement
+ * Application des effets et dégats
+ */
 public abstract class Ennemi extends Pokemon implements Mobile {
     private static int compteurID = 1;
     private int vitesseMax;
@@ -46,6 +50,8 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         setInfoDeplacement();
     }
 
+    /** L'ennemi a pour responsabilité d'appliquer ses effets (actuellement poison ou ralentissement)
+     */
     public void gereEffet() {
         EffetImpact effetImpact;
 

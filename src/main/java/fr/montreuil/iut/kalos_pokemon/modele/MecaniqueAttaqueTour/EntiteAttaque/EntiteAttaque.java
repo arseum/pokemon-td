@@ -7,9 +7,8 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Effets.EffetIm
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
 
-/**
- * super-classe qui regroupe les differents type d'attaque des tours
- * est necessaire pour pouvoir donner un effet speciales a des attaques
+/** Il s'agit d'un super "projectile", elle a pour principale responsabilite de :
+ * Appliquer les dégats et ajouter au ennemis les effets
  */
 public abstract class EntiteAttaque {
     protected Tour tireur;

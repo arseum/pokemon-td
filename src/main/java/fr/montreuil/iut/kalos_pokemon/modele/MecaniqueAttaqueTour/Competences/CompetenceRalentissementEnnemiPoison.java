@@ -6,7 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeEnti
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageEnnemisEmpoisonnes;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
 
-public class CompetenceRalentissementEnnemiPoison extends NewCompetence {
+public class CompetenceRalentissementEnnemiPoison extends CompetenceSelonModeCiblage {
     public CompetenceRalentissementEnnemiPoison(Tour myTour, Seconde cooldown) {
         super(
                 myTour,

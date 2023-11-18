@@ -6,7 +6,7 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetPoison;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimple;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceRalentissementEnnemiPoison;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceNull;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblesUniques;
 
 
@@ -16,7 +16,7 @@ public class Nidoran extends Tour {
         super(115, 0,
                 PokemonEnum.nidoran.getType(),
                 PokemonEnum.nidoran.getPrix(), x, y,
-                PokemonEnum.nidoran.name(), 70, new NullActif());
+                PokemonEnum.nidoran.name(), 70, new CompetenceNull());
 
         setModeCiblage(new ModeCiblesUniques(this));
         setMyForgeEffectImpact(new ForgeEffetPoison(4, new Seconde(10), new Seconde(0.5), this));

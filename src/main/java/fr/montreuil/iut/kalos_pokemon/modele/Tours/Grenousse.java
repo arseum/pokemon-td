@@ -4,7 +4,7 @@ import fr.montreuil.iut.kalos_pokemon.Donnees.PokemonEnum;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetNull;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEntiteAttaque.ForgeProjectileSimple;
-import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.NullActif;
+import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.Competences.CompetenceNull;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblageAleatoire;
 import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.ModeCiblagePrioritaire;
 
@@ -13,7 +13,7 @@ public class Grenousse extends Tour {
         super(160, 40,
                 PokemonEnum.grenousse.getType(),
                 PokemonEnum.grenousse.getPrix(), x, y,
-                PokemonEnum.grenousse.name(), 90, new NullActif());
+                PokemonEnum.grenousse.name(), 90, new CompetenceNull());
 
 
         setModeCiblage(new ModeCiblageAleatoire(this));
