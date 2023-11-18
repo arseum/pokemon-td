@@ -93,7 +93,7 @@ public class ObsMvtClicAjoutTour implements EventHandler<MouseEvent> {
                     Tour t;
                     t = new Magneti(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
                     game.ajouteTour(t);
-                } else if (this.obsClic.tourSelectionnee.equals(PokemonEnum.magneti.name())) {
+                } else if (this.obsClic.tourSelectionnee.equals(PokemonEnum.nidoran.name())) {
                     Tour t;
                     t = new Nidoran(x * Parametres.tailleTuile, y * Parametres.tailleTuile);
                     game.ajouteTour(t);
