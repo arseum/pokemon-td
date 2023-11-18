@@ -10,7 +10,6 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.
 
 public class Poussifeu extends Tour {
     public Poussifeu(int x, int y) {
-        //super(100, 30, PokemonEnum.poussifeu.getType(), PokemonEnum.poussifeu.getPrix(), x, y, PokemonEnum.poussifeu.name(), 50, new NullActif());
         super(100, 30,
                 PokemonEnum.poussifeu.getType(),
                 PokemonEnum.poussifeu.getPrix(), x, y,
@@ -24,13 +23,7 @@ public class Poussifeu extends Tour {
     @Override
     public void amelioreStats() {
         this.degats *= 1.3;
-        this.attaqueSpeed -= 6* (getLevel()-1);
-        portee.set(portee.get()+(3* getLevel()));
-        /*
-        this.degats *= 1.3;
-        this.attaqueSpeed -= 6* (getLevel()-1);
-        portee.set(portee.get()+(3* getLevel()));
-
-         */
+        this.attaqueSpeed -= 6 * (getLevel() - 1);
+        portee.set(portee.get() + (3 * getLevel()));
     }
 }

@@ -13,17 +13,15 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.
 public class Nidoran extends Tour {
 
     public Nidoran(int x, int y) {
-        //super(115, 3, PokemonEnum.nidoran.getType(), PokemonEnum.nidoran.getPrix(), x, y, PokemonEnum.nidoran.name(), 30, null);
         super(115, 0,
                 PokemonEnum.nidoran.getType(),
                 PokemonEnum.nidoran.getPrix(), x, y,
                 PokemonEnum.nidoran.name(), 70, new NullActif());
 
         setModeCiblage(new ModeCiblesUniques(this));
-        //setMyForgeEffectImpact(new ForgeEffetPoison(new ForgeEffetPoison(this,4,new Seconde(10),new Seconde(0.5)))
-        setMyForgeEffectImpact(new ForgeEffetPoison(4,new Seconde(10),new Seconde(0.5), this));
+        setMyForgeEffectImpact(new ForgeEffetPoison(4, new Seconde(10), new Seconde(0.5), this));
         setMyForgeEntiteAttaque(new ForgeProjectileSimple());
-        setMyCompetence(new CompetenceRalentissementEnnemiPoison(this,new Seconde(22)));
+        setMyCompetence(new CompetenceRalentissementEnnemiPoison(this, new Seconde(22)));
 
     }
 
@@ -31,7 +29,7 @@ public class Nidoran extends Tour {
     public void amelioreStats() {
         this.degats += 1;
         if (level.get() == Parametres.niveauEvolutionTour)
-            portee.set(portee.get()+10);
+            portee.set(portee.get() + 10);
     }
 
 

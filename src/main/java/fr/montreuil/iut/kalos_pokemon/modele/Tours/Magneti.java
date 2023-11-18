@@ -13,22 +13,13 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.
 public class Magneti extends Tour {
 
     public Magneti(int x, int y) {
-        /*
-        super(90, 0, PokemonEnum.magneti.getType(),
-                PokemonEnum.magneti.getPrix(), x, y, PokemonEnum.magneti.name(),
-                100,null);
-
-         */
-        //setMyCompetence(new ImmobilisationZone(this,90));
-        //setMyCompetence(new);
-
         super(150, 0, PokemonEnum.magneti.getType(),
                 PokemonEnum.magneti.getPrix(), x, y, PokemonEnum.magneti.name(),
                 200, new NullActif());
 
         ModeDeCiblage modeDeCiblage = new ModeCiblageAleatoire(this);
         setModeCiblage(modeDeCiblage);
-        setMyForgeEffectImpact(new ForgeRalentissement(this,50, new Seconde(5)));
+        setMyForgeEffectImpact(new ForgeRalentissement(this, 50, new Seconde(5)));
         setMyForgeEntiteAttaque(new ForgeProjectileSimple());
         setMyCompetence(new CompetenceImmobilisationZone(this, new Seconde(5), new Seconde(3)));
     }
@@ -36,8 +27,8 @@ public class Magneti extends Tour {
 
     @Override
     public void amelioreStats() {
-        portee.set(portee.get() + (6*level.get()));
-        if(level.get() == Parametres.niveauEvolutionTour) {
+        portee.set(portee.get() + (6 * level.get()));
+        if (level.get() == Parametres.niveauEvolutionTour) {
             degats = 3;
         }
     }
