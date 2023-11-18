@@ -13,10 +13,10 @@ import fr.montreuil.iut.kalos_pokemon.modele.MecaniqueAttaqueTour.ModeDeCiblage.
 public class Nidoran extends Tour {
 
     public Nidoran(int x, int y) {
-        super(115, 3,
+        super(115, 20,
                 PokemonEnum.nidoran.getType(),
                 PokemonEnum.nidoran.getPrix(), x, y,
-                PokemonEnum.nidoran.name(), 60, new NullActif());
+                PokemonEnum.nidoran.name(), 70, new NullActif());
 
         setModeAttaque(new ModeCiblesUniques(this));
         setMyForgeEffectImpact(new ForgeEffetPoison(this,4,new Seconde(10),new Seconde(0.5)));
