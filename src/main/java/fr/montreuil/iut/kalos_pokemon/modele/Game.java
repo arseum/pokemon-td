@@ -67,7 +67,7 @@ public class Game {
      * utilisé notament pour les deplacements et la gestion des tours
      */
     public void uneFrame() {
-        deplacementProjectile(listeProjectile);
+        deplacement(listeProjectile);
         gestionTour();
         gestionEnnemi();
     }
@@ -85,11 +85,6 @@ public class Game {
     }
 
     private void deplacement(ObservableList<? extends Mobile> list) {
-        for (int i = list.size() - 1; i >= 0; i--)
-            list.get(i).bouge();
-    }
-
-    private void deplacementProjectile(ObservableList<? extends Projectile> list) {
         for (int i = list.size() - 1; i >= 0; i--)
             list.get(i).bouge();
     }

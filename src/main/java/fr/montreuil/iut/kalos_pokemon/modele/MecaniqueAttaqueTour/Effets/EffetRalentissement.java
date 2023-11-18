@@ -35,7 +35,7 @@ public class EffetRalentissement extends EffetImpact {
 
     @Override
     public void appliqueEffet(Ennemi ennemi) {
-        int vitesseReduite = ennemi.getVitesseMax() * (100 - tauxDeReductionVitesse) / 100;
+        double vitesseReduite = ennemi.getVitesseMax() * (100 - tauxDeReductionVitesse) / 100;
         ennemi.setVitesseActuel(vitesseReduite);
         this.aEteApplique = true;
     }

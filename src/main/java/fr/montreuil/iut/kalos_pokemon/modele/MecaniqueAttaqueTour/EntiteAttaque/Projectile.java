@@ -4,19 +4,17 @@ import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.modele.Forges.ForgeEffet.ForgeEffetImpact;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
 import fr.montreuil.iut.kalos_pokemon.modele.Game;
+import fr.montreuil.iut.kalos_pokemon.modele.Mobile;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
-public abstract class Projectile extends EntiteAttaque {
+public abstract class Projectile extends EntiteAttaque implements Mobile {
 
     private static int compteur = 1;
     private final String id;
 
-    protected IntegerProperty x;
-    protected IntegerProperty y;
+    protected DoubleProperty x;
+    protected DoubleProperty y;
     /**
      * boolean qui permet de signaler a la vue que l'attaque se deplace
      * il aurait pu etre remplacer par un listener qui ecoute le y et x de l'attaque mais
@@ -24,14 +22,16 @@ public abstract class Projectile extends EntiteAttaque {
      */
     protected BooleanProperty bouge;
 
-    public Projectile(Tour tour, Ennemi ennemi, ForgeEffetImpact forgeEffetImpact, double degats) {
+    public Projectile(Tour tour, Ennemi ennemi,
+                      ForgeEffetImpact forgeEffetImpact,
+                      double degats) {
         super(tour, forgeEffetImpact, degats, ennemi);
         this.id = "Tir_n°" + compteur;
         compteur++;
         this.bouge = new SimpleBooleanProperty(false);
 
-        x = new SimpleIntegerProperty(tour.getX() + 22 - Parametres.offsetXTour);
-        y = new SimpleIntegerProperty(tour.getY() + 22 - Parametres.offsetYTour);
+        x = new SimpleDoubleProperty(tour.getX() + 22 - Parametres.offsetXTour);
+        y = new SimpleDoubleProperty(tour.getY() + 22 - Parametres.offsetYTour);
 
     }
 
@@ -64,7 +64,7 @@ public abstract class Projectile extends EntiteAttaque {
         return Parametres.distance(this.getX(), this.getY(), this.cible.getX(), this.cible.getY()) > 15;
     }
 
-    public int getY() {
+    public double getY() {
         return y.get();
     }
 
@@ -72,7 +72,7 @@ public abstract class Projectile extends EntiteAttaque {
         return id;
     }
 
-    public int getX() {
+    public double getX() {
         return x.get();
     }
 
@@ -80,11 +80,11 @@ public abstract class Projectile extends EntiteAttaque {
         return bouge;
     }
 
-    public IntegerProperty xProperty() {
+    public DoubleProperty xProperty() {
         return x;
     }
 
-    public IntegerProperty yProperty() {
+    public DoubleProperty yProperty() {
         return y;
     }
 }

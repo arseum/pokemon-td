@@ -1,21 +1,23 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.Donnees.Type;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Pokemon {
     protected final Type type;
-    protected final IntegerProperty x;
-    protected final IntegerProperty y;
+    protected final DoubleProperty x;
+    protected final DoubleProperty y;
     protected String nom;
     protected String id;
 
-    public Pokemon(String nom, Type type, int x, int y) {
+    public Pokemon(String nom, Type type, double x, double y) {
         this.nom = nom;
         this.type = type;
-        this.x = new SimpleIntegerProperty(x);
-        this.y = new SimpleIntegerProperty(y);
+        this.x = new SimpleDoubleProperty(x);
+        this.y = new SimpleDoubleProperty(y);
     }
 
     public String getId() {
@@ -30,19 +32,19 @@ public abstract class Pokemon {
         return type;
     }
 
-    public int getX() {
+    public double getX() {
         return x.get();
     }
 
-    public IntegerProperty xProperty() {
+    public DoubleProperty xProperty() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y.get();
     }
 
-    public IntegerProperty yProperty() {
+    public DoubleProperty yProperty() {
         return y;
     }
 }

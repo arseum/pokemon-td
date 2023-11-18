@@ -19,18 +19,18 @@ import java.util.Set;
 
 public abstract class Ennemi extends Pokemon implements Mobile {
     private static int compteurID = 1;
-    private int vitesseMax;
+    private final double vitesseMax;
     private final double hpMax;
     private final int recompense;
     private final Map<Integer, Integer> cheminVersArrive;
     private final DoubleProperty hp;
-    private int vitesseActuel;
-    private int[] infoDeplacement;
+    private double vitesseActuel;
+    private double[] infoDeplacement;
     protected boolean estArrive;
     //HashMap pour gerer le stack d'effet du même type et utile pour la vue
     protected ObservableMap<TypeEffet, EffetImpact> listeObsDesDifferentsTypeEffets;
 
-    public Ennemi(int vitesseMax, int hp, Type type, int x, int y, int recompense, String pokemon, boolean estTerrestre) {
+    public Ennemi(double vitesseMax, int hp, Type type, double x, double y, int recompense, String pokemon, boolean estTerrestre) {
         super(pokemon, type, x, y);
         this.id = "Ennemi_n°" + compteurID;
         compteurID++;
@@ -106,7 +106,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
     private void deplacement() {
-        int nouveauX, nouveauY;
+        double nouveauX, nouveauY;
 
         nouveauX = this.getX() + vitesseActuel * infoDeplacement[0];
         nouveauY = this.getY() + vitesseActuel * infoDeplacement[1];
@@ -130,20 +130,29 @@ public abstract class Ennemi extends Pokemon implements Mobile {
     }
 
     private boolean estArrive() {
-        return infoDeplacement[2] / 32 == Game.getGame().getTerrain().getCaseArrivee()[0] / 32 &&
-                infoDeplacement[3] / 32 == Game.getGame().getTerrain().getCaseArrivee()[1] / 32;
+        return
+                (int) (infoDeplacement[2] / 32) == Game.getGame().getTerrain().getCaseArrivee()[0] / 32 &&
+                (int) (infoDeplacement[3] / 32) == Game.getGame().getTerrain().getCaseArrivee()[1] / 32;
     }
 
     private void setInfoDeplacement() {
-        int[] caseActuelle = new int[]{this.y.get() / Parametres.tailleTuile, this.x.get() / Parametres.tailleTuile};
+        double[] caseActuelle = new double[]{
+                this.y.get() / Parametres.tailleTuile,
+                this.x.get() / Parametres.tailleTuile
+        };
         int idCaseSuivante = cheminVersArrive.get(Game.getGame().getTerrain().coordonneesXYenCase(caseActuelle[0], caseActuelle[1]));
         int[] caseSuivante = Game.getGame().getTerrain().coordonneesCaseEnXY(idCaseSuivante);
-        this.infoDeplacement = new int[]{(caseSuivante[1] - caseActuelle[1]), (caseSuivante[0] - caseActuelle[0]), caseSuivante[1] * Parametres.tailleTuile, caseSuivante[0] * Parametres.tailleTuile};
+        this.infoDeplacement = new double[]{
+                (caseSuivante[1] - caseActuelle[1]),
+                (caseSuivante[0] - caseActuelle[0]),
+                caseSuivante[1] * Parametres.tailleTuile,
+                caseSuivante[0] * Parametres.tailleTuile
+        };
     }
 
     /** SETTERS, GETTERS & PROPERTIES **/
 
-    public int getVitesseMax() {
+    public double getVitesseMax() {
         return vitesseMax;
     }
 
@@ -163,7 +172,7 @@ public abstract class Ennemi extends Pokemon implements Mobile {
         return hpMax;
     }
 
-    public void setVitesseActuel(int v) {
+    public void setVitesseActuel(double v) {
         this.vitesseActuel = v;
     }
 

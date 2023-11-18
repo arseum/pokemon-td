@@ -93,9 +93,9 @@ public class Terrain {
 
     /*** BFS ***/
 
-    public int coordonneesXYenCase(int ligne, int colonne) {
-        int largeur = this.arrierePlan.get(0).size();
-        return ligne * largeur + colonne;
+    public int coordonneesXYenCase(double ligne, double colonne) {
+        double largeur = this.arrierePlan.get(0).size();
+        return (int) (ligne * largeur + colonne);
     }
 
     public int[] coordonneesCaseEnXY(int idCase) {

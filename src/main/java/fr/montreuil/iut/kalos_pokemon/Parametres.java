@@ -80,9 +80,9 @@ public class Parametres {
         nomPetitEvolution.put(PokemonEnum.grenousse.getNomEvolution(), PokemonEnum.granivol.name());
     }
 
-    public static int distance(int x1, int y1, int x2, int y2) {
-        int delta_x = Math.abs(x1 - x2);
-        int delta_y = Math.abs(y1 - y2);
+    public static int distance(double x1, double y1, double x2, double y2) {
+        double delta_x = Math.abs(x1 - x2);
+        double delta_y = Math.abs(y1 - y2);
         return (int) Math.sqrt((delta_x * delta_x) + (delta_y * delta_y));
     }
 
