@@ -10,7 +10,7 @@ public class ProjectileSimple extends Projectile {
     }
 
     @Override
-    public void gestionTir() {
+    public void gestionImpact() {
         appliqueAttaque(this.cible);
         finTir();
     }

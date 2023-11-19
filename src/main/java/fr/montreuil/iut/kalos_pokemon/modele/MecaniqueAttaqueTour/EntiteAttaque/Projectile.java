@@ -35,7 +35,7 @@ public abstract class Projectile extends EntiteAttaque {
 
     }
 
-    public abstract void gestionTir();
+    public abstract void gestionImpact();
 
     public void bouge() {
         if (doitBouger()) {
@@ -45,7 +45,7 @@ public abstract class Projectile extends EntiteAttaque {
             bouge.set(true);
             bouge.set(false);
         } else
-            gestionTir();
+            gestionImpact();
     }
 
     @Override

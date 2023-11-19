@@ -21,7 +21,7 @@ public class ProjectileExplosif extends Projectile {
     }
 
     @Override
-    public void gestionTir() {
+    public void gestionImpact() {
         List<Ennemi> listeEnnemi = Game.getGame().getListEnnemi().stream().toList();
 
         for (int i = listeEnnemi.size() - 1; i >= 0; i--) {
