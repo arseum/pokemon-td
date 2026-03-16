@@ -1,13 +1,8 @@
 package fr.montreuil.iut.kalos_pokemon.modele;
 
-import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
-import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
-import fr.montreuil.iut.kalos_pokemon.modele.Map.Wave;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
-import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -73,6 +68,7 @@ public class Game {
     public int getPokedollar() {
         return pokedollar.get();
     }
+
     public ObservableList<Ennemi> getListEnnemi() {
         return listEnnemi;
     }
@@ -185,12 +181,17 @@ public class Game {
     }
 
     private void gestionTour() {
+
         for (Tour t : listTour) {
-            if (getNbFrameValue() >= t.getTempProchaineAttaque())
+            //il faut avoir que t.attaque() ici il faut donc que le apliquePoison et le zone.bouge soit coder dans une classe
+            // apart qui sera strategie de ataque
+            if (getNbFrameValue() >= t.tempProchaineAttaque)
                 t.attaque();
 
-            if (t instanceof TourPoison tourPoison && getNbFrameValue() % 20 == 0)
-                tourPoison.apliquePoison();
+            if (t instanceof Nidoran nidoran && getNbFrameValue() % 20 == 0)
+                nidoran.apliquePoison();
+            else if (t instanceof Magneti magneti && magneti.isActif())
+                magneti.getZone().bouge();
         }
     }
 

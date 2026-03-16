@@ -10,6 +10,7 @@ import java.io.IOException;
 
 
 public class main extends Application {
+
     public static void main(String[] args) {
         launch();
     }
@@ -23,7 +24,7 @@ public class main extends Application {
         stage.setTitle("Pokemon TD !");
         stage.setWidth(1324);
         stage.setHeight(757);
-        //stage.setPref
+        //stage.setPre
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
