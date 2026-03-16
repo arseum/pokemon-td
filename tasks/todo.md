@@ -2,8 +2,8 @@
 
 ## A. Menu principal (accueil)
 
-1. **Écran titre animé** — Ajouter un vrai écran d'accueil avec logo, animation d'entrée, et bouton "Jouer" avant d'arriver à la sélection de niveau
-2. **Verrouillage des niveaux** — Niveaux 2 et 3 verrouillés (grisés avec cadenas) tant que le précédent n'est pas terminé
+1. - [x] **Écran titre animé** — Ajouter un vrai écran d'accueil avec logo, animation d'entrée, et bouton "Jouer" avant d'arriver à la sélection de niveau
+2. - [x] **Verrouillage des niveaux** — Niveaux 2 et 3 verrouillés (grisés avec cadenas) tant que le précédent n'est pas terminé
 3. **Indicateur de difficulté** — Afficher la difficulté (étoiles) sur chaque carte de niveau
 4. **Descriptions de niveau** — Petit texte sous chaque carte expliquant le thème/la particularité
 
@@ -24,9 +24,9 @@
 
 ## D. Feedback visuel et polish
 
-14. **Animation de placement de tour** — Effet rebond/flash à la pose
-15. **Effet de mort des ennemis** — Animation/particules quand un ennemi est vaincu
-16. **Son de feedback** — Sons pour achat, kill, perte de vie, fin de vague
+14. - [x] **Animation de placement de tour** — Effet rebond/flash à la pose
+15. - [x] **Effet de mort des ennemis** — Animation/particules quand un ennemi est vaincu
+16. - [x] **Son de feedback** — Sons pour achat, kill, perte de vie, fin de vague
 17. **Écran de victoire/défaite amélioré** — Vrai écran avec stats (remplacer "loser"/"tricheur")
 
 ## E. Qualité de vie

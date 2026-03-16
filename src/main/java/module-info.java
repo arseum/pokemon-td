@@ -2,6 +2,7 @@ module kalos.pokemon_td {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
+    requires java.desktop;
 
 
     opens fr.montreuil.iut.kalos_pokemon to javafx.fxml;

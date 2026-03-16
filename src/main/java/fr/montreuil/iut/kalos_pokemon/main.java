@@ -19,7 +19,7 @@ public class main extends Application {
     public void start(Stage stage) throws IOException {
         Font.loadFont(main.class.getResource("Vue/pokemon-dppt.ttf").toExternalForm(), 15);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("acceuil.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("ecranTitre.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Pokemon TD !");
         stage.setWidth(1324);

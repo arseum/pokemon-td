@@ -2,6 +2,7 @@ package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import fr.montreuil.iut.kalos_pokemon.Progression;
+import fr.montreuil.iut.kalos_pokemon.SoundManager;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
@@ -13,7 +14,12 @@ import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
+import javafx.animation.ParallelTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -29,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -144,6 +151,8 @@ public class ControlleurMap implements Initializable {
             }
         });
 
+        SoundManager.init();
+
         //test audio
         Media media = new Media(new File(Parametres.cheminAudioCintya).toURI().toString());
         media_player = new MediaPlayer(media);
@@ -161,6 +170,8 @@ public class ControlleurMap implements Initializable {
 
 
         game.vieProperty().addListener((obs,old,nouv)-> {
+            if ((int)old > (int)nouv)
+                SoundManager.playPerdVie();
             if ((int)nouv==0)
                 partiePerdue("Vous Perdez La Partie (loser)");
         });
@@ -259,6 +270,7 @@ public class ControlleurMap implements Initializable {
         labelWave.getStyleClass().add("label");
         game.getVague().cptWaveProperty().addListener(((observableValue, number, t1) -> {
             labelWave.setText( "Vague : " + t1.toString());
+            SoundManager.playFinVague();
         }));
 
         pauseButton.setOnAction(e-> {
@@ -318,7 +330,43 @@ public class ControlleurMap implements Initializable {
                     }
                 else if (c.wasRemoved())
                     for (Ennemi a : c.getRemoved()) {
-                        pane.getChildren().remove(pane.lookup("#" + a.getId()));
+                        SoundManager.playKill();
+                        Node sprite = pane.lookup("#" + a.getId());
+                        if (sprite == null) continue;
+
+                        // Figer le sprite : unbind x/y pour qu'il ne suive plus le modèle supprimé
+                        if (sprite instanceof Pane spritePane) {
+                            for (Node child : spritePane.getChildren()) {
+                                if (child instanceof ImageView iv) {
+                                    iv.xProperty().unbind();
+                                    iv.yProperty().unbind();
+                                }
+                                if (child instanceof ProgressBar pb) {
+                                    pb.layoutXProperty().unbind();
+                                    pb.layoutYProperty().unbind();
+                                    pb.progressProperty().unbind();
+                                    pb.setVisible(false);
+                                }
+                            }
+                        }
+
+                        sprite.setMouseTransparent(true);
+
+                        ScaleTransition scale = new ScaleTransition(Duration.millis(350), sprite);
+                        scale.setToX(1.3);
+                        scale.setToY(1.3);
+                        scale.setInterpolator(Interpolator.EASE_OUT);
+
+                        FadeTransition fade = new FadeTransition(Duration.millis(350), sprite);
+                        fade.setToValue(0.0);
+                        fade.setInterpolator(Interpolator.EASE_IN);
+
+                        RotateTransition rotate = new RotateTransition(Duration.millis(350), sprite);
+                        rotate.setByAngle(15);
+
+                        ParallelTransition deathAnim = new ParallelTransition(scale, fade, rotate);
+                        deathAnim.setOnFinished(event -> pane.getChildren().remove(sprite));
+                        deathAnim.play();
                     }
             }
         });
@@ -329,6 +377,7 @@ public class ControlleurMap implements Initializable {
             while (c.next()) {
                 if (c.wasAdded())
                     for (Tour a : c.getAddedSubList()) {
+                        SoundManager.playAchat();
                         try {
                             creerTourSprite(a, clicSurTour);
                         } catch (IOException e) {
@@ -428,6 +477,22 @@ public class ControlleurMap implements Initializable {
         pane.getChildren().add(sprite.getSprite());
         pane.getChildren().add(sprite.getRange());
 
+        // Animation rebond + flash
+        sprite.getSprite().setScaleX(0);
+        sprite.getSprite().setScaleY(0);
+        ScaleTransition rebond = new ScaleTransition(Duration.millis(300), sprite.getSprite());
+        rebond.setFromX(0);
+        rebond.setFromY(0);
+        rebond.setToX(1);
+        rebond.setToY(1);
+        rebond.setInterpolator(Interpolator.EASE_OUT);
+        rebond.play();
+
+        FadeTransition flash = new FadeTransition(Duration.millis(150), sprite.getSprite());
+        flash.setFromValue(0.3);
+        flash.setToValue(1.0);
+        flash.play();
+
         sprite.getRange().visibleProperty().bind(obsClicSurTour.unetourCarteSelectionnee.and(obsClicSurTour.idTourSelectionnee.isEqualTo(sprite.getSprite().getId())));
 
         //ajout d'un onMouseClicked qui permet de afficher la range de la tour/details
@@ -512,6 +577,7 @@ public class ControlleurMap implements Initializable {
     }
 
     public void partiePerdue(String message){
+        SoundManager.playDefaite();
         gameLoop.stop();
         media_player.pause();
         Stage popup = new Stage();
@@ -546,6 +612,7 @@ public class ControlleurMap implements Initializable {
         });
     }
     public void partieGagnee(){
+        SoundManager.playVictoire();
         int niveauActuel = Parametres.numeroNiveau(Parametres.map);
         if (niveauActuel > 0) {
             Progression.debloquerNiveau(niveauActuel + 1);
