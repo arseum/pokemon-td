@@ -1,3 +1,40 @@
+# Comment lancer le projet
+
+## Prérequis
+
+- **Java 21** (JDK) — [Télécharger ici](https://adoptium.net/)
+- **Maven** — soit installé globalement, soit utiliser le wrapper inclus (`./mvnw`)
+
+> Vérifier votre version Java : (doit afficher 21 ou supérieur)
+
+```
+java -version
+``` 
+
+## Lancer le jeu
+
+```bash
+./mvnw javafx:run
+```
+
+Sur Windows :
+```bat
+mvnw.cmd javafx:run
+```
+
+Si Maven est installé globalement :
+```bash
+mvn javafx:run
+```
+
+## Lancer les tests
+
+```bash
+./mvnw test
+```
+
+---
+
 # Crédit
 
 + Les tuiles et sprites proviennent du jeu Pokémon [Reborn](https://www.rebornevo.com/pr/index.html/)
