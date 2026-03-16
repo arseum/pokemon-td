@@ -44,3 +44,21 @@
 .tutoriel-bouton:hover {
     -fx-background-color: linear-gradient(#ff7730, #e03000);
 }
+
+.bouton-lancer-vague {
+    -fx-background-color: linear-gradient(#ff8c00, #ff5500);
+    -fx-text-fill: white;
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #ffcc00;
+    -fx-border-width: 2;
+    -fx-padding: 8 24 8 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 3);
+}
+
+.bouton-lancer-vague:hover {
+    -fx-background-color: linear-gradient(#ffa030, #ff7730);
+}

@@ -39,3 +39,12 @@
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
+
+.vbox-verrouille {
+    -fx-opacity: 0.5;
+}
+
+.label-cadenas {
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+}

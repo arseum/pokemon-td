@@ -11,12 +11,12 @@
 
 5. - [x] **Tutoriel intégré au niveau 1** — Messages guidés étape par étape (acheter → placer → ennemis → améliorer)
 6. **Mise en surbrillance des éléments UI** — Mettre en évidence le bouton/zone concerné pendant le tuto
-7. - [ ] **Première vague retardée** — Bouton "Lancer la vague" ou compte à rebours visible avant le départ
+7. - [x] **Première vague retardée** — Bouton "Lancer la vague" ou compte à rebours visible avant le départ
 8. - [ ] **Indicateur visuel du chemin** — Animer/surligner le chemin des ennemis avant le début
 
 ## C. Interface en jeu (HUD)
 
-9. **Tooltip sur les tours du shop** — Au survol : nom, dégâts, portée, type, prix
+9. - [x] **Tooltip sur les tours du shop** — Au survol : nom, dégâts, portée, type, prix
 10. **Indicateur de type avantage/désavantage** — Icône flèche verte ↑ / rouge ↓
 11. **Barre de vie sur les ennemis** — Barre de HP visible au-dessus de chaque ennemi
 12. **Annonce de vague** — Bannière "Vague 2 !" avec le type d'ennemis à venir

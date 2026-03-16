@@ -12,7 +12,7 @@
             xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.kalos_pokemon.Controlleur.ControlleurAcceuil">
    <children>
       <Label id="titre" alignment="CENTER" layoutX="551.0" layoutY="35.0" prefHeight="75.0" prefWidth="226.0" text="POKEMON TOWER DEFENSE" />
-      <HBox layoutX="2.0" layoutY="185.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="1324.0">
+      <HBox fx:id="hboxNiveaux" layoutX="2.0" layoutY="185.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="1324.0">
          <children>
             <VBox fx:id="Vbox" alignment="CENTER" minWidth="-Infinity" prefHeight="402.0" prefWidth="320.0" styleClass="vbox">
                <children>

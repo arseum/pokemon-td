@@ -3,11 +3,13 @@ package fr.montreuil.iut.kalos_pokemon.Vue;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class CreateurMenu {
     private final String[] listeTour;
@@ -47,6 +49,12 @@ public class CreateurMenu {
 
         contenantTour.getChildren().add(spriteTour);
         contenantTour.getChildren().add(prix);
+
+        Tooltip tooltip = new Tooltip(Parametres.infoTour(nom));
+        tooltip.getStyleClass().add("tooltip-tour");
+        tooltip.setShowDelay(Duration.millis(200));
+        tooltip.setHideDelay(Duration.millis(100));
+        Tooltip.install(contenantTour, tooltip);
 
         return contenantTour;
     }

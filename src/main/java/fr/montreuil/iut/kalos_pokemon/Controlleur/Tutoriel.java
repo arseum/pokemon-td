@@ -29,6 +29,7 @@ public class Tutoriel {
     private final Runnable pauseJeu;
     private final Runnable reprendreJeu;
     private StackPane overlay;
+    private Timeline disparitionEnCours;
     private boolean termine;
 
     public Tutoriel(Game game, Pane pane, Timeline gameLoop, IntegerProperty frame,
@@ -155,9 +156,10 @@ public class Tutoriel {
             conteneur.getChildren().add(texte);
             overlay.setMouseTransparent(true);
 
-            Timeline disparition = new Timeline(new KeyFrame(
+            disparitionEnCours = new Timeline(new KeyFrame(
                     Duration.seconds(5),
                     e -> {
+                        disparitionEnCours = null;
                         supprimerOverlay();
                         etapeCourante++;
                         if (etapeCourante < etapes.size()) {
@@ -176,7 +178,7 @@ public class Tutoriel {
                         }
                     }
             ));
-            disparition.play();
+            disparitionEnCours.play();
         }
 
         overlay.getChildren().add(conteneur);
@@ -211,12 +213,17 @@ public class Tutoriel {
     }
 
     private void etapeSuivante() {
+        if (disparitionEnCours != null) {
+            disparitionEnCours.stop();
+            disparitionEnCours = null;
+        }
         etapeCourante++;
         supprimerOverlay();
 
         if (etapeCourante == 4) {
             // Après étape 4 (index 3, "les ennemis arrivent"), on lance le jeu
             // et on remet le compteur de frames à 0
+            game.getVague().autoriserVagues();
             frame.set(0);
             reprendreJeu.run();
             // Les étapes 5 et 6 sont non-bloquantes, affichées avec délai

@@ -8,6 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Parametres {
+    public static final String[] NIVEAUX = {"savane", "neige", "eau"};
+
+    public static int numeroNiveau(String map) {
+        for (int i = 0; i < NIVEAUX.length; i++)
+            if (NIVEAUX[i].equals(map)) return i + 1;
+        return -1;
+    }
+
     public static final int tailleTourX = 45;
     public static final int tailleTourY = 45;
 
@@ -116,14 +124,28 @@ public class Parametres {
         map = s;
     }
 
+    public static String infoTour(String nom) {
+        return switch (nom) {
+            case "poussifeu" -> "Poussifeu\nType : Feu\nDégâts : 30\nPortée : 100\nVitesse : rapide";
+            case "granivol" -> "Granivol\nType : Plante\nDégâts : 5\nPortée : 160\nVitesse : très rapide";
+            case "magneti" -> "Magnéti\nType : Neutre\nEffet : Ralentit les ennemis\nPortée : 90";
+            case "salameche" -> "Salamèche\nType : Feu\nDégâts : 50\nPortée : 98\nVitesse : moyenne";
+            case "nidoran" -> "Nidoran\nType : Neutre (Poison)\nDégâts : 3 + poison\nPortée : 115\nVitesse : rapide";
+            case "grenousse" -> "Grenousse\nType : Eau\nDégâts : 70\nPortée : 160\nVitesse : lente";
+            default -> nom;
+        };
+    }
+
     public static int prixTour(String nom) {
-        if (nom.equals("poussifeu")) return prixpoussifeu;
-        else if (nom.equals("granivol")) return prixgranivol;
-        else if (nom.equals("magneti")) return prixmagneti;
-        else if (nom.equals("salameche")) return prixsalameche;
-        else if (nom.equals("nidoran")) return prixnidoran;
-        else if (nom.equals("grenousse")) return prixgrenousse;
-        return -1;
+        return switch (nom) {
+            case "poussifeu" -> prixpoussifeu;
+            case "granivol" -> prixgranivol;
+            case "magneti" -> prixmagneti;
+            case "salameche" -> prixsalameche;
+            case "nidoran" -> prixnidoran;
+            case "grenousse" -> prixgrenousse;
+            default -> -1;
+        };
     }
 
     public static void init(){

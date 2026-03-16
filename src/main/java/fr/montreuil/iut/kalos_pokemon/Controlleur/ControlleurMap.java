@@ -1,6 +1,7 @@
 package fr.montreuil.iut.kalos_pokemon.Controlleur;
 
 import fr.montreuil.iut.kalos_pokemon.Parametres;
+import fr.montreuil.iut.kalos_pokemon.Progression;
 import fr.montreuil.iut.kalos_pokemon.Vue.*;
 import fr.montreuil.iut.kalos_pokemon.main;
 import fr.montreuil.iut.kalos_pokemon.modele.*;
@@ -274,14 +275,32 @@ public class ControlleurMap implements Initializable {
         pause.addListener((obs,old,nouv)-> {
             if (nouv.equals(true)){
                 gameLoop.stop();
+                media_player.pause();
             }else {
                 gameLoop.play();
+                media_player.play();
             }
         });
 //ajoute les buttons au parent correspondant
         pane.getChildren().add(labelDollar);
         pane.getChildren().add(labelVie);
         pane.getChildren().add(labelWave);
+
+        // Bouton "Lancer la vague" pour les niveaux sans tuto
+        if (!Parametres.map.equals("savane")) {
+            Button btnLancerVague = new Button("Lancer la vague !");
+            btnLancerVague.getStyleClass().add("bouton-lancer-vague");
+            btnLancerVague.setLayoutX(412);
+            btnLancerVague.setLayoutY(430);
+            btnLancerVague.setPrefWidth(200);
+            btnLancerVague.setPrefHeight(40);
+            btnLancerVague.setOnAction(e -> {
+                game.getVague().autoriserVagues();
+                frame.set(0);
+                pane.getChildren().remove(btnLancerVague);
+            });
+            pane.getChildren().add(btnLancerVague);
+        }
 
     }
 
@@ -494,6 +513,7 @@ public class ControlleurMap implements Initializable {
 
     public void partiePerdue(String message){
         gameLoop.stop();
+        media_player.pause();
         Stage popup = new Stage();
         popup.setTitle("Partie Terminée !");
 
@@ -514,6 +534,7 @@ public class ControlleurMap implements Initializable {
         oui.setOnAction(e->{
             popup.close();
             gameLoop.play();
+            media_player.play();
         });
 
         popup.initModality(Modality.APPLICATION_MODAL); // empeche de toucher a l'autre fenetre
@@ -525,7 +546,12 @@ public class ControlleurMap implements Initializable {
         });
     }
     public void partieGagnee(){
+        int niveauActuel = Parametres.numeroNiveau(Parametres.map);
+        if (niveauActuel > 0) {
+            Progression.debloquerNiveau(niveauActuel + 1);
+        }
         gameLoop.stop();
+        media_player.stop();
         Stage popup = new Stage();
         popup.setTitle("Partie Terminée !");
 
@@ -561,6 +587,7 @@ public class ControlleurMap implements Initializable {
 
         non.setOnAction(e ->{
             popup.close();
+            media_player.stop();
             FXMLLoader fxmlNiveau1 = new FXMLLoader(main.class.getResource("acceuil.fxml"));
             Parent p;
             try {
