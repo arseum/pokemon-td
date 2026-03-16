@@ -8,6 +8,7 @@ import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Zone;
 import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.bouleDeFeu;
 import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.*;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Competences.ExplosionAutourTour;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.TypeTour.TourPoison;
@@ -54,6 +55,7 @@ public class ControlleurMap implements Initializable {
     private BooleanProperty pause;
     private MediaPlayer media_player;
     private BooleanProperty gameGagnee ;
+    private Tutoriel tutoriel;
     @FXML
     private Button buttonMenu;
     @FXML
@@ -168,7 +170,30 @@ public class ControlleurMap implements Initializable {
         });
 
         //lancement de la game loop
-        gameLoop.play();
+        if (Parametres.map.equals("savane")) {
+            tutoriel = new Tutoriel(game, pane, gameLoop, frame,
+                    () -> gameLoop.stop(),
+                    () -> gameLoop.play());
+            tutoriel.demarrer();
+
+            // Notifier le tutoriel quand une tour est sélectionnée dans le shop
+            menuTourObs.estSelectionnee.addListener((obs, old, nouv) -> {
+                if (nouv && tutoriel != null && !tutoriel.estTermine()) {
+                    tutoriel.notifierTourAchetee();
+                }
+            });
+
+            // Notifier le tutoriel quand une tour est placée
+            game.getListTour().addListener((ListChangeListener) c -> {
+                while (c.next()) {
+                    if (c.wasAdded() && tutoriel != null && !tutoriel.estTermine()) {
+                        tutoriel.notifierTourPlacee();
+                    }
+                }
+            });
+        } else {
+            gameLoop.play();
+        }
     }
 
     private void initAnimation() throws IOException {

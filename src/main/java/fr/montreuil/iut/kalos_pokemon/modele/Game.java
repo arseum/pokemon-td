@@ -2,6 +2,11 @@ package fr.montreuil.iut.kalos_pokemon.modele;
 
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Magneti;
 import fr.montreuil.iut.kalos_pokemon.modele.Tours.Nidoran;
+import fr.montreuil.iut.kalos_pokemon.modele.Tours.Tour;
+import fr.montreuil.iut.kalos_pokemon.modele.Ennemis.Ennemi;
+import fr.montreuil.iut.kalos_pokemon.modele.AttaqueTour.Attaque;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Terrain;
+import fr.montreuil.iut.kalos_pokemon.modele.Map.Wave;
 import fr.montreuil.iut.kalos_pokemon.Parametres;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -185,7 +190,7 @@ public class Game {
         for (Tour t : listTour) {
             //il faut avoir que t.attaque() ici il faut donc que le apliquePoison et le zone.bouge soit coder dans une classe
             // apart qui sera strategie de ataque
-            if (getNbFrameValue() >= t.tempProchaineAttaque)
+            if (getNbFrameValue() >= t.getTempProchaineAttaque())
                 t.attaque();
 
             if (t instanceof Nidoran nidoran && getNbFrameValue() % 20 == 0)

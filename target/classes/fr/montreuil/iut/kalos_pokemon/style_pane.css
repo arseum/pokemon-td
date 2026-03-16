@@ -15,3 +15,32 @@
 .progress-bar .bar{
     -fx-background-color: green;
 }
+
+.tutoriel-bulle {
+    -fx-background-color: rgba(0, 0, 0, 0.85);
+    -fx-background-radius: 10;
+    -fx-border-color: #ffcc00;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-padding: 12 20 12 20;
+}
+
+.tutoriel-texte {
+    -fx-text-fill: white;
+    -fx-font-size: 13pt;
+    -fx-opacity: 1.0;
+    -fx-background-color: transparent;
+}
+
+.tutoriel-bouton {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-text-fill: white;
+    -fx-font-size: 11pt;
+    -fx-background-radius: 15;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+
+.tutoriel-bouton:hover {
+    -fx-background-color: linear-gradient(#ff7730, #e03000);
+}
